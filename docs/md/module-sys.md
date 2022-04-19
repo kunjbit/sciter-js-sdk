@@ -26,7 +26,7 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
 
 ### functions
 
-* #### `fs.open(path:string, flags:string [, mode:integer]): Promise(File)` 
+* #### `fs.open(path:string, flags:string [, mode:integer]): Promise(File)`
 
   Opens file at path.
 
@@ -59,7 +59,7 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
 
   Some characters (`< > : " / \ | ? *`) are reserved under Windows as documented by Naming Files, Paths, and Namespaces. Under NTFS, if the filename contains a colon, Node.js will open a file system stream, as described by this MSDN page.
 
-* #### `fs.$open(path:string, flags:string [, mode:integer]): File` 
+* #### `fs.$open(path:string, flags:string [, mode:integer]): File`
 
   Synchronous version of `fs.open()`. Returns fs.File object, see below.  
 
@@ -70,7 +70,7 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
   ```C++
     int64     st_dev;      /* ID of device containing file */
     int64     st_ino;      /* inode number */
-    int32     st_mode;     /* protection */
+    int32     st_mode;     /* ORed type flags (see below) */
     int64     st_nlink;    /* number of hard links */
     int64     st_uid;      /* user ID of owner */
     int64     st_gid;      /* group ID of owner */
@@ -83,28 +83,44 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
     float64   st_ctime;    /* time of last status change, seconds since 1970 */
     float64   st_birthtime;/* time of creation, seconds since 1970 */
   ```
+  
+  Type flags (of st_mode):
+
+  * `fs.S_IFDIR` - this is the file type constant of a directory file;
+  * `fs.S_IFCHR` - this is the file type constant of a character-oriented device file;
+  * `fs.S_IFBLK` - this is the file type constant of a block-oriented device file;
+  * `fs.S_IFREG` - this is the file type constant of a regular file;
+  * `fs.S_IFLNK` - this is the file type constant of a symbolic link;
+  * `fs.S_IFSOCK` - this is the file type constant of a socket;
+  * `fs.S_IFIFO` - this is the file type constant of a FIFO or pipe;
 
   Throws an `Error` exception if the file/dir does not exist.
 
-  Additionally it may have one of these:
+  Additionally _stat_ structure may have one of these:
 
-  * isFile, true is that is a file
-  * isDirectory, true is that is a directory
-  * isSymbolicLink, true is that is a link
+  * `isFile`, true is that is a file
+  * `isDirectory`, true is that is a directory
+  * `isSymbolicLink`, true is that is a link
 
-* #### `fs.$stat(): stat` - sync version of the above;
+* #### `fs.$stat(path:string): stat` - sync version of the above;
 
   Synchronous version of the above. Returns null if the file/dir does not exist.
 
-* #### `fs.lstat(): promise(stat)`
+* #### `fs.lstat(path:string): promise(stat)`
 
   lstat() is identical to stat(), except that if path is a symbolic link, then the link itself is stat-ed, not the file that it refers to.
 
   See [lstat](https://linux.die.net/man/2/lstat)
 
-* #### `fs.$lstat(): stat` - sync version of the above;
+* #### `fs.$lstat(path:string): stat`
+  
+  Sync version of the above.
 
-* `fs.realpath()`
+* #### `fs.realpath(pathname:string):string`
+
+  Returns the canonicalized absolute pathname. 
+
+  `realpath()` expands all symbolic links and resolves references to `/./`, `/../` and extra `'/'` characters in the pathname string to produce a canonicalized absolute pathname.
 
 * #### `fs.unlink(path:string) : Promise`
    
@@ -117,11 +133,11 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
   
   Renames the file. Note: this may move the file to different device. Equivalent to [rename](https://man7.org/linux/man-pages/man2/rename.2.html). 
 
-* #### `fs.mkdtemp(template:string) : Promise(result:string)` 
+* #### `fs.mkdtemp(template:string) : Promise(result:string)`
 
   Creates unique temporary dir. The last six characters of template must be "XXXXXX". Equivalent of [mkdtemp](https://man7.org/linux/man-pages/man3/mkdtemp.3.html)
 
-* #### `fs.mkstemp(template:string) : Promise` 
+* #### `fs.mkstemp(template:string) : Promise`
   
   Creates unique temporary file. The last six characters of template must be "XXXXXX"
 
@@ -130,16 +146,58 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
 * `fs.mkdir(path[, mode = 0o777]) : Promise` - creates folder
 * `fs.$mkdir(path[, mode = 0o777])` - creates folder (synchronous)
 * `fs.copyfile() : Promise` - async file copy
-* `fs.readdir() : Promise` - async read dir
-* `fs.$readdir(): filelist` - reads folder content synchronously
-* `fs.readfile() : Promise` - async file read;
-* `fs.$readfile() : ArrayBuffer` - synchronous version of the above; 
+
+* #### `fs.readdir(path:string) : Promise`
+  
+  Reads _path_ directory asynchronously. The promise resolves to file list - array of direntry structures:
+  ```JS
+  { 
+    name: string,  // local file name + extension
+    type: integer, // ORed flags (see below) 
+  }  
+  ```
+  The list does not contain "." and ".." entries.
+
+  Direntry type bit-flags:
+
+  * `fs.UV_DIRENT_UNKNOWN`
+  * `fs.UV_DIRENT_FILE` - file
+  * `fs.UV_DIRENT_DIR` - directory
+  * `fs.UV_DIRENT_LINK` - link
+  * `fs.UV_DIRENT_FIFO` - fifo device
+  * `fs.UV_DIRENT_SOCKET` - socket 
+  * `fs.UV_DIRENT_CHAR` - character stream device like terminal
+  * `fs.UV_DIRENT_BLOCK` - block device
+
+
+* #### `fs.$readdir(path:string): filelist`
+
+  Synchronous version of `fs.readdir()` returns list of direntry striuctures.
+  Returns _null_ if _path_ is not a folder.  
+
+* #### `fs.readfile(path:string) : Promise(ArrayBuffer)`
+  
+  Read whole file asynchronously. The promise resolves to ArrayBuffer on success or fails:
+
+  ```JS
+  try {
+    let data = await fs.readfile("D:/foo/bar.txt");
+    let text = srt.decode(data,"utf-8");
+  } catch () {
+    ...
+  }
+  ```
+
+* #### `fs.$readfile() : ArrayBuffer`
+  
+  Synchronous version of the `fs.readfile(path:string)` above. Throws exception in case of error.
+
 * [`fs.watch()`](sys.fs/watch.md)
 * [`fs.splitpath()`](sys.fs/splitpath.md)
 
 ## classes
 
-### fs.File class - represents file. 
+### `fs.File` class - represents file.
 
 * `file.read([lengthToRead:int [, filePosition:int]]): Promise(Uint8Array)`
 * `file.$read([lengthToRead:int [, filePosition:int]]): Uint8Array`
@@ -151,7 +209,7 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
 * `file.stat() : Promise(object)`
 * `file.path : string`
 
-### fs.Dir class - directory visitor 
+### fs.Dir class - directory visitor
 
 * `dir.close()`
 * `dir.path`
@@ -160,7 +218,7 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
 
 ## Network functions
 
-### TCP socket class 
+### TCP socket class
 
 * `socket.close()`
 * `socket.read()`
@@ -174,7 +232,7 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
 * `socket.connect()`
 * `socket.bind()`
 
-### UDP socket class 
+### UDP socket class
 
 * `socket.close()`
 * `socket.recv()`
@@ -185,7 +243,7 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
 * `socket.connect()`
 * `socket.bind()`
 
-### Pipe - IPC mostly  
+### Pipe - IPC mostly
 
 * `socket.close()`
 * `socket.read()`
@@ -198,7 +256,7 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
 * `socket.connect()`
 * `socket.bind()`
 
-### TTY primitives 
+### TTY primitives
 
 * `tty.close()`
 * `tty.read()`

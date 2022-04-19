@@ -170,6 +170,7 @@
   typedef const CHAR* LPCSTR;
   typedef void VOID;
   typedef size_t UINT_PTR;
+  typedef ssize_t INT_PTR;
   typedef void* LPVOID;
   typedef const void* LPCVOID;
 

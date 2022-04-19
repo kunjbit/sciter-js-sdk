@@ -1,3 +1,16 @@
+## 4.4.8.35
+
+### Fixes:
+
+* Fix of https://sciter.com/forums/topic/transition-animation-stuck/;
+* `<button type="menu">` fix.
+* [CSS] fix of cubic-bezier() function handling;
+* fix of memleak in document context in JS;
+* xgl/skia mem leak fixes;
+* `behavior:virtual-list`, fix of memory leak;
+* `input|calendar`, fix of days navigation;
+* fix of `plaintext.value = "string longer than 32000"`;
+
 ## 4.4.8.34
 
 ### Fixes:

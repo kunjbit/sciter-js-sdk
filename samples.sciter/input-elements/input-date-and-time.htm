@@ -33,6 +33,12 @@
         button.$p(".group").$("#time-to-set").value = undefined;
       });
 
+      document.on("change","input", function(e,input) {
+        console.log(input.value);
+      });
+
+      console.log(new Date());
+
     </script>
 
 	</head>

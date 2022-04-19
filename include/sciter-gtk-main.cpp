@@ -54,27 +54,4 @@ namespace sciter {
     }
   }
 
-  void window::collapse() {
-    if(_hwnd) gtk_window_iconify (gwindow(_hwnd));
-  }
-  void window::expand( bool maximize) {
-    if(_hwnd) gtk_window_present (gwindow(_hwnd));
-  }
-
-  void window::request_close() {
-    if(_hwnd) gtk_window_close (gwindow(_hwnd)); 
-    _hwnd = 0; //?
-  }
-
-  void window::close() {
-    if(_hwnd) gtk_widget_destroy (gview(_hwnd));
-    _hwnd = 0; //?
-  }
-
-  window::window( UINT creationFlags, RECT frame): _hwnd(NULL)
-  {
-    asset_add_ref();
-    _hwnd = SAPI()->SciterCreateWindow(creationFlags, (frame.right - frame.left) > 0 ? &frame: NULL,NULL,this,NULL);
-  }
-
 }
