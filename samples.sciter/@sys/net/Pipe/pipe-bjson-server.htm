@@ -7,8 +7,7 @@
 import * as sys from "@sys";
 import * as BJSON from "@bjson";
 
-// Sample Pipe echo server.
-//
+const bjson = new BJSON()
 
 const list = document.$("div#message-list");
 
@@ -24,9 +23,9 @@ async function handleConnection(conn)
               console.log('connection closed!');
               break;
           }
-          const json = BJSON.read(data); // deserialize BJSON.
+          const json = bjson.unpack(data); // deserialize BJSON.
           list.append(<text>Received:{JSON.stringify(json)}</text>);
-          conn.write(BJSON.write(json));
+          conn.write(bjson.pack(json));
         }
         catch(e) {
           console.error(e);
