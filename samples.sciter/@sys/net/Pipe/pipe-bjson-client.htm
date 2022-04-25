@@ -5,13 +5,13 @@
         <script type="module">
 
 import * as sys from "@sys";
-import * as BJSON from "@bjson";
 
 const elText = document.$("input#text");
 const btnSend = document.$("button#send");
 const list = document.$("div#message-list");
 
 const p = new sys.Pipe();
+const bjson = new BJSON()
 
 async function connect() {
   await p.connect('fooPipe');
@@ -22,9 +22,9 @@ async function connect() {
 document.on("click", "button#send", async function() {
   try {
     var text = elText.value;
-    p.write(BJSON.write({text:text}));
+    p.write(bjson.pack({text:text}));
     var respdata = await p.read();
-    var json = BJSON.read(respdata);
+    var json = bjson.unpack(respdata);
     list.append(<text>Server sent:{JSON.stringify(json)}</text>);
   } catch(e) {
     console.error(e);
