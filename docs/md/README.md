@@ -58,6 +58,10 @@
 
 * #### `JSON.stringify(object, [replacer:function], [indent:string])` Converts a JavaScript object or value to a JSON string, optionally replacing values if a replacer function is specified or optionally including only the specified properties if a replacer array is specified.
 
+# class BJSON
+
+[BJSON](BJSON.md) provides packaging and unpackaging of JSON in binary form.
+
 ## global properties
 
 * ### `globalThis` - object, global namespace, aliased as `window` for compatibility with browsers.
@@ -83,6 +87,5 @@
 * [@sys](module-sys.md) - System, File system and communication primitives (close to Node.JS runtime).
 * [@env](module-env.md) - Running environment primitives.
 * [@storage](storage/README.md) - Persistent storage - NoSQL DB built into JS runtime.
-* [@bjson](module-bjson.md) - "binary JSON".
 * [@debug](module-debug.md)
 
