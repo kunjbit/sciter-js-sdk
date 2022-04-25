@@ -2,11 +2,11 @@
 
 Build cross platform desktop applications with HTML, CSS and javascript.
 
-### [Tutorials](https://sciter.com/tutorials/), [Documentation](docs/md/README.md) and [Development logfile](CHANGELOG.md).
+### [Tutorials](https://sciter.com/tutorials/), [Documentation](docs/md/README.md) and [Development logfile](logfile.md).
 
 ## Script
 
-Sciter.JS uses [QuickJS](https://bellard.org/quickjs/) in particular [QuickJS++](https://github.com/c-smile/quickjspp).
+Sciter.JS uses [QuickJS](https://bellard.org/quickjs/) in particular [QuickJS++](https://gitlab.com/c-smile/quickjspp).
 
 * ES6: async/await, classes, modules, destructuring;
 * BigInt, BigFloat, BigDecimal - arbitrary precision IEEE 754 floating point operations and transcendental functions with exact rounding (currency, etc);
@@ -37,7 +37,7 @@ MacOS:
 
 Path: samples/calc
 
-Browser and Sciter shows [the same HTML document](https://github.com/c-smile/sciter-js-sdk/blob/main/samples/calc/index.html).
+Browser and Sciter shows [the same HTML document](https://gitlab.com/c-smile/sciter-js-sdk/blob/main/samples/calc/index.html).
 
 To run demo start run-calculator-browser.bat or run-calculator-sciter.bat. The later will start bin.win/x32/scapp.exe - standalone Sciter engine.
 

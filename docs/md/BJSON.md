@@ -18,7 +18,7 @@ BJSON provides packaging and unpackaging of JSON in binary form.
 
 #### example:
 
-This code loads and plays hello phrase:
+This code packages and restores `{hello:"world"}` object:
 
 ```JavaScript
 let bjson = new BJSON();

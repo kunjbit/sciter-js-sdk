@@ -51,7 +51,7 @@ URL schema used in CSS to define vector paths (vector images):
 
 Access to content of sciter archive - resources compiled in the application using blobs produced by packfolder[.exe] utilty.
 
-See [SDK's resource loader sources](https://github.com/c-smile/sciter-js-sdk/blob/main/include/sciter-x-host-callback.h#L149).
+See [SDK's resource loader sources](https://gitlab.com/c-smile/sciter-js-sdk/blob/main/include/sciter-x-host-callback.h#L149).
 
 ```C++
 // bind resource blob with sciter::archive instance:
@@ -64,4 +64,4 @@ window->load(WSTR("this://app/default.htm"));
 
 MS Windows specific: access to resources bundled into application. 
 
-See [SDK's resource loader sources](https://github.com/c-smile/sciter-js-sdk/blob/main/include/sciter-x-host-callback.h#L134).
+See [SDK's resource loader sources](https://gitlab.com/c-smile/sciter-js-sdk/blob/main/include/sciter-x-host-callback.h#L134).

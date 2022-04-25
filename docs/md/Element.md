@@ -228,7 +228,7 @@ read only
 
 * ##### `element.xcall(name:string [, arg0, ..., argN]): any`
 
-  Interaction with native behaviors attached to the element. `element.xcall("foo")` will end up in [`handle_scripting_call()`](https://github.com/c-smile/sciter-js-sdk/blob/main/include/sciter-x-behavior.h#L749) of native behavior attached to the element.
+  Interaction with native behaviors attached to the element. `element.xcall("foo")` will end up in [`handle_scripting_call()`](https://gitlab.com/c-smile/sciter-js-sdk/blob/main/include/sciter-x-behavior.h#L749) of native behavior attached to the element.
 
 * ##### `element.paintBackground = function(graphics)`
 * ##### `element.paintForeground = function(graphics)`
