@@ -1,3 +1,22 @@
+## 4.4.8.36
+
+### New:
+
+* `behavior: name library(dllname)`; - external (dll based) behaviors. Behaviors can live in separate DLLs now. This enables loadable native behaviors (e.g. for scapp);
+* samples.sciter/docking - Phase I implementation of dockable panels in Sciter;
+* `loadScript(url)` - script loader, equivalent of `<script src="url" />`;
+* `loadScriptModule(url)` - script module loader, equivalent of `<script|module src="url" />`;
+* `element.unwrapElement()` - removes element but keeps its content in the DOM;
+* `element.wrapNodes(...)`  - injects new element in the middle of DOM tree; 
+* `element.box(,,refElement,)` - coordinates relative to arbitrary _refElement_;
+
+### Fixes:
+
+* [Win] Fix of "exit fullscreen"  https://sciter.com/forums/topic/exit-fullscreen/ 
+* `clearTimeout(undefined)` and `clearInterval(undefined)` fixes
+* [css] `z-index:-1` fix - it is drawn on top of background but below content;
+* [css] `:after` and `:before` are treated as `::after` and `::before`;
+
 ## 4.4.8.35
 
 ### Fixes:
@@ -155,7 +174,7 @@
 
   Note for window-frame != "standard" the menu is invisible but still makes sense as global hotkeys table.
 
-  For the demo see [integration](https://gitlab.com/c-smile/sciter-js-sdk/blob/main/demos/integration/res/default.htm) project in SDK.
+  For the demo see [integration](https://github.com/c-smile/sciter-js-sdk/blob/main/demos/integration/res/default.htm) project in SDK.
 
 * include/sciter-x-key-codes.h - list of key codes that are coming to KEY_DOWN/KEY_UP events. 
 
@@ -951,7 +970,7 @@ Note: that is breaking change for Rust/Go/Python/C# wrappers - they need to be u
   ```
 * `scrollanimationstart` and `scrollanimationend` events.
 * [SciterJS] usciter + help button is operational. 
-* [SciterJS] mdview update with the help of [MustafHi](https://gitlab.com/c-smile/sciter-js-sdk/pull/66)  
+* [SciterJS] mdview update with the help of [MustafHi](https://github.com/c-smile/sciter-js-sdk/pull/66)  
 
 ## 4.4.6.5
 

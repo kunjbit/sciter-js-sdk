@@ -29,7 +29,7 @@ N/A
 * ### `path.combine(how:string, otherPath): Path`
   
   combines this and other paths using following _how_ modes:
-  
+
   * `"union"` 
   * `"intersect"`
   * `"xor"`

@@ -52,6 +52,14 @@
 
   The function returns module's exported data as an object.
 
+* ### `loadScript(url:string)`
+
+  Loads and executes JavaScript at url synchronously.
+
+* ### `loadScriptModule(url:string): object`
+
+  Loads and executes JavaScript module at url synchronously. Returns modules exports object.
+
 ## JSON
 
 * ### `JSON.parse(text, [reviver:function]): JSON` Parses a JSON string, constructing the value or object described by the string. An optional reviver function can be provided to perform a transformation on the resulting object before it is returned.

@@ -130,6 +130,7 @@ section:expanded > div.content { visibility:visible; }
 
   _relativeTo_ defines offset of x/y values of returned box, one of:
 
+  * element - coordinates are relative to the _element_;
   * "screen" - relative to screen - absolute coordinates of the element on screen (desktop);
   * "window" - relative to client area of the window;
   * "document" - relative to root element - document;

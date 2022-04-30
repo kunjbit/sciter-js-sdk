@@ -66,63 +66,63 @@ read only
 
 ## Methods:
 
-* ##### `element.appendChild(node)`
+* ### `element.appendChild(node)`
 
   adds a node to the end of the list of children of the element
 
-* ##### `element.insertBefore(node, refNode)`
+* ### `element.insertBefore(node, refNode)`
 
   adds a node to the end of the list of children of the element
 
-* ##### `element.insertAfter(node, refNode)`
+* ### `element.insertAfter(node, refNode)`
 
   inserts a node before a reference node as a child of the element.
 
-* ##### `element.removeChild(node) : node`
+* ### `element.removeChild(node) : node`
 
   removes a child node from the DOM and returns the removed node.
 
-* ##### `element.replaceChild(newNode,oldNode)`
+* ### `element.replaceChild(newNode,oldNode)`
 
   replaces a child oldNode by the newNode.
 
-* ##### `element.childElement(n) : element`
+* ### `element.childElement(n) : element`
 
   returns n-th child element; n is in [0, element.childElementCount) range. 
 
-* ##### `element.insertAdjacentHTML(where, html)`
+* ### `element.insertAdjacentHTML(where, html)`
 
   See [insertAdjacentHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/insertAdjacentHTML).
 
-* ##### `element.swapWith(otherElement)`
+* ### `element.swapWith(otherElement)`
 
   Swap DOM locations of the element and _otherElement_.  
   Elements should be compatible - it is not possible to swap ```<td>``` and ```<li>``` for example.
 
 ---
-* ##### `element.querySelector(selector)`
-* ##### `element.$(selector)`
+* ### `element.querySelector(selector)`
+* ### `element.$(selector)`
 ---
-* ##### `element.querySelectorAll(selector)`
-* ##### `element.$$(selector)`
+* ### `element.querySelectorAll(selector)`
+* ### `element.$$(selector)`
 ---
-* ##### `element.$p(selector)` parent element selector
-* ##### `element.$o(selector)` owner element selector, useful to get owner of menu.
-* ##### `element.$is(selector)`
+* ### `element.$p(selector)` parent element selector
+* ### `element.$o(selector)` owner element selector, useful to get owner of menu.
+* ### `element.$is(selector)`
 ---
-* ##### `element.hasAttribute(attribute)`
-* ##### `element.getAttribute(attribute)`
-* ##### `element.getAttributeNames()`
-* ##### `element.removeAttribute(attribute)`
-* ##### `element.setAttribute(attribute, value)`
+* ### `element.hasAttribute(attribute)`
+* ### `element.getAttribute(attribute)`
+* ### `element.getAttributeNames()`
+* ### `element.removeAttribute(attribute)`
+* ### `element.setAttribute(attribute, value)`
 ---
-* ##### `element.getBoundingClientRect()`
+* ### `element.getBoundingClientRect()`
 ---
-* ##### `element.scrollTo(x,y)`
+* ### `element.scrollTo(x,y)`
  
   sets scroll position of scrollable.
 
-*  ##### `element.scrollTo(options)`
+* ### `element.scrollTo(options)`
 
   sets scroll position of scrollable. _options_ is an object with fields:
 
@@ -130,11 +130,11 @@ read only
   * `top` - y scroll position;
   * `behavior` : `"instant"` | `"smooth"`, if _smooth_ performs animated scroll;
 
-*  ##### `element.scrollIntoView([toTop:true])`
+* ### `element.scrollIntoView([toTop:true])`
 
   scrolls this element into scrollable view - makes it visible - not occluded.
 
-* ##### `element.scrollIntoView(options)`
+* ### `element.scrollIntoView(options)`
 
   scrolls this element into scrollable view - makes it visible - not occluded.
   _options_ is an object with fields:
@@ -142,34 +142,37 @@ read only
   * `behavior` : `"instant"` | `"smooth"`, if _smooth_ performs animated scroll;
   * `block` : `"start"` | `"nearest"` - defines vertical position;
 ---
-* ##### `elementFromPoint(x,y):Element` 
+* ### `elementFromPoint(x,y):Element`
 
   returns element found inside this by coordinates x/y. Note: 0/0 is lef/top of element's inner box.
 
 ---
-* `element.click()` - generates click event on the element 
-* `element.focus()` - sets input focus to the element
+* ### `element.click()`
+  generates click event on the element 
+
+* ### `element.focus()`
+  sets input focus to the element
 ---
-* `element.addEventListener(name, eventHandler [,flags])` 
-* `element.removeEventListener(name, eventHandler)` 
-* `element.dispatchEvent(event)` 
-* `element.postEvent(event)` sciter specific, async version of .dispatchEvent()
+* ### `element.addEventListener(name, eventHandler [,flags])`
+* ### `element.removeEventListener(name, eventHandler)`
+* ### `element.dispatchEvent(event)`
+* ### `element.postEvent(event)` sciter specific, async version of .dispatchEvent()
 ---
-* `element.closest(selectors)`
+* ### `element.closest(selectors)`
 
   Returns the Element which is the closest ancestor of the current element (or the current element itself) which matches the selectors given in parameter.
 
-* `element.matches(selector)`
+* ### `element.matches(selector)`
 
   Returns a boolean value indicating whether or not the element would be selected by the specified selector string.
 
-* `element.getElementsByClassName()`
-* `element.getElementsByTagName()`
-* `element.getElementsByName()`
+* ### `element.getElementsByClassName()`
+* ### `element.getElementsByTagName()`
+* ### `element.getElementsByName()`
 
 ## Methods (Sciter specific):
 
-* ##### `element.on(eventname: string, [selector: string,] handler: function): Element`
+* ### `element.on(eventname: string, [selector: string,] handler: function): Element`
 
   jQuery style event subscription:
   
@@ -179,15 +182,15 @@ read only
   * the handler is called with two parameters `handler(evt,matchedElement)` - event and the element matching the selector;
   * the method returns element itself allowing to chain `on` calls;
 
-* ##### `element.off(eventname: string): Element`
+* ### `element.off(eventname: string): Element`
 
   Unsubscribe event handlers either by name  `"click"` or by namespace `".myns"`.
 
-* ##### `element.off(handler: function): Element`
+* ### `element.off(handler: function): Element`
   
   Unsubscribe event handlers by function reference;
 
-* ##### `element.onGlobalEvent(eventname: string, handler: function): Element`
+* ### `element.onGlobalEvent(eventname: string, handler: function): Element`
 
   jQuery style event subscription to application wide events:
   
@@ -199,17 +202,27 @@ read only
 
   See [global-events](../../samples.sciter/global-events/README.md) for the rationale.
 
-* ##### `element.offGlobalEvent([eventname: string | handler: function]): Element`
+* ### `element.offGlobalEvent([eventname: string | handler: function]): Element`
 
   Unsubscribe event handlers either by name  `"click"` or by namespace `".myns"` or by handler reference. If no parameter provided then the function will unsubscribe this element from any global event.
 
-* ##### `element.timer(milliseconds, callback: function): true | false`
+* ### `element.timer(milliseconds, callback: function): true | false`
   
   Starts timer on element. If the element already has timer with that callback it first gets removed and new timer started instead. This allows to implement effective throttling. If the callback function returns `true` value then the timer will keep ticking (like interval timer). The callback is called with `this` set to the element. 
 
-* ##### `element.clear()`
+* ### `element.clear()`
 
-* ##### `element.post(function | event [, avoidDuplicates: true | false] )`
+  Removes content of the element, makes it empty.
+
+* ### `element.unwrapElement()`
+
+  Removes the element itself and moves its content into its place in the DOM.
+
+* ### `element.wrapNodes(start:Node,end:Node,wrap:Element)`
+
+  Wraps range of nodes from _start_ to _end_ into _wrap_ element - opposite acction to `unwrapElement()`.
+
+* ### `element.post(function | event [, avoidDuplicates: true | false] )`
 
   Posts either function or event to event queue. 
 
@@ -221,27 +234,27 @@ read only
 
 ---
 
-* ##### `element.checkCommand(command [, params]): flags`
-* ##### `element.executeCommand(command [, params]): flags`
+* ### `element.checkCommand(command [, params]): flags`
+* ### `element.executeCommand(command [, params]): flags`
 
   Support of editing input elements: `<htmlarea>` (WYSIWYG editor), `<plaintext>` (multiline text editor), `<textarea>` and `<input|text>`. TBD.
 
-* ##### `element.xcall(name:string [, arg0, ..., argN]): any`
+* ### `element.xcall(name:string [, arg0, ..., argN]): any`
 
   Interaction with native behaviors attached to the element. `element.xcall("foo")` will end up in [`handle_scripting_call()`](https://gitlab.com/c-smile/sciter-js-sdk/blob/main/include/sciter-x-behavior.h#L749) of native behavior attached to the element.
 
-* ##### `element.paintBackground = function(graphics)`
-* ##### `element.paintForeground = function(graphics)`
-* ##### `element.paintContent = function(graphics)`
-* ##### `element.paintOutline = function(graphics)` 
+* ### `element.paintBackground = function(graphics)`
+* ### `element.paintForeground = function(graphics)`
+* ### `element.paintContent = function(graphics)`
+* ### `element.paintOutline = function(graphics)`
 
   Immediate mode drawing "ports". Functions assigned to these properties will be called when the element is rendered on screen so they can draw anything on top (or below) of default HTML/CSS rendering.
 
-* ##### `element.requestPaint()` 
+* ### `element.requestPaint()`
 
   Schedules re-paint of the element. This will trigger `element.paintXXXX` later calls (if any). On Windows this will end up in [InvalidateRect](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-invalidaterect) call.
 
-* ##### `element.popup(popup:Element | VNode, params : Object )`
+* ### `element.popup(popup:Element | VNode, params : Object )`
 
   Shows the _popup_ element or VNode (JSX) in out-of-canvas popup window on desktop. Params is an object that may have following fields:
 
@@ -251,7 +264,7 @@ read only
 
   Engine tries to replace popup so _popupAt_ position is at _anchorAt_ on screen.
 
-* ##### `element.animate(changer:function,params:object)`  
+* ### `element.animate(changer:function,params:object)`
   
   various animation effects, where *params* contains following fields:
 
@@ -284,7 +297,7 @@ read only
     * "scroll-left",
     * "scroll-right"
 
-* ##### `element.animate(step:function,params:object)`
+* ### `element.animate(step:function,params:object)`
 
   The method offers "manual" animation support. The _step_ function has following signature `function step(progress:0.0 ... 1.0): true | false`
 
@@ -298,7 +311,7 @@ read only
 
 ---
 
-* ##### `element.takeOff([params:object])` 
+* ### `element.takeOff([params:object])`
 
   Make the element "airborn" - to be replaced outside of host window. *params* are:
 
@@ -311,26 +324,26 @@ read only
     * "popup" - same as "detached" window, put also will be placed as topmost - on top of other windows on desktop.
 
 
-* ##### `element.append( vnode )` 
+* ### `element.append( vnode )`
 
   appends element defined by JSX expression:
   
    ```JavaScript
    list.append(<li>yet another item</li>);
    ```
-* ##### `element.prepend( vnode )`
+* ### `element.prepend( vnode )`
 
   insert the element as the first child
 
-* ##### `element.content( vnode )` 
+* ### `element.content( vnode )`
 
   replaces element content by the VNode
 
-* ##### `element.patch( vnode [, onlyChildren:true] )`
+* ### `element.patch( vnode [, onlyChildren:true] )`
 
   patches content of the element by `vnode` using rules of React[or]. If second parameter is provided and is _true_ the function patches only children but not element itself.
 
-* ##### `element.componentUpdate( obj )` 
+* ### `element.componentUpdate( obj )`
 
   patch properties and enqueue rendering, does roughly the following:  
 
@@ -342,11 +355,11 @@ read only
      });
   ```
 
-* ##### `element.rangeFromPoint(x,y) : Range | null` 
+* ### `element.rangeFromPoint(x,y) : Range | null`
 
   Returns collapsed range (caret position) at point x/y. x/a are local coordinates - relative to origin of element's inner box.   
 
-* ##### `element.toString() : string`
+* ### `element.toString() : string`
 
   Returns element as string
 

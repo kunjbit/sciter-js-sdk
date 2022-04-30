@@ -9,6 +9,8 @@
 		</Project>
 		<Project filename="sciter-sqlite.cbp">
 		</Project>
+		<Project filename="sciter-component.cbp">
+		</Project>
 		<Project filename="glfw-opengl.cbp">
 		</Project>
 	</Workspace>

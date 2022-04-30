@@ -11,6 +11,9 @@
 		location = "group:integration.xcodeproj">
 	</FileRef>
 	<FileRef
+		location = "group:sciter-component.xcodeproj">
+	</FileRef>
+	<FileRef
 		location = "group:sciter-sqlite.xcodeproj">
 	</FileRef>
 	<FileRef

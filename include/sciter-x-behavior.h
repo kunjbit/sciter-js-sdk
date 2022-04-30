@@ -68,7 +68,8 @@
 
 typedef  SBOOL SC_CALLBACK ElementEventProc(LPVOID tag, HELEMENT he, UINT evtg, LPVOID prms );
 typedef  ElementEventProc * LPElementEventProc;
-// signature of the function exported from external behavior/dll.
+
+/** signature of "behavior factory" - function responsible for creation of DOM element behaviors (controllers) */
 typedef SBOOL SC_CALLBACK SciterBehaviorFactory( LPCSTR, HELEMENT, LPElementEventProc*, LPVOID* );
 
   typedef enum PHASE_MASK

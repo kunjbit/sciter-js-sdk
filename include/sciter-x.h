@@ -39,8 +39,8 @@
 #endif
 
 /** Signatire of Sciter extension library entry point 
-  * \param psapi #ISciterAPI - Sciter API to be used inside the DLL.
-  * \param plibobject #SCITER_VALUE* - value to initialize, can be native functor, sciter::om::asset, array, map, etc.
+  * \param[in] psapi #ISciterAPI - Sciter API to be used inside the DLL.
+  * \param[out] plibobject #SCITER_VALUE* - value to initialize, can be native functor, sciter::om::asset, array, map, etc.
   * \return TRUE, if it populates plibobject;
   *
   * The DLL should have function exported with the name "SciterLibraryInit" and wit this signature.
@@ -51,6 +51,20 @@
  **/
 
 typedef SBOOL SCAPI SciterLibraryInitFunc(ISciterAPI* psapi, SCITER_VALUE* plibobject);
+
+/** Signatire of Sciter behavior factory entry point
+  * \param[in] psapi #ISciterAPI - Sciter API to be used inside the DLL.
+  * \param[out] pfactory #SciterBehaviorFactory** - reference to behavior factory implementation.
+  * \return TRUE, if it populates plibobject;
+  *
+  * The DLL should have function exported with the name "SciterBehaviorFactoryInit" and with this signature.
+  * In CSS the behavior from this library can be attached as:
+  *
+  *  widget.my { behavior: behavior-name library(dll-name-without-extension); }
+  *
+ **/
+
+typedef SBOOL SCAPI SciterBehaviorFactoryInitFunc(ISciterAPI* psapi, SciterBehaviorFactory** pfactory);
 
 
 

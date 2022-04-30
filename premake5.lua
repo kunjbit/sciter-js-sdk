@@ -320,6 +320,28 @@ project "sciter-sqlite"
 
 --end
 
+-- sciter extension behavior library - native UI component
+project "sciter-component"
+
+  kind "SharedLib"
+  language "C++"
+
+  targetprefix "" -- do not prepend it with "lib..."
+
+  files { "demos/sciter-component/*.h",
+          "demos/sciter-component/*.cpp"}
+
+  settargetdir()
+
+  removeconfigurations { "*skia" }  
+
+  filter "system:windows"
+    files {"demos/sciter-component/exports.def" }
+  filter {}
+
+--end
+
+
 project "glfw-opengl"
   --kind "ConsoleApp"
   kind "WindowedApp"
