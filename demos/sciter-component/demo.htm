@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+clock {
+    display:block;
+    behavior: clock library(sciter-component);
+    size:*;
+}
+
+        </style>
+        <script>
+
+document.on("change","#run", function(e,button) {
+    if(button.value)
+        document.$("clock").clock.start();
+    else
+        document.$("clock").clock.stop();
+});
+        </script>
+    </head>
+    <body>
+
+<h2>Native Clock External Behavior Demo</h2>
+
+<button|checkbox #run>Run Clock</button>
+
+<clock />
+
+    </body>
+</html>

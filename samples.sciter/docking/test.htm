@@ -1,0 +1,41 @@
+<html theme="dark">
+    <head>
+        <title>Test</title>
+        <style>
+@import url(docks.css);
+body {margin:0;}
+        </style>
+        <script|module>
+
+import {Dock,DockGroup,DockPanel} from "docks.js";
+
+document.body.patch(<Dock>
+  <DockGroup|cols> 
+    <DockPanel caption="A" style="background:red">A</DockPanel>
+    <section>content</section>
+    <DockPanel caption="B" style="background:green">B</DockPanel>
+    <DockPanel caption="C" style="background:blue">C</DockPanel>
+  </DockGroup>
+</Dock>);
+
+        </script>
+    </head>
+<!--    <body.dock>
+      <frameset rows="*,*">
+        <div.dockable #A style="background: red">
+          <caption>A</caption>
+          <h1>A</h1>
+        </div>
+        <div.dockable #B style="background: green">
+          <caption>B</caption>
+        </div>
+        <div.dockable #C style="background: blue">
+          <caption>C</caption>
+        </div>
+      </frameset>
+      <popup.windowed/>
+-->
+    <div>test</div>
+    <body>
+    </body>
+</html>

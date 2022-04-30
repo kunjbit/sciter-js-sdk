@@ -1,0 +1,70 @@
+
+
+/*frameset frameset {
+  background: red;
+}*/
+
+@set dock { 
+  :root { 
+     size:*;
+     background:var(document);
+     color:var(document-text);
+  }
+
+  .dockable {
+    //border:1px solid;
+    size:*;
+  }
+
+  .dockable.window {}
+
+  .dockable.window.dragging { opacity:0.75; }
+
+  .dockable.window.detached { }
+
+  .dockable > caption {
+    background:var(document);
+    color:var(document-text);
+    border-top:1px solid var(widget-border);
+    border-bottom:1px solid var(widget-border);
+    padding:2px 6px;
+  }
+
+  .dockable > .content { size:*; }
+
+  frameset {
+     background:var(document);
+     color:var(document-text);
+  }
+
+  frameset[tabs] { size:*; border-spacing:0; }
+  frameset[tabs] > header { 
+    flow:horizontal; 
+    background: var(button-face);
+    border-bottom:1px solid var(widget-border); 
+  }
+  frameset[tabs] > header > caption {
+    display: block;
+    behavior:radio;
+    width:max-content;
+    min-width:3em;
+    padding:2px 6px;
+    text-align:center;
+    border-bottom:none;
+  }
+  frameset[tabs] > header > caption:checked {
+    border-top:1px solid var(widget-border);
+    border-left:1px solid var(widget-border);
+    border-right:1px solid var(widget-border);
+    background:var(document);
+    padding:2px 6px 3px 6px;
+    margin-bottom: -1px;
+  }
+
+  frameset[tabs] > .content {
+    size:*;
+  }
+
+
+}
+
