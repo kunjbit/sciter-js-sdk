@@ -1,3 +1,20 @@
+## 4.4.8.37
+
+### New:
+
+* **sciter-webview** external component that wraps system browser. Use it when you need to present to the user web site as if it was loaded in browser. Windows, MacOS and Linux. By [Sora Yang](https://gitlab.com/ArcRain). 
+  1. sciter-webview project and documentation is here: https://gitlab.com/sciter-engine/sciter-webview
+  2. sciter-webview supports static linkage so you may compile it in inside your application without the need of separate sciter-webview.dll(.dylib|.so)
+  3. sciter-webview project is a Git sub-module, use `git submodule update --init --recursive` command to update it.
+  4. sciter-webview/build/ folder contains projects to build it.
+ 
+### Fixes:
+
+* `clearTimeout/Interval` fix;
+* [CSS] fix of '+'/'~' selectors handling;
+* [JS/Storage] fix of persistence handling;
+* `form.value` fix: https://sciter.com/forums/topic/a-undfine-behaviornumber-in-the-form-in-the-component-will-be-object/
+
 ## 4.4.8.36
 
 ### New:

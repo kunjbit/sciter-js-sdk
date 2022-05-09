@@ -6,8 +6,8 @@ Render quality can be controlled with CSS properties
 
 `font-rendering-mode`
 
-- `classic|snap-pixel` fastest, glyphs can be placed "between pixels".
-- `enhanced|sub-pixel` higher quality, glyphs positions shall fall to pixel grid, this mode is desired for text editing scenarios so caret position will not overlap glyphs.
+- `classic|snap-pixel` glyphs positions shall fall to pixel grid, this mode is desired for text editing scenarios so caret position will not overlap glyphs.
+- `enhanced|sub-pixel` higher quality, glyphs can be placed "between pixels".
 
 ## Image
 

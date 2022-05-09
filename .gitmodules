@@ -1,0 +1,3 @@
+[submodule "sciter-webview"]
+	path = sciter-webview
+	url = https://gitlab.com/sciter-engine/sciter-webview.git

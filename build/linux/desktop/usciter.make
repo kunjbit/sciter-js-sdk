@@ -38,39 +38,37 @@ TARGETDIR = ../../../bin/linux/x64
 TARGET = $(TARGETDIR)/usciter
 OBJDIR = obj/x64/Debug/usciter
 DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DDEBUG -D_DEBUG
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++14 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
-ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 `pkg-config gtk+-3.0 --libs` `pkg-config fontconfig --libs` -fPIC -pthread -Wl,--no-undefined -ldl -no-pie
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 webkit2gtk-4.0 --cflags`
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++17 `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 webkit2gtk-4.0 --cflags`
+ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 `pkg-config gtk+-3.0 webkit2gtk-4.0 --libs` `pkg-config fontconfig --libs` -fPIC -pthread -Wl,--no-undefined -ldl -no-pie
 
 else ifeq ($(config),debug_arm32)
 TARGETDIR = ../../../bin/linux/arm32
 TARGET = $(TARGETDIR)/usciter
 OBJDIR = obj/arm32/Debug/usciter
 DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DDEBUG -D_DEBUG
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g -std=c++14 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
-ALL_LDFLAGS += $(LDFLAGS) `pkg-config gtk+-3.0 --libs` `pkg-config fontconfig --libs` -fPIC -pthread -Wl,--no-undefined -ldl -no-pie
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 webkit2gtk-4.0 --cflags`
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g -std=c++17 `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 webkit2gtk-4.0 --cflags`
+ALL_LDFLAGS += $(LDFLAGS) `pkg-config gtk+-3.0 webkit2gtk-4.0 --libs` `pkg-config fontconfig --libs` -fPIC -pthread -Wl,--no-undefined -ldl -no-pie
 
 else ifeq ($(config),release_x64)
 TARGETDIR = ../../../bin/linux/x64
 TARGET = $(TARGETDIR)/usciter
 OBJDIR = obj/x64/Release/usciter
 DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DNDEBUG
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -flto -Os -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -flto -Os -std=c++14 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
-ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -flto -s `pkg-config gtk+-3.0 --libs` `pkg-config fontconfig --libs` -fPIC -pthread -Wl,--no-undefined -ldl -no-pie
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -flto -Os `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 webkit2gtk-4.0 --cflags`
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -flto -Os -std=c++17 `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 webkit2gtk-4.0 --cflags`
+ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -flto -s `pkg-config gtk+-3.0 webkit2gtk-4.0 --libs` `pkg-config fontconfig --libs` -fPIC -pthread -Wl,--no-undefined -ldl -no-pie
 
 else ifeq ($(config),release_arm32)
 TARGETDIR = ../../../bin/linux/arm32
 TARGET = $(TARGETDIR)/usciter
 OBJDIR = obj/arm32/Release/usciter
 DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DNDEBUG
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -flto -Os -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -flto -Os -std=c++14 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
-ALL_LDFLAGS += $(LDFLAGS) -flto -s `pkg-config gtk+-3.0 --libs` `pkg-config fontconfig --libs` -fPIC -pthread -Wl,--no-undefined -ldl -no-pie
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -flto -Os `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 webkit2gtk-4.0 --cflags`
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -flto -Os -std=c++17 `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 webkit2gtk-4.0 --cflags`
+ALL_LDFLAGS += $(LDFLAGS) -flto -s `pkg-config gtk+-3.0 webkit2gtk-4.0 --libs` `pkg-config fontconfig --libs` -fPIC -pthread -Wl,--no-undefined -ldl -no-pie
 
-else
-  $(error "invalid configuration $(config)")
 endif
 
 # Per File Configurations
@@ -80,8 +78,23 @@ endif
 # File sets
 # #############################################
 
+GENERATED :=
 OBJECTS :=
 
+GENERATED += $(OBJDIR)/behavior_drawing.o
+GENERATED += $(OBJDIR)/behavior_video_generator.o
+GENERATED += $(OBJDIR)/behavior_video_generator_full.o
+GENERATED += $(OBJDIR)/behavior_webview.o
+GENERATED += $(OBJDIR)/sciter-gtk-main.o
+GENERATED += $(OBJDIR)/sciter-sqlite-db.o
+GENERATED += $(OBJDIR)/sciter-sqlite-rs.o
+GENERATED += $(OBJDIR)/sciter-sqlite.o
+GENERATED += $(OBJDIR)/sqlite-wrap.o
+GENERATED += $(OBJDIR)/usciter.o
+OBJECTS += $(OBJDIR)/behavior_drawing.o
+OBJECTS += $(OBJDIR)/behavior_video_generator.o
+OBJECTS += $(OBJDIR)/behavior_video_generator_full.o
+OBJECTS += $(OBJDIR)/behavior_webview.o
 OBJECTS += $(OBJDIR)/sciter-gtk-main.o
 OBJECTS += $(OBJDIR)/sciter-sqlite-db.o
 OBJECTS += $(OBJDIR)/sciter-sqlite-rs.o
@@ -95,7 +108,7 @@ OBJECTS += $(OBJDIR)/usciter.o
 all: $(TARGET)
 	@:
 
-$(TARGET): $(OBJECTS) $(LDDEPS) | $(TARGETDIR)
+$(TARGET): $(GENERATED) $(OBJECTS) $(LDDEPS) | $(TARGETDIR)
 	$(PRELINKCMDS)
 	@echo Linking usciter
 	$(SILENT) $(LINKCMD)
@@ -121,9 +134,11 @@ clean:
 	@echo Cleaning usciter
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
+	$(SILENT) rm -rf $(GENERATED)
 	$(SILENT) rm -rf $(OBJDIR)
 else
 	$(SILENT) if exist $(subst /,\\,$(TARGET)) del $(subst /,\\,$(TARGET))
+	$(SILENT) if exist $(subst /,\\,$(GENERATED)) rmdir /s /q $(subst /,\\,$(GENERATED))
 	$(SILENT) if exist $(subst /,\\,$(OBJDIR)) rmdir /s /q $(subst /,\\,$(OBJDIR))
 endif
 
@@ -150,6 +165,18 @@ endif
 # #############################################
 
 $(OBJDIR)/usciter.o: ../../../demos/usciter/usciter.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/behavior_drawing.o: ../../../include/behaviors/behavior_drawing.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/behavior_video_generator.o: ../../../include/behaviors/behavior_video_generator.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/behavior_video_generator_full.o: ../../../include/behaviors/behavior_video_generator_full.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/behavior_webview.o: ../../../include/behaviors/behavior_webview.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/sciter-gtk-main.o: ../../../include/sciter-gtk-main.cpp

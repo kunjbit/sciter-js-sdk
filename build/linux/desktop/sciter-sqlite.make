@@ -39,7 +39,7 @@ TARGET = $(TARGETDIR)/sciter-sqlite.so
 OBJDIR = obj/x64/Debug/sciter-sqlite
 DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DDEBUG -D_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -fPIC -g `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fPIC -g -std=c++14 `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fPIC -g -std=c++17 `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -shared -Wl,-soname=sciter-sqlite.so -fPIC -pthread
 
 else ifeq ($(config),debug_arm32)
@@ -48,7 +48,7 @@ TARGET = $(TARGETDIR)/sciter-sqlite.so
 OBJDIR = obj/arm32/Debug/sciter-sqlite
 DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DDEBUG -D_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -fPIC -g `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -fPIC -g -std=c++14 `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -fPIC -g -std=c++17 `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
 ALL_LDFLAGS += $(LDFLAGS) -shared -Wl,-soname=sciter-sqlite.so -fPIC -pthread
 
 else ifeq ($(config),release_x64)
@@ -57,7 +57,7 @@ TARGET = $(TARGETDIR)/sciter-sqlite.so
 OBJDIR = obj/x64/Release/sciter-sqlite
 DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DNDEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -flto -Os -fPIC `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -flto -Os -fPIC -std=c++14 `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -flto -Os -fPIC -std=c++17 `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -flto -shared -Wl,-soname=sciter-sqlite.so -s -fPIC -pthread
 
 else ifeq ($(config),release_arm32)
@@ -66,11 +66,9 @@ TARGET = $(TARGETDIR)/sciter-sqlite.so
 OBJDIR = obj/arm32/Release/sciter-sqlite
 DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DNDEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -flto -Os -fPIC `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -flto -Os -fPIC -std=c++14 `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -flto -Os -fPIC -std=c++17 `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
 ALL_LDFLAGS += $(LDFLAGS) -flto -shared -Wl,-soname=sciter-sqlite.so -s -fPIC -pthread
 
-else
-  $(error "invalid configuration $(config)")
 endif
 
 # Per File Configurations
@@ -80,8 +78,13 @@ endif
 # File sets
 # #############################################
 
+GENERATED :=
 OBJECTS :=
 
+GENERATED += $(OBJDIR)/sciter-sqlite-db.o
+GENERATED += $(OBJDIR)/sciter-sqlite-rs.o
+GENERATED += $(OBJDIR)/sciter-sqlite.o
+GENERATED += $(OBJDIR)/sqlite-wrap.o
 OBJECTS += $(OBJDIR)/sciter-sqlite-db.o
 OBJECTS += $(OBJDIR)/sciter-sqlite-rs.o
 OBJECTS += $(OBJDIR)/sciter-sqlite.o
@@ -93,7 +96,7 @@ OBJECTS += $(OBJDIR)/sqlite-wrap.o
 all: $(TARGET)
 	@:
 
-$(TARGET): $(OBJECTS) $(LDDEPS) | $(TARGETDIR)
+$(TARGET): $(GENERATED) $(OBJECTS) $(LDDEPS) | $(TARGETDIR)
 	$(PRELINKCMDS)
 	@echo Linking sciter-sqlite
 	$(SILENT) $(LINKCMD)
@@ -119,9 +122,11 @@ clean:
 	@echo Cleaning sciter-sqlite
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
+	$(SILENT) rm -rf $(GENERATED)
 	$(SILENT) rm -rf $(OBJDIR)
 else
 	$(SILENT) if exist $(subst /,\\,$(TARGET)) del $(subst /,\\,$(TARGET))
+	$(SILENT) if exist $(subst /,\\,$(GENERATED)) rmdir /s /q $(subst /,\\,$(GENERATED))
 	$(SILENT) if exist $(subst /,\\,$(OBJDIR)) rmdir /s /q $(subst /,\\,$(OBJDIR))
 endif
 
