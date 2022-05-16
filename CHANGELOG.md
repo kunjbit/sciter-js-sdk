@@ -1,3 +1,17 @@
+## 4.4.8.38
+
+### New:
+
+* [CSS] `flow-columns` and `flow-rows` properties to define grid "lines" positioning. See [CSS layout](docs/md/css/css-layout.md).
+* [http] "PATCH" HTTP verb support.
+
+### Fixes:
+
+* [Windows] `WM_GESTURE` handling on Windows. See: /samples.sciter/touch/ .
+* [CSS] `flow:row()` fixes.
+* [DOM] `form.value` fixes in Reactor environments. 
+* [Windows] fix of shadow rendering when the window changes state.
+
 ## 4.4.8.37
 
 ### New:
