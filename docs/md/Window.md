@@ -80,7 +80,9 @@ NOTE: the _window_ below is an instance of Sciter's Window class - e.g. `Window.
 
 ## methods:
 
-  * ### `window.box(boxPart,boxOf[,relTo[, asPPX : bool ]]):[...]` reports geometry of the window, where:
+  * ### `window.box(boxPart,boxOf[,relTo[, asPPX : bool ]]):[...]`
+     
+     Reports geometry of the window, where:
   
     _boxPart_ defines what part of the box to return, is one of:
   
@@ -108,7 +110,9 @@ NOTE: the _window_ below is an instance of Sciter's Window class - e.g. `Window.
     * `true` - coordinates are in physical device pixels; 
     * `false` - coordinates are in CSS pixels - 1/96 of inch;
 
-  * ### `window.screenBox(what [, boxPart [,asPPX]])` - reports geometry of monitor this window is on.
+  * ### `window.screenBox(what [, boxPart [,asPPX]])`
+  
+    Reports geometry of monitor this window is on.
 
     _what_ defines what information to return, is one of:
 
@@ -208,7 +212,9 @@ NOTE: the _window_ below is an instance of Sciter's Window class - e.g. `Window.
     
     shows new window as dialog, for params see `new Window({params})` above. The function returns window close value of `window.close(valToReturn)` call inside the window. 
 
-  * ### `window.performDrag(data:object, mode: "copy" | "move", dragIcon: Image | Element[, dragIconXoff:int, dragIconYoff:int] ): null | "copy" | "move"` - performs drag-and-drop using system D&D mechanism.
+  * ### `window.performDrag(data:object, mode: "copy" | "move", dragIcon: Image | Element[, dragIconXoff:int, dragIconYoff:int] ): null | "copy" | "move"`
+    
+    Performs drag-and-drop using system D&D mechanism.
 
     `data` is an object that may contain one or several fields: 
     * `text: string` - plain text data;
