@@ -58,6 +58,7 @@
                 var [sx,sy] = Window.this.box("position","client","screen", true);
                 var menu = document.$("menu#tray");
                 var {screenX,screenY} = evt.data;
+                menu.focus();
                 menu.popupAt(screenX - sx, screenY - sy, 2);
               }                
             }); 
