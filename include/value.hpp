@@ -123,7 +123,7 @@
       value( const native_function_t& nfr );
 #endif
 
-      template<typename T> value(const T& v) : value(setter(v)) {;}
+      template<typename T> value(const T& v);
           
       static value big_int( INT64 v )  { value t; ValueInt64DataSet(&t, v, T_BIG_INT, 0); return t;}
       static value date( INT64 v, bool is_utc = true /* true if ft is UTC*/ )      { value t; ValueInt64DataSet(&t, v, T_DATE, is_utc);  return t;}
@@ -858,7 +858,8 @@
         }; 
         return value(tf);
       }
-
+    template<typename T> 
+      inline value::value(const T& v) : value(setter(v)) {;}
   }
 #endif
 

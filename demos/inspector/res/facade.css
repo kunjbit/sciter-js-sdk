@@ -290,6 +290,23 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
 
 }
 
+@set element-states {
+  :root {
+    flow:horizontal-wrap;
+    padding:4px;
+    border-spacing:4px;
+    border-top: 1px solid @DECOLOR;
+  }
+
+  :root > span {
+    display:block;
+  }
+
+  :root > span.state {
+    font-weight:bold;
+  }
+}
+
 @set element-metrics {
 
   :root { border-top: 1px solid @DECOLOR; }

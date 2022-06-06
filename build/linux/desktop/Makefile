@@ -14,6 +14,7 @@ ifeq ($(config),debug_x64)
   integration_config = debug_x64
   sciter_sqlite_config = debug_x64
   sciter_component_config = debug_x64
+  sciter_webview_config = debug_x64
   glfw_opengl_config = debug_x64
 
 else ifeq ($(config),debug_arm32)
@@ -22,7 +23,17 @@ else ifeq ($(config),debug_arm32)
   integration_config = debug_arm32
   sciter_sqlite_config = debug_arm32
   sciter_component_config = debug_arm32
+  sciter_webview_config = debug_arm32
   glfw_opengl_config = debug_arm32
+
+else ifeq ($(config),debug_arm64)
+  usciter_config = debug_arm64
+  inspector_config = debug_arm64
+  integration_config = debug_arm64
+  sciter_sqlite_config = debug_arm64
+  sciter_component_config = debug_arm64
+  sciter_webview_config = debug_arm64
+  glfw_opengl_config = debug_arm64
 
 else ifeq ($(config),release_x64)
   usciter_config = release_x64
@@ -30,6 +41,7 @@ else ifeq ($(config),release_x64)
   integration_config = release_x64
   sciter_sqlite_config = release_x64
   sciter_component_config = release_x64
+  sciter_webview_config = release_x64
   glfw_opengl_config = release_x64
 
 else ifeq ($(config),release_arm32)
@@ -38,13 +50,23 @@ else ifeq ($(config),release_arm32)
   integration_config = release_arm32
   sciter_sqlite_config = release_arm32
   sciter_component_config = release_arm32
+  sciter_webview_config = release_arm32
   glfw_opengl_config = release_arm32
+
+else ifeq ($(config),release_arm64)
+  usciter_config = release_arm64
+  inspector_config = release_arm64
+  integration_config = release_arm64
+  sciter_sqlite_config = release_arm64
+  sciter_component_config = release_arm64
+  sciter_webview_config = release_arm64
+  glfw_opengl_config = release_arm64
 
 else
   $(error "invalid configuration $(config)")
 endif
 
-PROJECTS := usciter inspector integration sciter-sqlite sciter-component glfw-opengl
+PROJECTS := usciter inspector integration sciter-sqlite sciter-component sciter-webview glfw-opengl
 
 .PHONY: all clean help $(PROJECTS) 
 
@@ -80,6 +102,12 @@ ifneq (,$(sciter_component_config))
 	@${MAKE} --no-print-directory -C . -f sciter-component.make config=$(sciter_component_config)
 endif
 
+sciter-webview:
+ifneq (,$(sciter_webview_config))
+	@echo "==== Building sciter-webview ($(sciter_webview_config)) ===="
+	@${MAKE} --no-print-directory -C . -f sciter-webview.make config=$(sciter_webview_config)
+endif
+
 glfw-opengl:
 ifneq (,$(glfw_opengl_config))
 	@echo "==== Building glfw-opengl ($(glfw_opengl_config)) ===="
@@ -92,6 +120,7 @@ clean:
 	@${MAKE} --no-print-directory -C . -f integration.make clean
 	@${MAKE} --no-print-directory -C . -f sciter-sqlite.make clean
 	@${MAKE} --no-print-directory -C . -f sciter-component.make clean
+	@${MAKE} --no-print-directory -C . -f sciter-webview.make clean
 	@${MAKE} --no-print-directory -C . -f glfw-opengl.make clean
 
 help:
@@ -100,8 +129,10 @@ help:
 	@echo "CONFIGURATIONS:"
 	@echo "  debug_x64"
 	@echo "  debug_arm32"
+	@echo "  debug_arm64"
 	@echo "  release_x64"
 	@echo "  release_arm32"
+	@echo "  release_arm64"
 	@echo ""
 	@echo "TARGETS:"
 	@echo "   all (default)"
@@ -111,6 +142,7 @@ help:
 	@echo "   integration"
 	@echo "   sciter-sqlite"
 	@echo "   sciter-component"
+	@echo "   sciter-webview"
 	@echo "   glfw-opengl"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"

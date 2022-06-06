@@ -1,3 +1,22 @@
+## 4.4.9.0
+
+### New:
+
+* [win] SDK build scripts and projects are using VS2019 now.
+* [sciter-webview](webview/README.md) - web view widget, uses installed system browser to render web pages. See sdk/webview/demo/webview.html
+* [linux/gtk] arm64 build;
+* [CSS,scrollbar] `@set my-scrollbar { .back {} }` - _back_ component defines whole area occupied by the scrollbar;
+* `SciterVersion(0...4):uint` - access to Sciter version vector components: `SciterVersion(0) -> 4`, `SciterVersion(1) -> 4` ... Note: ABI of _SciterVersion_ function has not changed.
+* [sample] samples.sciter/docking - implementation sketch of dockable widgets;
+
+### Fixes:
+* [reactor] fix of exception reporting.
+* [gtk] mouse wheel direction fix.
+* [css] custom scrollbars - margins accounting.
+* script debugger, reducing memory consumption.
+* [macos] keyup/down events for shift,capslock,etc. buttons.
+* `<reactor>` fix, see: https://sciter.com/forums/topic/bug-problem-with-russian-characters-in-reactor/
+
 ## 4.4.8.38
 
 ### New:

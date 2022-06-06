@@ -148,7 +148,7 @@
 		3758BD924E6B58C43E8753D2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++1z";
 				CONFIGURATION_BUILD_DIR = "$(SYMROOT)";
 				CONFIGURATION_TEMP_DIR = "$(OBJROOT)";
 				GCC_OPTIMIZATION_LEVEL = s;
@@ -161,7 +161,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OBJROOT = "obj/x64/Release/sciter-sqlite";
 				ONLY_ACTIVE_ARCH = NO;
-				SYMROOT = ../../bin/macosx/x64;
+				SYMROOT = ../../bin/macosx;
 				USER_HEADER_SEARCH_PATHS = (
 					../../include,
 				);
@@ -172,7 +172,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CONFIGURATION_BUILD_DIR = ../../bin/macosx/x64;
+				CONFIGURATION_BUILD_DIR = ../../bin/macosx;
 				GCC_DYNAMIC_NO_PIC = NO;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = "sciter-sqlite";
@@ -183,7 +183,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CONFIGURATION_BUILD_DIR = ../../bin/macosx/x64;
+				CONFIGURATION_BUILD_DIR = ../../bin/macosx;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_DYNAMIC_NO_PIC = NO;
 				INSTALL_PATH = /usr/local/lib;
@@ -194,7 +194,7 @@
 		F6302D58991E540A28443398 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++1z";
 				CONFIGURATION_BUILD_DIR = "$(SYMROOT)";
 				CONFIGURATION_TEMP_DIR = "$(OBJROOT)";
 				COPY_PHASE_STRIP = NO;
@@ -210,7 +210,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OBJROOT = "obj/x64/Debug/sciter-sqlite";
 				ONLY_ACTIVE_ARCH = YES;
-				SYMROOT = ../../bin/macosx/x64;
+				SYMROOT = ../../bin/macosx;
 				USER_HEADER_SEARCH_PATHS = (
 					../../include,
 				);

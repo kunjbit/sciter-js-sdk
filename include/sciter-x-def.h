@@ -45,10 +45,12 @@
  **/
 LPCWSTR SCAPI SciterClassName(void);
 
-/**Returns major and minor version of Sciter engine.
-  * \return UINT, hiword (16-bit) contains major number and loword contains minor number;
+/**Returns components of of Sciter engine version vector. 
+  * Version is a vector of four components [v0,v1,v2,v3].
+  * \param n, UINT, number in 0 ... 3 range
+  * \return UINT;
  **/
- UINT  SCAPI SciterVersion(SBOOL major);
+ UINT  SCAPI SciterVersion(UINT n);
 
 /** #SC_LOAD_DATA notification return codes */
 enum SC_LOAD_DATA_RETURN_CODES
@@ -515,6 +517,8 @@ typedef enum SCITER_RT_OPTIONS
    SCITER_WINDOW_SET_STATE = 1, // p1 - SCITER_WINDOW_STATE, p2 - N/A
    SCITER_WINDOW_GET_STATE = 2, // p1 - N/A , p2 - N/A, returns SCITER_WINDOW_STATE
    SCITER_WINDOW_ACTIVATE  = 3, // p1 - BOOL, true - bring_to_front , p2 - N/A
+   SCITER_WINDOW_SET_PLACEMENT = 4, // p1 - const POINT*, position, p2 const SIZE* - dimension, in ppx, either one can be null
+   SCITER_WINDOW_GET_PLACEMENT = 5, // p1 - POINT*, position, p2 SIZE* - dimension, in ppx, either one can be null
  } SCITER_WINDOW_CMD;
 
  typedef enum SCITER_WINDOW_STATE {

@@ -179,6 +179,24 @@ export class VirtualList extends Element {
         return true;
     }
 
+    // auto scroll with pressed mouse button ++
+    ["on ~mousedown"](evt) {    
+       this.state.capture(true);
+    }
+    ["on ~mouseup"](evt) {    
+       this.state.capture(false);
+    }
+
+    ["on ~mousetick"](evt) {
+       console.log(evt.y);
+       let height = this.state.box("height");
+       if(evt.y < 0)
+          this.vlist.navigate("itemprior");
+       else if(evt.y > height)
+          this.vlist.navigate("itemnext");
+    }
+    // auto scroll with pressed mouse button --
+
     setCurrentOption(child) {
         let option;
         for (let node = child; node; node = node.parentElement) {

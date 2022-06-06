@@ -173,353 +173,214 @@
 					<Add option="-ldl" />
 				</Linker>
 			</Target>
+			<Target title="Debug|arm64">
+				<Option output="../../../bin.lite/linux/arm64/glfw-opengl" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj/arm64/Debug/glfw-opengl" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-g" />
+					<Add option="-std=c++17" />
+					<Add option="-DDEVICE=DESKTOP" />
+					<Add option="-D_GNU_SOURCE" />
+					<Add option="-DDEBUG" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DWINDOWLESS" />
+					<Add option="-D_GLFW_X11" />
+					<Add option="`pkg-config gtk+-3.0 --cflags`" />
+					<Add option="-fPIC" />
+					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-write-strings" />
+					<Add option="-ldl" />
+					<Add directory="../../../include" />
+					<Add directory="../../../demos.lite/sciter-glfw-opengl" />
+					<Add directory="../../../demos.lite/glfw/include" />
+					<Add directory="../../../demos.lite/glfw/deps" />
+				</Compiler>
+				<Linker>
+					<Add option="-fPIC" />
+					<Add option="-Wall" />
+					<Add option="-pthread" />
+					<Add option="-lm" />
+					<Add option="-lX11" />
+					<Add option="-lXrandr" />
+					<Add option="-lXinerama" />
+					<Add option="-lXcursor" />
+					<Add option="-lGL" />
+					<Add option="-lGLU" />
+					<Add option="-ldl" />
+				</Linker>
+			</Target>
+			<Target title="Release|arm64">
+				<Option output="../../../bin.lite/linux/arm64/glfw-opengl" prefix_auto="0" extension_auto="0" />
+				<Option object_output="obj/arm64/Release/glfw-opengl" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-flto" />
+					<Add option="-Os" />
+					<Add option="-flto" />
+					<Add option="-Os" />
+					<Add option="-std=c++17" />
+					<Add option="-DDEVICE=DESKTOP" />
+					<Add option="-D_GNU_SOURCE" />
+					<Add option="-DNDEBUG" />
+					<Add option="-DWINDOWLESS" />
+					<Add option="-D_GLFW_X11" />
+					<Add option="`pkg-config gtk+-3.0 --cflags`" />
+					<Add option="-fPIC" />
+					<Add option="-Wno-unknown-pragmas" />
+					<Add option="-Wno-write-strings" />
+					<Add option="-ldl" />
+					<Add directory="../../../include" />
+					<Add directory="../../../demos.lite/sciter-glfw-opengl" />
+					<Add directory="../../../demos.lite/glfw/include" />
+					<Add directory="../../../demos.lite/glfw/deps" />
+				</Compiler>
+				<Linker>
+					<Add option="-flto" />
+					<Add option="-s" />
+					<Add option="-fPIC" />
+					<Add option="-Wall" />
+					<Add option="-pthread" />
+					<Add option="-lm" />
+					<Add option="-lX11" />
+					<Add option="-lXrandr" />
+					<Add option="-lXinerama" />
+					<Add option="-lXcursor" />
+					<Add option="-lGL" />
+					<Add option="-lGLU" />
+					<Add option="-ldl" />
+				</Linker>
+			</Target>
 		</Build>
 		<Unit filename="../../../demos.lite/glfw/deps/glad.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/context.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/egl_context.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/glx_context.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/init.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/input.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/linux_joystick.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/linux_joystick.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/monitor.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/osmesa_context.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/posix_thread.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/posix_thread.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/posix_time.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/posix_time.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/vulkan.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/window.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/x11_init.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/x11_monitor.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/x11_platform.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/x11_window.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/glfw/src/xkb_unicode.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/sciter-glfw-opengl/aux-fs.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/sciter-glfw-opengl/basic.cpp">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../demos.lite/sciter-glfw-opengl/stdafx.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/aux-asset.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/aux-cvt.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/aux-platform.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/aux-slice.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/behaviors/behavior_drawing.cpp">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/nullptr.hpp">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-om-def.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-om.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-api.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-behavior.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-debug.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-def.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-dom.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-dom.hpp">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-graphics.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-graphics.hpp">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-host-callback.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-key-codes.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-lite.hpp">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-msg.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-primitives.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-request.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-request.hpp">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-threads.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-types.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-value.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-video-api.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x-window.hpp">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/sciter-x.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/value.h">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 		<Unit filename="../../../include/value.hpp">
-			<Option target="Debug|x64" />
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|x64" />
 		</Unit>
 	</Project>
 </CodeBlocks_project_file>

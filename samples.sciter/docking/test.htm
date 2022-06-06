@@ -4,18 +4,25 @@
         <style>
 @import url(docks.css);
 body {margin:0;}
+section.content { size:*; }
         </style>
         <script|module>
 
 import {Dock,DockGroup,DockPanel} from "docks.js";
 
 document.body.patch(<Dock>
+
   <DockGroup|cols> 
-    <DockPanel caption="A" style="background:red">A</DockPanel>
-    <section>content</section>
-    <DockPanel caption="B" style="background:green">B</DockPanel>
-    <DockPanel caption="C" style="background:blue">C</DockPanel>
-  </DockGroup>
+    <DockGroup|rows> 
+      <DockPanel caption="A" style="background:red">A</DockPanel>
+      <DockPanel caption="B" style="background:green">B</DockPanel>
+    </DockGroup>
+    <section.content>Content area</section>
+    <DockGroup|rows> 
+      <DockPanel caption="C" style="background:blue">C</DockPanel>
+      <DockPanel caption="D" style="background:magenta">D</DockPanel>
+    </DockGroup>
+  </DockGroup> 
 </Dock>);
 
         </script>
@@ -35,7 +42,6 @@ document.body.patch(<Dock>
       </frameset>
       <popup.windowed/>
 -->
-    <div>test</div>
-    <body>
-    </body>
+
+    <body></body>
 </html>

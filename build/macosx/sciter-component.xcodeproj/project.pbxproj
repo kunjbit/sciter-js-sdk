@@ -138,7 +138,7 @@
 		1798EFD910FEF14B049A4E19 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++1z";
 				CONFIGURATION_BUILD_DIR = "$(SYMROOT)";
 				CONFIGURATION_TEMP_DIR = "$(OBJROOT)";
 				COPY_PHASE_STRIP = NO;
@@ -154,7 +154,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OBJROOT = "obj/x64/Debug/sciter-component";
 				ONLY_ACTIVE_ARCH = YES;
-				SYMROOT = ../../bin/macosx/x64;
+				SYMROOT = ../../bin/macosx;
 				USER_HEADER_SEARCH_PATHS = (
 					../../include,
 				);
@@ -164,7 +164,7 @@
 		55FC245340E84A4588CE1293 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++1z";
 				CONFIGURATION_BUILD_DIR = "$(SYMROOT)";
 				CONFIGURATION_TEMP_DIR = "$(OBJROOT)";
 				GCC_OPTIMIZATION_LEVEL = s;
@@ -177,7 +177,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				OBJROOT = "obj/x64/Release/sciter-component";
 				ONLY_ACTIVE_ARCH = NO;
-				SYMROOT = ../../bin/macosx/x64;
+				SYMROOT = ../../bin/macosx;
 				USER_HEADER_SEARCH_PATHS = (
 					../../include,
 				);
@@ -188,7 +188,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CONFIGURATION_BUILD_DIR = ../../bin/macosx/x64;
+				CONFIGURATION_BUILD_DIR = ../../bin/macosx;
 				GCC_DYNAMIC_NO_PIC = NO;
 				INSTALL_PATH = /usr/local/lib;
 				PRODUCT_NAME = "sciter-component";
@@ -199,7 +199,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CONFIGURATION_BUILD_DIR = ../../bin/macosx/x64;
+				CONFIGURATION_BUILD_DIR = ../../bin/macosx;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_DYNAMIC_NO_PIC = NO;
 				INSTALL_PATH = /usr/local/lib;

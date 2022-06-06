@@ -12,12 +12,38 @@ const MARKER_TOP    = new Graphics.Path("m 0 0 V 32 H 32 V 0 Z m 1 10 V 31 H 31 
 const MARKER_BOTTOM = new Graphics.Path("m 0 0 V 32 H 32 V 0 Z m 1 1 V 22 H 31 V 1 Z");
 const MARKER_MIDDLE = new Graphics.Path("m 0 0 V 32 H 32 V 0 Z m 1 7 V 31 H 31 V 7 Z M 16 1 V 6 H 31 V 1 Z");
 
+const WINDOW_WIDTH = 300;
+const WINDOW_HEIGHT = 300;
+
 export class Dock extends Element {
 
   dropLocation = null;
   targetDockable = null; // target dockable
 
-  doDrag(dockable, xOff, yOff) {
+  constructor(props,kids) {
+    super();
+    this.props = props;
+    this.kids = kids;
+    globalThis.showWidget = cls => this.showWidget(cls);
+  }
+
+  showWidget(widgetClass) {
+    // show widget as a window in the middle of the window
+    const [w,h] = this.state.box("dimension");
+    const x = (w - WINDOW_WIDTH) / 2;
+    const y = (h - WINDOW_HEIGHT) / 2;
+    let dockable = <DockPanel.window.detached widgetType={widgetClass}/>;
+    let list = this.$("popup.windowed");
+    list.append(dockable);
+    dockable = list.lastElementChild;
+    dockable.style.set({width:Length.px(WINDOW_WIDTH),height:Length.px(WINDOW_HEIGHT)});
+    dockable.takeOff({x,y, window:"detached", relativeTo:"window"});
+    // notify observers:
+    widgetClass.shown = true;
+    Window.post(new Event("widget-new"));
+  }
+
+  doDrag(dockable, xElement,yElement,xOff, yOff) {
 
       const me = this;
 
@@ -38,7 +64,6 @@ export class Dock extends Element {
 
       let list = this.$("popup.windowed");
       list.append(dockable);
-      dockable.isWindowed = true;
       dockable.classList.add("window","dragging");
 
       dockable.on("mousemove",onmousemove);
@@ -46,11 +71,28 @@ export class Dock extends Element {
 
       //console.log(parent);
       if(parent !== this && parent.tag == "frameset" && parent.childElementCount == 1) {
+
+        //setup default dimensions of element that will be reparented
+        if(isHorzFrameset(parent.parentElement)) {
+          const w = parent.firstElementChild.state.box("width");
+          parent.firstElementChild.style.set({
+            width: Length.px(w),
+            height: Length.fx(1) 
+          });
+        }
+        else if(isVertFrameset(parent.parentElement)) {
+          const h = parent.firstElementChild.state.box("height");
+          parent.firstElementChild.style.set({
+            height: Length.px(h),
+            width: Length.fx(1) 
+          });
+        }
         // remove <frameset> that has just one child
         parent.unwrapElement();
       }
 
-
+      dockable.takeOff({x:xElement,y:yElement,window:"detached", relativeTo:"screen"});
+      
       this.paintForeground = this.paintMarkers;
 
       Window.this.doEvent("untilMouseUp");
@@ -81,15 +123,22 @@ export class Dock extends Element {
     const createSubFrame = (rowscols) => {
       // target ...
       //console.log(target,dockable,this.targetDockable);
-      const atts = { [rowscols]: "*,*" };
+      const atts = { [rowscols]: "" };
       const subFrame = document.createElement("frameset",atts);
 
       this.targetDockable.parentElement.insertBefore(subFrame,this.targetDockable);
       subFrame.insertBefore(this.targetDockable);
 
       target = subFrame;
+
+      // set that initial frame to span whole frameset
+      this.targetDockable.style.set({
+        width:Length.fx(1), 
+        height:Length.fx(1)
+      });
         
       return this.targetDockable;
+    
     };
 
     if( this.dropLocation == "L" ) {
@@ -150,14 +199,6 @@ export class Dock extends Element {
         after = createSubFrame("rows");
     }
 
-    /*else if(this.targetDockable.parentElement.tag == "frameset"){
-      target = this.targetDockable.parentElement;
-      if(this.dropLocation == 8 || this.dropLocation == 4)
-        before = this.targetDockable;
-      else 
-        after = this.targetDockable;
-    }*/
-
     //console.log(target,before,after);
 
     if(after)
@@ -176,7 +217,7 @@ export class Dock extends Element {
 
   generateMarkers(elementUnder) {
 
-    let dockable = elementUnder.$p(".dockable");
+    let dockable = elementUnder.$p(".dockable,.dockable-content");
 
     let markers;
 
@@ -186,12 +227,14 @@ export class Dock extends Element {
       let xc = (x2 + x1) / 2 , yc = (y2 + y1) / 2;
       
       markers = {
-        "m": [xc - MARKER_SIZE2, yc - MARKER_SIZE2],
         "t": [xc - MARKER_SIZE2, yc - MARKER_SIZE2 - 4 - MARKER_SIZE],
         "l": [xc - MARKER_SIZE2 - 4 - MARKER_SIZE, yc - MARKER_SIZE2],
         "r": [xc + MARKER_SIZE2 + 4, yc - MARKER_SIZE2],
         "b": [xc - MARKER_SIZE2, yc + MARKER_SIZE2 + 4],
       };
+
+      if(!dockable.$is(".dockable-content"))
+        markers["m"] = [xc - MARKER_SIZE2, yc - MARKER_SIZE2];
 
     } else {
       dockable = elementUnder.$p("frameset");
@@ -221,7 +264,6 @@ export class Dock extends Element {
     let location;
     if(elementUnder) {
         this.targetDockable = this.generateMarkers(elementUnder);
-
         for( const [loc,origin] of Object.entries(this.markers)) {
           const [x,y] = origin;
           if( clientX > x && clientX < (x + MARKER_SIZE) && 
@@ -258,17 +300,21 @@ export class Dock extends Element {
     }
   }
 
-  this(props,kids) {
-    this.props = props;
-    this.kids = kids;
-  }
-
   render() {
     return <main.dock styleset={__DIR__ + "docks.css#dock"} {this.props}>
       {this.kids}
       <popup.windowed />
     </main>;
   }
+
+  ["on do-close-panel"](evt) {
+    const dockable = evt.target;
+    const widgetClass = dockable.classOf;
+    widgetClass.shown = false;
+    Window.post(new Event("widget-close"));
+    dockable.remove();
+  }
+
 
 }
 
@@ -294,7 +340,7 @@ export class DockCaption extends Element {
   }
 
   render() {
-    return <caption>{this.#text}</caption>;
+    return <caption><text>{this.#text}</text><b.close/></caption>;
   }
 
   getDockTabs() {
@@ -311,14 +357,12 @@ export class DockCaption extends Element {
     let dockable = dockTabs ? dockTabs.takeoffTab(this)
                             : this.$p(".dockable");
 
-    //if(dockable.isWindowed) return false;
     let [x,y,width,height] = dockable.state.box("xywh","inner","screen",true);
     dockable.style.set({
         width: Length.px(width / devicePixelRatio),
         height: Length.px(height / devicePixelRatio),
     });
-    dockable.takeOff({x,y,window:"detached", relativeTo:"screen"});
-    dock.doDrag(dockable,evt.x * devicePixelRatio,evt.y * devicePixelRatio);
+    dock.doDrag(dockable,x, y, evt.x * devicePixelRatio,evt.y * devicePixelRatio);
     return true;
   }
 
@@ -345,9 +389,9 @@ export class DockPanel extends Element {
   type = null;
 
   this(props,kids) {
-    let {type,caption,...rest} = props; 
-    this.caption = caption;
-    this.type = type || DockContent; // should be JS class
+    let {widgetType,caption,...rest} = props; 
+    this.type = widgetType || DockContent; // should be JS class
+    this.caption = caption || this.type.className;
     this.props = rest;
     this.kids = kids;
   }
@@ -360,9 +404,9 @@ export class DockPanel extends Element {
     return this.lastElementChild;
   }
 
-  componentWillUnmount() {
+  /*componentWillUnmount() {
     throw new Error("DockPanel!");
-  }
+  }*/
 
   render() {
     if(this.props._empty)
@@ -372,6 +416,11 @@ export class DockPanel extends Element {
         <DockCaption text={this.caption}  />
         { this.type && JSX(this.type,this.props,this.kids) }
       </widget>;
+  }
+
+  ["on click at b.close"]() {
+    this.post(new Event("do-close-panel",{bubbles:true}));
+    return true;
   }
 }
 
@@ -403,8 +452,8 @@ export class DockTabs extends Element {
   initTab(dockable/*Panel*/) {
     let caption = dockable.$(">caption");
     //console.assert(dockable instanceof DockPanel,"must be DockPanel");
-    if(!(dockable instanceof DockPanel))
-      console.log("dockable", dockable);
+    //if(!(dockable instanceof DockPanel))
+    //  console.log("dockable", dockable);
     console.assert(caption,"caption");
     caption.contentElement = dockable.contentElement;
     console.assert(caption.contentElement,"content");
@@ -462,7 +511,7 @@ export class DockTabs extends Element {
 
   static convert(element) {
 
-    console.log("convert",element, element.constructor.name);
+    //console.log("convert",element, element.constructor.name);
 
     if(element instanceof DockTabs) return element;
     
@@ -482,11 +531,25 @@ export class DockTabs extends Element {
 
 }
 
-
 export function DockGroup(props,kids) {
+  function cr() {
+    let def = [];
+    let flexes = 0;
+    for(const kid of kids) {
+      const tag = Reactor.tagOf(kid);
+      if( tag === DockPanel || tag == DockTabs || tag == DockGroup )
+        def.push("200px");
+      else {
+        def.push("*");
+        ++flexes;
+      }
+    }
+    if(!flexes) def[def.length / 2] = "*";
+    return def.join(",");
+  }
   switch(props.type) {
-    case "cols": return <frameset cols="*,*">{kids}</frameset>;
-    case "rows": return <frameset rows="*,*">{kids}</frameset>;
+    case "cols": return <frameset cols={cr()}>{kids}</frameset>;
+    case "rows": return <frameset rows={cr()}>{kids}</frameset>;
     case "tabs": return <DockTabs>{kids}</DockTabs>;
   }
 }

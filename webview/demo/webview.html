@@ -1,0 +1,99 @@
+<html>
+
+<head>
+    <title></title>
+    <style>
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+        }
+
+        webview {
+            display: block;
+            size: *;
+            background: red;
+            behavior: webview library(sciter-webview);
+        }
+    </style>
+    <script type="module">
+        document.on('ready', () => {
+            const elemWebView = document.$('webview');
+            //jsBridgeCall(params)
+            //Function: 'jsBridgeCall' is designed for the interaction between Sciter WebView and Browser Web Pages.
+            //It's called from web pages loaded by webview. All parameters are passed to webview.jsBridgeCall.
+            //Developer can use webview.jsBridgeCall in Sciter to handle them. And it can return result if needed.
+            //params: It's an array. The first value is function name, the other values are parameters of the function.
+            elemWebView.jsBridgeCall = (params) => {
+                console.log(JSON.stringify(params));
+                const method = params[0];
+                if ("add" == method) {
+                    return params[1] + params[2];
+                }
+            };
+            //onNavigation
+            //Function: 'onNavigation' is designed for tracking the load Progress of navigation
+            elemWebView.onNavigation = (evt, param1) => {
+                console.log(evt, param1);
+                if (evt == "navigationStarting") {
+                    //param1: url
+                    //Abort navigation if return true
+                    //return true;
+                }
+                else if (evt == "navigationCompleted") {
+                    //param1: 0 - success, -1 - failed
+                }
+            };
+            document.on('click', '#testloadUrl', () => {
+                elemWebView.webview.loadUrl('https://www.bing.com');
+            });
+            document.on('click', '#testloadHTML', () => {
+                elemWebView.webview.loadHtml('<html><body>HTML Content</body></html>');
+            });
+            document.on('click', '#testReload', () => {
+                elemWebView.webview.reload();
+            });
+            document.on('click', '#testGoBack', () => {
+                elemWebView.webview.goBack();
+            });
+            document.on('click', '#testGoForward', () => {
+                elemWebView.webview.goForward();
+            });
+            document.on('click', '#testAlert', () => {
+                elemWebView.webview.evaluateJavaScript('alert("Sciter Call JS")');
+            });
+            document.on('click', '#testConfirm', () => {
+                elemWebView.webview.evaluateJavaScript('{confirm("Sciter Call JS") ? alert("Your choise is Confirm") : alert("Your choise is Cancel")}');
+            });
+            document.on('click', '#testPrompt', () => {
+                elemWebView.webview.evaluateJavaScript('{let name = prompt("Welcome","Please input your nickname"); alert("Nickname: " + name);}');
+            });
+            document.on('click', '#testExternal', () => {
+                //jsBridgeCall(funcName, param1, param2, ...)
+                //Function: 'jsBridgeCall' is designed for the interaction between Sciter WebView and Browser Web Pages.
+                //It's called from web pages loaded by webview. All parameters are passed to webview.jsBridgeCall.
+                //Developer can use webview.jsBridgeCall in Sciter to handle them. And it can return result if needed.
+                elemWebView.webview.evaluateJavaScript('window.jsBridgeCall("add", 1, 2).then(function (ret) {alert("1 + 2 = " + ret); });');
+                //IE not support '=>'
+                //elemWebView.webview.evaluateJavaScript('window.jsBridgeCall("add", 1, 2).then( (ret) => { alert("1 + 2 = " + ret); });');
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div style="flex: horizonal;">
+        <button id="testloadUrl">Load Bing</button>
+        <button id="testloadHTML">Load HTML</button>
+        <button id="testReload">Reload</button>
+        <button id="testGoBack">Go Back</button>
+        <button id="testGoForward">Go Forward</button>
+        <button id="testAlert">Alert</button>
+        <button id="testConfirm">Confirm</button>
+        <button id="testPrompt">Prompt</button>
+        <button id="testExternal">JSBridgeCall</button>
+    </div>
+    <webview src="https://www.sciter.com"></webview>
+</body>
+
+</html>

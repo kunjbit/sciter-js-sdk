@@ -28,10 +28,13 @@ end
 
 -- function that setups target dir according to configuration
 function settargetdir() 
-  basedir = basedir or ""
-  targetdir ("bin/" .. osabbr() .."/%{cfg.platform}")
-  filter "configurations:*Skia" 
-    targetdir ("bin/" .. osabbr() .."/%{cfg.platform}skia")
+  if _TARGET_OS == "macosx" then
+    targetdir ("bin/" .. osabbr())
+  else
+    targetdir ("bin/" .. osabbr() .."/%{cfg.platform}")
+    filter "configurations:*Skia" 
+      targetdir ("bin/" .. osabbr() .."/%{cfg.platform}skia")
+  end
   filter {}
 end
 
@@ -49,7 +52,7 @@ workspace "sciter.sdk"
   configurations { "Debug", "Release" }
   --platforms { "x32", "x64", "arm32", "arm64" } 
 
-  cppdialect "C++14" 
+  cppdialect "C++17" 
 
   staticruntime "On"
   
@@ -66,7 +69,7 @@ workspace "sciter.sdk"
     platforms { "x64" }
   filter "system:linux"
     location("build/" .. osabbr() .. "/" .. string.lower(_OPTIONS["device"]))
-    platforms { "x64", "arm32" }
+    platforms { "x64", "arm32", "arm64" }
     defines { "_GNU_SOURCE" }
     buildoptions {
      "`pkg-config gtk+-3.0 --cflags`",      
@@ -338,6 +341,63 @@ project "sciter-component"
   filter "system:windows"
     files {"demos/sciter-component/exports.def" }
   filter {}
+
+--end
+
+-- sciter extension library - WebView
+project "sciter-webview"
+
+  kind "SharedLib"
+  language "C++"
+
+  targetprefix "" -- do not prepend it with "lib..."
+
+  defines "SCITERWEBVIEW_EXPORTS"
+
+  files { 
+    "include/sciter-*.h",
+    "include/sciter-*.hpp",
+    "include/aux-*.*",
+    "webview/behavior_webview.cpp"
+   }
+
+  settargetdir()
+
+  removeconfigurations { "*skia" }  
+
+  filter "system:windows"
+    files {
+      "webview/webview/win/exports.def", 
+      "webview/webview/win/dllmain.cpp", 
+      "webview/webview/sciter_winwebview.*",
+    }
+
+  filter "system:macosx"
+    xcodebuildsettings { ["CLANG_ENABLE_OBJC_ARC"] = "YES" }
+
+    files {
+      "webview/webview/sciter_wkwebview.*", 
+    } 
+    links { "WebKit.framework",
+            "AppKit.framework" }
+
+  filter "system:linux"  
+    files {
+      "webview/webview/sciter_webkitgtk.*", 
+    }
+    buildoptions {
+       "`pkg-config gtk+-3.0 --cflags`",
+       "`pkg-config webkit2gtk-4.0 --cflags`"
+    }
+    linkoptions { 
+       "`pkg-config gtk+-3.0 --libs`",
+       "`pkg-config webkit2gtk-4.0 --libs`",
+       "-fPIC",
+       "-pthread",
+       "-Wl,--no-undefined",
+       "-ldl"
+    }
+  filter {}    
 
 --end
 
