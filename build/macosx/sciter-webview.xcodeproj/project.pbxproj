@@ -1,0 +1,330 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1817955824A247CA9F871398 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5C1300C9792D32A5828940 /* CoreFoundation.framework */; };
+		3067A87A3CF25AECB7D726BA /* behavior_webview.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 135DF182F27B0BB4CE8467C2 /* behavior_webview.cpp */; };
+		713678D803C442CA6C9CE718 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BACC980CF188B320DBC2FC0 /* IOKit.framework */; };
+		B762408A248A4EFC261D3ECA /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 893A8412D69D7A444CBC7A52 /* AppKit.framework */; };
+		C0387E88D1EFBE7A475DACC8 /* sciter_wkwebview.mm in Sources */ = {isa = PBXBuildFile; fileRef = B93FA1302D2818E24F75C770 /* sciter_wkwebview.mm */; };
+		CC7CF92439A507963B37F764 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EE1680CAC445E3E22635E4C /* WebKit.framework */; };
+		F8E8DBA28B76A594F44F49E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D6BC6AA50D7885C8F7B2CEA /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0BACC980CF188B320DBC2FC0 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		0BFD2CCFA44A1281D291130F /* sciter-x-window.hpp */ = {isa = PBXFileReference; lastKnownFileType = text; name = "sciter-x-window.hpp"; path = "../../include/sciter-x-window.hpp"; sourceTree = "<group>"; };
+		0C92150DF0D91D3F74C64B4D /* sciter-x-debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-debug.h"; path = "../../include/sciter-x-debug.h"; sourceTree = "<group>"; };
+		0D35DEE5DB59329762678525 /* sciter-om-def.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-om-def.h"; path = "../../include/sciter-om-def.h"; sourceTree = "<group>"; };
+		135DF182F27B0BB4CE8467C2 /* behavior_webview.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = behavior_webview.cpp; path = ../../webview/behavior_webview.cpp; sourceTree = "<group>"; };
+		150613BBF4232DEDD02C89FB /* sciter-x-video-api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-video-api.h"; path = "../../include/sciter-x-video-api.h"; sourceTree = "<group>"; };
+		1D9E3BD161B20D0355839211 /* sciter-x-request.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-request.h"; path = "../../include/sciter-x-request.h"; sourceTree = "<group>"; };
+		1E4012B7390C81693CDD18F7 /* sciter-x-primitives.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-primitives.h"; path = "../../include/sciter-x-primitives.h"; sourceTree = "<group>"; };
+		379670FF1BDD79319FCAA73F /* sciter-x-dom.hpp */ = {isa = PBXFileReference; lastKnownFileType = text; name = "sciter-x-dom.hpp"; path = "../../include/sciter-x-dom.hpp"; sourceTree = "<group>"; };
+		3A34D933CFAB98653E47EF73 /* sciter-x-api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-api.h"; path = "../../include/sciter-x-api.h"; sourceTree = "<group>"; };
+		4528DB6F550E07A1418191AF /* sciter-x-host-callback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-host-callback.h"; path = "../../include/sciter-x-host-callback.h"; sourceTree = "<group>"; };
+		4A3645A1E2832B5310CA2BE1 /* sciter-x-graphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-graphics.h"; path = "../../include/sciter-x-graphics.h"; sourceTree = "<group>"; };
+		4BA5D1CDE11C90FF4FB8E80D /* sciter-x-msg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-msg.h"; path = "../../include/sciter-x-msg.h"; sourceTree = "<group>"; };
+		5390CBE5755C7917B211A225 /* sciter-x.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x.h"; path = "../../include/sciter-x.h"; sourceTree = "<group>"; };
+		5EE1680CAC445E3E22635E4C /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		615FA3B7899A5C697135E9F7 /* aux-cvt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "aux-cvt.h"; path = "../../include/aux-cvt.h"; sourceTree = "<group>"; };
+		6290A09141ADBAC31DB716D1 /* sciter-x-request.hpp */ = {isa = PBXFileReference; lastKnownFileType = text; name = "sciter-x-request.hpp"; path = "../../include/sciter-x-request.hpp"; sourceTree = "<group>"; };
+		66DA028C667CE5BEA0D198CC /* sciter_wkwebview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = sciter_wkwebview.h; path = ../../webview/webview/sciter_wkwebview.h; sourceTree = "<group>"; };
+		6AC5C3FB7CEFA0ADB0E08A3B /* sciter-x-lite.hpp */ = {isa = PBXFileReference; lastKnownFileType = text; name = "sciter-x-lite.hpp"; path = "../../include/sciter-x-lite.hpp"; sourceTree = "<group>"; };
+		6F633B3D32CEFCEF7172A17D /* aux-asset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "aux-asset.h"; path = "../../include/aux-asset.h"; sourceTree = "<group>"; };
+		73296C15B73D3D47AB0EC255 /* sciter-x-threads.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-threads.h"; path = "../../include/sciter-x-threads.h"; sourceTree = "<group>"; };
+		737A95875297AFB92EA10BC7 /* sciter-x-key-codes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-key-codes.h"; path = "../../include/sciter-x-key-codes.h"; sourceTree = "<group>"; };
+		765D34619129A31394FA3AA1 /* sciter-x-graphics.hpp */ = {isa = PBXFileReference; lastKnownFileType = text; name = "sciter-x-graphics.hpp"; path = "../../include/sciter-x-graphics.hpp"; sourceTree = "<group>"; };
+		893A8412D69D7A444CBC7A52 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		8D6BC6AA50D7885C8F7B2CEA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		9B15673F33624CF161A94D7F /* sciter-x-behavior.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-behavior.h"; path = "../../include/sciter-x-behavior.h"; sourceTree = "<group>"; };
+		A6AA6EFF3C212E31AABD853F /* sciter-x-dom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-dom.h"; path = "../../include/sciter-x-dom.h"; sourceTree = "<group>"; };
+		A6D76F9D3C4E2ECFAAEA85DD /* sciter-x-def.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-def.h"; path = "../../include/sciter-x-def.h"; sourceTree = "<group>"; };
+		B739005D7AA4C20FB948669D /* aux-slice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "aux-slice.h"; path = "../../include/aux-slice.h"; sourceTree = "<group>"; };
+		B93FA1302D2818E24F75C770 /* sciter_wkwebview.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objc; name = sciter_wkwebview.mm; path = ../../webview/webview/sciter_wkwebview.mm; sourceTree = "<group>"; };
+		CCB36D69B0FA759B34E7A3A9 /* sciter-x-types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-types.h"; path = "../../include/sciter-x-types.h"; sourceTree = "<group>"; };
+		CDF5E739B23CEF6B362A1D79 /* sciter-x-value.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-value.h"; path = "../../include/sciter-x-value.h"; sourceTree = "<group>"; };
+		D4AFF9AD981BBB5FD6BF5FED /* sciter-om.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-om.h"; path = "../../include/sciter-om.h"; sourceTree = "<group>"; };
+		EA5C1300C9792D32A5828940 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		F274F71B2206C60DFD14055B /* sciter-webview.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; name = "sciter-webview.dylib"; path = "sciter-webview.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4B532078A2BF139F8C84847 /* aux-platform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "aux-platform.h"; path = "../../include/aux-platform.h"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1EC9970B09B5BCFD519B854B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1817955824A247CA9F871398 /* CoreFoundation.framework in Frameworks */,
+				F8E8DBA28B76A594F44F49E2 /* Cocoa.framework in Frameworks */,
+				713678D803C442CA6C9CE718 /* IOKit.framework in Frameworks */,
+				CC7CF92439A507963B37F764 /* WebKit.framework in Frameworks */,
+				B762408A248A4EFC261D3ECA /* AppKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5E8C725002DF100215175890 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				6F633B3D32CEFCEF7172A17D /* aux-asset.h */,
+				615FA3B7899A5C697135E9F7 /* aux-cvt.h */,
+				F4B532078A2BF139F8C84847 /* aux-platform.h */,
+				B739005D7AA4C20FB948669D /* aux-slice.h */,
+				0D35DEE5DB59329762678525 /* sciter-om-def.h */,
+				D4AFF9AD981BBB5FD6BF5FED /* sciter-om.h */,
+				3A34D933CFAB98653E47EF73 /* sciter-x-api.h */,
+				9B15673F33624CF161A94D7F /* sciter-x-behavior.h */,
+				0C92150DF0D91D3F74C64B4D /* sciter-x-debug.h */,
+				A6D76F9D3C4E2ECFAAEA85DD /* sciter-x-def.h */,
+				A6AA6EFF3C212E31AABD853F /* sciter-x-dom.h */,
+				379670FF1BDD79319FCAA73F /* sciter-x-dom.hpp */,
+				4A3645A1E2832B5310CA2BE1 /* sciter-x-graphics.h */,
+				765D34619129A31394FA3AA1 /* sciter-x-graphics.hpp */,
+				4528DB6F550E07A1418191AF /* sciter-x-host-callback.h */,
+				737A95875297AFB92EA10BC7 /* sciter-x-key-codes.h */,
+				6AC5C3FB7CEFA0ADB0E08A3B /* sciter-x-lite.hpp */,
+				4BA5D1CDE11C90FF4FB8E80D /* sciter-x-msg.h */,
+				1E4012B7390C81693CDD18F7 /* sciter-x-primitives.h */,
+				1D9E3BD161B20D0355839211 /* sciter-x-request.h */,
+				6290A09141ADBAC31DB716D1 /* sciter-x-request.hpp */,
+				73296C15B73D3D47AB0EC255 /* sciter-x-threads.h */,
+				CCB36D69B0FA759B34E7A3A9 /* sciter-x-types.h */,
+				CDF5E739B23CEF6B362A1D79 /* sciter-x-value.h */,
+				150613BBF4232DEDD02C89FB /* sciter-x-video-api.h */,
+				0BFD2CCFA44A1281D291130F /* sciter-x-window.hpp */,
+				5390CBE5755C7917B211A225 /* sciter-x.h */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		638525A289AB5554F0B24BE2 /* webview */ = {
+			isa = PBXGroup;
+			children = (
+				66DA028C667CE5BEA0D198CC /* sciter_wkwebview.h */,
+				B93FA1302D2818E24F75C770 /* sciter_wkwebview.mm */,
+			);
+			name = webview;
+			sourceTree = "<group>";
+		};
+		811A32DA256CD08C37A5191A /* webview */ = {
+			isa = PBXGroup;
+			children = (
+				135DF182F27B0BB4CE8467C2 /* behavior_webview.cpp */,
+				638525A289AB5554F0B24BE2 /* webview */,
+			);
+			name = webview;
+			sourceTree = "<group>";
+		};
+		872B3350D73EC80259BCF990 /* sciter-webview */ = {
+			isa = PBXGroup;
+			children = (
+				5E8C725002DF100215175890 /* include */,
+				811A32DA256CD08C37A5191A /* webview */,
+				BBF76781A7E87333FA200DC1 /* Frameworks */,
+				A6C936B49B3FADE6EA134CF4 /* Products */,
+			);
+			name = "sciter-webview";
+			sourceTree = "<group>";
+		};
+		A6C936B49B3FADE6EA134CF4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F274F71B2206C60DFD14055B /* sciter-webview.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BBF76781A7E87333FA200DC1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EA5C1300C9792D32A5828940 /* CoreFoundation.framework */,
+				8D6BC6AA50D7885C8F7B2CEA /* Cocoa.framework */,
+				0BACC980CF188B320DBC2FC0 /* IOKit.framework */,
+				5EE1680CAC445E3E22635E4C /* WebKit.framework */,
+				893A8412D69D7A444CBC7A52 /* AppKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A49CD7A1CCD79053B4731DE1 /* sciter-webview */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0D04DF6AF7F1055C3FD6CDAA /* Build configuration list for PBXNativeTarget "sciter-webview" */;
+			buildPhases = (
+				8EB117AB799D3D9DC18305EB /* Resources */,
+				F85E3102E34A56F42B301F42 /* Sources */,
+				1EC9970B09B5BCFD519B854B /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "sciter-webview";
+			productName = "sciter-webview";
+			productReference = F274F71B2206C60DFD14055B /* sciter-webview.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB928908733DD80010E9CD /* Build configuration list for PBXProject "sciter-webview" */;
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 1;
+			mainGroup = 872B3350D73EC80259BCF990 /* sciter-webview */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A49CD7A1CCD79053B4731DE1 /* sciter-webview.dylib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8EB117AB799D3D9DC18305EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F85E3102E34A56F42B301F42 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3067A87A3CF25AECB7D726BA /* behavior_webview.cpp in Sources */,
+				C0387E88D1EFBE7A475DACC8 /* sciter_wkwebview.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		86962BD97FFC2D4B73978A19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++1z";
+				CLANG_ENABLE_OBJC_ARC = (
+					YES,
+				);
+				CONFIGURATION_BUILD_DIR = "$(SYMROOT)";
+				CONFIGURATION_TEMP_DIR = "$(OBJROOT)";
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEVICE=DESKTOP",
+					NDEBUG,
+					SCITERWEBVIEW_EXPORTS,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OBJROOT = "obj/x64/Release/sciter-webview";
+				ONLY_ACTIVE_ARCH = NO;
+				SYMROOT = ../../bin/macosx;
+				USER_HEADER_SEARCH_PATHS = (
+					../../include,
+				);
+			};
+			name = Release;
+		};
+		A1696330128C0422C852B170 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = (
+					YES,
+				);
+				CONFIGURATION_BUILD_DIR = ../../bin/macosx;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_DYNAMIC_NO_PIC = NO;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = "sciter-webview";
+			};
+			name = Debug;
+		};
+		DCDF5DDFDD925AD151742C1F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++1z";
+				CLANG_ENABLE_OBJC_ARC = (
+					YES,
+				);
+				CONFIGURATION_BUILD_DIR = "$(SYMROOT)";
+				CONFIGURATION_TEMP_DIR = "$(OBJROOT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEVICE=DESKTOP",
+					DEBUG,
+					_DEBUG,
+					SCITERWEBVIEW_EXPORTS,
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				OBJROOT = "obj/x64/Debug/sciter-webview";
+				ONLY_ACTIVE_ARCH = YES;
+				SYMROOT = ../../bin/macosx;
+				USER_HEADER_SEARCH_PATHS = (
+					../../include,
+				);
+			};
+			name = Debug;
+		};
+		E8120A2A2C60AF9C6E87E86A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = (
+					YES,
+				);
+				CONFIGURATION_BUILD_DIR = ../../bin/macosx;
+				GCC_DYNAMIC_NO_PIC = NO;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = "sciter-webview";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0D04DF6AF7F1055C3FD6CDAA /* Build configuration list for PBXNativeTarget "sciter-webview.dylib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1696330128C0422C852B170 /* Debug */,
+				E8120A2A2C60AF9C6E87E86A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		1DEB928908733DD80010E9CD /* Build configuration list for PBXProject "sciter-webview" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCDF5DDFDD925AD151742C1F /* Debug */,
+				86962BD97FFC2D4B73978A19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+};
+rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}
