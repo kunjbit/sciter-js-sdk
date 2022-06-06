@@ -11,6 +11,8 @@
 		</Project>
 		<Project filename="sciter-component.cbp">
 		</Project>
+		<Project filename="sciter-webview.cbp">
+		</Project>
 		<Project filename="glfw-opengl.cbp">
 		</Project>
 	</Workspace>

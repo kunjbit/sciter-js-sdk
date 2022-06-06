@@ -44,11 +44,11 @@ public:
   frame() : window(SW_TITLEBAR | SW_RESIZEABLE | SW_CONTROLS | SW_MAIN | SW_ENABLE_DEBUG) {}
 
   int counter = 0;
-  
+
   // sciter::asset interface declarations.
 
   // These native functions are introduced to JS through assetInterface.
-  // Call them in JS as 
+  // Call them in JS as
   //
   //   Window.this.assetInterface.integerSum(12,24)
   //
@@ -56,15 +56,15 @@ public:
   std::string      stringSum(const std::string& a, const std::string& b) { return a + "+" + b; }
   //std::string      stringSum(std::string a, std::string b) { return a + "+" + b; }
   int              integerSum(int a, int b) { return a + b; }
-  std::vector<int> vectorIntegerMul(std::vector<int> vec, int multiplier) { 
+  std::vector<int> vectorIntegerMul(std::vector<int> vec, int multiplier) {
     // getting vector as parameter
-    for (auto& el : vec) 
+    for (auto& el : vec)
       el *= multiplier;
     return vec; // and returning vector
   }
 
-  std::vector<byte> bytesSum(std::vector<byte> vec1, std::vector<byte> vec2) {
-    std::vector<byte> out = vec1;
+  std::vector<sciter::byte> bytesSum(std::vector<sciter::byte> vec1, std::vector<sciter::byte> vec2) {
+    std::vector<sciter::byte> out = vec1;
     std::copy(std::begin(vec2), std::end(vec2), std::back_inserter(out));
     return out;
   }
@@ -162,9 +162,9 @@ public:
   //
   //  Window.this.xcall("debug",12,24);
   //
-  // "mapped" implementation of   
+  // "mapped" implementation of
   //   virtual bool sciter::event_handler::on_script_call(HELEMENT he, LPCSTR name, UINT argc, const sciter::value* argv, sciter::value& retval)
-   
+
   BEGIN_FUNCTION_MAP
     FUNCTION_V("debug", debug);
     FUNCTION_1("xcallTest", xcallTest);
@@ -198,8 +198,8 @@ public:
           sciter::value rv = this->call_function("scriptFunc", ++counter);
           assert(rv.get<int>() == counter);
           return true;
-        } 
-        else if (target.test("button#test-script-func-2")) 
+        }
+        else if (target.test("button#test-script-func-2"))
         {
           // call function by its "path", passing script object { data: counter, title: "text" } :
           sciter::value obj;
@@ -238,7 +238,7 @@ int uimain(std::function<int()> run ) {
 
   sciter::debug_output_console console; // console.log() ->  console window
 
-  // resources archive 
+  // resources archive
   sciter::archive::instance().open(aux::elements_of(resources)); // bind resources[] (defined in "resources.cpp") with the archive
 
   // set initial script, note it will be run anew on each document instance,
@@ -278,7 +278,7 @@ int uimain(std::function<int()> run ) {
     sciter::value r2 = fn.call(40);
     assert(r2 == sciter::value(42));
   }
-  
+
   { // calling method of the DOM element:
     sciter::dom::element document = pwin->root();
     sciter::dom::element body = document.find_first("body");

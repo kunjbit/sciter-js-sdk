@@ -1,8 +1,8 @@
 <html>
 <head>
-  <title>Client</title>
-  <style></style>
-  <script type="module">
+        <title>Client</title>
+        <style></style>
+        <script type="module">
 
     import * as sys from "@sys";
 
@@ -14,24 +14,24 @@
     const bjson = new BJSON()
 
     async function connect() {
-      await p.connect('fooPipe');
-      console.log(`Connected to ${p.getpeername()}`);
-      btnSend.state.disabled = false;
+  await p.connect('fooPipe');
+  console.log(`Connected to ${p.getpeername()}`);   
+  btnSend.state.disabled = false;
     }
     document.on("click", "button#send", async function () {
-      try {
-        var text = elText.value;
+  try {
+    var text = elText.value;
         p.write(bjson.pack({ text: text }));
-        var respdata = await p.read();
+    var respdata = await p.read();
         bjson.unpack(respdata, json => {
-          list.append(<text>Server sent:{JSON.stringify(json)}</text>);
+    list.append(<text>Server sent:{JSON.stringify(json)}</text>);
         });      
       } catch (e) {
-        console.error(e);
-      }
+    console.error(e);
+  }
     })
     connect();
-  </script>
+        </script>
 </head>
 <body>
   <input|text #text novalue="message" />

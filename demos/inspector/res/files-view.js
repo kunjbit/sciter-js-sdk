@@ -11,7 +11,7 @@ class FileView extends View {
 
   getFileDefinition(url) {
     let resdef = this.channel.theirFiles[url];
-    if (!resdef) {
+    if (!resdef || !resdef.rsData) {
       const response = fetch(url, {sync: true});
       if (response) {
         const mt = response.mimeType;

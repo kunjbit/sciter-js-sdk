@@ -17,6 +17,9 @@
 		location = "group:sciter-sqlite.xcodeproj">
 	</FileRef>
 	<FileRef
+		location = "group:sciter-webview.xcodeproj">
+	</FileRef>
+	<FileRef
 		location = "group:usciter.xcodeproj">
 	</FileRef>
 </Workspace>

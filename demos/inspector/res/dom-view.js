@@ -280,6 +280,27 @@ class ElementMetrics extends View {
   }
 }
 
+class ElementStates extends View {
+  estates = null;
+
+  constructor(props) {
+    super(props, "DOMView");
+  }
+
+  render() {
+    this.estates = this.viewstate.elementDetails?.states;
+
+    if (!this.estates) return <section />;
+
+    const states = this.estates.map( state => <span.state>{state}</span> );
+
+    return <section styleset="facade.css#element-states">
+      <span>states:</span>{ states }
+    </section>;
+  }
+}
+
+
 export class ElementDetailsView extends View {
   constructor(props) {
     super(props, "DOMView");
@@ -370,6 +391,7 @@ export class ElementDetailsView extends View {
       <dl #element-details styleset="facade.css#element-details">
         {list}
       </dl>
+      <ElementStates #element-states channel={this.channel} />  
       <ElementMetrics #element-metrics channel={this.channel} />  
     </section>
   }
