@@ -6,7 +6,12 @@
     
     html { background:#ffffee; }
     form { margin-bottom:1em; }
-    section { text-align: center; vertical-align:middle; }
+    section { 
+      //border:3px solid red;
+      text-align: center; vertical-align:middle; 
+    }
+
+
     
   </style>
   <script>
@@ -33,13 +38,13 @@
     </select>
   </form>
 
-  <tabs #test>
+  <tabs>
     <strip>
       <label for=first selected>First</label>
       <label for=second >Second</label>
       <label for=third>Third</label>
     </strip>
-    <panels>
+    <panels #test>
       <section(first)>
         First tab content
         <input|text #n1 >

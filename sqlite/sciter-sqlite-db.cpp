@@ -45,7 +45,7 @@ namespace sqlite {
     else if (arg.is_string())
     {
       sciter::string s = arg.get<sciter::string>();
-      sqlite3_bind_text16(pst, n, s.c_str(), s.length() * sizeof(sciter::string::value_type), SQLITE_TRANSIENT);
+      sqlite3_bind_text16(pst, n, s.c_str(), int(s.length() * sizeof(sciter::string::value_type)), SQLITE_TRANSIENT);
     }
     else if (arg.is_null())
       sqlite3_bind_null(pst, n);
@@ -54,7 +54,7 @@ namespace sqlite {
     else if (arg.is_bytes())
     {
       auto bytes = arg.get_bytes();
-      sqlite3_bind_blob(pst, n, bytes.start, bytes.length, SQLITE_STATIC);
+      sqlite3_bind_blob(pst, n, bytes.start, int(bytes.length), SQLITE_STATIC);
     }
     else
       return false;
@@ -88,7 +88,7 @@ namespace sqlite {
     auto statement = aux::chars_of(sql);
     WCHAR *end = 0;
 
-    int r = sqlite3_prepare16(pDb, statement.start, statement.length * sizeof(statement[0]), &pst, (const void**)&end);
+    int r = sqlite3_prepare16(pDb, statement.start, int(statement.length * sizeof(statement[0])), &pst, (const void**)&end);
     if (r != SQLITE_OK)
       throw sciter::om::exception(sqlite3_errmsg(pDb));
 

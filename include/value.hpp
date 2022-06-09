@@ -91,7 +91,7 @@
       value(const VALUE& src) { ValueInit(this); ValueCopy(this,&src); }
 
 #ifdef CPP11
-      value(value&& src) { ValueInit(this); std::swap( *(VALUE*)this, *(VALUE*)&src); }
+      value(value&& src) noexcept { ValueInit(this); std::swap( *(VALUE*)this, *(VALUE*)&src); }
 #endif
 
       value(const value_key_a& src);

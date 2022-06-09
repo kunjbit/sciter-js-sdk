@@ -588,7 +588,7 @@ namespace aux
   // helper convertor objects WCHAR to ANSI string and vice versa
   class w2a
   {
-    char   local[16];
+    char   local[16] = {0};
     char*  buffer;
     size_t n;
 
@@ -621,7 +621,7 @@ namespace aux
 
   class a2w
   {
-    WCHAR  local[16];
+    WCHAR  local[16] = {0};
     WCHAR* buffer;
     size_t   nu;
     void init(const char* str, size_t n)

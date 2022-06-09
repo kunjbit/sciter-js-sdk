@@ -51,8 +51,8 @@ namespace sciter
       std::vector<const WCHAR*> args;
       for (auto& arg : argv()) args.push_back(arg.c_str());
       SciterExec(SCITER_APP_INIT, (UINT_PTR)args.size(), (UINT_PTR)&args[0]); }
-    inline int  run() { return SciterExec(SCITER_APP_LOOP, 0, 0); }
-    inline bool request_quit(int rv) { return SciterExec(SCITER_APP_STOP, 0, 0); }
+    inline int  run() { return (int)SciterExec(SCITER_APP_LOOP, 0, 0); }
+    inline bool request_quit(int rv) { return SciterExec(SCITER_APP_STOP, 0, 0) == 0; }
     inline void shutdown() { SciterExec(SCITER_APP_SHUTDOWN, 0, 0); }
   }
 

@@ -123,7 +123,7 @@ typedef SBOOL SC_CALLBACK SciterBehaviorFactory( LPCSTR, HELEMENT, LPElementEven
       som_asset_t*    asset;
     } data;
 #ifdef __cplusplus
-    SOM_PARAMS() : data() {}
+    SOM_PARAMS() : cmd(0),data() {}
 #endif
   } SOM_PARAMS;
 
@@ -862,7 +862,7 @@ typedef SBOOL SC_CALLBACK SciterBehaviorFactory( LPCSTR, HELEMENT, LPElementEven
 
       virtual som_passport_t* asset_get_passport() const override { return nullptr; }
 
-      virtual bool handle_som(HELEMENT he, SOM_PARAMS& params)
+      virtual bool handle_som(HELEMENT he, SOM_PARAMS& params) override
       {
         if (params.cmd == SOM_GET_PASSPORT)
           params.data.passport = asset_get_passport();

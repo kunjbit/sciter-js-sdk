@@ -256,7 +256,7 @@ namespace sciter
       SCITER_VALUE  eval(aux::wchars script) {
         HWINDOW hwnd = static_cast<BASE*>(this)->get_hwnd();
         SCITER_VALUE rv;
-        if(!SciterEval(hwnd, script.start, script.length, &rv))
+        if(!SciterEval(hwnd, script.start, (UINT)script.length, &rv))
           throw sciter::script_error("eval() error");
         if (rv.is_error_string()) {
           aux::w2a reason(rv.get(WSTR("")));
@@ -332,7 +332,7 @@ namespace sciter
     if(wcsncmp(uri,L"//",2) == 0)
       uri += 2;
 
-    WCHAR achURL[MAX_PATH]; 
+    WCHAR achURL[MAX_PATH + 1] = { 0 };
 #if defined(_MSC_VER)    
     wcsncpy_s(achURL, uri, MAX_PATH);
 #else

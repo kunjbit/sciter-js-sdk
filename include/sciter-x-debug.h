@@ -90,7 +90,7 @@ inline  VOID    SCAPI SciterSetupDebugOutput ( HWINDOW hwndOrNull, LPVOID param,
         int len = vsnprintf( buffer, sizeof(buffer), fmt, args );
 #endif
         va_end ( args );
-        buffer [ len ] = 0;
+        buffer [ min(len,2048)] = 0;
         buffer [ 2048 ] = 0;
         print(buffer);
       }

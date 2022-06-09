@@ -49,6 +49,7 @@ tabs:tab-focus > strip > label:current > * /* outline active tab content if we'v
 tabs > panels {
   display: block;
   size:*; /* takes all available space */
+  flow:vertical;
 }
 
 /* tab containers, MUST have 'name' attribute defined */

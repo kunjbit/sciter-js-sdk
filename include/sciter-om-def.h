@@ -34,7 +34,7 @@ typedef struct som_property_def_t {
   som_prop_getter_t getter;
   som_prop_setter_t setter;
 #ifdef __cplusplus
-  som_property_def_t(const char* n, som_prop_getter_t pg, som_prop_setter_t ps = nullptr) : name(SciterAtomValue(n)), getter(pg), setter(ps) {}
+  som_property_def_t(const char* n, som_prop_getter_t pg, som_prop_setter_t ps = nullptr) : name(SciterAtomValue(n)), getter(pg), setter(ps), reserved(0){}
 #endif
 } som_property_def_t;
 
@@ -44,7 +44,7 @@ typedef struct som_method_def_t {
   size_t       params;
   som_method_t func;
 #ifdef __cplusplus
-  som_method_def_t(const char* n, size_t p, som_method_t f) : name(SciterAtomValue(n)), params(p), func(f) {}
+  som_method_def_t(const char* n, size_t p, som_method_t f) : name(SciterAtomValue(n)), params(p), func(f), reserved(0) {}
 #endif
 } som_method_def_t;
 

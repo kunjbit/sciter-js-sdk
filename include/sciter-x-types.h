@@ -46,8 +46,9 @@ enum GFX_LAYER
   #define SCITER_DLL_NAME "sciter.dll"
 
 #elif defined(OSX)
-
-  #define HWINDOW LPVOID   // NSView*
+  #ifndef HWINDOW
+    #define HWINDOW LPVOID   // NSView*
+  #endif
   #define HINSTANCE LPVOID // NSApplication*
   #define HDC void*        // CGContextRef
 
