@@ -32,12 +32,16 @@ export class Dock extends Element {
     const [w,h] = this.state.box("dimension");
     const x = (w - WINDOW_WIDTH) / 2;
     const y = (h - WINDOW_HEIGHT) / 2;
+    //console.log("widgetClass",widgetClass);
     let dockable = <DockPanel.window.detached widgetType={widgetClass}/>;
     let list = this.$("popup.windowed");
     list.append(dockable);
     dockable = list.lastElementChild;
+    //console.log("dockable.lastElementChild",dockable.lastElementChild);
+
     dockable.style.set({width:Length.px(WINDOW_WIDTH),height:Length.px(WINDOW_HEIGHT)});
     dockable.takeOff({x,y, window:"detached", relativeTo:"window"});
+
     // notify observers:
     widgetClass.shown = true;
     Window.post(new Event("widget-new"));
@@ -60,11 +64,11 @@ export class Dock extends Element {
 
       let parent = dockable.parentElement;
 
-      //console.log("DD", dockable, dockable instanceof DockPanel);
-
       let list = this.$("popup.windowed");
       list.append(dockable);
       dockable.classList.add("window","dragging");
+
+      //console.log("DD", dockable, dockable instanceof DockPanel);
 
       dockable.on("mousemove",onmousemove);
       dockable.state.capture("strict");
@@ -389,7 +393,8 @@ export class DockPanel extends Element {
   type = null;
 
   this(props,kids) {
-    let {widgetType,caption,...rest} = props; 
+    let {widgetType,caption,class:cls,...rest} = props;
+    // note: removing class attribute deliberately
     this.type = widgetType || DockContent; // should be JS class
     this.caption = caption || this.type.className;
     this.props = rest;
@@ -452,8 +457,8 @@ export class DockTabs extends Element {
   initTab(dockable/*Panel*/) {
     let caption = dockable.$(">caption");
     //console.assert(dockable instanceof DockPanel,"must be DockPanel");
-    //if(!(dockable instanceof DockPanel))
-    //  console.log("dockable", dockable);
+    if(!(dockable instanceof DockPanel))
+      console.log("dockable", dockable);
     console.assert(caption,"caption");
     caption.contentElement = dockable.contentElement;
     console.assert(caption.contentElement,"content");
@@ -500,7 +505,7 @@ export class DockTabs extends Element {
   }
   
 
-  ["on click at caption"](evt,caption) {
+  ["on click at >header>caption"](evt,caption) {
     this.switchTab(caption);
     return true; // consume the event
   }

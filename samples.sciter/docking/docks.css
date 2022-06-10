@@ -25,7 +25,7 @@
   .dockable.window.dragging { /*opacity:0.75;*/ }
 
   .dockable.window.detached { 
-    aspect: Resizable url(../resizable/resizable.js); 
+    aspect: Resizable url(../utils/resizable.js); 
     foreground: no-repeat 100% 100%;
     foreground-size: 16px;
     foreground-image: url(path:M0 5 L5 0
@@ -92,6 +92,7 @@
     flow:horizontal;
     behavior:radio;
     width:max-content;
+    white-space:no-wrap;
     min-width:3em;
     padding:2px 6px;
     text-align:center;

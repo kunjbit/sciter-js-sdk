@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style></style>
+        <script|module>
+
+import {Properties} from "properties.js";
+
+const options = [
+   {label: "First", value: 1},
+   {label: "Second", value: 2},
+   {label: "Third", value: 3},
+]
+
+const props = [
+    { label:"layout", items:[
+        { label:"width", type:"numeric", id:"width", value: 250, units:"px"},
+        { label:"height", type:"numeric", id:"height", units:"px"},
+        { label:"text", type:"text", id:"text", value: "hello" }]
+    },
+    { label:"status", items:[
+        { label:"selected", type:"checkbox", id:"selected", value: true},
+        { label:"text", type:"text", id:"text"},
+        { label:"select", type:"select", id:"select", value:1, options: options},
+      ]
+    },
+];
+
+document.body.append(<Properties defs={props} />);
+
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

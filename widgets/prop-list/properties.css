@@ -1,0 +1,102 @@
+
+
+@set properties {
+  :root {
+    width:*;
+    height:*;
+    padding:0;
+    flow: row(label,input span);
+    flow-columns:max-content fx(1,64px);
+    overflow-y: scroll-indicator;
+  }
+
+  prop-group, prop-row { display:contents; }
+
+  prop-row:current > label {
+    background:var(highlight-nf);
+  }
+
+  label {
+    display:inline-block;
+    text-align:end;
+    padding:3px 6px 3px 24px;
+    line-height:1.3em;
+    color:var(widget-border);
+    //border-bottom: 1px solid color(widget-border);
+    //border-right: 1px solid color(widget-border);
+  }
+
+  label::after { content:" :" }
+
+  span {
+    display:block;
+    padding:3px 6px;
+    line-height:1.3em;
+    //border-bottom: 1px solid color(widget-border);
+  }
+
+  header {
+    overflow-x:hidden;
+    min-width:1em;
+    line-height:1.3em;
+    min-height:1.3em;
+    padding:3px 6px 3px 24px;
+    //border:1px solid color(button-face);    
+    font-weight:bold;
+    foreground: no-repeat top 50% left 6px;
+    foreground-image: url(path:M1344 800v64q0 14-9 23t-23 9h-832q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h832q14 0 23 9t9 23zm128 448v-832q0-66-47-113t-113-47h-832q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113zm128-832v832q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h832q119 0 203.5 84.5t84.5 203.5z);
+    foreground-size:12px;
+    foreground-image-cursor:pointer;
+    fill: color(widget-border);
+  }
+
+  header:collapsed {
+    foreground-image: url(path:M1344 800v64q0 14-9 23t-23 9h-352v352q0 14-9 23t-23 9h-64q-14 0-23-9t-9-23v-352h-352q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h352v-352q0-14 9-23t23-9h64q14 0 23 9t9 23v352h352q14 0 23 9t9 23zm128 448v-832q0-66-47-113t-113-47h-832q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113zm128-832v832q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h832q119 0 203.5 84.5t84.5 203.5z);
+  }
+
+  input[type=text]
+  {
+    display:block;
+    appearance:none;
+    width:*;
+    padding:0;
+    line-height:1.3em;
+    min-height:1.3em;
+    height:1.3em;
+    background: var(widget-back);
+  }
+
+  input[type=number]
+  {
+    display:block;
+    appearance:none;
+    width:*;
+    max-width:10ch;
+    padding:0;
+    line-height:1.3em;
+    min-height:1.3em;
+    height:1.3em;
+  }
+
+
+  input[type=number] > button { background: color(button-face); }
+  input[type=number] > caption { background: color(widget-back); }
+
+  span.select {
+    behavior:clickable;
+    foreground-image:url(stock:chevron-down); /* that arrow */
+    foreground-repeat: no-repeat;
+    foreground-position-top: 50%;
+    foreground-position-right: 3px;
+    overflow-x: hidden;
+  }
+
+  span.select > select {
+    display:block;
+    width:*;
+    height:200px;
+    max-height:max-content;
+  }
+
+
+}

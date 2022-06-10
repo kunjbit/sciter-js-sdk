@@ -1,3 +1,14 @@
+## 4.4.9.2
+
+### Fixes:
+
+* fix of high CPU consumption at idle;
+
+### New:
+
+* widgets/prop-list - property sheet/list;
+* samples.sciter/docking - docking system;
+
 ## 4.4.9.1
 
 ### Fixes:
