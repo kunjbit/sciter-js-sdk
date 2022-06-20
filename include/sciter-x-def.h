@@ -150,6 +150,13 @@ enum SC_LOAD_DATA_RETURN_CODES
  **/
 #define SC_INVALIDATE_RECT 0x09
 
+ /**This notification is sent when the engine needs some area to be redrawn
+
+  * \param lParam #LPSCN_SET_CURSOR
+  *
+  **/
+#define SC_SET_CURSOR 0x0A
+
 
 /**Notification callback structure.
  **/
@@ -278,6 +285,18 @@ typedef struct SCN_INVALIDATE_RECT {
 } SCN_INVALIDATE_RECT;
 
 typedef SCN_INVALIDATE_RECT *LPSCN_INVALIDATE_RECT;
+
+
+/**This structure is used by #SC_SET_CURSOR notification.
+ *\copydoc SC_SET_CURSOR **/
+typedef struct SCN_SET_CURSOR {
+  UINT    code; /**< [in] = SC_SET_CURSOR */
+  HWINDOW hwnd; /**< [in] HWINDOW of the window this callback was attached to.*/
+  UINT    cursorId;   /**< [in] #CURSOR_TYPE, if cursorUrl == NULL */
+  LPCSTR  cursorUrl;  /**< [in] cursor URL */
+} SCN_SET_CURSOR;
+
+typedef SCN_SET_CURSOR* LPSCN_SET_CURSOR;
 
 
 #include "sciter-x-behavior.h"

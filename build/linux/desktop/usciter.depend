@@ -7660,7 +7660,7 @@
 	"../sqlite/sciter-sqlite.h"
 	"resources.cpp"
 
-1648422616 /home/andrew/Desktop/sciter/work/sdk.js/include/sciter-x-window.hpp
+1654901788 /home/andrew/Desktop/sciter/work/sdk.js/include/sciter-x-window.hpp
 	"sciter-x-types.h"
 	"sciter-x.h"
 	"sciter-x-dom.h"
@@ -7671,7 +7671,7 @@
 	"aux-slice.h"
 	<algorithm>
 
-1629595303 /home/andrew/Desktop/sciter/work/sdk.js/include/sciter-x-types.h
+1654790339 /home/andrew/Desktop/sciter/work/sdk.js/include/sciter-x-types.h
 	"sciter-x-primitives.h"
 	<gtk/gtk.h>
 
@@ -7698,7 +7698,7 @@
 	"sciter-x-host-callback.h"
 	"sciter-x-debug.h"
 
-1654472895 /home/andrew/Desktop/sciter/work/sdk.js/include/sciter-x-def.h
+1655680763 /home/andrew/Desktop/sciter/work/sdk.js/include/sciter-x-def.h
 	"sciter-x-types.h"
 	"sciter-x-request.h"
 	"value.h"
@@ -7718,7 +7718,7 @@
 	"sciter-x-primitives.h"
 	"value.hpp"
 
-1654528765 /home/andrew/Desktop/sciter/work/sdk.js/include/value.hpp
+1654796503 /home/andrew/Desktop/sciter/work/sdk.js/include/value.hpp
 	"value.h"
 	<string>
 	<functional>
@@ -7737,7 +7737,7 @@
 	<vector>
 	"sciter-x-primitives.h"
 
-1638145659 /home/andrew/Desktop/sciter/work/sdk.js/include/aux-cvt.h
+1654901788 /home/andrew/Desktop/sciter/work/sdk.js/include/aux-cvt.h
 	<assert.h>
 	<wchar.h>
 	<string.h>
@@ -7762,7 +7762,7 @@
 	<stdio.h>
 	"sciter-x-behavior.h"
 
-1651351225 /home/andrew/Desktop/sciter/work/sdk.js/include/sciter-x-behavior.h
+1654901788 /home/andrew/Desktop/sciter/work/sdk.js/include/sciter-x-behavior.h
 	"sciter-x-types.h"
 	"sciter-x-dom.h"
 	"sciter-x-value.h"
@@ -7780,7 +7780,7 @@
 	<atomic>
 	"sciter-om-def.h"
 
-1633821583 /home/andrew/Desktop/sciter/work/sdk.js/include/sciter-om-def.h
+1654796503 /home/andrew/Desktop/sciter/work/sdk.js/include/sciter-om-def.h
 	"sciter-om.h"
 	<exception>
 
@@ -7800,7 +7800,7 @@
 	<libgen.h>
 	<dlfcn.h>
 
-1629595303 /home/andrew/Desktop/sciter/work/sdk.js/include/sciter-x-msg.h
+1654796503 /home/andrew/Desktop/sciter/work/sdk.js/include/sciter-x-msg.h
 	"sciter-x-types.h"
 	"sciter-x-def.h"
 
@@ -7809,12 +7809,12 @@
 	<algorithm>
 	<vector>
 
-1642957595 /home/andrew/Desktop/sciter/work/sdk.js/include/sciter-x-host-callback.h
+1654901788 /home/andrew/Desktop/sciter/work/sdk.js/include/sciter-x-host-callback.h
 	"sciter-x-api.h"
 	"sciter-x-debug.h"
 	<assert.h>
 
-1629595303 /home/andrew/Desktop/sciter/work/sdk.js/include/sciter-x-debug.h
+1654901788 /home/andrew/Desktop/sciter/work/sdk.js/include/sciter-x-debug.h
 	"sciter-x-api.h"
 
 1638145659 /home/andrew/Desktop/sciter/work/sdk.js/include/aux-asset.h
@@ -7846,7 +7846,7 @@
 	<locale.h>
 	"sciter-x-window.hpp"
 
-1629595303 source:/home/andrew/Desktop/sciter/work/sdk.js/sqlite/sciter-sqlite-db.cpp
+1654901788 source:/home/andrew/Desktop/sciter/work/sdk.js/sqlite/sciter-sqlite-db.cpp
 	"sciter-sqlite.h"
 
 1629595303 source:/home/andrew/Desktop/sciter/work/sdk.js/sqlite/sciter-sqlite-rs.cpp

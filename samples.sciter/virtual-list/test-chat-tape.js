@@ -3,7 +3,7 @@ import * as DS from "test-chat-data-source.js";
 class MineItem extends Element {
     render(prop) {
         const item = prop.item;
-        return <div mine="" >
+        return <div#test mine="" >
             <div.text state-html={item.html} />
             <img src={ item.avatar } /></div>;
     }
@@ -12,7 +12,7 @@ class MineItem extends Element {
 class TheirItem extends Element {
     render(prop) {
         const item = prop.item;
-        return <div>
+        return <div#test>
             <img src={ item.avatar } />
             <div.text state-html={item.html} /></div>;
     }

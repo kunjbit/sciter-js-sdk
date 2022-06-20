@@ -1,3 +1,18 @@
+## 4.4.9.3
+
+### Fixes:
+
+* canvas, fix of "secondary draw op clears the canvas".
+* [reactor] update optimization.
+* [linux/gtk] fix of modal dialog positioning.
+
+### New:
+
+* `element.scrollBy()`
+* [JSX] support of HTML entities: `body.append(<p>&lt;</p>);`
+* [Sciter.Lite] `SC_SET_CURSOR` - callback to set cursor on host side.
+
+
 ## 4.4.9.2
 
 ### Fixes:

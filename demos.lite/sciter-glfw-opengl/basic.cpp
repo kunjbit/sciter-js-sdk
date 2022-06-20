@@ -274,6 +274,49 @@ UINT on_invalidate_rect(LPSCN_INVALIDATE_RECT pnm) {
   return 0;
 }
 
+UINT on_set_cursor(LPSCN_SET_CURSOR pnm) {
+
+  /*typedef enum CURSOR_TYPE
+  {
+    CURSOR_ARROW, //0
+    CURSOR_IBEAM, //1
+    CURSOR_WAIT,  //2
+    CURSOR_CROSS, //3
+    CURSOR_UPARROW,  //4
+    CURSOR_SIZENWSE, //5
+    CURSOR_SIZENESW, //6
+    CURSOR_SIZEWE,   //7
+    CURSOR_SIZENS,   //8
+    CURSOR_SIZEALL,  //9
+    CURSOR_NO,       //10
+    CURSOR_APPSTARTING, //11
+    CURSOR_HELP,        //12
+    CURSOR_HAND,        //13
+    CURSOR_DRAG_MOVE,   //14
+    CURSOR_DRAG_COPY,   //15
+  } CURSOR_TYPE;*/
+
+  static GLFWcursor* arrow_cursor   = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
+  static GLFWcursor* ibeam_cursor   = glfwCreateStandardCursor(GLFW_IBEAM_CURSOR);
+  static GLFWcursor* cross_cursor   = glfwCreateStandardCursor(GLFW_CROSSHAIR_CURSOR);
+  static GLFWcursor* hand_cursor    = glfwCreateStandardCursor(GLFW_HAND_CURSOR);
+  static GLFWcursor* hresize_cursor = glfwCreateStandardCursor(GLFW_HRESIZE_CURSOR);
+  static GLFWcursor* vresize_cursor = glfwCreateStandardCursor(GLFW_VRESIZE_CURSOR);
+
+  switch (pnm->cursorId) {
+    case CURSOR_ARROW:  glfwSetCursor((GLFWwindow*)pnm->hwnd, arrow_cursor); break;
+    case CURSOR_IBEAM:  glfwSetCursor((GLFWwindow*)pnm->hwnd, ibeam_cursor); break;
+    case CURSOR_CROSS:  glfwSetCursor((GLFWwindow*)pnm->hwnd, cross_cursor); break;
+    case CURSOR_HAND:   glfwSetCursor((GLFWwindow*)pnm->hwnd, hand_cursor); break;
+    case CURSOR_SIZEWE: glfwSetCursor((GLFWwindow*)pnm->hwnd, hresize_cursor); break;
+    case CURSOR_SIZENS: glfwSetCursor((GLFWwindow*)pnm->hwnd, vresize_cursor); break;
+    default:
+      glfwSetCursor((GLFWwindow*)pnm->hwnd, arrow_cursor); break;
+  }
+  return 0;
+}
+
+
 // notifiaction cracker
 UINT SC_CALLBACK handle_notification(LPSCITER_CALLBACK_NOTIFICATION pnm, LPVOID callbackParam)
 {
@@ -284,6 +327,7 @@ UINT SC_CALLBACK handle_notification(LPSCITER_CALLBACK_NOTIFICATION pnm, LPVOID 
     case SC_DATA_LOADED: return on_data_loaded((LPSCN_DATA_LOADED)pnm);
     case SC_ATTACH_BEHAVIOR: return attach_behavior((LPSCN_ATTACH_BEHAVIOR)pnm);
     case SC_INVALIDATE_RECT: return on_invalidate_rect((LPSCN_INVALIDATE_RECT)pnm);
+    case SC_SET_CURSOR: return on_set_cursor((LPSCN_SET_CURSOR)pnm);
     case SC_ENGINE_DESTROYED: break;
   }
   return 0;
