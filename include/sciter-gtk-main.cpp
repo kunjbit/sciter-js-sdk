@@ -16,24 +16,10 @@ static std::vector<sciter::string> _argv;
 #ifndef SKIP_MAIN
 int main (int argc, char *argv[])
 {
-  /* Initialize GTK+ */
-  g_log_set_handler ("Gtk", G_LOG_LEVEL_WARNING, (GLogFunc) gtk_false, NULL);
-  gtk_init (&argc, &argv);
-  g_log_set_handler ("Gtk", G_LOG_LEVEL_WARNING, g_log_default_handler, NULL);
-
-  setlocale(LC_TIME,"");
-
-  for( int i = 0; i < argc; ++i ) {
-      aux::a2w w(argv[i]);
-      _argv.push_back(sciter::string(w.c_str(),w.length()));
-  }
-
-  auto message_pump = []() -> int {
-    gtk_main ();
-    return 0;
-  };
-
-  return uimain(message_pump);
+  //SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_GPU);
+  sciter::application::start();
+  int r = uimain([]() -> int { return sciter::application::run(); });
+  sciter::application::shutdown();
 }
 #endif
 

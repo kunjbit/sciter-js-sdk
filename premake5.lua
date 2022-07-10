@@ -172,6 +172,61 @@ project "usciter"
 
   filter {}
 
+
+project "gsciter"
+  kind "WindowedApp"
+  language "C++"
+
+  dpiawareness "HighPerMonitor"
+
+  files { "demos/gsciter/gsciter.cpp" }
+
+  settargetdir()
+
+  filter "system:windows"
+    --removeconfigurations { "*skia" }
+
+    sysincludedirs { 
+        "$(VULKAN_SDK)/include",
+    }  
+
+    files {"include/sciter-*.h",
+           "include/sciter-*.hpp",
+           "include/aux-*.*",
+           "include/sciter-win-main.cpp",
+           "include/behaviors/behavior_video_generator_full.cpp",
+           "include/behaviors/behavior_vulkan.cpp",
+           "demos/gsciter/win-res/gsciter.rc",
+           "demos/gsciter/win-res/dpi-aware.manifest",
+           "demos/gsciter/**.h",
+           "demos/gsciter/**.cpp",
+            }
+    links { "shell32", "advapi32", "ole32", "oleaut32", "gdi32", "comdlg32" }
+    prebuildcommands { 
+      "\"%{prj.location}..\\..\\bin\\".. osabbr() .. "\\packfolder.exe\" \"%{prj.location}..\\..\\demos\\gsciter\\res\" \"%{prj.location}..\\..\\demos\\usciter\\resources.cpp\" -v \"resources\""
+    }
+
+  filter "system:macosx"
+    files {"include/sciter-osx-main.mm"}
+    targetdir ("bin/" .. osabbr())
+  filter "system:linux"
+    files {"include/sciter-gtk-main.cpp"}
+    buildoptions {
+       "`pkg-config gtk+-3.0 --cflags`"
+    }
+    linkoptions { 
+       "`pkg-config gtk+-3.0 --libs`",
+       "`pkg-config fontconfig --libs`",
+       "-fPIC",
+       "-pthread",
+       "-Wl,--no-undefined",
+       "-ldl",
+       "-no-pie"
+    }
+
+  filter {}
+
+
 project "inspector"
   kind "WindowedApp"
   language "C++"

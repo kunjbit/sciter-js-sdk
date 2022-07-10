@@ -27,6 +27,7 @@
 		1E4012B7390C81693CDD18F7 /* sciter-x-primitives.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-primitives.h"; path = "../../include/sciter-x-primitives.h"; sourceTree = "<group>"; };
 		379670FF1BDD79319FCAA73F /* sciter-x-dom.hpp */ = {isa = PBXFileReference; lastKnownFileType = text; name = "sciter-x-dom.hpp"; path = "../../include/sciter-x-dom.hpp"; sourceTree = "<group>"; };
 		3A34D933CFAB98653E47EF73 /* sciter-x-api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-api.h"; path = "../../include/sciter-x-api.h"; sourceTree = "<group>"; };
+		3E016E21502B4AD3841C3461 /* sciter-x-vulkan.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-vulkan.h"; path = "../../include/sciter-x-vulkan.h"; sourceTree = "<group>"; };
 		4528DB6F550E07A1418191AF /* sciter-x-host-callback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-host-callback.h"; path = "../../include/sciter-x-host-callback.h"; sourceTree = "<group>"; };
 		4A3645A1E2832B5310CA2BE1 /* sciter-x-graphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-graphics.h"; path = "../../include/sciter-x-graphics.h"; sourceTree = "<group>"; };
 		4BA5D1CDE11C90FF4FB8E80D /* sciter-x-msg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-msg.h"; path = "../../include/sciter-x-msg.h"; sourceTree = "<group>"; };
@@ -99,6 +100,7 @@
 				CCB36D69B0FA759B34E7A3A9 /* sciter-x-types.h */,
 				CDF5E739B23CEF6B362A1D79 /* sciter-x-value.h */,
 				150613BBF4232DEDD02C89FB /* sciter-x-video-api.h */,
+				3E016E21502B4AD3841C3461 /* sciter-x-vulkan.h */,
 				0BFD2CCFA44A1281D291130F /* sciter-x-window.hpp */,
 				5390CBE5755C7917B211A225 /* sciter-x.h */,
 			);

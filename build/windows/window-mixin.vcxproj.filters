@@ -102,6 +102,9 @@
     <ClInclude Include="..\..\include\sciter-x-video-api.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\sciter-x-vulkan.h">
+      <Filter>include</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\sciter-x-window.hpp">
       <Filter>include</Filter>
     </ClInclude>

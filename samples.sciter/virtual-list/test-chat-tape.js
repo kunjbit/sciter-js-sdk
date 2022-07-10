@@ -26,6 +26,11 @@ function Item(props) {
 }
 
 export class Tape extends Element {
+
+    componentDidMount() {
+        this.vlist.slidingWindowSize = 48;
+    }
+
     // scroll down
     appendElements(index, n) {
         if (index === undefined) index = 0;

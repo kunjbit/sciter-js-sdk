@@ -1,3 +1,28 @@
+## 5.0.0.1
+
+### New:
+
+Skia upgraded to most recent version (milestone 103), this leads to:
+
+* MacOS: support of Metal GPU rendering (default), with fallback to OpenGL;
+* Linux: support of Vulkan GPU rendering (default), with fallback to OpenGL;
+* Windows: (xxxSkia binaries): support of DX12 and Vulkan GPU rendering (default), with fallback to OpenGL;
+* `Graphics.createTile(image):Brush` and `Graphics.createSolid(color):Brush` implementation;
+* Tooltip samples in samples.sciter/tooltips++/
+
+### Fixes:
+
+* `event "contentchange"` optimization. The event is not delivered as normal event. Only as callback element.oncontentchange ;
+* samples/leaflet fix;
+* element.addEventListener() fix;
+* [svg] `<use>` handling fix;
+* `<progress>` fix : https://sciter.com/forums/topic/progress-incorrect-percent-draw/ ;
+* [CSS] fix of percentage dimensions calculation;
+* [linux] fix of https://sciter.com/forums/topic/shift-key-number-key-doesnt-output-the-symbol-for-the-number-key/
+* `element.popupAt()` fix - removed restriction to be on the same monitor. See: https://sciter.com/forums/topic/incorrect-tray-popup-menu-position-if-main-form-is-on-2nd-screen/
+* [reactor] fix of `selectDropdown.componentUpdate()`;
+* [win] `sys.fs.splitpath()` fix.
+
 ## 4.4.9.3
 
 ### Fixes:

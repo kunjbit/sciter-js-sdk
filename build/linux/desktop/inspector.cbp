@@ -15,7 +15,7 @@
 					<Add option="-g" />
 					<Add option="-m64" />
 					<Add option="-g" />
-					<Add option="-std=c++14" />
+					<Add option="-std=c++17" />
 					<Add option="-DDEVICE=DESKTOP" />
 					<Add option="-D_GNU_SOURCE" />
 					<Add option="-DDEBUG" />
@@ -50,7 +50,7 @@
 					<Add option="-m64" />
 					<Add option="-flto" />
 					<Add option="-Os" />
-					<Add option="-std=c++14" />
+					<Add option="-std=c++17" />
 					<Add option="-DDEVICE=DESKTOP" />
 					<Add option="-D_GNU_SOURCE" />
 					<Add option="-DNDEBUG" />
@@ -82,7 +82,7 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-g" />
-					<Add option="-std=c++14" />
+					<Add option="-std=c++17" />
 					<Add option="-DDEVICE=DESKTOP" />
 					<Add option="-D_GNU_SOURCE" />
 					<Add option="-DDEBUG" />
@@ -114,7 +114,7 @@
 					<Add option="-Os" />
 					<Add option="-flto" />
 					<Add option="-Os" />
-					<Add option="-std=c++14" />
+					<Add option="-std=c++17" />
 					<Add option="-DDEVICE=DESKTOP" />
 					<Add option="-D_GNU_SOURCE" />
 					<Add option="-DNDEBUG" />
@@ -145,7 +145,7 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-g" />
-					<Add option="-std=c++14" />
+					<Add option="-std=c++17" />
 					<Add option="-DDEVICE=DESKTOP" />
 					<Add option="-D_GNU_SOURCE" />
 					<Add option="-DDEBUG" />
@@ -177,7 +177,7 @@
 					<Add option="-Os" />
 					<Add option="-flto" />
 					<Add option="-Os" />
-					<Add option="-std=c++14" />
+					<Add option="-std=c++17" />
 					<Add option="-DDEVICE=DESKTOP" />
 					<Add option="-D_GNU_SOURCE" />
 					<Add option="-DNDEBUG" />
@@ -202,8 +202,20 @@
 			</Target>
 		</Build>
 		<Unit filename="../../../demos/inspector/inspector.cpp">
+			<Option target="Release|arm32" />
+			<Option target="Debug|x64" />
+			<Option target="Debug|arm64" />
+			<Option target="Release|x64" />
+			<Option target="Release|arm64" />
+			<Option target="Debug|arm32" />
 		</Unit>
 		<Unit filename="../../../include/sciter-gtk-main.cpp">
+			<Option target="Release|arm32" />
+			<Option target="Debug|x64" />
+			<Option target="Debug|arm64" />
+			<Option target="Release|x64" />
+			<Option target="Release|arm64" />
+			<Option target="Debug|arm32" />
 		</Unit>
 	</Project>
 </CodeBlocks_project_file>

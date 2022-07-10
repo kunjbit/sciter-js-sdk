@@ -201,7 +201,7 @@ SCDOM_RESULT SCAPI SciterGetElementHtmlCB(HELEMENT he, SBOOL outer, LPCBYTE_RECE
 
 /**Set inner text of the element from LPCWSTR buffer (utf16 words).
  * \param[in] he \b #HELEMENT
- * \param[in] utf16words \b pointer, UTF16 encoded plain text
+ * \param[in] utf16 \b pointer, UTF16 encoded plain text
  * \param[in] length \b UINT, number of words in utf16words sequence
  * \return \b #SCDOM_RESULT SCAPI
  */
@@ -218,9 +218,8 @@ SCDOM_RESULT SCAPI SciterGetElementHtmlCB(HELEMENT he, SBOOL outer, LPCBYTE_RECE
 /**Get value of any element's attribute by attribute's number.
  * \param[in] he \b #HELEMENT
  * \param[in] n \b UINT, number of desired attribute
- * \param[out] p_name \b LPCSTR*, will be set to address of the string
- * containing attribute name
- * \param[out] p_value \b LPCWSTR*, will be set to address of the string
+ * \param[in] rcv \b LPCSTR_RECEIVER, string receiver
+ * \param[in] rcv_param \b LPVOID, param to be passed into rcv as it is.
  * containing attribute value
  * \return \b #SCDOM_RESULT SCAPI
  **/

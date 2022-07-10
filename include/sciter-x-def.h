@@ -457,13 +457,7 @@ typedef SCN_SET_CURSOR* LPSCN_SET_CURSOR;
  SBOOL SCAPI SciterTranslateMessage(MSG* lpMsg);
 #endif
 
-/**Set various options.
- *
- * \param[in] hWnd \b HWINDOW, Sciter window handle.
- * \param[in] option \b UINT, id of the option, one of SCITER_RT_OPTIONS
- * \param[in] option \b UINT, value of the option.
- *
- **/
+
 
 typedef enum SCRIPT_RUNTIME_FEATURES
 {
@@ -507,7 +501,13 @@ typedef enum SCITER_RT_OPTIONS
 
 } SCITER_RT_OPTIONS;
 
-
+/**Set various options.
+ *
+ * \param[in] hWnd \b HWINDOW, Sciter window handle.
+ * \param[in] option \b UINT, id of the option, one of SCITER_RT_OPTIONS
+ * \param[in] option \b UINT, value of the option.
+ *
+ **/
  SBOOL SCAPI SciterSetOption(HWINDOW hWnd, UINT option, UINT_PTR value );
 
  /** Application related operations */
@@ -538,6 +538,9 @@ typedef enum SCITER_RT_OPTIONS
    SCITER_WINDOW_ACTIVATE  = 3, // p1 - BOOL, true - bring_to_front , p2 - N/A
    SCITER_WINDOW_SET_PLACEMENT = 4, // p1 - const POINT*, position, p2 const SIZE* - dimension, in ppx, either one can be null
    SCITER_WINDOW_GET_PLACEMENT = 5, // p1 - POINT*, position, p2 SIZE* - dimension, in ppx, either one can be null
+
+   SCITER_WINDOW_GET_VULKAN_ENVIRONMENT = 20, // p1 - &SciterVulkanEnvironment, p2 - sizeof(SciterVulkanEnvironment)
+   SCITER_WINDOW_GET_VULKAN_CONTEXT = 21, // p1 - &SciterVulkanContext, p2 - sizeof(SciterVulkanContext)
  } SCITER_WINDOW_CMD;
 
  typedef enum SCITER_WINDOW_STATE {

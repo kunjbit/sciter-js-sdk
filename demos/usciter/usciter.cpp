@@ -1,6 +1,7 @@
 
 #include "sciter-x-window.hpp"
 #include "sciter-x-graphics.hpp"
+#include "sciter-x-types.h"
 
 #include "../sqlite/sciter-sqlite.h"
 
@@ -63,7 +64,7 @@ public:
     return sciter::value();
   }
 #endif
-  
+
 
 
 };
@@ -71,6 +72,14 @@ public:
 #include "resources.cpp"
 
 int uimain(std::function<int()> run ) {
+
+//#if defined(LINUX)
+//    SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_VULKAN);
+//#endif
+
+//#if defined(LINUX)
+//  SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_VULKAN);
+//#endif
 
   // enable features to be used from script
   SciterSetOption(NULL, SCITER_SET_SCRIPT_RUNTIME_FEATURES,
@@ -136,8 +145,8 @@ int uimain(std::function<int()> run ) {
     pwin->load(WSTR("this://app/default-else.htm"));
 #endif // WINDOWS
 
-  if(file_to_open.length())
-    pwin->expand(); // script will do that
+    if(file_to_open.length())
+      pwin->expand(); // script will do that
 
   //sciter::value r = pwin->call_function("test", sciter::value(42));
   //sciter::value r = pwin->eval(const_wchars("test(32)"));

@@ -23,6 +23,7 @@
 #include "sciter-x.h"
 #include "sciter-x-dom.h"
 #include "sciter-x-api.h"
+#include "sciter-x-value.h"
 //#include "sciter-x-threads.h"
 #include "sciter-x-dom.hpp"
 #include "sciter-x-host-callback.h"
@@ -47,7 +48,7 @@ namespace sciter
     const std::vector<sciter::string>& argv();
     HINSTANCE hinstance();
 
-    inline void start() {  
+    inline void start() {
       std::vector<const WCHAR*> args;
       for (auto& arg : argv()) args.push_back(arg.c_str());
       SciterExec(SCITER_APP_INIT, (UINT_PTR)args.size(), (UINT_PTR)&args[0]); }
@@ -79,21 +80,27 @@ namespace sciter
     void request_close() // requests window to be closed, note: script can reject the closure
                          { ::SciterWindowExec(_hwnd,SCITER_WINDOW_SET_STATE, SCITER_WINDOW_STATE_CLOSED,FALSE); }
     void close() { ::SciterWindowExec(_hwnd,SCITER_WINDOW_SET_STATE, SCITER_WINDOW_STATE_CLOSED,TRUE); }
-    void activate(bool bring_to_front = false) { bind(); ::SciterWindowExec(_hwnd, SCITER_WINDOW_ACTIVATE, bring_to_front, 0); }
+    void activate(bool bring_to_front = false) {
+      bind();
+      ::SciterWindowExec(_hwnd, SCITER_WINDOW_ACTIVATE, bring_to_front, 0);
+    }
 
     /*OBSOLETE*/ void dismiss() { request_close(); }
 
     bool load(aux::bytes utf8_html, const WCHAR* base_url = 0)
     {
-      bind(); return FALSE != ::SciterLoadHtml(_hwnd, utf8_html.start, UINT(utf8_html.length), base_url);
+      bind();
+      return FALSE != ::SciterLoadHtml(_hwnd, utf8_html.start, UINT(utf8_html.length), base_url);
     }
     bool load(aux::chars utf8_html, const WCHAR* base_url = 0)
     {
-      bind(); return FALSE != ::SciterLoadHtml(_hwnd, (LPCBYTE)utf8_html.start, UINT(utf8_html.length), base_url);
+      bind();
+      return FALSE != ::SciterLoadHtml(_hwnd, (LPCBYTE)utf8_html.start, UINT(utf8_html.length), base_url);
     }
     bool load(const WCHAR* url)
     {
-      bind(); return FALSE != ::SciterLoadFile(_hwnd, url);
+      bind();
+      return FALSE != ::SciterLoadFile(_hwnd, url);
     }
 
   // sciter::host traits:
@@ -111,17 +118,17 @@ namespace sciter
       }
     }
   protected:
-    virtual LRESULT on_engine_destroyed() 
-    { 
+    virtual LRESULT on_engine_destroyed()
+    {
       _hwnd = 0; asset_release();
-      return 0; 
+      return 0;
     }
 
 #if defined(WINDOWS)
     virtual LRESULT on_message( HWINDOW hwnd, UINT msg, WPARAM wParam, LPARAM lParam, SBOOL& handled ) {
       //switch(msg) {
-      //  case WM_SIZE: on_size(); break; 
-      //  case WM_MOVE: on_move(); break; 
+      //  case WM_SIZE: on_size(); break;
+      //  case WM_MOVE: on_move(); break;
       //}
       return 0;
     }

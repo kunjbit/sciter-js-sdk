@@ -26,7 +26,7 @@ int main(int argc, const char * argv[])
   [application setActivationPolicy:NSApplicationActivationPolicyRegular];
   
   //SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_CG);
-  SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_OPENGL);
+  //SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_OPENGL);
     
   for( int i = 0; i < argc; ++i ) {
       aux::a2w w(argv[i]);

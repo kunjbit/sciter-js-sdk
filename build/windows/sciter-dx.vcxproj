@@ -246,6 +246,7 @@
     <ClInclude Include="..\..\include\sciter-x-types.h" />
     <ClInclude Include="..\..\include\sciter-x-value.h" />
     <ClInclude Include="..\..\include\sciter-x-video-api.h" />
+    <ClInclude Include="..\..\include\sciter-x-vulkan.h" />
     <ClInclude Include="..\..\include\sciter-x-window.hpp" />
     <ClInclude Include="..\..\include\sciter-x.h" />
   </ItemGroup>

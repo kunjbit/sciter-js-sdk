@@ -286,7 +286,6 @@ int uimain(std::function<int()> run ) {
     assert( r3 == sciter::value(42));
   }
 
-
   return run();
 
 }

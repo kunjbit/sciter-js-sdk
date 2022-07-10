@@ -503,9 +503,7 @@ namespace dom
     }
 
   /**Get bounding rectangle of the element.
-    * \param root_relative \b bool, if true function returns location of the
-    * element relative to Sciter window, otherwise the location is given
-    * relative to first scrollable container.
+    * \param are \b uint, combination of #ELEMENT_AREAS flags
     * \return \b RECT, bounding rectangle of the element.
     **/
     RECT get_location(unsigned int area = ROOT_RELATIVE | CONTENT_BOX) const
