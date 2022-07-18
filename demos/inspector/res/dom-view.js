@@ -335,11 +335,17 @@ export class ElementDetailsView extends View {
         return Object.entries(map).sort((a, b) => a[0].localeCompare(b[0]));
       }
 
+      function fval(val) {
+        if(Array.isArray(val))
+          return val.join(" ");
+        return val;
+      }
+
       switch (ctab) {
         case "used":
           for (const [prop, val] of namvals(this.viewstate.elementDetails.usedStyleProperties)) {
             list.push(<dt>{prop}</dt>);
-            list.push(<dd>{val}</dd>);
+            list.push(<dd>{fval(val)}</dd>);
           }
           break;
         case "inherited": {
@@ -347,7 +353,7 @@ export class ElementDetailsView extends View {
           if (def && !def.type) {
             for (const [prop, val] of namvals(def)) {
               list.push(<dt>{prop}</dt>);
-              list.push(<dd>{val}</dd>);
+              list.push(<dd>{fval(val)}</dd>);
             }
           }
         }
@@ -369,7 +375,7 @@ export class ElementDetailsView extends View {
             }
             for (const [prop, val] of namvals(properties)) {
               list.push(<dt>{prop}</dt>);
-              list.push(<dd>{val}</dd>);
+              list.push(<dd>{fval(val)}</dd>);
             }
           }
           break;

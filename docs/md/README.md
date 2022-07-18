@@ -70,6 +70,10 @@
 
 [BJSON](BJSON.md) provides packaging and unpackaging of JSON in binary form.
 
+# class Zip
+
+[Zip](Zip.md) allows to read and write (TBD) zip files.
+
 ## global properties
 
 * ### `globalThis` - object, global namespace, aliased as `window` for compatibility with browsers.

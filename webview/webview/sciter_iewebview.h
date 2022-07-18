@@ -257,7 +257,7 @@ namespace webview
 
         void eval(const std::string &js)
         {
-            std::wstring strJS(aux::utf2w(js.c_str()));
+            std::wstring strJS(aux::utf2w(js.c_str()).c_str());
             CComPtr<IDispatch> pDispatch, pSrcDispatch;
             m_webbrowser2->get_Document(&pDispatch);
             if (nullptr == pDispatch)

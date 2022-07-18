@@ -6701,7 +6701,7 @@
 	"sciter-x-host-callback.h"
 	"sciter-x-debug.h"
 
-1656697546 /home/andrew/sciter/work/sdk.js/include/sciter-x-def.h
+1657947074 /home/andrew/sciter/work/sdk.js/include/sciter-x-def.h
 	"sciter-x-types.h"
 	"sciter-x-request.h"
 	"value.h"
@@ -6714,7 +6714,7 @@
 	"sciter-x-dom.h"
 	"sciter-x-behavior.h"
 
-1644204227 /home/andrew/sciter/work/sdk.js/include/sciter-x-request.h
+1657947074 /home/andrew/sciter/work/sdk.js/include/sciter-x-request.h
 	"sciter-x-types.h"
 
 1651423808 /home/andrew/sciter/work/sdk.js/include/value.h
@@ -6740,7 +6740,7 @@
 	<vector>
 	"sciter-x-primitives.h"
 
-1656697546 /home/andrew/sciter/work/sdk.js/include/aux-cvt.h
+1657980772 /home/andrew/sciter/work/sdk.js/include/aux-cvt.h
 	<assert.h>
 	<wchar.h>
 	<string.h>
@@ -6837,12 +6837,13 @@
 	"../include/sciter-x-api.h"
 	"../include/aux-cvt.h"
 
-1651423809 /home/andrew/sciter/work/sdk.js/demos/usciter/resources.cpp
+1657947074 /home/andrew/sciter/work/sdk.js/demos/usciter/resources.cpp
 
-1656697546 source:/home/andrew/sciter/work/sdk.js/include/sciter-gtk-main.cpp
+1657980699 source:/home/andrew/sciter/work/sdk.js/include/sciter-gtk-main.cpp
 	<gtk/gtk.h>
 	<locale.h>
 	"sciter-x-window.hpp"
+	"aux-cvt.h"
 
 1656697546 source:/home/andrew/sciter/work/sdk.js/sqlite/sciter-sqlite-db.cpp
 	"sciter-sqlite.h"
@@ -8085,7 +8086,7 @@
 	<vulkan/vulkan_core.h>
 	"sciter-x-types.h"
 
-1656697546 /home/andrew/sciter/work/sdk.js/include/sciter-x-vulkan.h
+1657947074 /home/andrew/sciter/work/sdk.js/include/sciter-x-vulkan.h
 	<vulkan/vulkan_core.h>
 	"sciter-x-types.h"
 

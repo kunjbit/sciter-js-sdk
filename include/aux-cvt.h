@@ -336,7 +336,7 @@ namespace utf8
     ucp = (c - 0xD800) * 0x400 + (nc - 0xDC00) + 0x10000;
     return true;
   }
-  
+
   inline bool fromwcs(aux::wchars buf, pod::byte_buffer& outbuf)
   {
     unsigned int  num_errors = 0;
@@ -549,7 +549,7 @@ namespace aux
 
     operator aux::wchars() const { return aux::wchars(buffer.data(),buffer.length()); }
     aux::wchars chars() const { return aux::wchars(buffer.data(),buffer.length()); }
-    //operator std::basic_string<WCHAR>() const { return std::basic_string<WCHAR>(buffer.data(),buffer.length()); }
+    operator std::basic_string<WCHAR>() const { return std::basic_string<WCHAR>(buffer.data(),buffer.length()); }
 
   };
 

@@ -1,3 +1,20 @@
+## 5.0.0.2
+
+### New:
+
++ support of events "mouseover" and "mouseout"
++ Zip reader. See: sdk.js/docs/md/Zip.md and sample in sdk.js/samples.sciter/zip/
+
+### Fixes:
+
+* [virtual list] incremental fetch and scroll optimization.
+* [JS] `Request.method` to accept arbitrary HTTP verbs.
+* [CSS] One more z-index fix.
+* [CSS] `border-spacing: -1px;` fix.
+* [Mac OS] fix of initial rendering.
+* [inspector] minor tweaks;
+* `Selection.containsNode(...,partial)`
+
 ## 5.0.0.1
 
 ### New:

@@ -38,16 +38,6 @@ typedef enum REQUEST_RESULT
   REQUEST_NOTSUPPORTED = 3 // the platform does not support requested feature
 } REQUEST_RESULT;
 
-typedef enum REQUEST_RQ_TYPE
-  {
-    RRT_GET = 1,
-    RRT_POST = 2,
-    RRT_PUT = 3,
-    RRT_DELETE = 4,
-
-    RRT_FORCE_DWORD = 0xffffffff
-  } REQUEST_RQ_TYPE;
-
 typedef enum SciterResourceType
 {
   RT_DATA_HTML = 0,
@@ -88,9 +78,9 @@ struct SciterRequestAPI
   REQUEST_RESULT
         SCFN(RequestContentUrl)( HREQUEST rq, LPCSTR_RECEIVER* rcv, LPVOID rcv_param );
 
-  // get requested data type
+  // get requested data type as string "GET", "POST", etc.
   REQUEST_RESULT
-        SCFN(RequestGetRequestType)( HREQUEST rq, REQUEST_RQ_TYPE* pType );
+        SCFN(RequestGetRequestType)( HREQUEST rq, LPCSTR* pType );
 
   // get requested data type
   REQUEST_RESULT

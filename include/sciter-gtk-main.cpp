@@ -10,12 +10,17 @@
 #include <locale.h>
 
 #include "sciter-x-window.hpp"
+#include "aux-cvt.h"
+
+using namespace aux;
 
 static std::vector<sciter::string> _argv;
 
 #ifndef SKIP_MAIN
 int main (int argc, char *argv[])
 {
+  for(int n = 0; n < argc; ++n)
+    _argv.push_back(utf2w(chars_of(argv[n])));
   //SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_GPU);
   sciter::application::start();
   int r = uimain([]() -> int { return sciter::application::run(); });

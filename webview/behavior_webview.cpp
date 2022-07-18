@@ -95,7 +95,7 @@ namespace sciter
 				if (nullptr == elem_webview) {
 					return;
 				}
-				sciter::value jsonCall = sciter::value::from_string(aux::utf2w(req), CVT_JSON_LITERAL);
+				sciter::value jsonCall = sciter::value::from_string(aux::utf2w(req).chars(), CVT_JSON_LITERAL);
 				dom::element self = dom::element(elem_webview->this_element);
 				sciter::string ret = self.call_method("jsBridgeCall", jsonCall).to_string();
 				sciter::astring utfRet(aux::w2utf(ret.c_str()));

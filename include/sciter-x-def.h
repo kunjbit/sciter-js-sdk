@@ -541,6 +541,7 @@ typedef enum SCITER_RT_OPTIONS
 
    SCITER_WINDOW_GET_VULKAN_ENVIRONMENT = 20, // p1 - &SciterVulkanEnvironment, p2 - sizeof(SciterVulkanEnvironment)
    SCITER_WINDOW_GET_VULKAN_CONTEXT = 21, // p1 - &SciterVulkanContext, p2 - sizeof(SciterVulkanContext)
+   SCITER_WINDOW_SET_VULKAN_BRIDGE = 22, // p1 - SciterWindowVulkanBridge*, p2 - N/A
  } SCITER_WINDOW_CMD;
 
  typedef enum SCITER_WINDOW_STATE {

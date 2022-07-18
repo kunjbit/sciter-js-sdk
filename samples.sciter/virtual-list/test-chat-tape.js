@@ -3,7 +3,7 @@ import * as DS from "test-chat-data-source.js";
 class MineItem extends Element {
     render(prop) {
         const item = prop.item;
-        return <div#test mine="" >
+        return <div mine="" >
             <div.text state-html={item.html} />
             <img src={ item.avatar } /></div>;
     }
@@ -12,13 +12,19 @@ class MineItem extends Element {
 class TheirItem extends Element {
     render(prop) {
         const item = prop.item;
-        return <div#test>
+        return <div>
             <img src={ item.avatar } />
             <div.text state-html={item.html} /></div>;
     }
 }
 
 function Item(props) {
+    if (props.genId) {
+        if (props.item.mine)
+            return <MineItem #test item={props.item} />;
+        else
+            return <TheirItem #test item={props.item} />;
+    }
     if (props.item.mine)
         return <MineItem item={props.item} />;
     else
@@ -27,12 +33,15 @@ function Item(props) {
 
 export class Tape extends Element {
 
+    initial = true;
+
     componentDidMount() {
         this.vlist.slidingWindowSize = 48;
     }
 
     // scroll down
     appendElements(index, n) {
+        //console.log("A");
         if (index === undefined) index = 0;
         const elements = [];
         for (let i = 0; i < n; ++i, ++index) {
@@ -46,6 +55,7 @@ export class Tape extends Element {
 
     // scroll up
     prependElements(index, n) {
+        //console.log("P");
         if (index === undefined) index = DS.messageCount() - 1;
         const elements = [];
         for (let i = 0; i < n; ++i, --index) {
@@ -55,11 +65,13 @@ export class Tape extends Element {
 
         elements.reverse();
         this.prepend(elements);
+        this.initial = false;
         return {morebefore: (index <= 0 ? 0 : index + 1)}; // return estimated number of items above this chunk
     }
 
     // scroll to
     replaceElements(index, n) {
+        //console.log("R");
         const elements = [];
         const start = index;
         for (let i = 0; i < n; ++i, ++index) {
@@ -76,7 +88,7 @@ export class Tape extends Element {
 
     renderItem(index) {
         const item = DS.messageAt(index);
-        return <Item key={item.id} item={item}/>;
+        return <Item key={item.id} genId={this.initial} item={item}/>;
     }
 
     oncontentrequired(evt) {

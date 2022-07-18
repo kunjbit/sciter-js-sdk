@@ -123,10 +123,6 @@ namespace sciter
           case SC_ENGINE_DESTROYED:   return static_cast<BASE*>(this)->on_engine_destroyed();
           case SC_POSTED_NOTIFICATION: return static_cast<BASE*>(this)->on_posted_notification((LPSCN_POSTED_NOTIFICATION)pnm);
           case SC_GRAPHICS_CRITICAL_FAILURE: static_cast<BASE*>(this)->on_graphics_critical_failure(); return 0;
-#ifdef VULKAN_INTEGRATION
-          case SC_VK_INITIALIZE : return static_cast<BASE*>(this)->on_vk_initialize((SCN_VK_INITIALIZE *)pnm);
-          case SC_VK_RENDER: return static_cast<BASE*>(this)->on_vk_render((SCN_VK_RENDER*)pnm);
-#endif
         }
         return 0;
       }
@@ -195,10 +191,6 @@ namespace sciter
         ::MessageBox(NULL,TEXT("Direct2D graphics critical error"), TEXT("Critical Error"), MB_OK | MB_ICONERROR);
 #endif
       }
-#ifdef VULKAN_INTEGRATION
-      virtual LRESULT on_vk_initialize(SCN_VK_INITIALIZE* pn) { return 0; }
-      virtual LRESULT on_vk_render(SCN_VK_RENDER* pn) { return 0; }
-#endif
 
       bool load_resource_data(LPCWSTR uri, LPCBYTE& pb, UINT& cb )
       {
