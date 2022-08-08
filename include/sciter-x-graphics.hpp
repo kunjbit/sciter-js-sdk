@@ -106,7 +106,7 @@ namespace sciter
 
     static image load( aux::bytes data ) // loads image from png or jpeg encoded data
     {
-      HIMG himg;
+      HIMG himg = 0;
       GRAPHIN_RESULT r = gapi()->imageLoad( data.start, UINT(data.length), &himg); assert(r == GRAPHIN_OK); (void)(r);
       if( himg )
         return image( himg );
@@ -115,7 +115,7 @@ namespace sciter
 
     // fetch image reference from sciter::value envelope
     static image from(const sciter::value& valImage) {
-      HIMG himg;
+      HIMG himg = 0;
       GRAPHIN_RESULT r = gapi()->vUnWrapImage(&valImage, &himg); assert(r == GRAPHIN_OK); (void)(r);
       if (himg) {
         gapi()->imageAddRef(himg);

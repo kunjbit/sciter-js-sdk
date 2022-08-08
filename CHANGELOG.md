@@ -1,3 +1,11 @@
+## 5.0.0.4
+
+### Fixes:
+
+* Fix of AV in focus handling (introduced in 5.0.0.3).
+* Fix of potential AV in `sciter::image::load()`. See [bug report](https://sciter.com/forums/topic/sciterimage-access-violation/).
+
+
 ## 5.0.0.3
 
 ### New:
