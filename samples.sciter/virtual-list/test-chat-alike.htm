@@ -55,7 +55,7 @@
         let tape;
         // need to postpone tape retrieval to after DOM initialization:
         document.ready = function() {
-            tape = document.$("tape#chat-items");
+            tape = document.$("tape#test");
         };
 
         document.on("click", "button#btn-add-item", () => {
@@ -109,7 +109,7 @@
 </head>
 <body>
     <h2>Test of <code>behavior:virtual-list</code>:</h2>
-    <tape #chat-items />
+    <tape #test />
     <button #btn-add-item>add item</button>
     <button #btn-del-item>delete item</button>
     <button #btn-repl-items>replace all items</button>

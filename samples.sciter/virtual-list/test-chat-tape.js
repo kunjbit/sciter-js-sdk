@@ -48,7 +48,6 @@ export class Tape extends Element {
             if (index >= DS.messageCount()) break;
             elements.push(this.renderItem(index));
         }
-
         this.append(elements);
         return {moreafter: (DS.messageCount() - index)}; // return estimated number of items below this chunk
     }

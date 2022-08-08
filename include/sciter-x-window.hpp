@@ -65,7 +65,11 @@ namespace sciter
 
     window( UINT creationFlags, RECT frame = RECT() ) {
       asset_add_ref();
+#ifdef WINDOWS
+      _hwnd = ::SciterCreateWindow(creationFlags, (frame.right - frame.left) > 0 ? &frame: NULL,&msg_delegate,this,NULL);
+#else
       _hwnd = ::SciterCreateWindow(creationFlags, (frame.right - frame.left) > 0 ? &frame: NULL,NULL,this,NULL);
+#endif
     }
 
     //virtual ~window() {}
@@ -136,7 +140,7 @@ namespace sciter
     static LRESULT SC_CALLBACK msg_delegate(HWINDOW hwnd, UINT msg, WPARAM wParam, LPARAM lParam, LPVOID pParam, SBOOL* pHandled)
     {
       window* win = static_cast<window*>(pParam);
-      return win->on_message(hwnd, msg, wParam, lParam, *pHandled);
+      return win ? win->on_message(hwnd, msg, wParam, lParam, *pHandled) : 0;
     }
 
 #endif

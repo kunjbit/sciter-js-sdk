@@ -1,3 +1,31 @@
+## 5.0.0.3
+
+### New:
+
+* + sample sdk.js/samples.sciter/toast-notification
+* `date.toLocaleDateString({format:...})` option for flexible date/time formatting.
+* [scrolling] touch aware scroll, "overscroll" is back.
+* + `Event.relatedTarget`, see: https://developer.mozilla.org/en-US/docs/Web/API/FocusEvent/relatedTarget
+* [windows] trayicon reset implementation on Explorer restart.
+
+### Fixes:
+
+* virtual-list refactoring, rendering optimization.
+* @window-minimizable and @window-maximizable fix.
+* [persistence] fix, see: https://sciter.com/forums/topic/storage-does-not-store-value-properly/
+* Fix of response.text() when server reports erroneous encoding.
+* `<input|time>` rendering fix.
+* Fix of `element.prepend()`.
+* [mac] fix of secondary windows creation: https://sciter.com/forums/topic/samples-sciter-msgboxdialog-dialog-test-htm-crash-report/
+* [macos] fix of popup rendering: https://sciter.com/forums/topic/popup-issue-2/
+* Fix of https://sciter.com/forums/topic/missed-message-delegate-in-sciterwindow
+* fix of dynamic update: https://sciter.com/forums/topic/sciter-buttons-and-hr-tags-broken-after-sciter-js-upgrade/
+* [Mac] transparent popup fix.
+* `event_handler::HANDLE_ATTRIBUTE_CHANGE` fix.
+* [sciter runtime] `debug.setUnhandledExceptionHandler()` misspelling fix.
+* `keyState("NumLock")` fix (Win).
+
+
 ## 5.0.0.2
 
 ### New:

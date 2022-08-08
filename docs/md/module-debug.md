@@ -15,14 +15,14 @@ Debug and log can be viewed in `Inspector` application.
 
 ## functions:
 
-* `setUnhandledExeceptionHandler(function)` 
+* `setUnhandledExceptionHandler(function)` 
  
   Catch unhandeld exceptions.
 
   ```js
   import * as debug from "@debug";
 
-  debug.setUnhandledExeceptionHandler(function(err) {
+  debug.setUnhandledExceptionHandler(function(err) {
     console.error(err.toString() + "\r\n" + err.stack);
   });
   ```

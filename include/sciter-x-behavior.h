@@ -143,10 +143,10 @@ typedef SBOOL SC_CALLBACK SciterBehaviorFactory( LPCSTR, HELEMENT, LPElementEven
       MOUSE_MOVE,
       MOUSE_UP,
       MOUSE_DOWN,
-      MOUSE_DCLICK, // double click
+      MOUSE_DCLICK, /// double click
       MOUSE_WHEEL,
-      MOUSE_TICK, // mouse pressed ticks
-      MOUSE_IDLE, // mouse stay idle for some time
+      MOUSE_TICK,   /// generated periodically while mouse is pressed 
+      MOUSE_IDLE,   /// generated when mouse stays idle for some time
 
       /*OBSOLETE*/ DROP        = 9,   // item dropped, target is that dropped item 
       /*OBSOLETE*/ DRAG_ENTER  = 0xA, // drag arrived to the target element that is one of current drop targets.  
@@ -177,7 +177,7 @@ typedef SBOOL SC_CALLBACK SciterBehaviorFactory( LPCSTR, HELEMENT, LPElementEven
       UINT      button_state; // MOUSE_BUTTONS
       UINT      alt_state;    // KEYBOARD_STATES
       UINT      cursor_type;  // CURSOR_TYPE to set, see CURSOR_TYPE
-      SBOOL      is_on_icon;   // mouse is over icon (foreground-image, foreground-repeat:no-repeat)
+      SBOOL     is_on_icon;   // mouse is over icon (foreground-image, foreground-repeat:no-repeat)
 
       HELEMENT  dragging;     // element that is being dragged over, this field is not NULL if (cmd & DRAGGING) != 0
       UINT      dragging_mode;// see DRAGGING_TYPE. 

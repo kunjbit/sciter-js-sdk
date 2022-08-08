@@ -18,6 +18,10 @@ newoption {
 
 defines { "DEVICE=" .. _OPTIONS["device"] }
 
+if os.getenv("VULKAN_SDK") then
+  defines {"USE_VULKAN"}
+  USE_VULKAN = true
+end  
 
 if( _TARGET_OS ~= "_macosx") then  -- we are not auto generating XCode solutions for a while
                                   -- structure of typical XCode is not trivial - requires manual inputs.
@@ -186,25 +190,30 @@ project "gsciter"
   filter "system:windows"
     --removeconfigurations { "*skia" }
 
-    sysincludedirs { 
-        "$(VULKAN_SDK)/include",
-    }  
+    if USE_VULKAN then 
+      sysincludedirs { "$(VULKAN_SDK)/include" }  
+    end
 
     files {"include/sciter-*.h",
            "include/sciter-*.hpp",
            "include/aux-*.*",
            "include/sciter-win-main.cpp",
            "include/behaviors/behavior_video_generator_full.cpp",
-           "include/behaviors/behavior_vulkan.cpp",
            "demos/gsciter/win-res/gsciter.rc",
            "demos/gsciter/win-res/dpi-aware.manifest",
            "demos/gsciter/**.h",
            "demos/gsciter/**.cpp",
             }
+
+    if USE_VULKAN then 
+      files {"include/behaviors/behavior_vulkan.cpp"}
+    end
+
     links { "shell32", "advapi32", "ole32", "oleaut32", "gdi32", "comdlg32" }
     prebuildcommands { 
       "\"%{prj.location}..\\..\\bin\\".. osabbr() .. "\\packfolder.exe\" \"%{prj.location}..\\..\\demos\\gsciter\\res\" \"%{prj.location}..\\..\\demos\\usciter\\resources.cpp\" -v \"resources\""
     }
+
 
   filter "system:macosx"
     files {"include/sciter-osx-main.mm"}

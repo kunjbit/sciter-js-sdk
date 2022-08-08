@@ -18,9 +18,6 @@
 
 #include "sciter-x-api.h"
 #include "sciter-x-debug.h"
-#ifdef VULKAN_INTEGRATION
-  #include "sciter-x-vulkan.h"
-#endif
 #include <assert.h>
 
 #pragma warning(disable:4786) //identifier was truncated...
