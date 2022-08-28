@@ -283,11 +283,12 @@ template <typename T >
   // Note: CS here is a string literal!
   #define const_chars(CS) aux::slice<char>(CS,CHARS_IN(CS))
   #define const_wchars(CS) aux::slice<WCHAR>(WSTR(CS),CHARS_IN(_WSTR(CS)))
+  #define const_u8chars(CS) aux::slice<char>(U8STR(CS),CHARS_IN(_U8STR(CS)))
+  #define const_u8bytes(CS) aux::slice<BYTE>((const BYTE*)U8STR(CS),CHARS_IN(_U8STR(CS)))
 
   inline wchars  chars_of( const WCHAR *t )   {  return t? wchars(t,(unsigned int)wcslen(t)):wchars(); }
   inline chars   chars_of( const char *t )    {  return t? chars(t,(unsigned int)strlen(t)):chars(); }
 
-  
 
   template<typename T>
      slice<T> chars_of( const std::basic_string<T> &s ) {  return slice<T>(s.c_str(), s.length()); }

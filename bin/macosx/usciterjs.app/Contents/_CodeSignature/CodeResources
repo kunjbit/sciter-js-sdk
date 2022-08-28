@@ -19,6 +19,15 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>MacOS/sciter-webview.dylib</key>
+		<dict>
+			<key>cdhash</key>
+			<data>
+			WQpNcNh5aaf+9f0FYiu7jF7WP/A=
+			</data>
+			<key>requirement</key>
+			<string>cdhash H"590a4d70d87969a7fef5fd05622bbb8c5ed63ff0" or cdhash H"34cee19c0f7553f1767a5d6fd7b49453c282cd0c"</string>
+		</dict>
 		<key>Resources/AppIcon.icns</key>
 		<dict>
 			<key>hash2</key>

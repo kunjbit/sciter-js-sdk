@@ -622,9 +622,7 @@
     inline double   getter(const value& v, double*) { return v.get(0.0); }
     inline float    getter(const value& v, float*) { return (float)v.get(0.0); }
     inline string   getter(const value& v, string*) { return v.to_string(); }
-#ifdef CPP11
     inline astring  getter(const value& v, astring*) { aux::w2utf a(v.to_string()); return astring(a.c_str(), a.length()); }
-#endif
     inline value    getter(const value& v, value*) { return v; }
 
     inline std::vector<byte>
@@ -858,7 +856,7 @@
         };
         return value(tf);
       }
-    template<typename T> 
+    template<typename T>
       inline value::value(const T& v) : value(setter(v)) {;}
   }
 #endif

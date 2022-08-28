@@ -15,10 +15,14 @@
 
 
 #if defined(WIN64) || defined(_WIN64) || defined(_M_X64)
-  #define WINDOWS
+  #ifndef WINDOWS
+    #define WINDOWS
+  #endif
   #define X64BITS
 #elif defined(WIN32) || defined(_WIN32)
-  #define WINDOWS
+  #ifndef WINDOWS
+    #define WINDOWS
+  #endif
 #elif defined(__APPLE__)
   #define OSX
   #define UTF8_CHARS // const char* is UTF8 sequence

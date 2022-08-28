@@ -1,3 +1,24 @@
+## 5.0.0.5
+
+### New:
+
+* `<canvas>` combatibilty with browsers and H/W acceleration implementation;
+* ChartJS demo at samples.charts/basic and samples.charts/component (Charts as Reactor Component);
+
+### Fixes:
+
+* fix of AV in focus handling;
+* fix of https://sciter.com/forums/topic/sciterimage-access-violation/
+* mouse wheel animation adaptive to scrollable size and other adjustments;
+* fix of tab-focus handling on inputs;
+* [JS DOM] mem-leak when document.createDocumentFragment() is used;
+* [win] file:/// and file://localhost/ schema fix.
+* stroke-dasharray in vector images : https://sciter.com/forums/topic/stroke-dasharray-not-working/
+* [reactor] fix of @readonly handling, see: https://sciter.com/forums/topic/input-readonly-does-not-have-any-affect-when-state-disabled-specified-explicitly/
+* fix of setting focus after menu|popup closure;
+* [gtk] fix of flags in keydown/keyup;
+* [css] position:absolute; left:0;right:0; fix, see: https://sciter.com/forums/topic/child-element-size-incorrect/
+
 ## 5.0.0.4
 
 ### Fixes:

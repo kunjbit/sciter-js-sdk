@@ -6655,14 +6655,14 @@
 	<unicode/utf16.h>
 	<math.h>
 
-1656697546 source:/home/andrew/sciter/work/sdk.js/demos/usciter/usciter.cpp
+1659911527 source:/home/andrew/sciter/work/sdk.js/demos/usciter/usciter.cpp
 	"sciter-x-window.hpp"
 	"sciter-x-graphics.hpp"
 	"sciter-x-types.h"
 	"../sqlite/sciter-sqlite.h"
 	"resources.cpp"
 
-1656697546 /home/andrew/sciter/work/sdk.js/include/sciter-x-window.hpp
+1659911527 /home/andrew/sciter/work/sdk.js/include/sciter-x-window.hpp
 	"sciter-x-types.h"
 	"sciter-x.h"
 	"sciter-x-dom.h"
@@ -6678,7 +6678,7 @@
 	"sciter-x-primitives.h"
 	<gtk/gtk.h>
 
-1656697546 /home/andrew/sciter/work/sdk.js/include/sciter-x-primitives.h
+1661451102 /home/andrew/sciter/work/sdk.js/include/sciter-x-primitives.h
 	<string>
 	<stdbool.h>
 	"TargetConditionals.h"
@@ -6721,7 +6721,7 @@
 	"sciter-x-primitives.h"
 	"value.hpp"
 
-1656697546 /home/andrew/sciter/work/sdk.js/include/value.hpp
+1661451268 /home/andrew/sciter/work/sdk.js/include/value.hpp
 	"value.h"
 	<string>
 	<functional>
@@ -6734,7 +6734,7 @@
 	"sciter-x-primitives.h"
 	"nullptr.hpp"
 
-1644204227 /home/andrew/sciter/work/sdk.js/include/aux-slice.h
+1661451102 /home/andrew/sciter/work/sdk.js/include/aux-slice.h
 	<assert.h>
 	"limits.h"
 	<vector>
@@ -6765,7 +6765,7 @@
 	<stdio.h>
 	"sciter-x-behavior.h"
 
-1656697546 /home/andrew/sciter/work/sdk.js/include/sciter-x-behavior.h
+1659911527 /home/andrew/sciter/work/sdk.js/include/sciter-x-behavior.h
 	"sciter-x-types.h"
 	"sciter-x-dom.h"
 	"sciter-x-value.h"
@@ -6812,10 +6812,9 @@
 	<algorithm>
 	<vector>
 
-1656697546 /home/andrew/sciter/work/sdk.js/include/sciter-x-host-callback.h
+1659911527 /home/andrew/sciter/work/sdk.js/include/sciter-x-host-callback.h
 	"sciter-x-api.h"
 	"sciter-x-debug.h"
-	"sciter-x-vulkan.h"
 	<assert.h>
 
 1656697546 /home/andrew/sciter/work/sdk.js/include/sciter-x-debug.h
@@ -6826,7 +6825,7 @@
 	<atomic>
 	"sciter-om.h"
 
-1644204227 /home/andrew/sciter/work/sdk.js/include/sciter-x-graphics.hpp
+1659972018 /home/andrew/sciter/work/sdk.js/include/sciter-x-graphics.hpp
 	"sciter-x-graphics.h"
 	"sciter-x-api.h"
 	"aux-slice.h"

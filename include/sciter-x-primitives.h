@@ -39,7 +39,10 @@
 
 #if defined(_WIN32) || defined(_WIN64)
 
-  #define WINDOWS
+  #ifndef WINDOWS
+    #define WINDOWS
+  #endif
+
 
 #elif defined(__APPLE__)
   #include "TargetConditionals.h"
@@ -313,7 +316,10 @@ typedef VOID SC_CALLBACK LPCBYTE_RECEIVER( LPCBYTE str, UINT num_bytes, LPVOID p
     #define _WSTR(quote) u##quote
   #endif
 
+  #define _U8STR(quote) u8##quote
+  
   #define WSTR(quote) ((const WCHAR*)_WSTR(quote))
+  #define U8STR(quote) ((const char*)_U8STR(quote))
 
   inline VOID SC_CALLBACK _LPCBYTE2ASTRING(LPCBYTE bytes, UINT num_bytes, LPVOID param)
   {
