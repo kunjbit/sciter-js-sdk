@@ -18,6 +18,8 @@
 * fix of setting focus after menu|popup closure;
 * [gtk] fix of flags in keydown/keyup;
 * [css] position:absolute; left:0;right:0; fix, see: https://sciter.com/forums/topic/child-element-size-incorrect/
+* [packfolder] project minification, removing non-used code;
+* fix of mouse wheel horizontal scroll.
 
 ## 5.0.0.4
 
