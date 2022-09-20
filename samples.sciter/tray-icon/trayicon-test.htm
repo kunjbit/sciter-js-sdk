@@ -55,11 +55,16 @@
 
               if(evt.data.buttons == 2)
               {
-                var [sx,sy] = Window.this.box("position","client","screen", true);
-                var menu = document.$("menu#tray");
-                var {screenX,screenY} = evt.data;
-                menu.focus();
-                menu.popupAt(screenX - sx, screenY - sy, 2);
+                //var [sx,sy] = Window.this.box("position","client","screen", true);
+                //var menu = document.$("menu#tray");
+                const {screenX,screenY} = evt.data;
+                new Window({
+                   type: Window.POPUP_WINDOW,
+                   url: __DIR__ + "trayicon-popup.htm",
+                   state:Window.WINDOW_HIDDEN,               
+                   parameters: { x:screenX, y:screenY }
+                });
+
               }                
             }); 
           }
@@ -72,11 +77,11 @@
             Window.this.state = Window.WINDOW_HIDDEN;
           });
 
-          document.on("click", "menu#tray > li#reveal", evt => {
+          Window.this.on("reveal", evt => {
             Window.this.state = Window.WINDOW_SHOWN;
           });   
 
-          document.on("click", "menu#tray > li#exit", evt => {
+          Window.this.on("exit", evt => {
             // exiting the application
             Window.this.trayIcon("remove");
             Window.this.close();
