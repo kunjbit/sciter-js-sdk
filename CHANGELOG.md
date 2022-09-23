@@ -1,3 +1,33 @@
+## 5.0.0.6
+
+### New:
+
+* [Reactor/Signals](docs/md/reactor/signals.md) - Sciter's native implementation of PReactJS/Signals.
+* Support of animated WebP.
+* URL aliases feature, root document may contain alias definitions like:
+  ```HTML
+  <meta alias="lib:" href="./scripts/lib/">
+  <meta alias="root:" href="./root/" />
+  ```
+  and those locations can be addressed in the res of CSS and JS as 
+  ```JavaScript
+  import {Foo} from "lib:foo.js"; // will load {docurl}/scripts/lib/foo.js  
+  ```
+* HTML/CSS/JS: handling of urls that contain unicode like: `src: url(字体.TTF)`;  
+* `window.postEvent(event)` method - same as window.dispatchEvent(event) but asynchronous;
+* Sample: tray-icon update - this uses standalone popup window with menu to fix menu appearance on collapsed main window; 
+* `sys.fs.sync.XXX` and `sys.fs.XXXSync` aliases of sys.fs.$XXX functions (that are obsolete now);
+
+### Fixes:
+
+* CSS: fix of horizontal-only scroll;
+* CSS: _clearfix_ fix;
+* UI: fix of scroll by scrollbar part click;
+* XDOM: `event.isOnIcon` fix;
+* lottie mem-leak fix;
+* Windows: fix of `Event.code` handling on non-US keyboards. 
+* Mac: Metal backend is enabled only on Big Sur and higher, seems like not reliable on below OSes.
+
 ## 5.0.0.5
 
 ### New:
@@ -19,7 +49,6 @@
 * [gtk] fix of flags in keydown/keyup;
 * [css] position:absolute; left:0;right:0; fix, see: https://sciter.com/forums/topic/child-element-size-incorrect/
 * [packfolder] project minification, removing non-used code;
-* fix of mouse wheel horizontal scroll.
 
 ## 5.0.0.4
 

@@ -181,9 +181,10 @@ DropZone({
     },
 });
 
-Settings.init(APP_NAME).then(function() {
+async function start() {
+    await Settings.init(APP_NAME);
     Window.this.state = Window.WINDOW_SHOWN;
-});
+}
 
 Settings.add(
     {
@@ -226,3 +227,4 @@ on("click", "button#help", function() {
     exec(scapp, mdview, docfolder);
 });
 
+start();

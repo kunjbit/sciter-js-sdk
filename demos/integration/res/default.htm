@@ -155,6 +155,14 @@ document.on("click", "button#task-start-object", function(evt, button) {
   Window.this.assetInterface.startNativeThreadWithObject(obj);
 });
 
+document.on("click", "button#native-async-function", async function(evt, button) {
+  button.state.disabled = true;
+  let data = await Window.this.assetInterface.nativeAsyncFunction(1000);
+  button.state.disabled = false;
+  Window.this.modal(<info>nativeAsyncFunction answered:{data}</info>);
+});
+
+
 
 // xcall test
 document.on("input", "form#xcall", function(evt,form) {
@@ -317,6 +325,7 @@ testError();
   <progress #task-progress max=100 value=0 />
   <button #task-start>Start task</button>
   <button #task-start-object>Start task with object</button>
+  <button #native-async-function>Perform nativeAsyncFunction</button> 
 </section>
 
 

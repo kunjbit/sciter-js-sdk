@@ -107,6 +107,51 @@ public:
   }
 
 
+  class NativePromise : public sciter::om::asset<NativePromise>
+  {
+  public:
+
+    sciter::value resolver;
+    sciter::value rejector;
+
+    NativePromise() {}
+
+    sciter::value then(sciter::value resolver, sciter::value rejector) {
+      this->resolver = resolver;
+      this->rejector = rejector;
+      return sciter::value::wrap_asset(this);
+    }
+
+    void resolve(sciter::value data) {
+      if (resolver.is_undefined()) return;
+      resolver.call(data);
+    }
+
+    void reject(sciter::value data) {
+      if (rejector.is_undefined()) return;
+      rejector.call(data);
+    }
+
+    SOM_PASSPORT_BEGIN(NativePromise)
+      SOM_FUNCS(
+        SOM_FUNC(then),
+      )
+    SOM_PASSPORT_END
+  };
+
+  // this method returns thennable object and so the function is await'able in JS
+  sciter::value nativeAsyncFunction(int milliseconds)
+  {
+    sciter::om::hasset<NativePromise> promise = new NativePromise();
+
+    std::thread([=]() {
+       std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+       promise->resolve(42);
+      }).detach();
+
+    return sciter::value::wrap_asset(promise);
+  }
+
   // virtual property
   int get_windowHandle() {
     return (int)(intptr_t)get_hwnd();
@@ -149,6 +194,7 @@ public:
       SOM_FUNC(makeNativeObject),
       SOM_FUNC(startNativeThread),
       SOM_FUNC(startNativeThreadWithObject),
+      SOM_FUNC(nativeAsyncFunction),
       SOM_FUNC(nativeFunctionsA),
       SOM_FUNC(nativeFunctionsB),
     )

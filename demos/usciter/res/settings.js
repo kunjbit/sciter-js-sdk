@@ -44,6 +44,7 @@ async function restore() {
         const data = JSON.parse(decode(buffer, "utf-8"));
         for (const persistable of list)
             persistable.restore(data);
+        return true;
     }
     catch (error) {
         console.error("Restore error:", error);
@@ -87,6 +88,6 @@ Window.this.on("move", saveState)
 
 export async function init(APP_NAME) {
     path = env.path("USER_APPDATA", APP_NAME + ".json");
-    await restore();
+    return await restore();
 }
 

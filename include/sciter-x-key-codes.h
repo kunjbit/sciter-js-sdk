@@ -130,6 +130,7 @@ typedef enum SC_KB_CODES {
   KB_RIGHT_ALT          = 346,
   KB_RIGHT_SUPER        = 347,
   KB_MENU               = 348,
+  KB_CONTEXT_MENU       = 349,
                           
   KB_KEY_LAST           = KB_MENU
 

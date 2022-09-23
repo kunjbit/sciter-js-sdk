@@ -6,6 +6,7 @@
     flow:horizontal-wrap;
     padding:0.25em;
     border-spacing:0.25em;
+    width:*;
   }  
 
   label {

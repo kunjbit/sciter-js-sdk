@@ -6678,7 +6678,7 @@
 	"sciter-x-primitives.h"
 	<gtk/gtk.h>
 
-1661451102 /home/andrew/sciter/work/sdk.js/include/sciter-x-primitives.h
+1661701348 /home/andrew/sciter/work/sdk.js/include/sciter-x-primitives.h
 	<string>
 	<stdbool.h>
 	"TargetConditionals.h"
@@ -6752,7 +6752,7 @@
 	<string>
 	<algorithm>
 
-1644204227 /home/andrew/sciter/work/sdk.js/include/aux-platform.h
+1661701348 /home/andrew/sciter/work/sdk.js/include/aux-platform.h
 
 1644204227 /home/andrew/sciter/work/sdk.js/include/nullptr.hpp
 

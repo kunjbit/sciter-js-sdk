@@ -59,7 +59,7 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
 
   Some characters (`< > : " / \ | ? *`) are reserved under Windows as documented by Naming Files, Paths, and Namespaces. Under NTFS, if the filename contains a colon, Node.js will open a file system stream, as described by this MSDN page.
 
-* #### `fs.$open(path:string, flags:string [, mode:integer]): File`
+* #### `fs.sync.open(path:string, flags:string [, mode:integer]): File`
 
   Synchronous version of `fs.open()`. Returns fs.File object, see below.  
 
@@ -102,7 +102,10 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
   * `isDirectory`, true is that is a directory
   * `isSymbolicLink`, true is that is a link
 
-* #### `fs.$stat(path:string): stat` - sync version of the above;
+* #### `fs.sync.stat(path:string): stat`
+* #### `fs.statSync(path:string): stat`
+* 
+*  Sync version of the above;
 
   Synchronous version of the above. Returns null if the file/dir does not exist.
 
@@ -112,7 +115,8 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
 
   See [lstat](https://linux.die.net/man/2/lstat)
 
-* #### `fs.$lstat(path:string): stat`
+* #### `fs.sync.lstat(path:string): stat`
+* #### `fs.lstatSync(path:string): stat`
   
   Sync version of the above.
 
@@ -141,11 +145,37 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
   
   Creates unique temporary file. The last six characters of template must be "XXXXXX"
 
-* `fs.rmdir(path) : Promise` - async delete dir
-* `fs.$rmdir(path)` : - syncchronous delete dir
-* `fs.mkdir(path[, mode = 0o777]) : Promise` - creates folder
-* `fs.$mkdir(path[, mode = 0o777])` - creates folder (synchronous)
-* `fs.copyfile() : Promise` - async file copy
+* #### `fs.rmdir(path) : Promise`
+  
+  Delete folder
+
+* #### `fs.sync.rmdir(path)`
+* #### `fs.rmdirSync(path)`
+  
+  Synchronous delete folder
+
+* #### `fs.mkdir(path[, mode = 0o777]) : Promise`
+  
+  Creates folder.
+
+* #### `fs.sync.mkdir(path[, mode = 0o777])`
+* #### `fs.mkdirSync(path[, mode = 0o777])`
+ 
+  Creates folder (synchronous)
+
+* #### `fs.chmod(path, mode:int]) : Promise`
+  
+  Asynchronous [chmod](https://man7.org/linux/man-pages/man2/chmod.2.html).
+
+* #### `fs.sync.chmod(path, mode:int])`
+* #### `fs.chmodSync(path, mode:int])`
+ 
+  Synchronous [chmod](https://man7.org/linux/man-pages/man2/chmod.2.html). Throws exception in case of error.
+
+* #### `fs.copyfile() : Promise`
+
+  Asynchronous file copy.
+
 
 * #### `fs.readdir(path:string) : Promise`
   
@@ -170,12 +200,13 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
   * `fs.UV_DIRENT_BLOCK` - block device
 
 
-* #### `fs.$readdir(path:string): filelist`
+* #### `fs.sync.readdir(path:string): filelist`
+* #### `fs.readdirSync(path:string): filelist`
 
   Synchronous version of `fs.readdir()` returns list of direntry striuctures.
   Returns _null_ if _path_ is not a folder.  
 
-* #### `fs.readfile(path:string) : Promise(ArrayBuffer)`
+* #### `fs.readFile(path:string) : Promise(ArrayBuffer)`
   
   Read whole file asynchronously. The promise resolves to ArrayBuffer on success or fails:
 
@@ -188,9 +219,10 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
   }
   ```
 
-* #### `fs.$readfile() : ArrayBuffer`
+* #### `fs.sync.readFile() : ArrayBuffer`
+* #### `fs.readFileSync() : ArrayBuffer`
   
-  Synchronous version of the `fs.readfile(path:string)` above. Throws exception in case of error.
+  Synchronous version of the `fs.readFile(path:string)` above. Throws exception in case of error.
 
 * [`fs.watch()`](sys.fs/watch.md)
 * [`fs.splitpath()`](sys.fs/splitpath.md)
@@ -200,11 +232,11 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
 ### `fs.File` class - represents file.
 
 * `file.read([lengthToRead:int [, filePosition:int]]): Promise(Uint8Array)`
-* `file.$read([lengthToRead:int [, filePosition:int]]): Uint8Array`
+* `file.readSync([lengthToRead:int [, filePosition:int]]): Uint8Array`
 * `file.write(string|***Array|ArrayBuffer[,filePosition:int]) : Promise(result:int)` 
-* `file.$write(string|***Array|ArrayBuffer[,filePosition:int]) : int` 
+* `file.writeSync(string|***Array|ArrayBuffer[,filePosition:int]) : int` 
 * `file.close() : Promise(undefined)`
-* `file.$close() : undefined
+* `file.closeSync() : undefined
 * `file.fileno() : int`
 * `file.stat() : Promise(object)`
 * `file.path : string`

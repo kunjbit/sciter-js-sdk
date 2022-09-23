@@ -186,12 +186,23 @@ NOTE: the _window_ below is an instance of Sciter's Window class - e.g. `Window.
 
   * ### `window.off("eventname" | handler)`
   
-    unsubscribe event handler either by name, namespace or handler reference  
+    unsubscribe event handler either by name, namespace or handler reference
+
+  * ### `window.dispatchEvent(event):boolean`
+  
+    Send the event to the window synchronously. Returns _true_ if the window consumes the event.
+
+  * ### `window.postEvent(event)`
+  
+    Post the event to the window asynchronously. The function returns immediately - does not wait for the event consumption.
+
+---
 
   * ### `window.xcall(name:string [, arg0, ..., argN]): any`
 
     Interaction with native behaviors attached to the window. `window.xcall("foo")` will end up in [`handle_scripting_call()`](https://gitlab.com/c-smile/sciter-js-sdk/blob/main/include/sciter-x-behavior.h#L749) of native behavior attached to the window using [SciterWindowAttachEventHandler](https://gitlab.com/c-smile/sciter-js-sdk/blob/main/include/sciter-x-behavior.h#L898) API.
 
+---
 
   * ### `window.doEvent(mode) : any`
     

@@ -47,11 +47,12 @@ But Facebook::ReactJS is a JavaScript library and SciterJS::Reactor is a native 
 # Further reading
 
 * [JSX](JSX.md) - basic terms and rationale
-* [Rendering elements](rendering.md) - element.patch() reconciliator function
+* [Rendering elements](rendering.md) and `element.patch()` reconciliator function
 * [Components](component.md) - functional and class components
 * [Component state and lifecycle](component-update.md) - componentUpdate(state), etc.
 * [Styles, Events and Mounting points](component-styles-events.md)
 * [Lists and Keys](lists-and-keys.md)
+* [Signals](signal.md) - built-in signal implementation
 * [Technical details: Component Lifecycle](component-lifecycle.md)
 * [Top-level API](reactor-api.md)
 * [Internalization support](JSX-i18n.md) - Built-in i18n primitives
