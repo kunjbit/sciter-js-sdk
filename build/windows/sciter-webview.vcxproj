@@ -309,10 +309,11 @@
     <ClInclude Include="..\..\include\sciter-x-vulkan.h" />
     <ClInclude Include="..\..\include\sciter-x-window.hpp" />
     <ClInclude Include="..\..\include\sciter-x.h" />
-    <ClInclude Include="..\..\webview\webview\sciter_winwebview.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\webview\behavior_webview.cpp" />
+    <ClCompile Include="..\..\webview\webview\sciter_edgewebview.cpp" />
+    <ClCompile Include="..\..\webview\webview\sciter_iewebview.cpp" />
     <ClCompile Include="..\..\webview\webview\sciter_winwebview.cpp" />
     <ClCompile Include="..\..\webview\webview\win\dllmain.cpp" />
   </ItemGroup>

@@ -83,7 +83,7 @@ on("click", "button#open-in-view", function(e, btn) {
 
 let theme = {
     ambience: "light",
-    blurBehind: true,
+    blurBehind: false,
     useSystemAmbience: true,
 };
 
@@ -112,8 +112,8 @@ function setupTheme(params, force) {
         // WM uses light theme
         newTheme.ambience = Window.this.mediaVar("ui-ambience");
 
-    if (!force && equal(theme, newTheme))
-        return;
+    //if (!force && equal(theme, newTheme))
+    //    return;
 
     theme = newTheme;
 

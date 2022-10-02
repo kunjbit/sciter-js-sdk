@@ -433,7 +433,9 @@ project "sciter-webview"
     files {
       "webview/webview/win/exports.def", 
       "webview/webview/win/dllmain.cpp", 
-      "webview/webview/sciter_winwebview.*",
+      "webview/webview/sciter_winwebview.cpp",
+      "webview/webview/sciter_iewebview.cpp",
+      "webview/webview/sciter_edgewebview.cpp",
     }
 
   filter "system:macosx"

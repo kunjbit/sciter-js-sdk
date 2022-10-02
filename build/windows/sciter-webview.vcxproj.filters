@@ -99,13 +99,16 @@
     <ClInclude Include="..\..\include\sciter-x.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\webview\webview\sciter_winwebview.h">
-      <Filter>webview\webview</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\webview\behavior_webview.cpp">
       <Filter>webview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\webview\webview\sciter_edgewebview.cpp">
+      <Filter>webview\webview</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\webview\webview\sciter_iewebview.cpp">
+      <Filter>webview\webview</Filter>
     </ClCompile>
     <ClCompile Include="..\..\webview\webview\sciter_winwebview.cpp">
       <Filter>webview\webview</Filter>

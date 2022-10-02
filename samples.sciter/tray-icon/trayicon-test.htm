@@ -61,8 +61,10 @@
                 new Window({
                    type: Window.POPUP_WINDOW,
                    url: __DIR__ + "trayicon-popup.htm",
-                   state:Window.WINDOW_HIDDEN,               
-                   parameters: { x:screenX, y:screenY }
+                   state:Window.WINDOW_HIDDEN,
+                   x:screenX, 
+                   y:screenY,
+                   alignment: 2 // window on top of x/y
                 });
 
               }                

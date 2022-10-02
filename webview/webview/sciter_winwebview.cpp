@@ -6,13 +6,14 @@
 
 namespace webview {
 
-    sciter_winwebview::sciter_winwebview(bool debug /*= false*/, void *parent /*= nullptr*/)
+    sciter_winwebview::sciter_winwebview(bool debug /*= false*/, void* parent /*= nullptr*/)
     {
         m_isEdge = true;
         m_winbrowser = nullptr;
+        HWND parentWnd = (HWND)parent;
         if (m_isEdge) {
-            SciterEdgeWebView* browser = new SciterEdgeWebView();
-            if (NULL != browser->Create((HWND)parent, 0, 0, WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS)) {
+            SciterEdgeWebView* browser = new SciterEdgeWebView(debug);
+            if (NULL != browser->Create(parentWnd, 0, 0, WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS)) {
                 m_winbrowser = browser;
             }
             else {
@@ -21,8 +22,8 @@ namespace webview {
         }
         if (nullptr == m_winbrowser) {
             m_isEdge = false;
-            SciterIEWebView* browser = new SciterIEWebView();
-            if (NULL != browser->Create((HWND)parent, 0, 0, WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS)) {
+            SciterIEWebView* browser = new SciterIEWebView(debug);
+            if (NULL != browser->Create(parentWnd, 0, 0, WS_CHILD | WS_CLIPCHILDREN | WS_CLIPSIBLINGS)) {
                 m_winbrowser = browser;
             }
             else {
@@ -48,7 +49,19 @@ namespace webview {
         m_winbrowser = nullptr;
     }
 
-    void sciter_winwebview::navigate(const std::string &url)
+    void sciter_winwebview::load_engine(const completion_fn_t& completion) {
+        if (nullptr == m_winbrowser) {
+            return;
+        }
+        if (m_isEdge) {
+            ((SciterEdgeWebView*)m_winbrowser)->load_engine(completion);
+        }
+        else {
+            ((SciterIEWebView*)m_winbrowser)->load_engine(completion);
+        }
+    }
+
+    void sciter_winwebview::navigate(const std::string& url)
     {
         if (nullptr == m_winbrowser) {
             return;
@@ -57,7 +70,7 @@ namespace webview {
             ((SciterEdgeWebView*)m_winbrowser)->navigate(url);
         }
         else {
-            ((SciterIEWebView *)m_winbrowser)->navigate(url);
+            ((SciterIEWebView*)m_winbrowser)->navigate(url);
         }
     }
 
@@ -70,7 +83,7 @@ namespace webview {
             ((SciterEdgeWebView*)m_winbrowser)->reload();
         }
         else {
-            ((SciterIEWebView *)m_winbrowser)->reload();
+            ((SciterIEWebView*)m_winbrowser)->reload();
         }
     }
 
@@ -110,7 +123,7 @@ namespace webview {
         }
     }
 
-    void *sciter_winwebview::window()
+    void* sciter_winwebview::window()
     {
         if (nullptr == m_winbrowser) {
             return nullptr;
@@ -135,11 +148,11 @@ namespace webview {
         */
     }
 
-    void sciter_winwebview::set_title(const std::string &url)
+    void sciter_winwebview::set_title(const std::string& url)
     {
     }
 
-    void sciter_winwebview::init(const std::string &js)
+    void sciter_winwebview::init(const std::string& js)
     {
         if (nullptr == m_winbrowser) {
             return;
@@ -148,11 +161,11 @@ namespace webview {
             ((SciterEdgeWebView*)m_winbrowser)->init(js);
         }
         else {
-            ((SciterIEWebView *)m_winbrowser)->init(js);
+            ((SciterIEWebView*)m_winbrowser)->init(js);
         }
     }
 
-    void sciter_winwebview::eval(const std::string &js)
+    void sciter_winwebview::eval(const std::string& js)
     {
         if (nullptr == m_winbrowser) {
             return;
@@ -161,11 +174,11 @@ namespace webview {
             ((SciterEdgeWebView*)m_winbrowser)->eval(js);
         }
         else {
-            ((SciterIEWebView *)m_winbrowser)->eval(js);
+            ((SciterIEWebView*)m_winbrowser)->eval(js);
         }
     }
 
-    void sciter_winwebview::set_html(const std::string &html)
+    void sciter_winwebview::set_html(const std::string& html)
     {
         if (nullptr == m_winbrowser) {
             return;
@@ -174,7 +187,7 @@ namespace webview {
             ((SciterEdgeWebView*)m_winbrowser)->set_html(html);
         }
         else {
-            ((SciterIEWebView *)m_winbrowser)->set_html(html);
+            ((SciterIEWebView*)m_winbrowser)->set_html(html);
         }
     }
 
@@ -187,7 +200,7 @@ namespace webview {
             ((SciterEdgeWebView*)m_winbrowser)->dispatch(f);
         }
         else {
-            ((SciterIEWebView *)m_winbrowser)->dispatch(f);
+            ((SciterIEWebView*)m_winbrowser)->dispatch(f);
         }
     }
 
@@ -200,7 +213,7 @@ namespace webview {
             ((SciterEdgeWebView*)m_winbrowser)->set_navigation_callback(cb);
         }
         else {
-            ((SciterIEWebView *)m_winbrowser)->set_navigation_callback(cb);
+            ((SciterIEWebView*)m_winbrowser)->set_navigation_callback(cb);
         }
     }
 
@@ -213,7 +226,32 @@ namespace webview {
             ((SciterEdgeWebView*)m_winbrowser)->set_msg_callback(cb);
         }
         else {
-            ((SciterIEWebView *)m_winbrowser)->set_msg_callback(cb);
+            ((SciterIEWebView*)m_winbrowser)->set_msg_callback(cb);
+        }
+    }
+
+    void sciter_winwebview::set_allowWindowOpen(const std::string& val)
+    {
+        if (nullptr == m_winbrowser) {
+            return;
+        }
+        if (m_isEdge) {
+            ((SciterEdgeWebView*)m_winbrowser)->set_allowWindowOpen(val);
+        }
+        else {
+            ((SciterIEWebView*)m_winbrowser)->set_allowWindowOpen(val);
+        }
+    }
+
+    std::string sciter_winwebview::currentSrc() {
+        if (nullptr == m_winbrowser) {
+            return "";
+        }
+        if (m_isEdge) {
+            return ((SciterEdgeWebView*)m_winbrowser)->currentSrc();
+        }
+        else {
+            return ((SciterIEWebView*)m_winbrowser)->currentSrc();
         }
     }
 

@@ -26,11 +26,6 @@ menu.popup {
         <script>
 
 document.on("ready", event => {
-  let {x,y} = Window.this.parameters;
-  const menu = document.$("menu");
-  let w = menu.clientWidth * devicePixelRatio;
-  let h = menu.clientHeight * devicePixelRatio;
-  Window.this.move(x - w / 2, y - h,w,h);
   Window.this.state = Window.WINDOW_SHOWN;
   Window.this.activate(true);
 });

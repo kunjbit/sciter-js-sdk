@@ -142,6 +142,7 @@ WEBVIEW_API void webview_return(webview_t w, const char *seq, int status,
 #include <cstring>
 
 namespace webview {
+using completion_fn_t = std::function<void(bool succeed)>;
 using dispatch_fn_t = std::function<void()>;
 using navigation_callback_t = std::function<int(const char* evt, const std::string&)>;
 
@@ -453,7 +454,7 @@ namespace webview {
 #elif defined(WEBVIEW_GTK) 
 
   #include "sciter_webkitgtk.h"
-  //#include "sciter_webkitgtk.cpp"
+  #include "sciter_webkitgtk.cpp"
 
 namespace webview {
     using browser_engine = sciter_webkitgtk;
@@ -474,6 +475,10 @@ public:
 
   ~webview() {
       delete engine_instance;
+  }
+
+  void load_engine(const completion_fn_t& completion) {
+      engine_instance->load_engine(completion);
   }
 
   void navigate(const std::string& url) {
@@ -632,6 +637,14 @@ public:
       engine_instance->set_navigation_callback(cb);
   }
 
+  void set_allowWindowOpen(const std::string& val) {
+      engine_instance->set_allowWindowOpen(val);
+  }
+
+  std::string currentSrc() {
+      return engine_instance->currentSrc();
+  }
+
 private:
   void on_message(const std::string msg) {
     auto seq = json_parse(msg, "id", 0);
@@ -725,6 +738,10 @@ WEBVIEW_API void webview_return(webview_t w, const char *seq, int status,
 
 WEBVIEW_API void webview_set_navigation_callback(webview_t w, const webview::navigation_callback_t& cb) {
     static_cast<webview::webview*>(w)->set_navigation_callback(cb);
+}
+
+WEBVIEW_API std::string webview_currentSrc(webview_t w) {
+    return static_cast<webview::webview*>(w)->currentSrc();
 }
 
 #endif /* WEBVIEW_HEADER */

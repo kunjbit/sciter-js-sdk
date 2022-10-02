@@ -17,7 +17,6 @@ namespace sciter
 	{
 		webview::webview *this_webview;
 		HELEMENT this_element;
-		bool first_load;
 
 		// ctor
 		sciter_webview() : this_webview(nullptr), this_element(0) {}
@@ -25,18 +24,17 @@ namespace sciter
 
 		virtual bool subscription(HELEMENT he, UINT &event_groups) override
 		{
-			event_groups = HANDLE_BEHAVIOR_EVENT | HANDLE_SIZE;
+			event_groups = HANDLE_BEHAVIOR_EVENT | HANDLE_ATTRIBUTE_CHANGE | HANDLE_SIZE;
 			return true;
 		}
 
 		virtual void attached(HELEMENT he) override
 		{
-			first_load = true;
 			this_element = he;
 
 			dom::element self = dom::element(this_element);
 			HWINDOW parent = self.get_element_hwnd(false);
-			this_webview = new webview::webview(true, parent);
+			this_webview = new webview::webview(false, parent);
 			HWINDOW window = (HWINDOW)this_webview->window();
 			self.attach_hwnd(window);
 
@@ -46,8 +44,19 @@ namespace sciter
 				sciter::value strParam = sciter::value::make_string(aux::utf2w(param));
 				dom::element self = dom::element(this_element);
 				sciter::value ret = self.call_method("onNavigation", strEvt, strParam);
-				return ret.get(0); });
-			bindSciterJSCall();
+				return ret.get(0);
+				}
+			);
+
+			this_webview->load_engine([=](bool succeed) -> void {
+
+				if (succeed) {
+					bindSciterJSCall();
+					on_allowWindowOpen_changed();
+					on_src_changed();
+				}
+
+			});
 		}
 
 		virtual void detached(HELEMENT he) override
@@ -60,7 +69,7 @@ namespace sciter
 			asset_release();
 		}
 
-		virtual void handle_size(HELEMENT he) override
+		virtual void on_size(HELEMENT he) override
 		{
 			if (nullptr == this_webview)
 			{
@@ -69,16 +78,38 @@ namespace sciter
 			dom::element self = dom::element(he);
 			RECT rc = self.get_location(CONTENT_BOX);
 			this_webview->set_size(rc.right - rc.left, rc.bottom - rc.top, WEBVIEW_HINT_FIXED);
+		}
 
-			if (first_load)
-			{
-				first_load = false;
-				sciter::string src = self.get_attribute("src");
-				if (src.size() > 0)
-				{
-					sciter::astring utfSrc(aux::w2utf(src.c_str()));
-					this_webview->navigate(utfSrc.c_str());
-				}
+		virtual void on_attribute_change(HELEMENT he, LPCSTR name, LPCWSTR value) override
+		{
+			sciter::string str_val = (nullptr != value) ? value : WSTR("");
+			if (0 == strcmp(name, "src")) {
+				on_src_changed();
+			}
+			else if (0 == strcmp(name, "allowWindowOpen")) {
+				on_allowWindowOpen_changed();
+			}
+		}
+
+		void on_src_changed() {
+			dom::element self = dom::element(this_element);
+			sciter::string src = self.get_attribute("src");
+			if (0 == src.size()) {
+				return;
+			}
+			sciter::astring utfSrc(aux::w2utf(src.c_str()));
+			this_webview->navigate(utfSrc.c_str());
+		}
+
+		void on_allowWindowOpen_changed() {
+			dom::element self = dom::element(this_element);
+			sciter::string val = self.get_attribute("allowWindowOpen", WSTR("nopopup"));
+			if (0 == val.length()) {
+				this_webview->set_allowWindowOpen("nopopup");
+			}
+			else {
+				aux::w2utf strVal(val.c_str());
+				this_webview->set_allowWindowOpen(strVal.c_str());
 			}
 		}
 
@@ -95,7 +126,7 @@ namespace sciter
 				if (nullptr == elem_webview) {
 					return;
 				}
-				sciter::value jsonCall = sciter::value::from_string(aux::utf2w(req).chars(), CVT_JSON_LITERAL);
+				sciter::value jsonCall = sciter::value::from_string(aux::utf2w(req).as_chars(), CVT_JSON_LITERAL);
 				dom::element self = dom::element(elem_webview->this_element);
 				sciter::string ret = self.call_method("jsBridgeCall", jsonCall).to_string();
 				sciter::astring utfRet(aux::w2utf(ret.c_str()));
@@ -180,15 +211,62 @@ namespace sciter
 			}
 		}
 
+		bool setSrc(const sciter::value& src) {
+			if (src == getSrc()) {
+				return false;
+			}
+            sciter::string strSrc = src.to_string();
+			dom::element self = dom::element(this_element);
+			self.set_attribute("src", strSrc.c_str());
+			on_src_changed();
+			return true;
+		}
+
+		sciter::string getSrc() {
+			dom::element self = dom::element(this_element);
+			return self.get_attribute("src");
+		}
+
+		sciter::string getCurrentSrc() {
+			if (nullptr == this_webview) {
+				return sciter::string(WSTR(""));
+			}
+			std::string src = this_webview->currentSrc();
+			aux::utf2w wSrc(src.c_str());
+			return sciter::string(wSrc.c_str());
+		}
+
+		sciter::string getAllowWindowOpen() {
+			dom::element self = dom::element(this_element);
+			return self.get_attribute("allowWindowOpen");
+		}
+
+		bool setAllowWindowOpen(const sciter::value& val) {
+			if (val == getAllowWindowOpen()) {
+				return false;
+			}
+            sciter::string strVal = val.to_string();
+			dom::element self = dom::element(this_element);
+			self.set_attribute("allowWindowOpen", strVal.c_str());
+			on_allowWindowOpen_changed();
+			return true;
+		}
+
 		SOM_PASSPORT_BEGIN_EX(webview, sciter_webview)
-		SOM_FUNCS(
-			SOM_FUNC(loadUrl),
-			SOM_FUNC(loadHtml),
-			SOM_FUNC(reload),
-			SOM_FUNC(goBack),
-			SOM_FUNC(goForward),
-			SOM_FUNC(stop),
-			SOM_FUNC(evaluateJavaScript))
+			SOM_FUNCS(
+				SOM_FUNC(loadUrl),
+				SOM_FUNC(loadHtml),
+				SOM_FUNC(reload),
+				SOM_FUNC(goBack),
+				SOM_FUNC(goForward),
+				SOM_FUNC(stop),
+				SOM_FUNC(evaluateJavaScript)
+			)
+			SOM_PROPS(
+				SOM_VIRTUAL_PROP(src, getSrc, setSrc),
+				SOM_VIRTUAL_PROP(allowWindowOpen, getAllowWindowOpen, setAllowWindowOpen),
+				SOM_RO_VIRTUAL_PROP(currentSrc, getCurrentSrc)
+			)
 		SOM_PASSPORT_END
 	};
 

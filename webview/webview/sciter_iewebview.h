@@ -3,6 +3,8 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <string>
+#include <vector>
+#include <functional>
 #include <atlbase.h>
 #include <atlwin.h>
 #include <shlobj.h>
@@ -10,8 +12,6 @@
 #include <mshtml.h>
 #include <mshtmdid.h>
 #include <exdispid.h>
-
-#include "aux-cvt.h"
 
 #include <comutil.h>
 #pragma comment(lib, "comsuppw.lib")
@@ -27,8 +27,7 @@ EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 #define WMU_NAVIGATION_CALL (WM_USER + 1)
 #define WMU_JS_BRIDGE_CALL (WM_USER + 2)
 #define WMU_DISPATCH_RUN (WM_USER + 3)
-
-CComModule _Module;
+#define WMU_LOAD_ENGINE (WM_USER + 4)
 
 namespace webview
 {
@@ -240,351 +239,112 @@ namespace webview
         }
     };
 
+    using completion_fn_t = std::function<void(bool succeed)>;
+    using dispatch_fn_t = std::function<void()>;
+    using navigation_callback_t = std::function<int(const char* evt, const std::string&)>;
+    using msg_callback_t = std::function<void(const std::string&)>;
+
+    class SciterIEWebView;
     class webbrowser2_com_handler : public IDocHostUIHandler, public IDispatch
     {
     public:
-        webbrowser2_com_handler(IWebBrowser2 *webbrowser, HWND wnd)
-            : m_webbrowser2(webbrowser), m_engineWnd(wnd){};
-        virtual ~webbrowser2_com_handler()
-        {
-            m_webbrowser2 = nullptr;
-        }
+        webbrowser2_com_handler(SciterIEWebView* webview);
+        virtual ~webbrowser2_com_handler();
 
-        void setInitJS(const std::string &js)
-        {
-            m_injectedJS.push_back(js);
-        }
+        void setInitJS(const std::string &js);
+        void eval(const std::string &js);
 
-        void eval(const std::string &js)
-        {
-            std::wstring strJS(aux::utf2w(js.c_str()).c_str());
-            CComPtr<IDispatch> pDispatch, pSrcDispatch;
-            m_webbrowser2->get_Document(&pDispatch);
-            if (nullptr == pDispatch)
-            {
-                return;
-            }
-            CComPtr<IHTMLDocument2> pDoc2;
-            pDispatch->QueryInterface(IID_IHTMLDocument2, (void **)&pDoc2);
-            if (nullptr == pDoc2)
-            {
-                return;
-            }
-            pDoc2->get_Script(&pSrcDispatch);
-
-            CComBSTR bstrEval("eval");
-            DISPID dispid = 0;
-            BSTR props[1] = { bstrEval };
-            if (S_OK != pSrcDispatch->GetIDsOfNames(IID_NULL, props, 1, LOCALE_SYSTEM_DEFAULT, &dispid))
-            {
-                return;
-            }
-            DISPPARAMS params;
-            _variant_t arg(js.c_str());
-            _variant_t result;
-            EXCEPINFO excepInfo;
-            UINT nArgErr = (UINT)-1;
-            params.cArgs = 1;
-            params.cNamedArgs = 0;
-            params.rgvarg = &arg;
-            pSrcDispatch->Invoke(dispid, IID_NULL, 0, DISPATCH_METHOD, &params, &result, &excepInfo, &nArgErr);
-        }
-
-        STDMETHODIMP_(ULONG)
-        AddRef() { return 1; }
-        STDMETHODIMP_(ULONG)
-        Release() { return 1; }
-        STDMETHODIMP QueryInterface(REFIID riid, LPVOID *ppv)
-        {
-            if ((riid == IID_IDispatch) || (riid == IID_IUnknown))
-            {
-                (*ppv) = static_cast<IDispatch *>(this);
-                return S_OK;
-            }
-            else if (riid == IID_IDocHostUIHandler)
-            {
-                (*ppv) = static_cast<IDocHostUIHandler *>(this);
-                return S_OK;
-            }
-            else
-            {
-                return E_NOINTERFACE;
-            }
-        }
+        STDMETHODIMP_(ULONG) AddRef();
+        STDMETHODIMP_(ULONG) Release();
+        STDMETHODIMP QueryInterface(REFIID riid, LPVOID* ppv);
 
         // IDocHostUIHandler Method
         STDMETHODIMP ShowContextMenu(
             /* [in] */ DWORD dwID,
             /* [in] */ POINT *ppt,
             /* [in] */ IUnknown *pcmdtReserved,
-            /* [in] */ IDispatch *pdispReserved)
-        {
-            return m_spDefaultDocHostUIHandler->ShowContextMenu(dwID, ppt, pcmdtReserved, pdispReserved);
-        }
+            /* [in] */ IDispatch *pdispReserved);
 
         STDMETHODIMP GetHostInfo(
-            /* [out][in] */ DOCHOSTUIINFO *pInfo)
-        {
-            m_spDefaultDocHostUIHandler->GetHostInfo(pInfo);
-            pInfo->dwFlags = pInfo->dwFlags | DOCHOSTUIFLAG_NO3DBORDER | DOCHOSTUIFLAG_DPI_AWARE;
-            return S_OK;
-        }
+            /* [out][in] */ DOCHOSTUIINFO *pInfo);
 
         STDMETHODIMP ShowUI(
             /* [in] */ DWORD dwID,
             /* [in] */ IOleInPlaceActiveObject *pActiveObject,
             /* [in] */ IOleCommandTarget *pCommandTarget,
             /* [in] */ IOleInPlaceFrame *pFrame,
-            /* [in] */ IOleInPlaceUIWindow *pDoc)
-        {
-            return m_spDefaultDocHostUIHandler->ShowUI(dwID, pActiveObject, pCommandTarget, pFrame, pDoc);
-        }
+            /* [in] */ IOleInPlaceUIWindow *pDoc);
 
-        STDMETHODIMP HideUI(void) { return m_spDefaultDocHostUIHandler->HideUI(); }
+        STDMETHODIMP HideUI(void);
 
-        STDMETHODIMP UpdateUI(void) { return m_spDefaultDocHostUIHandler->UpdateUI(); }
+        STDMETHODIMP UpdateUI(void);
 
         STDMETHODIMP EnableModeless(
-            /* [in] */ BOOL fEnable)
-        {
-            return m_spDefaultDocHostUIHandler->EnableModeless(fEnable);
-        }
+            /* [in] */ BOOL fEnable);
 
         STDMETHODIMP OnDocWindowActivate(
-            /* [in] */ BOOL fActivate)
-        {
-            return m_spDefaultDocHostUIHandler->OnDocWindowActivate(fActivate);
-        }
+            /* [in] */ BOOL fActivate);
 
         STDMETHODIMP OnFrameWindowActivate(
-            /* [in] */ BOOL fActivate)
-        {
-            return m_spDefaultDocHostUIHandler->OnFrameWindowActivate(fActivate);
-            ;
-        }
+            /* [in] */ BOOL fActivate);
 
         STDMETHODIMP ResizeBorder(
             /* [in] */ LPCRECT prcBorder,
             /* [in] */ IOleInPlaceUIWindow *pUIWindow,
-            /* [in] */ BOOL fRameWindow)
-        {
-            return m_spDefaultDocHostUIHandler->ResizeBorder(prcBorder, pUIWindow, fRameWindow);
-        }
+            /* [in] */ BOOL fRameWindow);
 
         STDMETHODIMP TranslateAccelerator(
             /* [in] */ LPMSG lpMsg,
             /* [in] */ const GUID *pguidCmdGroup,
-            /* [in] */ DWORD nCmdID)
-        {
-            return m_spDefaultDocHostUIHandler->TranslateAccelerator(lpMsg, pguidCmdGroup, nCmdID);
-        }
+            /* [in] */ DWORD nCmdID);
 
         STDMETHODIMP GetOptionKeyPath(
             /* [out] */ LPOLESTR *pchKey,
-            /* [in] */ DWORD dw)
-        {
-            return m_spDefaultDocHostUIHandler->GetOptionKeyPath(pchKey, dw);
-        }
+            /* [in] */ DWORD dw);
 
         STDMETHODIMP GetDropTarget(
             /* [in] */ IDropTarget *pDropTarget,
-            /* [out] */ IDropTarget **ppDropTarget)
-        {
-            return m_spDefaultDocHostUIHandler->GetDropTarget(pDropTarget, ppDropTarget);
-        }
+            /* [out] */ IDropTarget **ppDropTarget);
 
         STDMETHODIMP GetExternal(
-            /* [out] */ IDispatch **ppDispatch)
-        {
-            *ppDispatch = this;
-            return S_OK;
-        }
+            /* [out] */ IDispatch **ppDispatch);
 
         STDMETHODIMP TranslateUrl(
             /* [in] */ DWORD dwTranslate,
             /* [in] */ OLECHAR *pchURLIn,
-            /* [out] */ OLECHAR **ppchURLOut)
-        {
-            return m_spDefaultDocHostUIHandler->TranslateUrl(dwTranslate, pchURLIn, ppchURLOut);
-        }
+            /* [out] */ OLECHAR **ppchURLOut);
 
         STDMETHODIMP FilterDataObject(
             /* [in] */ IDataObject *pDO,
-            /* [out] */ IDataObject **ppDORet)
-        {
-            return m_spDefaultDocHostUIHandler->FilterDataObject(pDO, ppDORet);
-        }
+            /* [out] */ IDataObject **ppDORet);
 
         // Implement IDispatch Functions
-        STDMETHODIMP GetTypeInfoCount(UINT *pctinfo)
-        {
-            *pctinfo = 0;
-            return S_OK;
-        }
+        STDMETHODIMP GetTypeInfoCount(UINT *pctinfo);
 
         STDMETHODIMP GetTypeInfo(UINT iTInfo, LCID lcid,
-                                 ITypeInfo **ppTInfo)
-        {
-            return E_FAIL;
-        }
+                                 ITypeInfo **ppTInfo);
 
         STDMETHODIMP GetIDsOfNames(REFIID riid,
-                                   LPOLESTR *rgszNames, UINT cNames, LCID lcid, DISPID *rgDispId)
-        {
-            if (cNames == 0 || rgszNames == NULL || rgszNames[0] == NULL || rgDispId == NULL)
-            {
-                return E_INVALIDARG;
-            }
-            if (lstrcmp(rgszNames[0], L"invoke") == 0)
-            {
-                *rgDispId = 12300;
-                return S_OK;
-            }
-            return E_INVALIDARG;
-        }
+                                   LPOLESTR *rgszNames, UINT cNames, LCID lcid, DISPID *rgDispId);
 
         STDMETHODIMP Invoke(DISPID dispIdMember,
                             REFIID riid, LCID lcid, WORD wFlags, DISPPARAMS *Params,
-                            VARIANT *pVarResult, EXCEPINFO *pExcepInfo, UINT *puArgErr)
-        {
-            std::string strParam;
-            if (DISPID_BEFORENAVIGATE2 == dispIdMember)
-            {
-                if (Params->cArgs >= 6)
-                {
-                    VARIANT val = *Params->rgvarg[5].pvarVal;
-                    if (NULL != val.bstrVal) {
-                        strParam = aux::w2utf(val.bstrVal);
-                    }
-                }
-                SendMessage(m_engineWnd, WMU_NAVIGATION_CALL, DISPID_BEFORENAVIGATE2, (LPARAM)strParam.c_str());
-            }
-            else if (DISPID_NAVIGATECOMPLETE2 == dispIdMember)
-            {
-                SendMessage(m_engineWnd, WMU_NAVIGATION_CALL, DISPID_NAVIGATECOMPLETE2, 0);
-            }
-            else if (DISPID_NAVIGATEERROR == dispIdMember)
-            {
-                SendMessage(m_engineWnd, WMU_NAVIGATION_CALL, DISPID_NAVIGATEERROR, 0);
-            }
-            else if (DISPID_TITLECHANGE == dispIdMember)
-            {
-                if (Params->cArgs == 1)
-                {
-                    VARIANT val = Params->rgvarg[0];
-                    if (NULL != val.bstrVal) {
-                        strParam = aux::w2utf(val.bstrVal);
-                    }
-                    SendMessage(m_engineWnd, WMU_NAVIGATION_CALL, DISPID_TITLECHANGE, (LPARAM)strParam.c_str());
-                }
-            }
-            else if (DISPID_BEFORESCRIPTEXECUTE == dispIdMember)
-            {
-                injectExternal();
-            }
-            else if (12300 == dispIdMember)
-            {
-                if (Params->cArgs == 1)
-                {
-                    VARIANT val = Params->rgvarg[0];
-                    if (NULL != val.bstrVal) {
-                        strParam = aux::w2utf(val.bstrVal);
-                    }
-                    SendMessage(m_engineWnd, WMU_JS_BRIDGE_CALL, 0, (LPARAM)strParam.c_str());
-                }
-            }
-            return S_OK;
-        }
+                            VARIANT *pVarResult, EXCEPINFO *pExcepInfo, UINT *puArgErr);
 
-        void injectExternal()
-        {
-            CComPtr<IDispatch> pDispatch;
-            m_webbrowser2->get_Document(&pDispatch);
-            if (nullptr == pDispatch)
-            {
-                return;
-            }
-            CComPtr<IHTMLDocument2> pDoc2;
-            pDispatch->QueryInterface(IID_IHTMLDocument2, (void **)&pDoc2);
-            if (nullptr == pDoc2)
-            {
-                return;
-            }
-            // Request default handler from MSHTML client site
-            CComPtr<IOleObject> spOleObject;
-            if (SUCCEEDED(pDoc2.QueryInterface(&spOleObject)))
-            {
-                CComPtr<IOleClientSite> spClientSite;
-                HRESULT hr = spOleObject->GetClientSite(&spClientSite);
-                if (SUCCEEDED(hr) && spClientSite)
-                {
-                    // Save pointer for delegation to default
-                    m_spDefaultDocHostUIHandler = spClientSite;
-                }
-            }
-            CComPtr<ICustomDoc> pCustomDoc;
-            pDoc2->QueryInterface(IID_ICustomDoc, (void **)&pCustomDoc);
-            if (nullptr != pCustomDoc)
-            {
-                pCustomDoc->SetUIHandler(this);
-            }
-
-            CComBSTR tagName;
-            CComPtr<IHTMLElement> pInsertElem, pElement;
-            CComPtr<IHTMLElementCollection> pCollection;
-            pDoc2->get_all(&pCollection);
-            LONG num = 0;
-            pCollection->get_length(&num);
-            CComPtr<IDispatch> pDisp;
-            for (int i = 0; i < num; i++)
-            {
-                _variant_t idx = i;
-                pCollection->item(idx, idx, &pDisp);
-                pElement = nullptr;
-                pDisp.QueryInterface(&pElement);
-                pDisp = nullptr;
-                pElement->get_tagName(&tagName);
-                if (!_wcsicmp(L"head", tagName))
-                {
-                    pInsertElem = pElement;
-                    break;
-                }
-                else if (!_wcsicmp(L"body", tagName))
-                {
-                    pInsertElem = pElement;
-                    break;
-                }
-            }
-
-            CComBSTR pos = "beforeEnd", jsHTML;
-            for (std::vector<std::string>::iterator iter = m_injectedJS.begin(), iterEnd = m_injectedJS.end();
-                 iter != iterEnd; iter++)
-            {
-                eval(*iter);
-                continue;
-                _bstr_t strJS = iter->c_str();
-                pElement = nullptr;
-                _bstr_t bstrScript = "script", bstrType = "text/javascript";
-                pDoc2->createElement(bstrScript, &pElement);
-                CComPtr<IHTMLScriptElement> pScriptElem;
-                pElement->QueryInterface(IID_IHTMLScriptElement, (void **)&pScriptElem);
-                pScriptElem->put_type(bstrType);
-                pScriptElem->put_text(strJS);
-                pElement->get_outerHTML(&jsHTML);
-                pInsertElem->insertAdjacentHTML(pos, jsHTML);
-            }
-        }
+        void injectExternal();
 
     private:
         std::vector<std::string> m_injectedJS;
-        CComPtr<IWebBrowser2> m_webbrowser2;
+
+        SciterIEWebView* m_webview;
         CComPtr<IDocHostUIHandler> m_spDefaultDocHostUIHandler;
-        HWND m_engineWnd;
     };
 
     class SciterIEWebView : public CWindowImpl<SciterIEWebView>
     {
     public:
+        SciterIEWebView(bool debug = false);
+
         // Optionally specify name of the new Windows class
         DECLARE_WND_CLASS(_T("SciterIEWebView"))
 
@@ -596,203 +356,46 @@ namespace webview
             MESSAGE_HANDLER(WMU_NAVIGATION_CALL, OnNavigationCall)
             MESSAGE_HANDLER(WMU_JS_BRIDGE_CALL, OnJsBridgeCall)
             MESSAGE_HANDLER(WMU_DISPATCH_RUN, OnDispatchRun)
+            MESSAGE_HANDLER(WMU_LOAD_ENGINE, OnLoadEngine)
         END_MSG_MAP()
 
-        void navigate(const std::string &url)
-        {
-            _variant_t strUrl = url.c_str();
-            _variant_t flags(navNoHistory);
-            m_webbrowser2->Navigate2(&strUrl, &flags, nullptr, nullptr, nullptr);
-        }
+        void load_engine(const completion_fn_t& completion);
 
-        void set_html(const std::string &html)
-        {
-            CComPtr<IDispatch> pDisp;
-            m_webbrowser2->get_Document(&pDisp);
-            if (nullptr == pDisp)
-            {
-                return;
-            }
-
-            _bstr_t strHTML = html.c_str();
-
-            size_t size = strHTML.length();
-            size_t k = size;
-            size = (size + 1) * sizeof(wchar_t);
-            HGLOBAL hHTMLText = GlobalAlloc(GPTR, size);
-            wcscpy_s((wchar_t *)hHTMLText, size, strHTML.copy(false));
-            CComPtr<IStream> pStream;
-            HRESULT hr = CreateStreamOnHGlobal(hHTMLText, TRUE, &pStream);
-            if (S_OK == hr)
-            {
-                CComPtr<IPersistStreamInit> pPersistStreamInit;
-                pDisp.QueryInterface(&pPersistStreamInit);
-                pPersistStreamInit->InitNew();
-                pPersistStreamInit->Load(pStream);
-            }
-        }
-
-        void reload()
-        {
-            VARIANT flags;
-            flags.vt = VT_I4;
-            flags.intVal = REFRESH_COMPLETELY;
-            m_webbrowser2->Refresh2(&flags);
-        }
-
-        void go_back()
-        {
-            m_webbrowser2->GoBack();
-        }
-
-        void go_forward()
-        {
-            m_webbrowser2->GoForward();
-        }
-
-        void stop()
-        {
-            m_webbrowser2->Stop();
-        }
-
-        void init(const std::string &js)
-        {
-            m_handler->setInitJS(js);
-        }
-
-        void eval(const std::string &js)
-        {
-            m_handler->eval(js);
-        }
-
-        void dispatch(std::function<void()> f)
-        {
-            PostMessage(WMU_DISPATCH_RUN, 0, (LPARAM) new dispatch_fn_t(f));
-        }
-
-        void set_navigation_callback(const navigation_callback_t &cb)
-        {
-            m_navigationCallback = cb;
-        }
-
-        void set_msg_callback(const msg_callback_t &cb)
-        {
-            m_msgCallback = cb;
-        }
+        void navigate(const std::string& url);
+        void set_html(const std::string& html);
+        void reload();
+        void go_back();
+        void go_forward();
+        void stop();
+        void init(const std::string& js);
+        void eval(const std::string& js);
+        void dispatch(std::function<void()> f);
+        void set_navigation_callback(const navigation_callback_t& cb);
+        void set_msg_callback(const msg_callback_t& cb);
+        void set_allowWindowOpen(const std::string& val);
+        std::string currentSrc();
 
         CComPtr<IWebBrowser2> m_webbrowser2;
         navigation_callback_t m_navigationCallback;
         msg_callback_t m_msgCallback;
+        std::string m_allowWindowOpen = "nopopup";
+        bool m_debugtools = false;
 
     protected:
-        LRESULT OnCreate(UINT /*nMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/,
-                         BOOL & /*bHandled*/)
-        {
-            // Browser Emulation
-            std::vector<wchar_t> fn(1000);
-            GetModuleFileName(0, fn.data(), 1000);
-            PathStripPath(fn.data());
-            RKEY k(HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION");
-            k[fn.data()] = 11000UL; // Use IE 11
+        virtual void OnFinalMessage(_In_ HWND /*hWnd*/);
 
-            ShowWindow(SW_SHOW);
-            UpdateWindow();
-            SetFocus();
+        LRESULT OnCreate(UINT /*nMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
+        LRESULT OnDestroy(UINT /*nMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
+        LRESULT OnEraseBKG(UINT /*nMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled);
+        LRESULT OnSize(UINT /*nMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& /*bHandled*/);
 
-            m_browser.Create(m_hWnd, 0, 0, WS_CHILD | WS_CLIPCHILDREN);
-            m_browser.CreateControl(OLESTR("shell.Explorer.2"));
-            m_browser.QueryControl(&m_webbrowser2);
-            m_browser.ShowWindow(SW_SHOW);
-            m_handler = new webbrowser2_com_handler(m_webbrowser2, m_hWnd);
-
-            CComPtr<IConnectionPointContainer> spConnectionPointContainer;
-            CComPtr<IConnectionPoint> spConnectionPointBrowserEvents;
-            m_webbrowser2->QueryInterface(IID_IConnectionPointContainer, (void **)&spConnectionPointContainer);
-            spConnectionPointContainer->FindConnectionPoint(DIID_DWebBrowserEvents2, &spConnectionPointBrowserEvents);
-            CComPtr<IUnknown> pUnk;
-            m_handler->QueryInterface(IID_IUnknown, (void **)&pUnk);
-            spConnectionPointBrowserEvents->Advise(pUnk, &m_dwCookie);
-
-            return 0;
-        }
-
-        LRESULT OnDestroy(UINT /*nMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/,
-                          BOOL & /*bHandled*/)
-        {
-            CComPtr<IConnectionPointContainer> spConnectionPointContainer;
-            CComPtr<IConnectionPoint> spConnectionPointBrowserEvents;
-            m_webbrowser2->QueryInterface(IID_IConnectionPointContainer, (void **)&spConnectionPointContainer);
-            spConnectionPointContainer->FindConnectionPoint(DIID_DWebBrowserEvents2, &spConnectionPointBrowserEvents);
-            spConnectionPointBrowserEvents->Unadvise(m_dwCookie);
-
-            m_webbrowser2 = nullptr;
-            m_browser.DestroyWindow();
-            delete m_handler;
-            return 1;
-        }
-
-        LRESULT OnEraseBKG(UINT /*nMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/,
-                           BOOL &bHandled)
-        {
-            bHandled = TRUE;
-            return 1;
-        }
-
-        LRESULT OnSize(UINT /*nMsg*/, WPARAM /*wParam*/, LPARAM lParam,
-                       BOOL & /*bHandled*/)
-        {
-            UINT width = LOWORD(lParam);
-            UINT height = HIWORD(lParam);
-            m_browser.ResizeClient(width, height);
-            return 1;
-        }
-
-        LRESULT OnNavigationCall(UINT /*nMsg*/, WPARAM wParam, LPARAM lParam,
-                                 BOOL &bHandled)
-        {
-            bHandled = TRUE;
-            if (DISPID_BEFORENAVIGATE2 == wParam)
-            {
-                const std::string url = (const char *)lParam;
-                m_navigationCallback("navigationStarting", url);
-            }
-            else if (DISPID_NAVIGATECOMPLETE2 == wParam)
-            {
-                m_navigationCallback("navigationCompleted", "0");
-            }
-            else if (DISPID_NAVIGATEERROR == wParam)
-            {
-                m_navigationCallback("navigationCompleted", "-1");
-            }
-            else if (DISPID_TITLECHANGE == wParam)
-            {
-                const std::string title = (const char*)lParam;
-                m_navigationCallback("documentTitleChanged", title);
-            }
-            return 0;
-        }
-
-        LRESULT OnJsBridgeCall(UINT /*nMsg*/, WPARAM /*wParam*/, LPARAM lParam,
-                               BOOL &bHandled)
-        {
-            bHandled = TRUE;
-            const std::string str = (const char *)lParam;
-            m_msgCallback(str);
-            return 0;
-        }
-
-        LRESULT OnDispatchRun(UINT /*nMsg*/, WPARAM /*wParam*/, LPARAM lParam,
-                              BOOL &bHandled)
-        {
-            bHandled = TRUE;
-            dispatch_fn_t *fn = (dispatch_fn_t *)(lParam);
-            (*fn)();
-            delete fn;
-            return 0;
-        }
+        LRESULT OnNavigationCall(UINT /*nMsg*/, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+        LRESULT OnJsBridgeCall(UINT /*nMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& bHandled);
+        LRESULT OnDispatchRun(UINT /*nMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& bHandled);
+        LRESULT OnLoadEngine(UINT /*nMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& bHandled);
 
         CAxWindow m_browser;
-        webbrowser2_com_handler *m_handler;
+        webbrowser2_com_handler *m_handler = nullptr;
         DWORD m_dwCookie;
     };
 

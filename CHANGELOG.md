@@ -1,3 +1,22 @@
+## 5.0.0.7
+
+### New:
+
+* Reactor: New feature, Window content can be generated solely by JSX. See: sdk.js/samples.reactor/window/trayicon-test.htm
+
+
+### Fixes:
+
+* Fix of regression introduced in 5.0.0.6 - unicode urls.
+* Fix of AV in style-set/appearance:none combination: https://sciter.com/forums/topic/custom-style-causes-crash/
+* DOM population optimization regarding CONTENT_CHANGED event generation - was too heavy on classic DOM population using element.appendChild() & co.
+* Reactor/signals: `toString()` fix so signal can be used in JSX without explicit .value : `<div>UI observer of { sig }</div>;`
+* Graphics: IM graphics setup fix, see: https://sciter.com/forums/topic/stroke-with-css-style-color/
+* usciter.exe, fix of "no buttons rendered"
+* Webview updates - sync with its public repository. 
+* Win: `WM_NCHITTEST` -> `HTMAXBUTTON & Co` - Win11 aero snap compatibility.
+* Fix of `<canvas>` graphics persistence: https://sciter.com/forums/topic/canvas-brush/
+
 ## 5.0.0.6
 
 ### New:

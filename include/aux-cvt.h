@@ -551,6 +551,9 @@ namespace aux
     aux::wchars chars() const { return aux::wchars(buffer.data(),buffer.length()); }
     operator std::basic_string<WCHAR>() const { return std::basic_string<WCHAR>(buffer.data(),buffer.length()); }
 
+    aux::wchars as_chars() const { return aux::wchars(buffer.data(), buffer.length()); }
+    std::basic_string<WCHAR> as_string() const { return std::basic_string<WCHAR>(buffer.data(), buffer.length()); }
+
   };
 
   class w2utf

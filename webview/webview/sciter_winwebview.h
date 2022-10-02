@@ -7,6 +7,7 @@
 namespace webview
 {
     using dispatch_fn_t = std::function<void()>;
+    using completion_fn_t = std::function<void(bool succeed)>;
     using navigation_callback_t = std::function<int(const char *evt, const std::string &)>;
     using msg_callback_t = std::function<void(const std::string &)>;
 
@@ -15,6 +16,8 @@ namespace webview
     public:
         sciter_winwebview(bool debug = false, void *wnd = nullptr);
         ~sciter_winwebview();
+
+        void load_engine(const completion_fn_t& completion);
 
         void navigate(const std::string &url);
         void reload();
@@ -33,6 +36,9 @@ namespace webview
 
         void set_navigation_callback(const navigation_callback_t &cb);
         void set_msg_callback(const msg_callback_t &cb);
+        void set_allowWindowOpen(const std::string& val);
+
+        std::string currentSrc();
 
     protected:
         void* m_winbrowser = nullptr;

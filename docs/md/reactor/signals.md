@@ -149,5 +149,5 @@ Signal objects returned by the `signal()`, `computed()` and `effect()` functions
 * `signal.value:any` - property, read/write, access to payload of the signal.
 * `signal.dispose()` - the function stops signal operation - frees all links and references. Rarely used.
 * `signal.peek():any` - the function returns value without subscription of the signal to anything.
-* `signal.valueElements(): array` - the function returns list of DOM input elements where this signal is used as a value.
-* `signal.observingElements(): array` - the function returns list of DOM elements that are observing this signal.
+* `signal.valueElements: array` - property, readonly, returns list of DOM input elements where this signal is used as a value.
+* `signal.observingElements: array` - property, readonly, returns list of DOM elements that are observing this signal.

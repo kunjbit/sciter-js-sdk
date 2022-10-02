@@ -6,8 +6,9 @@
 
 namespace webview
 {
+    using completion_fn_t = std::function<void(bool succeed)>;
     using dispatch_fn_t = std::function<void()>;
-    using navigation_callback_t = std::function<int(const char *evt, const std::string &)>;
+    using navigation_callback_t = std::function<int(const char* evt, const std::string&)>;
     using msg_callback_t = std::function<void(const std::string &)>;
 
     class sciter_webkitgtk
@@ -15,6 +16,8 @@ namespace webview
     public:
         sciter_webkitgtk(bool debug = false, void *parent = nullptr);
         ~sciter_webkitgtk();
+
+        void load_engine(const completion_fn_t &completion);
 
         void navigate(const std::string &url);
         void reload();
@@ -32,6 +35,8 @@ namespace webview
 
         void set_navigation_callback(const navigation_callback_t &cb);
         void set_msg_callback(const msg_callback_t &cb);
+        void set_allowWindowOpen(const std::string& val);
+        std::string currentSrc();
 
         void *m_window = nullptr;
         void *m_webview = nullptr;
@@ -39,8 +44,10 @@ namespace webview
         void *m_webviewDelegate = nullptr;
         navigation_callback_t m_navigationCallback;
         msg_callback_t m_msgCallback;
+        std::string m_allowWindowOpen = "nopopup";
 
         bool m_isNaviError = false;
+        bool m_debugtools = false;
     };
 
 }
