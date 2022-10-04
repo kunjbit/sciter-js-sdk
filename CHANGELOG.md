@@ -1,3 +1,12 @@
+## 5.0.0.9
+
+### Fixes:
+
+* Fix of 'this' reference in event handlers.
+* IM graphics: fix of initial transformation matrix settings. 
+* Fix of nesting scrollbars handling: https://sciter.com/forums/topic/nesting-of-scrolls/
+* Linux: fix of window initialization, https://sciter.com/forums/topic/dual-title-bar-on-linux-when-window-not-maximized/
+
 ## 5.0.0.8
 
 ### New:
