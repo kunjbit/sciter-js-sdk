@@ -6655,7 +6655,7 @@
 	<unicode/utf16.h>
 	<math.h>
 
-1659911527 source:/home/andrew/sciter/work/sdk.js/demos/usciter/usciter.cpp
+1664770388 source:/home/andrew/sciter/work/sdk.js/demos/usciter/usciter.cpp
 	"sciter-x-window.hpp"
 	"sciter-x-graphics.hpp"
 	"sciter-x-types.h"
@@ -6740,7 +6740,7 @@
 	<vector>
 	"sciter-x-primitives.h"
 
-1657980772 /home/andrew/sciter/work/sdk.js/include/aux-cvt.h
+1664758458 /home/andrew/sciter/work/sdk.js/include/aux-cvt.h
 	<assert.h>
 	<wchar.h>
 	<string.h>
@@ -6836,7 +6836,7 @@
 	"../include/sciter-x-api.h"
 	"../include/aux-cvt.h"
 
-1657947074 /home/andrew/sciter/work/sdk.js/demos/usciter/resources.cpp
+1664770388 /home/andrew/sciter/work/sdk.js/demos/usciter/resources.cpp
 
 1657980699 source:/home/andrew/sciter/work/sdk.js/include/sciter-gtk-main.cpp
 	<gtk/gtk.h>

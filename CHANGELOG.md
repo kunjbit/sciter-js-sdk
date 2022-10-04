@@ -1,3 +1,17 @@
+## 5.0.0.8
+
+### New:
+
+* `console.log("n%d",42)` -> `n42` - C printf style of formatting in console.
+
+### Fixes:
+
+* Skia backends: `<canvas>` uses GPU texture rather than `SkPicture` as it used to be. This fixes https://sciter.com/forums/topic/memory-leak-at-skia-version/
+* Fix of 'this' reference in 'mouseleave' events.
+* Fix of element.state.expanded|collapsed = ...; handling.
+
+Note: MacOS version uses OpenGL backend by default now (instead of Metal).
+
 ## 5.0.0.7
 
 ### New:

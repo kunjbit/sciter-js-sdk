@@ -363,3 +363,7 @@ read only
 
   Returns element as string
 
+
+* ### `Element.create(vnode | tag:string) : Element`
+
+  Static method, returns element constructed either from JSX expression (vnode) or by tag name. In later case it behaves as `document.createElement(tag)`.

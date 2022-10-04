@@ -182,8 +182,11 @@ DropZone({
 });
 
 async function start() {
-    await Settings.init(APP_NAME);
-    Window.this.state = Window.WINDOW_SHOWN;
+    try {
+      await Settings.init(APP_NAME);
+    } finally {
+      Window.this.state = Window.WINDOW_SHOWN;    
+    }
 }
 
 Settings.add(
