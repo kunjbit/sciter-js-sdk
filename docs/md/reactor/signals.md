@@ -100,6 +100,7 @@ The Signal API consists of three functions in Reactor namespace:
 * `Reactor.signal(initialValue)`
 * `Reactor.computed(fn)`
 * `Reactor.effect(fn)`
+* `Element.signal(initialValue)` - "component signal"
 
 Note: you can always make shortcuts of these functions:
 
@@ -141,6 +142,30 @@ To run arbitrary code in response to signal changes, we can use `effect(fn)`. Si
 
 The `effect()` function returns Signal instance that you can use to `.dispose()` the effect - stop it from tracking changes.  
 
+### element.signal(initialValue)
+
+Creates new signal object with the given argument as its initial value. The signal is associated with the element and have lifespan of that element.
+It can be used for example in functional components:
+```HTML
+<html>
+    <head>
+        <title>Counter</title>
+        <script type="module">
+            function Counter() {
+                const count = this.signal(0);
+                return (
+                    <div>
+                        <p>Count: {count}</p>
+                        <button onclick={() => ++count.value}>click me</button>
+                    </div>
+                );
+            }
+            document.body.append(<Counter />);
+        </script>
+    </head>
+    <body></body>
+</html>
+```
 
 ## Signal Object
 

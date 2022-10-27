@@ -16,7 +16,6 @@ export function drillDir(path) {
 }
 
 export async function copyDir(srcDir, dstDir) {
-    const DIRECTORY = 2;
 
     drillDir(dstDir);
 
@@ -28,19 +27,21 @@ export async function copyDir(srcDir, dstDir) {
       const src = srcDir + '/' + name;
       const dst = dstDir + '/' + name;
 
-      if (type == DIRECTORY) {
+      if (type == fs.UV_DIRENT_DIR) {
          try {
             //console.log('copying dir: ' + dst);
             fileCount += await copyDir(src,dst);
          } catch(e) {
+            console.error("couldn't copy dir: " + dst);
          }
       } else {
          try {
             //console.log('copying file: ' + dst);
-            await fs.copyfile(src,dst,0);
+            await fs.copyfile(src,dst);
+            ++fileCount;
 
          } catch(e) {
-            console.error('could\'t copy file: ' + dst);
+            console.error("couldn't copy file: " + dst);
          }
       }
    }

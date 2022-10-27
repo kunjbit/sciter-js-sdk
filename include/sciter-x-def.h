@@ -499,6 +499,9 @@ typedef enum SCITER_RT_OPTIONS
 
    SCITER_ENABLE_UIAUTOMATION = 17,  // hWnd - N/A , TRUE/FALSE, enables UIAutomation support. 
 
+   SCITER_USE_INTERNAL_HTTP_CLIENT = 18,  // hWnd - N/A , TRUE - use internal HTTP client
+                                          //              FALSE - use system HTTP client (on platforms that has it: Win,Mac,Lin)
+
 } SCITER_RT_OPTIONS;
 
 /**Set various options.

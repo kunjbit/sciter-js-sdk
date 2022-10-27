@@ -14,13 +14,18 @@
             // last "messages" are seen first
         }
 
-            tape > div {
-                min-height: 2em;
-                flow: horizontal;
-                border-spacing: 1em;
-                padding: 0.5em;
-                font: 12pt Verdana, sans-serif;
-            }
+        tape > div {
+            layer:force; // NOTE: tape item may have complex structure - better to be buffered?
+            min-height: 2em;
+            flow: horizontal;
+            border-spacing: 1em;
+            padding: 0.5em;
+            font: 12pt Verdana, sans-serif;
+        }
+
+        /*tape > div:hover {
+            foreground-color: rgba(0,120,240,0.10);
+        }*/
 
                 tape > div > img {
                     size: 48px;

@@ -221,8 +221,6 @@ function isFolder(path) {
   return sys.fs.$stat(path)?.st_mode & sys.fs.S_IFDIR;
 }
 
-Settings.init(APP_NAME);
-
 document.ready = function() {
   const argv = view.scapp?.argv;
   let href = (__DIR__ + "hello.md");
@@ -234,6 +232,12 @@ document.ready = function() {
     }
     else if (path.endsWith(".md"))
       href = path;
+  } else {
+    const path = Window.this.parameters?.folder;
+    if (isFolder(path)) {
+      loadFolder(path);
+      return;
+    }
   }
   document.$("#nav").attributes["hidden"] = true;
   href = URL.fromPath(href);
@@ -342,3 +346,14 @@ document.on("change", "#search", (evt, input) => {
     ResultE.content(content);
   });
 });
+
+
+async function start() {
+    try {
+      await Settings.init(APP_NAME);
+    } finally {
+      Window.this.state = Window.WINDOW_SHOWN;    
+    }
+}
+
+start();

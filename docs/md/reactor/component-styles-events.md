@@ -1,20 +1,18 @@
 ## Defining Default Style of a Component
 
+### By external CSS file
 
 Normally you define styles globally in your application. But some components may require some styling (e.g. particular layout) that is critical for their operation.
 
 
-Reactor (Sciter's internal code in fact) offers simple way to define component styles using *styleset* attribute.
+Reactor (Sciter's internal code in fact) offers simple way to define component styles using *styleset* attribute.
 
-
-Let's redefine our `Clock` class that we used earlier :
+Let's redefine our `Clock` class that we used earlier :
 
 
 ```JavaScript
 class Clock extends Element 
 {
-  const styleset = ["clock", $url(clock.css)]; // style set declaration
-
   time = new Date(); // setting initial state 
 
   componentDidMount() {
@@ -33,7 +31,7 @@ class Clock extends Element
 }
 ```
 
-Note: `styleset={__DIR__ + "styles.css#clock"}` attribute above, it resolves to absolute URL using this script file location as a base.
+Note: `styleset={__DIR__ + "styles.css#clock"}` attribute above, it resolves to absolute URL using this script file location as a base.
 
 And here is a content of clock.css file:
 
@@ -56,6 +54,40 @@ As you see it defines independent set of CSS rules that define content (and only
 General consideration: if component is designed to be used in many applications then its default style set should include only rules needed for layout and those are critical for operation. Each application may add its own styling on top of these default styles.
 
 Note that style sets in Sciter are not polluting global list of style rules and so are very effective - reduce time needed for style resolution of DOM elements.
+
+### By embedded CSS style set declaration
+
+Instead of declaring component styles in separate CSS file we can declare styles in the same JS file using `CSS.set` constructor.
+
+```JavaScript
+const clockStyles = CSS.set` 
+  :root {
+    display: block;
+    flow:vertical;
+  }
+  span.time { 
+    display:inline-block; 
+    white-space:nowrap; 
+  }
+`;
+
+// rest is from the above sample
+
+class Clock extends Element 
+{
+  time = new Date(); // setting initial state 
+
+  ...
+
+  render() {
+    return <clock styleset={clockStyles}>
+      <div.greeting>Hello, world!</div>
+      <div>It is {this.data.time.toLocaleTimeString()} now.</div>
+     </clock>;
+  } 
+}
+```
+Note how style set is assigned to the component by `<clock styleset={clockStyles}>`.  
 
 ## Events Handling in Components
 

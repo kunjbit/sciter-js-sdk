@@ -2,16 +2,29 @@
 html { 
   var(accent-color): window-accent-color; 
   border: window-frame-width solid transparent; 
+  var(window-caption-back): transparent;
+  var(window-caption-text): var(text-color,#000);
 }
 
 html:owns-focus {
   border-color: morph(color(accent-color), opacity:50%);   
 }
 
-html > header { width:*; /*background-color: color(back-color);*/ }
+@media ui-accented-window-decoration {
+  html {
+    var(window-caption-back): transparent;
+    var(window-caption-text): color(text-color);
+  }
+  html:owns-focus {
+    var(window-caption-back): window-accent-color;
+    var(window-caption-text): window-accent-text-color;
+  }
+}
 
-html > header { width:*; flow:horizontal; height:window-caption-height; margin:0; } 
-html > header > window-caption { display:block; line-height:window-caption-height; width:*; padding:0 1em; color:color(text-color); }
+
+html > header { width:*; flow:horizontal; height:window-caption-height; margin:0; 
+                background-color:color(window-caption-back); color: color(window-caption-text); } 
+html > header > window-caption { display:block; line-height:window-caption-height; width:*; padding:0 1em; }
 html > header > window-buttons { display:block; flow:horizontal; width:max-content; height:*; }
 html > header > window-buttons > window-button { 
   behavior:clickable; 
@@ -21,7 +34,7 @@ html > header > window-buttons > window-button {
   foreground-size: 11dip;
   foreground-repeat: no-repeat;
   foreground-position:50% 50%;
-  stroke:color(text-color);
+  stroke:color(window-caption-text);
   stroke-width:1dip;
   transition: background-color linear 100ms;
 }

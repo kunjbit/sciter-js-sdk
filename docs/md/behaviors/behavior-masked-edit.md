@@ -41,12 +41,43 @@ Current editable span will have `:current` state flag. Numeric span with inva
 
 ## Methods
 
-* `masked.selectGroup(group:integer)` - Selects particular editing group.
-* `masked.selectAll()` - Selects all editing groups.
+### `masked.selectGroup(group:int)`
+
+Selects particular editing group.
+
+### `masked.selectAll()`
+
+Selects all editing groups.
+
+### `masked.getGroupValue(group:int | undefined):value`
+
+Reports current value of the group. If _group_ is undefined returns value of current group.
+The value can be a string, number or undefined - depends on group type.
+
+### `masked.setGroupValue(group:int | undefined, value):bool`
+
+Sets current value of the group. If _group_ is undefined sets value of current group.
+The value can be a string, number - depends on group type. Setting value to _undefined_ - clears the group value.
+
+### `masked.groupType(group:int | undefined):string`
+
+Reports type of the group. If _group_ is undefined returns type of current group.
+Possible values:
+
+* `"_"` - alpha-numeric text;
+* `"@"` - alpha text;
+* `"#"` - number (integer);
+* `"0"` - number with zero padding;
+* `"|"` - enumeration;
 
 ## Properties
 
-* `masked.mask` - read/write property, either a **string** or an **array** of definitions.;
+* `masked.groupsCount:int` - read-only, number of groups (editable fields);
+* `masked.currentGroup:int` - read-write, current group number;
+
+* `masked.value:array` - read-write, so called raw value - array of group values.
+
+* `masked.mask` - read/write property, either a **string** or an **array** of definitions;
   
   This property allows to define structure of masked input "manually" and with more control.
   

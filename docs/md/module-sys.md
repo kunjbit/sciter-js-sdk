@@ -172,9 +172,15 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
  
   Synchronous [chmod](https://man7.org/linux/man-pages/man2/chmod.2.html). Throws exception in case of error.
 
-* #### `fs.copyfile() : Promise`
+* #### `fs.copyfile(srcpath,dstpath[,flags:int]) : Promise`
 
   Asynchronous file copy.
+
+  _flags_ (optional) is a combination of: 
+
+  * `fs.UV_FS_COPYFILE_EXCL` - to return an error if the destination already exists;
+  * `fs.UV_FS_COPYFILE_FICLONE` - to attempt to create a reflink, if copy-on-write is not supported, a fallback copy mechanism is used.
+  * `fs.UV_FS_COPYFILE_FICLONE_FORCE` - to attempt to create a reflink, if copy-on-write is not supported, an error is returned.
 
 
 * #### `fs.readdir(path:string) : Promise`

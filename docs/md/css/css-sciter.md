@@ -1,5 +1,11 @@
 # Sciter CSS properties
 
+* `layer` : `auto | force | disable` - defines buffering behavior used by element.
+
+  If some container has complex layout and somewhere outside of it an animation is running then it makes sense to define `container:force;` so that heavy container will be drawn from cached buffer (normally resides on GPU side).
+
+  For example `<svg>` element uses `container:force;` by default to reduce potentially costly SVG re-drawing.
+
 * [`flow`](css-layout.md) direction of child elements in block containers (e.g. DIVs). This attribute defines type of layout manager (LM) used by the block container.
 
 * [`style-set`](README.md#styleset) named block of style rules declarations that are applied to elements DOM sub-tree.
@@ -35,6 +41,7 @@
 * `text-overflow` : `ellipsis` display ellipses(...) for text overflow, `clip` default, clip the content and do not display text overflow.
 
 * `popup-position` : `default|top-left|top-center|middle-left|bottom-right...` relative to the element that requested the popup (popup anchor element).
+
 
 
 - [Sciter CSS support map (incomplete)](https://sciter.com/docs/content/css/cssmap.html)

@@ -25,7 +25,7 @@
 
 * #### `getComputedStyle(element[, pseudoEl]): Style`
 
-* #### `printf(format:string, ...):string` 
+* #### `printf(format:string, ...):string`
   
   The function does formatting of arguments using C-style [printf conventions](https://en.cppreference.com/w/cpp/io/c/fprintf).
   

@@ -1,3 +1,31 @@
+## 5.0.1.0
+
+This build is mostly about parsing, DOM construction and rendering times optimizations. In some cases it reduces CPU load by 30%. 
+
+### New:
+
+* Windows: Windows XP support is back. But note that public binaries are not XP compatible. You'll need access to sources to make XP aware bimaries.
+* console.log() & Co. refactoring to support printf alike formatting: `console.log("%x", num);`
+* Added internal HTTP[S] client. To enable it use `SciterSetOption(NULL,SCITER_USE_INTERNAL_HTTP_CLIENT,TRUE);`
+* `window.modal {html: <VNode/> }` - vnode window definition, similar to `new Window({html: <VNode/> });`
+* "component signals", see: https://sciter.com/forums/topic/reactor-signal-failed-to-work-sometime-in-sciter-js-5-0-9/#post-79632
+* Windows: `@media ui-accented-window-decoration {...}` to support Windows settings "accented colors in caption bar".
+* `<terminal>` - ANSI virtual terminal component. Used for logging and with compination of `process.spawn()`
+* `input|masked`, more API methods.
+* [reactor] `CSS.set'...'` CSS-in-JS declarations. See: samples.reactor/styling/
+
+### Fixes:
+
+* [URLs] non-ascii handling fixes;
+* `loadLibrary("abs path")` fix to support absolute paths.
+* [CSS] Fix of high-CPU when `calc(...)` is used.
+* [JS] Regression fix of `this` handling in event handlers.
+* [high-dpi] Fix of `gfx.pushLayer("background-area");` scaling. 
+* [Graphics] fixes of paths transformation handling  ctx.beginPath() -> ctx->rotate(...), etc;
+* `<button|menu>` fix of tooltip handling;
+* fix of https://sciter.com/forums/topic/takeoff-element-with-transparent-color-doesnt-get-parent-window-width-on-resize/
+* fix of https://sciter.com/forums/topic/if-image-then-clipboard-has-not-work/
+
 ## 5.0.0.9
 
 ### Fixes:
