@@ -1,3 +1,14 @@
+## 5.0.1.1
+
+### New:
+
+* "Cancellable Fetch" feature by [Request](docs/md/Fetch.md).abort() method. See: samples/fetch(AJAX)/test-fetch-progress.htm sample. 
+* `Graphics.Image.load()` method is also cancellable.
+
+### Fixes:
+
+* Regreassion fixes of state change handling.
+
 ## 5.0.1.0
 
 This build is mostly about parsing, DOM construction and rendering times optimizations. In some cases it reduces CPU load by 30%. 

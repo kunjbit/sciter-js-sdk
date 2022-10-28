@@ -18,7 +18,7 @@
 
 * ### `cancelAnimationFrame(aid)`
 
-* ### `fetch(url:string [, options:object]): Response` - [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+* ### `fetch(url:string | Request [, options:object]): Response` - [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 
   Sciter's extras:
 
@@ -26,6 +26,8 @@
     get local data - local file or resource content.
   * `options.downloadProgress: function(fetched:integer, total:integer)` - callback function to be called on download progress. Note: _total_ argument can be zero if server does not provide "Content-Length" info.  
   * fetch API uses either HTTP client to get remote files or OS API for local files. In the first case return values are HTTP response codes, while in the second case error codes are coming from OS.
+  
+
 
 * ### `getComputedStyle(element[, pseudoEl]): Style`
 
