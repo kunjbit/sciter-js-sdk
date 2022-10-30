@@ -223,16 +223,14 @@ btnLiveReload.on("click", function(evt, button) {
 });
 
 on("click", "button#help", function() {
-    new Window({
-      url: home("../../../samples.sciter/applications.quark/mdview/main.htm"),
+    const url = URL.fromPath(home("../../../samples.sciter/applications.quark/mdview/main.htm"));
+    let w = new Window({
+      url: url,
       parameters: { folder: home("../../../docs/md") },
       state: Window.WINDOW_HIDDEN
     });
-    /*const scappn = PLATFORM == "Windows" ? "scapp.exe" : "scapp";
-    const scapp = home(scappn);
-    const mdview = home("../../../samples.sciter/applications.quark/mdview/main.htm");
-    const docfolder = home("../../../docs/md");
-    exec(scapp, mdview, docfolder);*/
+    if(!w)
+      Window.this.modal(<alert>Error launching {url}</alert>);
 });
 
 start();

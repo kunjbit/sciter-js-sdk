@@ -183,7 +183,7 @@ export class DOMView extends View {
     }
   }
 
-  ["on input"](evt) {
+  ["on change"](evt) {
     const UID = this.value;
     const found = this.findTheirNodeByUID(UID, this.root);
     if (found) {

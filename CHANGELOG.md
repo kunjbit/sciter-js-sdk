@@ -1,3 +1,10 @@
+## 5.0.1.2
+
+### Fixes:
+
+* Fix of `Graphics.pushLayer("background-area")` , see: https://sciter.com/forums/topic/paintbackground-coordinates/
+* [inspector] Node selection issue fix: https://sciter.com/forums/topic/inspector-dom-check-failure/
+
 ## 5.0.1.1
 
 ### New:
@@ -7,7 +14,7 @@
 
 ### Fixes:
 
-* Regreassion fixes of state change handling.
+* Regression fixes of state change handling.
 
 ## 5.0.1.0
 
