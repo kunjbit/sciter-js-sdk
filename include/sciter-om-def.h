@@ -510,10 +510,13 @@ namespace sciter {
       struct member_setter_function<bool(Type::*)(P0)> {
         template <bool(Type::*Func)(P0)> static SBOOL thunk(som_asset_t* thing, const SOM_VALUE* p_value)
         {
-          //try { bool r = (static_cast<Type*>(thing)->*Func)(p_value->get<P0>()); return r; }
-          //catch (exception& e) { *p_value = SOM_VALUE::make_error(e.what()); return TRUE; }
-          bool r = (static_cast<Type*>(thing)->*Func)(p_value->get<P0>());
-          return r;
+          try {
+            bool r = (static_cast<Type*>(thing)->*Func)(p_value->get<P0>());
+            return r;
+          }
+          catch (exception&) { 
+            return false;
+          }
         }
       };
 

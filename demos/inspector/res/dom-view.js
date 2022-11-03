@@ -246,7 +246,7 @@ class ElementMetrics extends View {
         <button|radio .units value="ppx" checked={!this.units || this.units=="ppx"}>screen px</button>
         <button|radio .units value="px" checked={this.units=="px"}>css px</button></header>
 
-      <div .box.margin>    
+      <div.box.margin>    
         <var>{u(margin[1])}</var>
         <var>{u(margin[0])}</var>
         <var>{u(margin[2])}</var>
@@ -387,7 +387,7 @@ export class ElementDetailsView extends View {
 
     */
 
-    return <section .tabs>
+    return <section.tabs>
       <header>
         <caption>styles:</caption>
         <label #used current={ ctab == "used"}>used</label>

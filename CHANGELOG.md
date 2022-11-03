@@ -1,3 +1,10 @@
+## 5.0.1.3
+
+Stabilization build.
+
+* Various fixes of DOM updates rendering.
+* Inspector fixes.
+
 ## 5.0.1.2
 
 ### Fixes:

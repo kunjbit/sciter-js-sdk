@@ -15,8 +15,8 @@
         flow: grid( 1  2  3  4  5  13,
                     1  2  8  9  9  14,
                     6  2  10 11 15 17,
-                    6  12  7  16 18 17 );
-        border-spacing:4dip;
+                    6  12 7  16 18 17 );
+        border-spacing:4px;
         size:max-content;
 		    margin: *;
 		    border: 1dip solid blue;
@@ -38,15 +38,12 @@
         g.style.setProperty("size", "max-content"); 
         if( flow == "grid" ) {
           g.style.setProperty("flow", grid_flow);
-          g.style.removeProperty("width");
         }
         else if( flow == "rows" ) {
           g.style.setProperty("flow", rows_flow);
-          g.style.removeProperty("width");
         }
         else if( flow == "hf" ) {
           g.style.setProperty("flow", "horizontal-flow");
-          g.style.setProperty("width", "100%");
         }
       });
       

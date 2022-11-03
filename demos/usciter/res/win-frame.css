@@ -36,7 +36,7 @@ html > header > window-buttons > window-button {
   foreground-position:50% 50%;
   stroke:color(window-caption-text);
   stroke-width:1dip;
-  transition: background-color linear 100ms;
+  //transition: background-color linear 100ms;
 }
 html > header > window-buttons > window-button:hover { 
   background:rgba(0,0,0,0.25);   

@@ -96,6 +96,13 @@ var nativeObj = Window.this.assetInterface.makeNativeObject();
     const output = document.$("#objectOutput");
     var r = nativeObj.inc(); // method
     var c = nativeObj.vcounter; // virtual property
+
+    try {
+      nativeObj.vcounter = 43;        
+    } catch (e) {
+      console.log(e.toString(), "( this error is expected)");
+    }
+
     output.innerText = `${nativeObj} inc() : ${ r } vcounter: ${ c }`;
   });
 

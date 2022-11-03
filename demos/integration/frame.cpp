@@ -16,6 +16,9 @@ public:
   int         valueOf() const { return counter; }
   // sample of virtual property
   int ref_counter() const { return counter; }
+  bool set_ref_counter(int rc) { 
+    return false; /* will rise the error */ 
+  }
 
   SOM_PASSPORT_BEGIN(NativeObject)
     SOM_FUNCS(
@@ -26,7 +29,7 @@ public:
     )
     SOM_PROPS(
       SOM_PROP(counter),
-      SOM_RO_VIRTUAL_PROP(vcounter, ref_counter)
+      SOM_VIRTUAL_PROP(vcounter, ref_counter, set_ref_counter)
     )
     SOM_PASSPORT_END
 };

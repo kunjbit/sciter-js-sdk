@@ -343,7 +343,7 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
     padding:2px;
   }
 
-  div.inner > var { font-weight:bold; display:inline-block; margin:0 2px; min-width:max-content; }
+  div.inner > var { font-weight:bold; display:inline-block; margin:0 2px; width:max-content; }
 
   dl.content { 
     flow:row(dt,dd,dt,dd);
@@ -352,7 +352,7 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
   }
   dl.content > dt { white-space:no-wrap; text-align:right; margin:0; padding:0; }
   dl.content > dd { width:max-width; display:block; margin:0; padding:0; }
-  dl.content var { font-weight:bold; display:inline-block; margin:0 2px; min-width:max-content; }
+  dl.content var { font-weight:bold; display:inline-block; margin:0 2px; width:max-content; }
 }
 
 var.coll {
