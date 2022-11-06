@@ -69,6 +69,11 @@
 
               }                
             }); 
+
+            Window.this.on("trayicondoubleclick", evt => { 
+              append("trayicondoubleclick",evt.data); 
+            }); 
+          
           }
 
           document.on("blur",function(evt) {

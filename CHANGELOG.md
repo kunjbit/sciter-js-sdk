@@ -1,3 +1,13 @@
+## 5.0.1.4
+
+Fixes:
+
+* [sciter::om, C++] property setters can throw custom exceptions now.
+* [windows] tray icon generation fix.
+* Fix of inheritable nature of `state.disabled`. If a container is disabled then all its subtree is also disabled. 
+* [CSS] Fix of handling of URLs that contain non-ascii characters, like `background: url(привет.png);`
+* [DOM] `componentDidMount()` gets posted by default.
+
 ## 5.0.1.3
 
 Stabilization build.

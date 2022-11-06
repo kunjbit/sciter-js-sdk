@@ -17,7 +17,8 @@ public:
   // sample of virtual property
   int ref_counter() const { return counter; }
   bool set_ref_counter(int rc) { 
-    return false; /* will rise the error */ 
+    throw sciter::om::exception("attempt to set RO property");
+    return true;
   }
 
   SOM_PASSPORT_BEGIN(NativeObject)

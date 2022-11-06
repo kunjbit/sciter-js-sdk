@@ -19,7 +19,7 @@ UINT64 SCAPI SciterAtomValue(const char* name);
 SBOOL  SCAPI SciterAtomNameCB(UINT64 atomv, LPCSTR_RECEIVER* rcv, LPVOID rcv_param);
 
 typedef SBOOL(*som_prop_getter_t)(som_asset_t* thing, SOM_VALUE* p_value);
-typedef SBOOL(*som_prop_setter_t)(som_asset_t* thing, const SOM_VALUE* p_value);
+typedef SBOOL(*som_prop_setter_t)(som_asset_t* thing, SOM_VALUE* p_value);
 typedef SBOOL(*som_item_getter_t)(som_asset_t* thing, const SOM_VALUE* p_key, SOM_VALUE* p_value);
 typedef SBOOL(*som_item_setter_t)(som_asset_t* thing, const SOM_VALUE* p_key, const SOM_VALUE* p_value);
 typedef SBOOL(*som_item_next_t)(som_asset_t* thing, SOM_VALUE* p_idx /*in/out*/, SOM_VALUE* p_value);
@@ -156,7 +156,7 @@ namespace sciter {
       {
         static SBOOL getter(som_asset_t* thing, SOM_VALUE* p_value)
           { *p_value = SOM_VALUE((static_cast<Type*>(thing)->*M)); return TRUE; }
-        static SBOOL setter(som_asset_t* thing, const SOM_VALUE* p_value)
+        static SBOOL setter(som_asset_t* thing, SOM_VALUE* p_value)
           { static_cast<Type*>(thing)->*M = p_value->get<PT>(); return TRUE; }
       };
 
@@ -508,13 +508,14 @@ namespace sciter {
 
       template <class Type, class P0>
       struct member_setter_function<bool(Type::*)(P0)> {
-        template <bool(Type::*Func)(P0)> static SBOOL thunk(som_asset_t* thing, const SOM_VALUE* p_value)
+        template <bool(Type::*Func)(P0)> static SBOOL thunk(som_asset_t* thing, SOM_VALUE* p_value)
         {
           try {
             bool r = (static_cast<Type*>(thing)->*Func)(p_value->get<P0>());
             return r;
           }
-          catch (exception&) { 
+          catch (exception& e) { 
+            *p_value = SOM_VALUE::make_error(e.what());
             return false;
           }
         }
