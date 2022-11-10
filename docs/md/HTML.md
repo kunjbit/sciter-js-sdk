@@ -62,6 +62,7 @@ Window (`<html>`) specific attributes
 | `window-minimizable` | `true\|false`
 | `window-maximizable` | `true\|false`
 | `window-blurbehind` | `auto\|dark\|light\|ultra-dark\|ultra-light` translucent effect.
+| `window-corners` | `default\|not-round\|round\|round-small` - define window corner roudness on supported OS (e.g. Win11) .
 | `window-state` | `shown\|minimized\|maximized\|full-screen\|hidden` - initial state of HTML window
 | `lang` | ISO 639-1 value, define dictionary for spellcheck, Date...
 | `disable-debug` | do not connect to inspector

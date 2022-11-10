@@ -259,40 +259,40 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
 ### TCP socket class
 
 * `socket.close()`
-* `socket.read()`
-* `socket.write()`
+* `socket.read():Promise(data)`
+* `socket.write(data:TypedArray | ArrayBuffer):Promise`
 * `socket.shutdown()`
 * `socket.fileno()`
-* `socket.listen()`
-* `socket.accept()`
-* `socket.getsockname()`
-* `socket.getpeername()`
-* `socket.connect()`
-* `socket.bind()`
+* `socket.listen([backlog:int])`
+* `socket.accept():Promise(socket)`
+* `socket.getsockname(): {ip:...,port:...,family:...}`
+* `socket.getpeername(): {ip:...,port:...,family:...}`
+* `socket.connect({ip:...,port:...})`
+* `socket.bind({ip:...,port:...})`
 
 ### UDP socket class
 
 * `socket.close()`
-* `socket.recv()`
-* `socket.send()`
+* `socket.recv():Promise({data,flags:int,addr:{ip:...,port:...}})`
+* `socket.send(data:TypedArray | ArrayBuffer [,{ip,port}])`
 * `socket.fileno()`
-* `socket.getsockname()`
-* `socket.getpeername()`
-* `socket.connect()`
-* `socket.bind()`
+* `socket.getsockname(): {ip:...,port:...,family:...}`
+* `socket.getpeername(): {ip:...,port:...,family:...}`
+* `socket.connect({ip:...,port:...}):Promise`
+* `socket.bind({ip:...,port:...})`
 
 ### Pipe - IPC mostly
 
 * `socket.close()`
 * `socket.read()`
-* `socket.write()`
+* `socket.write(data:TypedArray | ArrayBuffer)`
 * `socket.fileno()`
-* `socket.listen()`
-* `socket.accept()`
-* `socket.getsockname()`
-* `socket.getpeername()`
-* `socket.connect()`
-* `socket.bind()`
+* `socket.listen([backlog:int])`
+* `socket.accept():Promise(socket)`
+* `socket.getsockname():string`
+* `socket.getpeername():string`
+* `socket.connect(name:string):Promise`
+* `socket.bind(name:string)`
 
 ### TTY primitives
 

@@ -1,3 +1,15 @@
+## 5.0.1.5
+
+### New:
+
+* new attribute on root &lt;html&gt;: `window-corners="default|not-round|round|round-small"` - works on Windows 11 so far to suppress/enable window round corners. 
+
+### Fixes:
+
+* Fix of `event input` generation;
+* [css] `layer:force` fix;
+* Fix of opacity handling in `graphics.pushLayer(x,y,w,h,opacity)`
+
 ## 5.0.1.4
 
 Fixes:
