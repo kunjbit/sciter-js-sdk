@@ -1,3 +1,14 @@
+## 5.0.1.6
+
+### New:
+
+* [Windows] Support of Acrylic/Mica backdrops on Windows 11 using official API. See: /samples.sciter/window/blurbehind-modes.htm
+
+### Fixes:
+
+* Fix of svg images rendering in "render element on image"  ( `new Graphics.Image(w,h,element)` )
+* Fix of https://sciter.com/forums/topic/multiple-css-animation-issue/
+
 ## 5.0.1.5
 
 ### New:
