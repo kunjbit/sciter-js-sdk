@@ -1,3 +1,16 @@
+## 5.0.1.7
+
+### Fixes:
+
+* JQuery compatibility fixes. JQuery should work as it is.
+* Audio memory leak fix.
+* Hang up fix, see: https://sciter.com/forums/topic/simple-html-to-crash-usciter-or-scapp/
+* `file.readSync()` return value fix.
+
+### New:
+
+* Win11: `window-corners = "default" | "not-round" | "round" | "round-small"` attribute on root HTML of the window.
+
 ## 5.0.1.6
 
 ### New:

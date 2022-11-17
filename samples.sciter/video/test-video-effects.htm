@@ -25,7 +25,7 @@
 
       class VideoStack extends Element  
       {
-        onstart() {
+        ["on start at video"]() {
            //  binding video frame image with "in-memory:video-frame" URL 
            //  so it can be used by CSS. See video-stack > div rule above
            var img = this.$("video").style.imageOf("foreground-image");

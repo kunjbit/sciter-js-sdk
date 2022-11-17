@@ -36,13 +36,17 @@ export class VideoControls extends Element {
       </div>;
     }
 
-    return <video src={this.src} styleset={__DIR__ + "video-controls.css#video-controls"}>{content}</video>;
+    return <video controls 
+                  src={this.src} 
+                  mode={this.status}
+                  styleset={__DIR__ + "video-controls.css#video-controls"}>{content}</video>;
   }
 
   componentDidMount() {
-    if(!this.src) // true if this was instantiated as DOM component
-      this.patch(this.render(),true/*only children*/);
+    if(!this.src) // true if this was instantiated as a DOM component
+      this.patch(this.render());
   }
+
   
  // log10
   get_vlog10_idx(val) {

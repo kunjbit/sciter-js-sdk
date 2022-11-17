@@ -9,8 +9,7 @@ video[controls] {
   :root { 
     background:#CCD; flow:vertical; overflow:hidden; 
   }
- 
-  
+
   div.bar {
     width:*; 
     height:30dip; 

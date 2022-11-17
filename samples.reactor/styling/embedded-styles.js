@@ -16,8 +16,6 @@ const styleset = CSS.set`
   }
 `;
 
-console.log("%s", styleset);
-
 export class TestEmb extends Element {
   render() {
     return <div styleset={styleset}>
