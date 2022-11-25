@@ -68,11 +68,32 @@ function loadFolder(path) {
       return "";
   }
 
+  const DIR_ENTRY_FILE = 1;
+  const DIR_ENTRY_FOLDER = 2;
+
+  function sorter(dirEntryA,dirEntryB) {
+    if(dirEntryA.type == DIR_ENTRY_FOLDER &&
+       dirEntryB.type != DIR_ENTRY_FOLDER) return -1;
+    if(dirEntryB.type == DIR_ENTRY_FOLDER &&
+       dirEntryA.type != DIR_ENTRY_FOLDER) return +1;
+
+    if(dirEntryA.name == "README.md" && 
+       dirEntryB.name != "README.md") return -1;
+    if(dirEntryB.name == "README.md" && 
+       dirEntryA.name != "README.md") return +1;
+
+    return dirEntryA.name.toLowerCase().localeCompare(dirEntryB.name.toLowerCase());
+  }
+
   folderContent = function(path) {
     const at = path + "/";
     const files = sys.fs.$readdir(at);
     if (!files) return "";
+
+    files.sort(sorter);
+
     const content = [];
+
     for (const file of files) {
       if (file.type === 1) {
         if (file.name.endsWith(".md"))
@@ -248,6 +269,8 @@ document.ready = function() {
 // Search engine
 const Search = {docs: []};
 
+
+
 Search.add = async (path) => {
   const url = new URL(path);
   Search.docs.push({
@@ -257,8 +280,16 @@ Search.add = async (path) => {
   });
 };
 
+function escapeQuery(query) {
+  return new RegExp(query.replaceAll("(", "\\(")
+                          .replaceAll(")", "\\)")
+                          .replaceAll("|", "\\|") , "gi");
+
+}
+
 Search.find = (query) => {
-  query = new RegExp(query.replaceAll("(", "\\(").replaceAll(")", "\\)"), "gi");
+  query = escapeQuery(query);
+
   const result = [];
   for (const doc of Search.docs) {
     const find = {name: doc.name, path: doc.path, cache: []};
@@ -274,7 +305,8 @@ Search.find = (query) => {
 };
 
 Search.highlight = (query, index = 0) => {
-  query = new RegExp(query.replaceAll("(", "\\(").replaceAll(")", "\\)"), "gi");
+  query = escapeQuery(query);
+
   let indexes = 0;
 
   function mark(node) {
@@ -282,7 +314,7 @@ Search.highlight = (query, index = 0) => {
     const text = node.textContent;
 
     range.setStart(node, 0);
-    range. setEnd(node, text.length);
+    range.setEnd(node, text.length);
     range.clearMark(["focus", "found"]);
 
     const matches = text.matchAll(query);
@@ -332,7 +364,7 @@ document.on("change", "#search", (evt, input) => {
 
     const found = Search.find(input.value);
     if (!found) {
-      ResultE.content(<h2 style="text-align:center; font-weight: normal;">눈_눈</h2>); return false;
+      ResultE.content(<h2 style="text-align:center; font-weight: normal;">Nothing found</h2>); return false;
     }
 
     const content = [];
