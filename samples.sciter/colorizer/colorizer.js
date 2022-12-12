@@ -182,6 +182,10 @@ export function colorize() {
     },
   });
 
+  Object.defineProperty(me, "colorize", {
+    value: function() { doIt(); },
+  });
+
   if (isEditor) {
     this.on("change", function() {
       this.timer(40, doIt);

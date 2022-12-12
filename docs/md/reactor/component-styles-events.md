@@ -93,7 +93,7 @@ Note how style set is assigned to the component by `<clock styleset={clockStyles
 
 In contrast with ReactJS Sciter does not require any special constructs for handling events - we can use normal (for the Sciter) event handling definitions in classes.
 
-Sample of small component that encapsulates search block enclosing `<input>` and `<button>` in one entity:
+Sample of small component that encapsulates search block enclosing `<input>` and `<button>` in one entity:
 
 ```JavaScript
 class Search extends Element {
@@ -121,7 +121,7 @@ class Search extends Element {
 In this example we are handling two events: click on the button and change of the input.
 
 
-Word about event handling functions like `\["on change at input"\]\(evt,input\)` above.
+Word about event handling functions like `["on change at input"](evt,input)` above.
 
 That format is a standard JS/ES2020 way of defining functions with [computable names](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Method_definitions#computed_property_names) or names that include namespaces. It is just in Sciter event handlers are using this form to describe event handling functions that have the following signatures:    
 
@@ -133,7 +133,7 @@ That format is a standard JS/ES2020 way of defining functions with [computable n
 Where:  
 
 * **on**\[space\] part marks the function as event handler;     
-* *eventname* is a name of event - either standard HTML's one like click, input, focus, ... or custom event name;     
+* *eventname* is a name of event - either standard HTML's one like click, input, focus, ... or custom event name;     
 * \[space\]**at**\[space\], if present, signifies that selector will follow;    
 * *selector* is CSS selector of child element inside this element. When event handler will be triggered selectorElement argument of the function will get reference to the matching child that generated the event.   
 
@@ -143,7 +143,7 @@ Such class based event handlers are especially effective in cases when there are
 
 Reactor Components are executable entities even if they look as HTML.
 
-Normally in ReactJS you see JSX code only inside `<script>` sections and JS code files like here:
+Normally in ReactJS you see JSX code only inside `<script>` sections and JS code files like here:
 
 ```JavaScript
 function App() {
@@ -160,51 +160,51 @@ document.body.patch( <App /> );
 
 While this works in general it may look non-natural or inconvenient to someone.
 
-Alternatively Sciter offers special `<reactor>` HTML element as a mounting point:
+Alternatively Sciter offers special `<reactor>` HTML element as a mounting point:
 
 ```XML
 <body>
    <p>Test of Tabs component.</p>
       
-   <reactor(Tabs) src="tabs.js">
-     <tab(first) label="First tab">First tab content</tab>
-     <tab(second) label="Second tab">Second tab content</tab>
-     <tab(third) label="Third tab" src="tab-content.htm"></tab>
+   <reactor type="Tabs" src="tabs.js">
+     <tab name="first" label="First tab">First tab content</tab>
+     <tab name="second" label="Second tab">Second tab content</tab>
+     <tab name="third" label="Third tab" src="tab-content.htm"></tab>
    </reactor>
 
 </body>
 ```
 
-The <reactor> element expects two attributes:
+The `<reactor>` element expects two attributes:
 
-* *name* - name of component class and 
-* *src* - url of the script file where that component is defined.
+* *type* - class name of the component and 
+* *src* - url of the script file where that component is defined.  
 
-Please note that, while it looks like HTML, content between `<reactor>` and `</reactor>` is parsed by script rules (JSX in this case). Essentially you may think as the whole `<reactor>` section is just `<script>` element:
+Please note that, while it looks like HTML, content between `<reactor>` and `</reactor>` is parsed by script rules (JSX in this case). Essentially you may think as the whole `<reactor>` section is just `<script>` element (pseudo code):
 
 ```XML
 <body>
-   <p>Test of &lt;Tabs> component.</p>
+   <p>Test of <Tabs> component.</p>
       
-   <script type="text/javascript+jsx" component="Tabs" src="tabs.tis">
-     <tab(first) label="First tab">First tab content</tab>
-     <tab(second) label="Second tab">Second tab content</tab>
-     <tab(third) label="Third tab" src="tab-content.htm"></tab>
+   <script component="Tabs" src="tabs.js">
+     <tab name="first" label="First tab">First tab content</tab>
+     <tab name="second" label="Second tab">Second tab content</tab>
+     <tab name="third" label="Third tab" src="tab-content.htm"></tab>
    </script>
 
 </body>
 ```
 
-The only major difference of the `<reactor>`: it is a placeholder element - as soon as component gets instantiated it **replaces** the `<reactor>` DOM element. Therefore final DOM after `<reactor>`'s *execution* will look like:
+The only major difference of the `<reactor>`: it is a placeholder element - as soon as component gets instantiated it **replaces** the `<reactor>` DOM element. Therefore final DOM after `<reactor>`'s *execution* will look like:
 
 ```XML
 <body>
    <p>Test of &lt;Tabs> component.</p>
       
    <tabs>
-     <tab(first) label="First tab">First tab content</tab>
-     <tab(second) label="Second tab">Second tab content</tab>
-     <tab(third) label="Third tab" src="tab-content.htm"></tab>
+     <tab name="first" label="First tab">First tab content</tab>
+     <tab name="second" label="Second tab">Second tab content</tab>
+     <tab name="third" label="Third tab" src="tab-content.htm"></tab>
    </tabs>
 
 </body>

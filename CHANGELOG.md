@@ -1,3 +1,29 @@
+## 5.0.1.8
+
+### Fixes:
+
+* fix of `Zip.openData();`;
+* fix of `element.options` to return `ElementList`;
+* [MacOS] fix of `window-frame="transparent"` rendering;
+* Fix of `:active` applied on MOUSE_ENTER/LEAVE from touchpad.
+* `<plaintext>` loading speedup. 
+* `storage.close();` fix, no need for explicit `storage.commit()`;
+* [inspector] `eval`, fix of "r" being undefined;
+* `env.homeURL()` fix;
+* [Win11] fix of popup windows rendering;
+* [macos] `Window.this.close()` fix for the case when window is not yet shown;
+* [macos] http/gzip handling fix;
+* [css] `hsl(90deg 100% 42%)` parsing fix;
+* [css] `{ content: attr(name); }` dynamic attribute change fix;
+* fix of AV in style-set/appearance:none combination: https://sciter.com/forums/topic/custom-style-causes-crash/ (second attempt);
+* Documentation fixes.
+
+### New:
+
+* [css] + `baseline-shift: <length> | <percent>` property (reduced support to only those);
+
+
+
 ## 5.0.1.7
 
 ### Fixes:

@@ -2,9 +2,10 @@
 
 export class VideoControls extends Element {
 
-  status = "stopped";
+  status = "initial";
   barIsShown = false;
   src = "";
+
 
   static vlog10 = [0,0,0.3010,0.4771,0.6020,0.6989,0.7781,0.8450,0.9030,0.9542,1];
 
@@ -79,7 +80,11 @@ export class VideoControls extends Element {
   //onready() {}
 
   onstart() { 
-    this.componentUpdate({ status: "playing" });
+    if(this.status == "initial") {
+      this.video.stop();
+      this.componentUpdate({ status: "stopped" });
+    } else
+      this.componentUpdate({ status: "playing" });
   }
   onstop() { 
     this.componentUpdate({ status: this.video.isEnded ? "ended" : "stopped" });

@@ -1,5 +1,5 @@
 
-Note: this document is written intentionally close to [ReactJS/Components and Props](https://reactjs.org/docs/components-and-props.html) article to highlight differences and similarities with ReactJS.
+Note: this document is written intentionally close to [ReactJS/Components and Props](https://reactjs.org/docs/components-and-props.html) article to highlight differences and similarities with ReactJS.
 
 ## Components and Props
 
@@ -21,11 +21,11 @@ You can also use classes to define a component:
 
 ```JavaScript
 class Welcome extends Element {
-  function this(props) { 
+  this(props) { 
     this.props = props; 
   }
 
-  function render() {
+  render() {
     return <h1>Hello, {this.props.name}</h1>;
   }
 }
@@ -47,8 +47,8 @@ function FunctionComponent(props, kids [,parent]) {}
 
 Where:
 
-* *props* are passed attributes;
-* *kids* are children, content VNodes;
+* *props* are passed attributes;
+* *kids* are children, content VNodes;
 * *parent* is the parent DOM element where the component will appear.
 * *this* environment variable can be either `null` for a brand new element, or an object `instanceof Element` for existing element.
 
@@ -62,8 +62,8 @@ Example, this declaration:
 
 will get call of FunctionComponent() with this parameters:
 
-* *props* - `{ mode: "start" }`
-* *kids* - `[ <div>bar</div> ]`
+* *props* - `{ mode: "start" }`
+* *kids* - `[ <div>bar</div> ]`
 
 Constructors of class components follow the same convention:
 
@@ -73,7 +73,7 @@ class ClassComponent extends Element {
 }
 ```
 
-The *parent* argument receives DOM element - future or existing container DOM element.
+The *parent* argument receives DOM element - future or existing container DOM element.
 
 ## Rendering a Component
 
@@ -105,16 +105,16 @@ document.body.content(velement);
 
 Let us recap what happens in the example above:
 
-1. We call `element.content(velement)` with the `<Welcome name="Ivan" />` element.
-1. Sciter runtime calls the `Welcome` component with `{name: "Ivan"}` as the props object.
-1. Our `Welcome` component returns a `<h1>Hello, Ivan</h1>` virtual element as the result.
-1. `element.content()` function inserts DOM element `<h1>Hello, Ivan!</h1>` using that virtual element definition.
+1. We call `element.content(velement)` with the `<Welcome name="Ivan" />` element.
+1. Sciter runtime calls the `Welcome` component with `{name: "Ivan"}` as the props object.
+1. Our `Welcome` component returns a `<h1>Hello, Ivan</h1>` virtual element as the result.
+1. `element.content()` function inserts DOM element `<h1>Hello, Ivan!</h1>` using that virtual element definition.
 
 ## Composing Components
 
 Components can refer to other components in their output. This lets us use the same component abstraction for any level of detail. A button, a form, a dialog, all those may commonly be expressed as components.
 
-For example, we can create an `App` component that renders `Welcome` many times:
+For example, we can create an `App` component that renders `Welcome` many times:
 
 ```JavaScript
 function Welcome(props) {
@@ -136,7 +136,7 @@ document.body.patch( <App /> );
 
 Don’t be afraid to split components into smaller components.
 
-For example, consider this `Comment` component:
+For example, consider this `Comment` component:
 
 ```JavaScript
 function Comment(props) {
@@ -152,11 +152,11 @@ function Comment(props) {
 }
 ```
 
-It accepts `author` (an object), `text` (a string), and `date` (a date) as props, and describes a comment in a chat implementation for example.
+It accepts `author` (an object), `text` (a string), and `date` (a date) as props, and describes a comment in a chat implementation for example.
 
 This component can be tricky to change and maintain because of all the nesting, and it is also hard to reuse individual parts of it.
 
-Let’s extract a few components from it. First, we will extract `Avatar`:
+Let’s extract a few components from it. First, we will extract `Avatar`:
 
 ```JavaScript
 function Avatar(props) {
@@ -166,7 +166,7 @@ function Avatar(props) {
 }
 ```
 
-Next, we will extract a `UserInfo` component that renders an `Avatar` next to the user’s name:
+Next, we will extract a `UserInfo` component that renders an `Avatar` next to the user’s name:
 
 ```JavaScript
 function UserInfo(props) {
@@ -177,7 +177,7 @@ function UserInfo(props) {
 }
 ```
 
-And finally simplified `Comment` that is composed from the above:
+And finally simplified `Comment` that is composed from the above:
 
 ```JavaScript
 function Comment(props) {
@@ -191,4 +191,4 @@ function Comment(props) {
 
 Extracting components might seem like grunt work at first, but having a palette of reusable components pays off in larger apps. 
 
-A good rule of thumb is that if a part of your UI is used several times (`Button`, `Panel`, `Avatar`), or is complex enough on its own (`App`, `FeedStory`, `Comment`), it is a good candidate to be a reusable component.
+A good rule of thumb is that if a part of your UI is used several times (`Button`, `Panel`, `Avatar`), or is complex enough on its own (`App`, `FeedStory`, `Comment`), it is a good candidate to be a reusable component.

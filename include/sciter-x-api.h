@@ -338,9 +338,6 @@ typedef ISciterAPI* (SCAPI *SciterAPI_ptr)();
             SciterAPI_ptr sciterAPI = (SciterAPI_ptr) GetProcAddress(hm, "SciterAPI");
             if( sciterAPI ) {
               _api = sciterAPI();
-//#if defined(__cplusplus) && !defined(PLAIN_API_ONLY)
-//              tiscript::ni( _api->TIScriptAPI() );
-//#endif
             } else {
               FreeLibrary(hm);
             }
@@ -507,7 +504,6 @@ inline ISciterAPI *_SAPI(ISciterAPI *ext) {
 }
 
 #endif
-
 
   inline ISciterAPI* SAPI() {
 #if defined(__cplusplus) && !defined(PLAIN_API_ONLY)

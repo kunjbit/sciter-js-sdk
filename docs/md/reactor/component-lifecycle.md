@@ -70,15 +70,15 @@ class Comp extends Element {
     }
 ```
 
-The `render()` method is the only required method in a class component.
+The `render()` method is the only required method in a class component.
 
-When called, it shall return  **React element** typically created via [JSX](JSX.md). For example, `<div />` and `<MyComponent />` are Reactor elements that instruct Reactor to render a DOM node, or another user-defined component, respectively.
+When called, it shall return  **React element** typically created via [JSX](JSX.md). For example, `<div />` and `<MyComponent />` are Reactor elements that instruct Reactor to render a DOM node, or another user-defined component, respectively.
 
-If you need to interact with the browser, perform your work in `componentDidMount()` or the other lifecycle methods instead. Keeping `render()` pure makes components easier to think about.
+If you need to interact with the browser, perform your work in `componentDidMount()` or the other lifecycle methods instead. Keeping `render()` pure makes components easier to think about.
 
 > Note
   
-  `render()` can be called as on initial creation of the element (before creation of real DOM element) as on live DOM element (update of existing DOM element). To distinguish these two cases you can use  
+  `render()` can be called as on initial creation of the element (before creation of real DOM element) as on live DOM element (update of existing DOM element). To distinguish these two cases you can use  
 
 
 ### <a name="constructor"></a>`constructor(props,kids)`
@@ -91,7 +91,7 @@ class Comp extends Element {
 
 **JavaScript constructor is optional. If you don’t initialize state and you don’t bind methods, you don’t need to implement a constructor for your Reactor component.**
 
-The constructor for a Reactor component is called before any other methods. When implementing the constructor for a Reactor component, you should call `super()` before any other statement - this is a JavaScript requirement for derived classes. 
+The constructor for a Reactor component is called before any other methods. When implementing the constructor for a Reactor component, you should call `super()` before any other statement - this is a JavaScript requirement for derived classes. 
 
 ### <a name="this"></a>`this(props,kids)`
 
@@ -120,9 +120,9 @@ class Comp extends Element {
 }
 ```
 
-`componentDidMount()` is invoked immediately after a component is mounted (inserted into the tree). Initialization that requires DOM nodes should go here. If you need to load data from a remote endpoint, this is a good place to instantiate the network request.
+`componentDidMount()` is invoked immediately after a component is mounted (inserted into the tree). Initialization that requires DOM nodes should go here. If you need to load data from a remote endpoint, this is a good place to instantiate the network request.
 
-This method is a good place to set up any subscriptions. If you do that, don’t forget to unsubscribe in `componentWillUnmount()`.
+This method is a good place to set up any subscriptions. If you do that, don’t forget to unsubscribe in `componentWillUnmount()`.
 
 ### <a name="componentWillUnmount"></a>`componentWillUnmount()`
 
@@ -132,4 +132,4 @@ class Comp extends Element {
 }
 ```
 
-`componentWillUnmount()` is invoked immediately before a component is unmounted and destroyed. Perform any necessary cleanup in this method.
+`componentWillUnmount()` is invoked immediately before a component is unmounted and destroyed. Perform any necessary cleanup in this method.

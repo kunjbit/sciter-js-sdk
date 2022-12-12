@@ -183,9 +183,9 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
   * `fs.UV_FS_COPYFILE_FICLONE_FORCE` - to attempt to create a reflink, if copy-on-write is not supported, an error is returned.
 
 
-* #### `fs.readdir(path:string) : Promise`
+* #### `fs.readdir(path:string) : Promise(Dir)`
   
-  Reads _path_ directory asynchronously. The promise resolves to file list - array of direntry structures:
+  Reads _path_ directory asynchronously. The promise resolves to Dir object - list of direntry structures:
   ```JS
   { 
     name: string,  // local file name + extension
@@ -204,6 +204,12 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
   * `fs.UV_DIRENT_SOCKET` - socket 
   * `fs.UV_DIRENT_CHAR` - character stream device like terminal
   * `fs.UV_DIRENT_BLOCK` - block device
+  
+  ```
+  for await (const {name,type} of readdir("path")) {
+    ...  
+  }
+  ```
 
 
 * #### `fs.sync.readdir(path:string): filelist`

@@ -58,7 +58,10 @@ function reloadFile() {
 on("click", "button#open", function(e, btn) {
     if (btn.ownerDocument !== document)
         return false;
-    const fn = view.selectFile("open", file_filter);
+    const fn = view.selectFile {
+      filter: file_filter,
+      mode: "open"
+    };
     if (fn)
         loadFile(fn);
 });

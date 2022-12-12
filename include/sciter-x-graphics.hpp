@@ -124,7 +124,7 @@ namespace sciter
       return image(0);
     }
 
-    sciter::value to_value() {
+    sciter::value to_value() const {
       sciter::value v;
       GRAPHIN_RESULT r = gapi()->vWrapImage(himg,&v); assert(r == GRAPHIN_OK); (void)(r);
       return v;
@@ -202,7 +202,7 @@ namespace sciter
       return path(0);
     }
 
-    sciter::value to_value() {
+    sciter::value to_value() const {
       sciter::value v;
       GRAPHIN_RESULT r = gapi()->vWrapPath(hpath,&v); assert(r == GRAPHIN_OK); (void)(r);
       return v;
@@ -309,7 +309,7 @@ namespace sciter
       return text(0);
     }
 
-    sciter::value to_value() {
+    sciter::value to_value() const {
       sciter::value v;
       GRAPHIN_RESULT r = gapi()->vWrapText(htext, &v); assert(r == GRAPHIN_OK); (void)(r);
       return v;
@@ -360,7 +360,7 @@ namespace sciter
       return graphics(0);
     }
 
-    sciter::value to_value() {
+    sciter::value to_value() const {
       sciter::value v;
       GRAPHIN_RESULT r = gapi()->vWrapGfx(hgfx,&v); assert(r == GRAPHIN_OK); (void)(r);
       return v;
