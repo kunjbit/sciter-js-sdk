@@ -1,7 +1,7 @@
 # Sciter WebView
 A Sciter WebView is a Sciter behavior component. It can be used to incorporate web content seamlessly into your Sciter app's UI.
 
-The goal is to implement <webview> controller (as Sciter's behavior) so Sciter will be able to load and interact with arbitrary web pages.
+The goal is to implement `<webview>` controller (as Sciter's behavior) so Sciter will be able to load and interact with arbitrary web pages.
 
 ## Demos
 ![Sciter WebView](https://sciter.com/wp-content/uploads/2022/04/sciter-webview.png)

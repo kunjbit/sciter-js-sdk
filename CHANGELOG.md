@@ -1,3 +1,32 @@
+## 5.0.1.9
+
+### New:
+
+* + `Graphics.Rect`, `Graphics.Point`, `Graphics.Size` helper classes - 2D geometry support. 
+* + `Graphics.Path.isPointOnStroke(distance:number, point)` - method to determine if the point is close to the path.  
+* css4 color parsing flavour: `hsl(0deg 100% 50% / 0.5);` - hsl/hsv with alpha
+* [API, C++] `sciter::value::get(int64_t)` implementation to pass 64-bit integers to JS. 
+* [HTML] Support of x,y attributes in children of `flow:stack` containers;
+* widgets/vipe - initial implementation of Visual Programming Environment, not complete.  
+
+### Fixes:
+
+* [css] fix of multy color borders with border-radius.  
+* fix of AV on "naked" Windows 7 (without platform update).
+* fix of `behavior:windowed;`.
+* fix of first button click event generation.
+* [css] `flow:horizontal-wrap`, fix of max-content calculation.
+* `event mousedragrequest` generation fix.
+* [QuickJS] fix of error reporting on erroneous module loading.
+* Regression fix of window.modal { html: `<NewWindow />` }, see: https://sciter.com/forums/topic/window-this-modal-failed-to-show-jsx-window-content/
+* GDI+ backend fix (Windows XP compatibility).
+* `element.popup(..., {x,y})`  positioning fix.
+* `<select|editable>` context menu handling while popup list is open.
+* Fix of `animate` + `::after` combination: https://sciter.com/forums/topic/element-not-rendered-when-using-css-animation-combined-with-pseudo-element/
+* Fix of samples.css/scrollbars-n-scrolling/scrollbar-bound.htm
+* [usciter] dropzone file acceptance fix.
+
+
 ## 5.0.1.8
 
 ### Fixes:

@@ -24,8 +24,16 @@ N/A
 * ### `path.rect(x, y, width, height)`
 * ### `path.closePath()`
 
-* ### `path.isPointInside(x,y)`
+* ### `path.isPointInside(x,y):bool`
+* ### `path.isPointInside(Point):bool`
+  _true_ if the point is inside the (closed) path
+* ### `path.isPointOnStroke(distance,x,y):bool`
+* ### `path.isPointOnStroke(distance,Point):bool`
+  _true_ if the point is in _distance_ from the stroked path  
+* ### `path.box(): Rect`
+  Outline box as a rectangle
 * ### `path.bounds(): [x1,y1,x2,y2]`
+  Outline box as x1,y1,x2,y2 a quad
 * ### `path.combine(how:string, otherPath): Path`
   
   combines this and other paths using following _how_ modes:

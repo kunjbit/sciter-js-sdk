@@ -15,6 +15,10 @@ Class Graphics also is a namespace that contains classes:
 * [Graphics.Text](Graphics.Text.md)
 * [Graphics.Path](Graphics.Path.md)
 * [Graphics.Brush](Graphics.Brush.md)
+* and geometry utility classes:
+  - [Point](Graphics.Point.md) - geometric point, also known as 2D vector; 
+  - [Size](Graphics.Size.md) - geometric size, pair of width/height values. 
+  - [Rect](Graphics.Rect.md) - rectangle, can be expressed as quad [x1,y1,x2,y2] or as pair of Point (origin) and Size (dimension).
 
 #### Properties:
 

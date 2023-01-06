@@ -293,6 +293,14 @@
         if(ValueIntData(this,&v) == HV_OK) return v;
         return defv;
       }
+
+      int64_t get(int64_t defv) const
+      {
+        int64_t v;
+        if (ValueInt64Data(this, &v) == HV_OK) return v;
+        return defv;
+      }
+
       double get(double defv) const
       {
         double v;
@@ -617,6 +625,7 @@
     };
 
     inline int getter(const value& v, int*) { return v.get(0); }
+    inline int64_t getter(const value& v, int64_t*) { return v.get(int64_t(0)); }
     inline unsigned getter(const value& v, unsigned*) { return (unsigned)v.get(0); }
     inline bool     getter(const value& v, bool*) { return v.get(false); }
     inline double   getter(const value& v, double*) { return v.get(0.0); }

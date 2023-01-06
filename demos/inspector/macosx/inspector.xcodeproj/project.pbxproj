@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49B5782329233CC7002D4791 /* sciter-osx-main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 49B5782229233CC7002D4791 /* sciter-osx-main.mm */; };
 		49C5DA3A2606612400D97A3E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C5DA392606612400D97A3E /* AppDelegate.m */; };
 		49C5DA3C2606612500D97A3E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49C5DA3B2606612500D97A3E /* Assets.xcassets */; };
 		49C5DA3F2606612500D97A3E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49C5DA3D2606612500D97A3E /* MainMenu.xib */; };
 		49C5DA542606636900D97A3E /* inspector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49C5DA532606636900D97A3E /* inspector.cpp */; };
-		49C5DA59260664AD00D97A3E /* sciter-osx-main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 49C5DA58260664AD00D97A3E /* sciter-osx-main.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		495278592606A86B0002A42C /* libsciter.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libsciter.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		495278652606AAD50002A42C /* libsciter.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = libsciter.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		49B5782229233CC7002D4791 /* sciter-osx-main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "sciter-osx-main.mm"; path = "../../../../include/sciter-osx-main.mm"; sourceTree = "<group>"; };
 		49C5DA352606612400D97A3E /* inspector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = inspector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C5DA382606612400D97A3E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		49C5DA392606612400D97A3E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -26,7 +27,6 @@
 		49C5DA432606612500D97A3E /* inspector.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = inspector.entitlements; sourceTree = "<group>"; };
 		49C5DA4B2606616000D97A3E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		49C5DA532606636900D97A3E /* inspector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = inspector.cpp; path = ../inspector.cpp; sourceTree = "<group>"; };
-		49C5DA58260664AD00D97A3E /* sciter-osx-main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "sciter-osx-main.mm"; path = "/Users/andrew/sciter/sdk.js/demos/usciter/macosx/usciter/../../../../include/sciter-osx-main.mm"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +61,7 @@
 		49C5DA372606612400D97A3E /* inspector */ = {
 			isa = PBXGroup;
 			children = (
-				49C5DA58260664AD00D97A3E /* sciter-osx-main.mm */,
+				49B5782229233CC7002D4791 /* sciter-osx-main.mm */,
 				49C5DA382606612400D97A3E /* AppDelegate.h */,
 				49C5DA392606612400D97A3E /* AppDelegate.m */,
 				49C5DA3B2606612500D97A3E /* Assets.xcassets */,
@@ -152,7 +152,7 @@
 			files = (
 				49C5DA3A2606612400D97A3E /* AppDelegate.m in Sources */,
 				49C5DA542606636900D97A3E /* inspector.cpp in Sources */,
-				49C5DA59260664AD00D97A3E /* sciter-osx-main.mm in Sources */,
+				49B5782329233CC7002D4791 /* sciter-osx-main.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

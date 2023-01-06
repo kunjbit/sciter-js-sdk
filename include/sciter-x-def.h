@@ -271,7 +271,7 @@ typedef SCN_GRAPHICS_CRITICAL_FAILURE* LPSCN_GRAPHICS_CRITICAL_FAILURE;
 typedef struct SCN_KEYBOARD_REQUEST {
   UINT    code; /**< [in] = SC_KEYBOARD_REQUEST */
   HWINDOW hwnd; /**< [in] HWINDOW of the window this callback was attached to.*/
-  UINT    keyboardMode; /**< [in] 0 - hide keyboard, 1 ... type of keyboard, TBD */
+  LPCSTR  keyboardType; /**< [in] see: https://developer.android.com/reference/android/widget/TextView#attr_android:inputType */
 } SCN_KEYBOARD_REQUEST;
 
 typedef SCN_KEYBOARD_REQUEST *LPSCN_KEYBOARD_REQUEST;

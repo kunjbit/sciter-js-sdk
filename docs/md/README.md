@@ -86,6 +86,7 @@
 * [Window](Window.md) - desktop window defined by HTML loaded in it. 
 * [Audio](Audio.md) - audio playback. 
 * [Binary JSON](BJSON.md) - binary JSON.
+* [Geometry](geometry/README.md) - 2D geometry helper classes.
 
 ## Sciter specific modules
 

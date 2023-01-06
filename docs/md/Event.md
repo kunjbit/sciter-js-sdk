@@ -20,14 +20,28 @@
 * `event.shiftKey`
 * `event.button`
 * `event.buttons`
-* `event.clientX`
-* `event.clientY`
-* `event.screenX`
-* `event.screenY`
-* `event.windowX`
-* `event.windowY`
-* `event.deltaX:float` - wheel deltas
-* `event.deltaY:float`
+* currentTarget relative coordinates:
+  - `event.x`:number, CSS pixels
+  - `event.y`:number, CSS pixels
+  - `event.position`:[Point](../graphics/Graphics.Point.md), CSS pixels
+  - `event.contentPosition`:[Point](../graphics/Graphics.Point.md), CSS pixels : `event.position + event.currentTarget.scrollPosition` 
+* Client relative coordinates, relative to document container (window|frame):  
+  - `event.clientX`:number, CSS pixels
+  - `event.clientY`:number, CSS pixels
+  - `event.clientPoisition`:[Point](../graphics/Graphics.Point.md), CSS pixels
+* Window relative coordinates:
+  - `event.windowX`:number, CSS pixels
+  - `event.windowY`:number, CSS pixels
+  - `event.windowPoisition`:[Point](../graphics/Graphics.Point.md), CSS pixels
+* Screen relative coordinates, relative to whole desktop:
+  - `event.screenX`:number, screen pixels 
+  - `event.screenY`:number, screen pixels 
+  - `event.screenPosition`:[Point](../graphics/Graphics.Point.md), screen pixels 
+* Scroll (e.g. mouse wheel) deltas:
+  - `event.deltaX` :number
+  - `event.deltaY` :number
+  - `event.delta`:[Size](../graphics/Graphics.Size.md)
+
 * `event.deltaMode|int` - 0 - deltaX/Y are pixels coming from touch devices, 1 - deltaX/Y are in "lines" (a.k.a. mouse wheel "ticks"). 
 * `event.relatedTarget` - only for blur|focus|focusin|focusout events, see: [relatedTarget](https://developer.mozilla.org/en-US/docs/Web/API/FocusEvent/relatedTarget).
 

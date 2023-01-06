@@ -25,24 +25,26 @@ input.plus menu.popup > div { border-top:1px solid #ccc; }
 
 class EditPlus extends Element {
   
-  ["on focus"]()  {
-    this.pel = this.popup(<menu.popup>
-          <li>A item</li>
-          <li>B item</li>
-          <li>C item</li>
-          <li>D item</li>
-          <div>other menus</div>
-        </menu>);
+  ["on focus at :root"]()  {
+    if(!this.pel)
+      this.pel = this.popup(<menu.popup>
+            <li.a>A item</li>
+            <li.b>B item</li>
+            <li.c>C item</li>
+            <li.d>D item</li>
+            <div>other menus</div>
+          </menu>);
   } 
 
   ["on focusout"]() {
     if(this.pel) {
-      this.pel.state.popup = false; // hide it
+      if(this.pel.state) 
+        this.pel.state.popup = false; // hide it
       this.pel = null;
     }
   }
 
-  ["on click at ol>li"](evt,li) {
+  ["on click at menu>li"](evt,li) {
     Window.this.modal(<info>Got click on {li}</info>);
     return true; // consume
   }
