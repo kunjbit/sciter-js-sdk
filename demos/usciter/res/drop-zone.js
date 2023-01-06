@@ -7,7 +7,7 @@
 
 export function DropZone(params) {
     const container = params.container || this;
-    const filter = container.getAttribute("accept-drop") || params.filter || "*";
+    const filter = container.getAttribute("accept-drop") || params.accept || "*";
     const callback = params.ondrop;
 
     if (!(container instanceof Element))
