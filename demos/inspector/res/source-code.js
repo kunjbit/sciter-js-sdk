@@ -202,7 +202,7 @@ export class SourceCode extends Element {
 
   set value(v) {
     this.state.value = v.replaceAll("\r\n", "\n");
-    this.colorizeIt();
+    this.post( () => this.colorizeIt());
   }
 
   // on change request re-colorization
@@ -247,6 +247,9 @@ export class SourceCode extends Element {
     const atbreakpoint = this.channel.atBreakpoint;
 
     const gotoline = (lineno) => {
+
+      console.log("gotoline",lineno);
+
       this.lineno = lineno;
       if (!this.lineno)
         return;

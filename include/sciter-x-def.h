@@ -520,7 +520,13 @@ typedef enum SCITER_RT_OPTIONS
    SCITER_APP_LOOP = 1,     /// run message pump loop until SCITER_APP_STOP or main window closure
    SCITER_APP_INIT = 2,     /// pass argc/argv to application: p1 - argc, p2 - CHAR** argv 
    SCITER_APP_SHUTDOWN = 3, /// free resources of the application 
+   SCITER_APP_RUN  = 4,     /// scapp mode: load JS and run message pump loop until SCITER_APP_STOP or main window closure, p1 - JS url, p2 - 0 or SciterPrimordialLoader; 
  } SCITER_APP_CMD;
+
+ /**
+  * Sciter "Primordial" Loader used by SCITER_APP_RUN
+  */
+ typedef SBOOL SciterPrimordialLoader(const WCHAR* url, LPCBYTE* out_pb, UINT* out_cb);
 
  /** Perform application related operation
  *

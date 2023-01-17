@@ -1,3 +1,18 @@
+## 5.0.2.0
+
+### New:
+
+* [scapp.exe/Quark] - new [bootstrap execution mode](docs/md/scapp/README.md);
+* Better support of touch screen and touch pad scrolling gestures on Windows and MacOS; "overscroll" indication is back;
+* [JS] support of `debugger;` statement.
+
+### Fixes:
+
+* `sys.fs.xxx` file functions accept either file URL or path. Previously - only path.
+* Fix of sdk.js/samples.sciter/popup/editbox+popup.htm case.
+* Fix of https://sciter.com/forums/topic/not-support-latest-win11-2022h2/ ;
+* [css] rounded multicolor borders fix;
+
 ## 5.0.1.9
 
 ### New:
