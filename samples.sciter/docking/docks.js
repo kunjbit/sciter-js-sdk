@@ -1,8 +1,8 @@
 
 
-function isHorzFrameset(el) { return el && el.tag == "frameset" && el.attributes.getNamedItem("cols"); }
-function isVertFrameset(el) { return el && el.tag == "frameset" && el.attributes.getNamedItem("rows"); }
-function isTabsFrameset(el) { return el && el.tag == "frameset" && el.attributes.getNamedItem("tabs"); }
+function isHorzFrameset(el) { return el?.isSplitSet === "cols"; }
+function isVertFrameset(el) { return el?.isSplitSet === "rows"; }
+function isTabsFrameset(el) { return el?.isTabSet; }
 
 const MARKER_SIZE = 36;
 const MARKER_SIZE2 = MARKER_SIZE / 2;      
@@ -14,6 +14,21 @@ const MARKER_MIDDLE = new Graphics.Path("m 0 0 V 32 H 32 V 0 Z m 1 7 V 31 H 31 V
 
 const WINDOW_WIDTH = 300;
 const WINDOW_HEIGHT = 300;
+
+const MARKER_COLOR_HOVER = Color.RGB(255,129,0);
+const MARKER_COLOR = Color.RGB(0,129,255);
+
+function createHatchBrush() {
+  const bitmap = new Graphics.Image(Length.ppx(8),Length.ppx(8),((ctx) => {
+    ctx.fillStyle = MARKER_COLOR;
+    ctx.fillRect(0,0,8,1);
+    ctx.fillRect(0,0,1,8);
+  }));
+  //Clipboard.write({image:bitmap});
+  return Graphics.Brush.createTile(bitmap);
+}
+
+const HATCH_BRUSH = createHatchBrush();
 
 export class Dock extends Element {
 
@@ -44,25 +59,28 @@ export class Dock extends Element {
 
     // notify observers:
     widgetClass.shown = true;
-    Window.post(new Event("widget-new"));
+    Window.post(new Event("widget-show"));
   }
 
-  doDrag(dockable, xElement,yElement,xOff, yOff) {
+  onDragStart(dockable) {
+    dockable.on("move",evt => this.handleDrag(evt));
+    dockable.classList.add("dragging");    
+    this.paintForeground = this.paintMarkers;
+  }
 
-      const me = this;
-
-      function onmousemove(evt) {
-
-        const x = evt.screenX - xOff;
-        const y = evt.screenY - yOff;
-
-        this.takeOff({ x, y, relativeTo: "screen", window: "detached" });
-
-        me.handleDrag(evt);
-        return true;
+  onDragEnd(dockable) {
+    dockable.off("move");
+    dockable.classList.remove("dragging");    
+    this.paintForeground = null;
+    this.dragEnded(dockable); 
+    this.dropLocation = null;
+    this.targetDockable = null;
       }
 
+  takeOffDockable(dockable) {
       let parent = dockable.parentElement;
+
+      let [x,y,w,h] = dockable.state.box("xywh","inner","screen",true);
 
       let list = this.$("popup.windowed");
       list.append(dockable);
@@ -70,10 +88,6 @@ export class Dock extends Element {
 
       //console.log("DD", dockable, dockable instanceof DockPanel);
 
-      dockable.on("mousemove",onmousemove);
-      dockable.state.capture("strict");
-
-      //console.log(parent);
       if(parent !== this && parent.tag == "frameset" && parent.childElementCount == 1) {
 
         //setup default dimensions of element that will be reparented
@@ -95,27 +109,20 @@ export class Dock extends Element {
         parent.unwrapElement();
       }
 
-      dockable.takeOff({x:xElement,y:yElement,window:"detached", relativeTo:"screen"});
-      
-      this.paintForeground = this.paintMarkers;
-
-      Window.this.doEvent("untilMouseUp");
-
-      this.paintForeground = null;
-
-      dockable.state.capture(false);
-      dockable.off(onmousemove);
-      dockable.classList.remove("dragging");
-      this.dragEnded(dockable); 
-      this.dropLocation = null;
-      this.targetDockable = null;
+      dockable.takeOff({x,y,window:"detached", relativeTo:"screen"});
+      //console.log("BEFORE beginMoveDrag");
+      dockable.window.performMove(); // 
+      //console.log("AFTER beginMoveDrag");
   }
 
   dragEnded(dockable)
   {
 
     if(!this.dropLocation) { 
+      dockable.classList.remove("dragging");
       dockable.classList.add("detached");
+      //console.log("DDD end", dockable, dockable.style["opacity"]);
+      dockable.requestPaint();
       return; //this.setupWindowed;
     }
 
@@ -127,8 +134,8 @@ export class Dock extends Element {
     const createSubFrame = (rowscols) => {
       // target ...
       //console.log(target,dockable,this.targetDockable);
-      const atts = { [rowscols]: "" };
-      const subFrame = document.createElement("frameset",atts);
+      //const atts = { [rowscols]: "" };
+      const subFrame = Element.create(<DockSplitSet type={rowscols} />);
 
       this.targetDockable.parentElement.insertBefore(subFrame,this.targetDockable);
       subFrame.insertBefore(this.targetDockable);
@@ -166,7 +173,7 @@ export class Dock extends Element {
        this.dropLocation = "t"; 
     } 
     else if( this.dropLocation == "m" ) {
-      DockTabs.convert(this.targetDockable).appendTab(dockable);
+      DockTabSet.convert(this.targetDockable).appendTab(dockable);
     }
     else if(isHorzFrameset(this.targetDockable.parentElement)) {
       target = this.targetDockable.parentElement;
@@ -216,7 +223,11 @@ export class Dock extends Element {
 
     this.markers = null;
     this.requestPaint();
+    this.notifyStateChange();
+  }
 
+  notifyStateChange() {
+    this.postEvent(new Event("statechange",{bubbles:true}));
   }
 
   generateMarkers(elementUnder) {
@@ -231,10 +242,11 @@ export class Dock extends Element {
       let xc = (x2 + x1) / 2 , yc = (y2 + y1) / 2;
       
       markers = {
-        "t": [xc - MARKER_SIZE2, yc - MARKER_SIZE2 - 4 - MARKER_SIZE],
-        "l": [xc - MARKER_SIZE2 - 4 - MARKER_SIZE, yc - MARKER_SIZE2],
-        "r": [xc + MARKER_SIZE2 + 4, yc - MARKER_SIZE2],
-        "b": [xc - MARKER_SIZE2, yc + MARKER_SIZE2 + 4],
+        t: [xc - MARKER_SIZE2, yc - MARKER_SIZE2 - 4 - MARKER_SIZE],
+        l: [xc - MARKER_SIZE2 - 4 - MARKER_SIZE, yc - MARKER_SIZE2],
+        r: [xc + MARKER_SIZE2 + 4, yc - MARKER_SIZE2],
+        b: [xc - MARKER_SIZE2, yc + MARKER_SIZE2 + 4],
+        ltrb: [x1,y1,x2,y2],
       };
 
       if(!dockable.$is(".dockable-content"))
@@ -250,28 +262,34 @@ export class Dock extends Element {
       let [x1,y1,x2,y2] = parentFrameSet.state.box("rect","padding",this);
       markers["T"] = [ (x1 + x2) / 2 - MARKER_SIZE2, y1 ];
       markers["B"] = [ (x1 + x2) / 2 - MARKER_SIZE2, y2 - MARKER_SIZE];
+      markers["TB"] = [ x1,y1,x2,y2 ];
     }
     if(isVertFrameset(parentFrameSet)) {
       let [x1,y1,x2,y2] = parentFrameSet.state.box("rect","padding",this);
       markers["L"] = [ x1, (y1 + y2) / 2 - MARKER_SIZE2 ];
       markers["R"] = [ x2 - MARKER_SIZE, (y1 + y2) / 2 - MARKER_SIZE2];
+      markers["LR"] = [ x1,y1,x2,y2 ];
     }
     this.markers = markers;
     return dockable;
   }
 
   handleDrag(evt) {
-    let {clientX,clientY} = evt;
+
+    let {cursorClientX,cursorClientY} = evt.data;
+
+    //console.log("DRAG", cursorClientX,cursorClientY);
+
     const [docx,docy] = this.state.box("position","inner","document");
-    clientX -= docx; clientY -= docy;
-    const elementUnder = this.elementFromPoint(clientX,clientY);
+    cursorClientX -= docx; cursorClientY -= docy;
+    const elementUnder = this.elementFromPoint(cursorClientX,cursorClientY);
     let location;
     if(elementUnder) {
         this.targetDockable = this.generateMarkers(elementUnder);
         for( const [loc,origin] of Object.entries(this.markers)) {
           const [x,y] = origin;
-          if( clientX > x && clientX < (x + MARKER_SIZE) && 
-              clientY > y && clientY < (y + MARKER_SIZE) ) {
+          if( cursorClientX > x && cursorClientX < (x + MARKER_SIZE) && 
+              cursorClientY > y && cursorClientY < (y + MARKER_SIZE) ) {
             location = loc;
             break;
           }
@@ -289,26 +307,61 @@ export class Dock extends Element {
   paintMarkers(gfx) {
     if( !this.markers ) return;  
     
+    function rectTargetArea(rect,location) {
+      const w = rect[2] - rect[0];
+      const h = rect[3] - rect[1];
+      switch(location) {
+        case "B": case "b":  return [rect[0],rect[3]-h/4,rect[2],rect[3]];
+        case "L": case "l":  return [rect[0],rect[1], rect[0]+w/4,rect[3]];
+        case "R": case "r":  return [rect[2]-w/4, rect[1], rect[2],rect[3]];
+        case "T": case "t":  return [rect[0],rect[1],rect[2],rect[1]+h/4];
+        case "m": return [rect[0],rect[1],rect[2],rect[3]];
+      }
+    }
+  
     for( const [location,origin] of Object.entries(this.markers)) {
+
+      if(location.length > 1) continue; // "ltrb","TB", "LR"
+
       gfx.fillStyle = Color.RGB(255,255,255);
       gfx.fillRect(origin[0],origin[1],MARKER_SIZE,MARKER_SIZE);
+      
       const x = origin[0] + 2,y = origin[1] + 2;
-      gfx.fillStyle = this.dropLocation == location? Color.RGB(255,129,0): Color.RGB(0,129,255);
+      gfx.fillStyle = this.dropLocation == location? MARKER_COLOR_HOVER: MARKER_COLOR;
+
+      let targetArea;
+
       switch(location) {
-        case "B": case "b" : gfx.draw(MARKER_BOTTOM, {x,y}); break;
-        case "L": case "l" : gfx.draw(MARKER_LEFT, {x,y}); break;
-        case "R": case "r" : gfx.draw(MARKER_RIGHT, {x,y}); break;
-        case "T": case "t" : gfx.draw(MARKER_TOP, {x,y}); break;
-        case "m" : gfx.draw(MARKER_MIDDLE, {x,y}); break;
+        case "B":   targetArea = this.markers["TB"];   gfx.draw(MARKER_BOTTOM, {x,y}); break;
+        case "b":   targetArea = this.markers["ltrb"]; gfx.draw(MARKER_BOTTOM, {x,y}); break;
+        case "L":   targetArea = this.markers["LR"];   gfx.draw(MARKER_LEFT, {x,y}); break;
+        case "l" :  targetArea = this.markers["ltrb"]; gfx.draw(MARKER_LEFT, {x,y}); break;
+        case "R":   targetArea = this.markers["LR"];   gfx.draw(MARKER_RIGHT, {x,y}); break;
+        case "r":   targetArea = this.markers["ltrb"]; gfx.draw(MARKER_RIGHT, {x,y}); break;
+        case "T":   targetArea = this.markers["TB"];   gfx.draw(MARKER_TOP, {x,y}); break;
+        case "t":   targetArea = this.markers["ltrb"]; gfx.draw(MARKER_TOP, {x,y}); break;
+        case "m" :  targetArea = this.markers["ltrb"]; gfx.draw(MARKER_MIDDLE, {x,y}); break;
+      }
+
+      if(targetArea && (this.dropLocation == location)) {
+        gfx.fillStyle = HATCH_BRUSH;
+        const rc = rectTargetArea(targetArea,location);
+        gfx.fillRect(rc[0],rc[1],rc[2] - rc[0],rc[3] - rc[1]);
       }
     }
   }
 
   render() {
-    return <main.dock styleset={__DIR__ + "docks.css#dock"} {this.props}>
+    return <main class="dock" id="dock" styleset={`${__DIR__}docks.css#dock`} {...this.props}>
       {this.kids}
-      <popup.windowed />
+      <popup class="windowed" />
     </main>;
+  }
+
+  resetLayout() {
+    for(let widget of Registry) widget.shown = false;
+    // eslint-disable-next-line react/jsx-key
+    this.componentUpdate({kids:[<Content/>]});
   }
 
   ["on do-close-panel"](evt) {
@@ -319,6 +372,25 @@ export class Dock extends Element {
     dockable.remove();
   }
 
+
+  store(data) {
+    let list = [];
+    for(let child of this.children)
+      if(child.tag != "popup")
+        list.push(child.persist());
+    data.docks = list;
+    //console.log(list);
+  }
+
+  restore(data) {
+    if(data.docks)
+      this.componentUpdate({kids: constructKids(data.docks) });
+  }
+
+  ["on statechange"]() {
+    // request state saving
+    Settings.saveState();
+  }
 
 }
 
@@ -340,20 +412,27 @@ export class DockCaption extends Element {
   #text = "";
 
   this(props) {
+    if(props.data) {
+       const widgetClassName = props.data;
+       const widgetClass = RegistryClassById(widgetClassName);
+       this.#text = widgetClass.className;
+       this.contentElement = Element.create(JSX(widgetClass,{},[]));
+    } else 
     this.#text = props.text;
   }
 
   render() {
-    return <caption><text>{this.#text}</text><b.close/></caption>;
+    return <caption><text>{this.#text}</text><b class="close"/></caption>;
   }
 
   getDockTabs() {
     const parent = this.parentElement;
     return parent.tag == "header" &&
-           parent.parentElement instanceof DockTabs ? parent.parentElement : null;
+           parent.parentElement instanceof DockTabSet ? parent.parentElement : null;
   }
 
   ["on mousedragrequest"](evt) {
+
     const dock = this.$p(".dock");
 
     const dockTabs = this.getDockTabs();
@@ -361,12 +440,17 @@ export class DockCaption extends Element {
     let dockable = dockTabs ? dockTabs.takeoffTab(this)
                             : this.$p(".dockable");
 
+    if(dockable.isWindowed)
+      return false;
+
     let [x,y,width,height] = dockable.state.box("xywh","inner","screen",true);
+
     dockable.style.set({
         width: Length.px(width / devicePixelRatio),
         height: Length.px(height / devicePixelRatio),
     });
-    dock.doDrag(dockable,x, y, evt.x * devicePixelRatio,evt.y * devicePixelRatio);
+    //dock.doDrag(dockable,x, y, evt.x * devicePixelRatio,evt.y * devicePixelRatio);
+    dock.takeOffDockable(dockable);
     return true;
   }
 
@@ -380,7 +464,7 @@ class DockContent extends Element {
   }
 
   render() {
-    return <div.content {this.props}>{this.kids}</div>;
+    return <div class="content" {...this.props}>{this.kids}</div>;
   }
   
 }
@@ -409,37 +493,99 @@ export class DockPanel extends Element {
     return this.lastElementChild;
   }
 
+  get isWindowed() {
+    return this.classList.contains("window");
+  }
+
   /*componentWillUnmount() {
     throw new Error("DockPanel!");
   }*/
 
   render() {
     if(this.props._empty)
-      return <widget.dockable />;
-    else
-      return <widget.dockable>
+      return <widget class="dockable" />;
+    return <widget class="dockable">
         <DockCaption text={this.caption}  />
         { this.type && JSX(this.type,this.props,this.kids) }
       </widget>;
+  }
+
+  ["on mousehittest"](evt) {
+    if( !this.isWindowed )
+      return false;
+    if( evt.target.$is("caption>text"))
+      evt.data = "caption"; // HTCAPTION
+    else 
+      evt.data = "auto"; // borders and HTCLIENT
+    return true;
+  }
+
+  ["on replacementstart"](evt) {
+    const mode = evt.data;
+    if(mode == "move") {
+      this.classList.add("dragging");
+      const dock = this.$p(".dock");
+      dock.onDragStart(this,evt);
+    }
+  }
+  ["on replacementend"](evt) {
+    const mode = evt.data;
+    if(mode == "move") {
+      this.classList.remove("dragging");
+      const dock = this.$p(".dock");
+      dock.onDragEnd(this);
+    }
   }
 
   ["on click at b.close"]() {
     this.post(new Event("do-close-panel",{bubbles:true}));
     return true;
   }
+
+  persist() {
+    return { 
+      kind: "DockPanel",
+      type : this.classOf.classId 
+    };
+  }
+
 }
 
-export class DockTabs extends Element {
+export class DockTabSet extends Element {
 
   captions = [];
+  data = null; // restoration data 
+
+  this(props,kids) {
+    this.data = props.data;
+  }
 
   render() {
     //console.log("render",this);
-    return <frameset.dockable tabs><header></header></frameset>;
+    let tabs = [];
+    if(this.data)
+       // eslint-disable-next-line react/jsx-key
+       tabs = this.data.children.map(childData => <DockCaption data={childData}/> );
+    return <frameset class="dockable" tabs><header>{tabs}</header></frameset>;
   }
+
+  get isTabSet() { return true; }
 
   get captionBar() { return this.firstElementChild; }
   get contentElement() { return this.lastElementChild; }
+
+  componentDidMount() {
+    if(this.data) { // component mounted after state restoration
+      const activeIdx = this.data.active || 0;
+      this.data = null;
+      const activeTab = this.captionBar.children[activeIdx];
+      this.switchTab(activeTab,true);
+    }
+  }
+
+  notifyStateChange() {
+    this.postEvent(new Event("statechange",{bubbles:true}));
+  }
 
   appendTab(dockable) {
     let caption = dockable.$(">caption"); 
@@ -452,6 +598,7 @@ export class DockTabs extends Element {
     this.contentElement.detach();
     this.append(dockable.contentElement);
     caption.value = true; // set it as current
+    this.notifyStateChange();
   }
 
   initTab(dockable/*Panel*/) {
@@ -464,10 +611,15 @@ export class DockTabs extends Element {
     console.assert(caption.contentElement,"content");
     this.captionBar.append(caption);
     this.captions = [caption];
+    this.notifyStateChange();
   }
 
-  switchTab(caption) {
+  switchTab(caption, init) {
+    if(!init) {
+      //console.log("switchTab");
     this.contentElement.detach();
+      this.notifyStateChange();
+    }
     this.append(caption.contentElement);
     caption.value = true; // set it as current
   }
@@ -500,7 +652,7 @@ export class DockTabs extends Element {
        this.parentElement.insertBefore(last,this);
        this.remove();
     }
-
+    this.notifyStateChange();
     return dockable;
   }
   
@@ -510,21 +662,17 @@ export class DockTabs extends Element {
     return true; // consume the event
   }
 
-  //componentWillUnmount() {
-  //  throw new Error("UNM");
-  //}
-
   static convert(element) {
 
     //console.log("convert",element, element.constructor.name);
 
-    if(element instanceof DockTabs) return element;
+    if(element instanceof DockTabSet) return element;
     
     console.assert(element instanceof DockPanel);
 
     const caption = element.caption; 
 
-    const subFrame = Element.create(<DockTabs />);
+    const subFrame = Element.create(<DockTabSet />);
 
     element.parentElement.insertBefore(subFrame,element);
     subFrame.append(element);
@@ -534,15 +682,48 @@ export class DockTabs extends Element {
     return subFrame;
   }
 
+  persist() {
+    let children = [];
+    for(const caption of this.captionBar.children) {
+      const widgetClass = Object.getPrototypeOf(caption.contentElement).constructor;
+      children.push(widgetClass.classId);
+    }
+    return { 
+      kind: "DockTabSet",
+      type: this.type,
+      active: this.captionBar.$(":checked").elementIndex,
+      children
+    };
+  }
 }
 
-export function DockGroup(props,kids) {
-  function cr() {
+function constructKids(defs) {
+  return defs.map( def => {
+    switch( def.kind ) {
+      case "DockPanel": return <DockPanel data={def} />;
+      case "DockTabSet": return <DockTabSet data={def} />;
+      case "DockSplitSet": return <DockSplitSet data={def} />;
+      case "Content": return <Content data={def} />;
+    }
+  });
+  
+}
+
+class DockSplitSet extends Element {
+  atts = {};
+
+  this(props,kids) {
+    if( props.data ) {
+      this.type = props.data.type;
+      this.atts = {[this.type]:props.data.sizes};
+      this.kids = constructKids(props.data.children);
+    } else {
     let def = [];
     let flexes = 0;
+    kids = Reactor.isNode(kids[0]) ? kids : kids[0];
     for(const kid of kids) {
       const tag = Reactor.tagOf(kid);
-      if( tag === DockPanel || tag == DockTabs || tag == DockGroup )
+        if( tag === DockPanel || tag == DockTabSet || tag == DockGroup )
         def.push("200px");
       else {
         def.push("*");
@@ -550,12 +731,39 @@ export function DockGroup(props,kids) {
       }
     }
     if(!flexes) def[def.length / 2] = "*";
-    return def.join(",");
+      let cr = def.join(",");
+      this.type = props.type;
+      this.atts = { [this.type]:cr };
+      this.kids = kids;
+    }
   }
+
+  get isSplitSet() { return this.type; }
+
+  render() {
+    return <frameset {...this.atts}>{this.kids}</frameset>;
+  }
+
+  persist() {
+    let children = [];
+    for(const child of this.children)
+      children.push(child.persist());
+
+    return { 
+      kind: "DockSplitSet",
+      type: this.type,
+      sizes: this.frameset.state.join(","),
+      children
+    };
+  }
+
+}
+
+export function DockGroup(props,kids) {
   switch(props.type) {
-    case "cols": return <frameset cols={cr()}>{kids}</frameset>;
-    case "rows": return <frameset rows={cr()}>{kids}</frameset>;
-    case "tabs": return <DockTabs>{kids}</DockTabs>;
+    case "cols": return <DockSplitSet type="cols">{kids}</DockSplitSet>;
+    case "rows": return <DockSplitSet type="rows">{kids}</DockSplitSet>;
+    case "tabs": return <DockTabSet>{kids}</DockTabSet>;
   }
 }
 

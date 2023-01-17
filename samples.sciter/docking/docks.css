@@ -20,12 +20,13 @@
 
   .dockable.window {
     border:3px solid var(widget-border);
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.5); 
   }
 
-  .dockable.window.dragging { /*opacity:0.75;*/ }
+  .dockable.window.dragging { opacity:0.65; }
 
-  .dockable.window.detached { 
-    aspect: Resizable url(../utils/resizable.js); 
+  /*.dockable.window.detached { 
+    //aspect: Resizable url(../utils/resizable.js); 
     foreground: no-repeat 100% 100%;
     foreground-size: 16px;
     foreground-image: url(path:M0 5 L5 0
@@ -34,12 +35,12 @@
     stroke: var(widget-border);
     stroke-width: 1px;
   }
-  .dockable.window.detached.mouse-on-corner { cursor: se-resize; }
+  .dockable.window.detached.mouse-on-corner { cursor: se-resize; }*/
 
   .dockable > caption {
     flow:horizontal;
-    background:var(document);
-    color:var(document-text);
+    background:var(widget-caption-back);
+    color:var(widget-caption-text);
     //border-top:1px solid var(widget-border);
     border-bottom:1px solid var(widget-border);
   }
@@ -76,7 +77,8 @@
   .dockable > .content { size:*; }
 
   frameset {
-     background:var(menu-back);
+     //background:var(menu-back);
+     background:transparent;
      color:var(document-text);
      border-spacing:3px;
   }
