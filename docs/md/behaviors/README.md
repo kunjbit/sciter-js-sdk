@@ -71,3 +71,4 @@ Here is a list of such built-in behaviors that are available out of the box in S
   * [menu-bar](behavior-menu-bar.md) 
 * auxiliary 
   * [scrollbar](behavior-scrollbar.md)
+  * [details](behavior-details.md)
