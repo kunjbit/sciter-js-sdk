@@ -1,0 +1,94 @@
+
+@set vipe {
+  :root {
+    display:block;
+    size:*;
+    flow:vertical;
+    font:system;
+  }
+
+  toolbar {
+    border-spacing:4px; 
+    vertical-align:middle;
+  }
+
+  toolbar > button {
+    size:2em;
+    foreground:no-repeat 50% 50%;
+    foreground-size:1em;
+    stroke:none;
+    fill: var(widget-text);
+  }
+
+  toolbar > button:disabled {
+    fill: var(widget-disabled-text);  
+  }
+
+  toolbar > hr {
+    width:1px;
+    height:*;
+    margin:4px;
+    background: color(widget-disabled);
+  }
+
+  toolbar > .zoom {
+    margin-left:*;
+  }
+
+  toolbar > .back {
+    foreground-image: url(path:M1664 896v128q0 53-32.5 90.5t-84.5 37.5h-704l293 294q38 36 38 90t-38 90l-75 76q-37 37-90 37-52 0-91-37l-651-652q-37-37-37-90 0-52 37-91l651-650q38-38 91-38 52 0 90 38l75 74q38 38 38 91t-38 91l-293 293h704q52 0 84.5 37.5t32.5 90.5z);
+  }
+  toolbar > .fore {
+    foreground-image: url(path:M1600 960q0 54-37 91l-651 651q-39 37-91 37-51 0-90-37l-75-75q-38-38-38-91t38-91l293-293h-704q-52 0-84.5-37.5t-32.5-90.5v-128q0-53 32.5-90.5t84.5-37.5h704l-293-294q-38-36-38-90t38-90l75-75q38-38 90-38 53 0 91 38l651 651q37 35 37 90z);
+  }
+  toolbar > .save {
+    foreground-size:1.2em;
+    foreground-image: url(path:m 896,1312 q -26,0 -45,-19 L 307,749 q -19,-19 -19,-45 0,-26 19,-45 19,-19 45,-19 H 640 V 192 q 0,-26 19,-45 19,-19 45,-19 h 384 q 26,0 45,19 19,19 19,45 v 448 h 288 q 26,0 45,19 19,19 19,45 0,26 -19,45 l -544,544 q -19,19 -45,19 z m 352,352 H 544 Q 425,1664 340.5,1579.5 256,1495 256,1376 v -320 q 0,-13 9.5,-22.5 9.5,-9.5 22.5,-9.5 4,0 20,-1 16,-1 26.5,-0.5 10.5,0.5 23.5,3 13,2.5 19.5,10 6.5,7.5 6.5,20.5 v 320 q 0,66 47,113 47,47 113,47 h 704 q 66,0 113,-47 47,-47 47,-113 v -312 l 1,-11.5 3,-11.5 5.5,-8 9,-7 13.5,-2 q 4,0 20,-1 16,-1 26.5,-0.5 10.5,0.5 23.5,3 13,2.5 19.5,10 6.5,7.5 6.5,20.5 v 320 q 0,119 -84.5,203.5 Q 1367,1664 1248,1664 Z);
+  }
+  toolbar > .open {
+    foreground-size:1.2em;
+    foreground-image: url(path:m 1392,1040 q 4,0 20,-1 16,-1 26.5,-0.5 10.5,0.5 23.5,3 13,2.5 19.5,10 6.5,7.5 6.5,20.5 v 320 q 0,119 -84.5,203.5 Q 1319,1680 1200,1680 H 496 Q 377,1680 292.5,1595.5 208,1511 208,1392 v -320 q 0,-13 9.5,-22.5 9.5,-9.5 22.5,-9.5 4,0 20,-1 16,-1 26.5,-0.5 10.5,0.5 23.5,3 13,2.5 19.5,10 6.5,7.5 6.5,20.5 v 320 q 0,66 47,113 47,47 113,47 h 704 q 66,0 113,-47 47,-47 47,-113 v -312 l 1,-11.5 3,-11.5 5.5,-8 9,-7 z M 848,112 q 26,0 45,19 l 544,544 q 19,19 19,45 0,26 -19,45 -19,19 -45,19 h -288 v 448 q 0,26 -19,45 -19,19 -45,19 H 656 q -26,0 -45,-19 -19,-19 -19,-45 V 784 H 304 q -26,0 -45,-19 -19,-19 -19,-45 0,-26 19,-45 L 803,131 q 19,-19 45,-19 z);
+  }
+}
+
+@set vipe-library {
+  :root {
+    background:color(widget-back);
+  }
+
+  header {
+    font-weight: bold;
+    padding: 0.25em 1em;
+  }
+
+  header.nodes {
+    border-top: 1px solid color(widget-border);
+  }
+
+  select {
+    display:block;
+    width:*;
+    flow:horizontal-wrap;
+    overflow-y: scroll-indicator;
+    border:none;
+    //border-left: 1px solid color(widget-border);
+  }
+
+  select#groups {
+    height:max-content;
+    max-height:40vh;
+  }
+
+  select > option {
+    display:block;
+    width:*;
+    //white-space:nowrap;
+    min-width:auto; /* all items have the same width equal to widest item */
+    text-align:center;
+  }
+
+  select#items {
+    height:*;
+  }
+
+}

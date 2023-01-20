@@ -1,0 +1,101 @@
+
+@set view {
+
+  :root {
+    flow:stack;
+    size:*;
+    overflow:auto;
+    background: linear-gradient(to bottom,#ffe,#E6E6FA);
+    var(connector-color): #191970;
+    var(connector-hover-color): #5bb3c7;
+    font:system;
+  } 
+
+  :root[zoom="120"] {zoom:120%}
+  :root[zoom="100"] {zoom:100%}
+  :root[zoom="90"]  {zoom:90%}
+  :root[zoom="80"]  {zoom:80%}
+  :root[zoom="70"]  {zoom:70%}
+
+  node {
+    display:block;
+    flow:vertical;      
+    background:#FFD700EF;
+    width:max-content;
+    min-width:8em;
+    max-width:16em;
+    border-radius:0.5em;
+    border:2px solid #DAA520;
+    hit-margin: 0.7em;
+    border-spacing: 0.5em;
+  }
+
+  node > caption {
+    padding:0 1em;
+    font-weight:bold;
+    line-height:2em;
+    //cursor: pointer;
+  }
+  node > caption:hover {
+    background:#FFFFFF77;
+  }
+
+  div.ports {
+    flow:horizontal-wrap;
+    hit-margin: 0.7em;
+    border-spacing: 0.5em;
+  }
+  div.ports > .break { clear:after; }
+
+  .port {
+    flow:stack;
+    hit-margin: 0.7em;
+  }
+  .port > text {
+    white-space:pre;
+    padding:0em 1em;
+  }
+
+  .controls {
+    display:block;
+    margin:0 0.5em 0.5em 0.5em;
+    width:*;
+    horizontal-align:center;
+  }
+
+  .controls > input {
+    display:block;
+    width:auto;
+  }
+
+  .controls > output {
+    display:block;
+    width:max-content;
+  }
+
+  .socket {
+    display:block;
+    size:1em;
+    border-radius:0.6em;
+    border:2px solid #fff;
+    background:#BCBCBC;
+    hit-margin: 0.7em;
+    z-index:1;
+  }
+
+  .socket[connected] {
+    background:#8FDC8F; 
+  }
+
+  .socket[highlighted] {
+    outline:4px solid var(connector-hover-color) -2px;
+    //border-color: var(connector-hover-color);
+  }
+
+  .port.output { margin-left:*; } 
+  .port.input { margin-right:*; } 
+
+  .port.output > .socket { margin: * -0.7em * *; }
+  .port.input > .socket { margin: * * * -0.7em; }
+
+}

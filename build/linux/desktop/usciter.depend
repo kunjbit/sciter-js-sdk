@@ -6728,7 +6728,7 @@
 	"sciter-x-host-callback.h"
 	"sciter-x-debug.h"
 
-1666218207 /home/andrew/sciter/work/sdk.js/include/sciter-x-def.h
+1673906347 /home/andrew/sciter/work/sdk.js/include/sciter-x-def.h
 	"sciter-x-types.h"
 	"sciter-x-request.h"
 	"value.h"
@@ -6748,7 +6748,7 @@
 	"sciter-x-primitives.h"
 	"value.hpp"
 
-1661451268 /home/andrew/sciter/work/sdk.js/include/value.hpp
+1673030042 /home/andrew/sciter/work/sdk.js/include/value.hpp
 	"value.h"
 	<string>
 	<functional>
@@ -6810,11 +6810,11 @@
 	<atomic>
 	"sciter-om-def.h"
 
-1656697546 /home/andrew/sciter/work/sdk.js/include/sciter-om-def.h
+1667762495 /home/andrew/sciter/work/sdk.js/include/sciter-om-def.h
 	"sciter-om.h"
 	<exception>
 
-1656697546 /home/andrew/sciter/work/sdk.js/include/sciter-x-api.h
+1670791577 /home/andrew/sciter/work/sdk.js/include/sciter-x-api.h
 	"sciter-x-types.h"
 	"sciter-x-def.h"
 	"sciter-x-dom.h"
@@ -6852,7 +6852,7 @@
 	<atomic>
 	"sciter-om.h"
 
-1659972018 /home/andrew/sciter/work/sdk.js/include/sciter-x-graphics.hpp
+1670791577 /home/andrew/sciter/work/sdk.js/include/sciter-x-graphics.hpp
 	"sciter-x-graphics.h"
 	"sciter-x-api.h"
 	"aux-slice.h"
@@ -6863,7 +6863,7 @@
 	"../include/sciter-x-api.h"
 	"../include/aux-cvt.h"
 
-1666218207 /home/andrew/sciter/work/sdk.js/demos/usciter/resources.cpp
+1673029025 /home/andrew/sciter/work/sdk.js/demos/usciter/resources.cpp
 
 1657980699 source:/home/andrew/sciter/work/sdk.js/include/sciter-gtk-main.cpp
 	<gtk/gtk.h>

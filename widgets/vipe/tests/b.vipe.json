@@ -1,0 +1,88 @@
+{
+  "name": "test",
+  "nodes": [
+    {
+      "id": 1,
+      "name": "Number",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "A",
+          "type": "number",
+          "data": 1
+        }
+      ],
+      "controls": {
+        "val": 1
+      },
+      "position": [
+        46,
+        98.5
+      ],
+      "kernel": "input/number"
+    },
+    {
+      "id": 2,
+      "name": "Number",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "A",
+          "type": "number",
+          "data": 1
+        }
+      ],
+      "controls": {
+        "val": 1
+      },
+      "position": [
+        47,
+        238.5
+      ],
+      "kernel": "input/number"
+    },
+    {
+      "id": 4,
+      "name": "Sum",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "number",
+          "data": 1
+        },
+        {
+          "name": "B",
+          "type": "number",
+          "data": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "A+B",
+          "type": "number",
+          "data": 2
+        }
+      ],
+      "controls": {},
+      "position": [
+        247,
+        154.5
+      ],
+      "kernel": "math/sum"
+    }
+  ],
+  "connections": [
+    [
+      1,
+      0,
+      4,
+      0
+    ],
+    [
+      2,
+      0,
+      4,
+      1
+    ]
+  ]
+}

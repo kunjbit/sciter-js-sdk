@@ -720,7 +720,6 @@ class DockSplitSet extends Element {
     } else {
     let def = [];
     let flexes = 0;
-    kids = Reactor.isNode(kids[0]) ? kids : kids[0];
     for(const kid of kids) {
       const tag = Reactor.tagOf(kid);
         if( tag === DockPanel || tag == DockTabSet || tag == DockGroup )

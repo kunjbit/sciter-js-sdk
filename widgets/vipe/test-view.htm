@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style></style>
+        <script|module>
+
+import {View} from "view.js";
+import {Node,Group} from "model.js";
+import {getKernel} from "kernels.js";
+
+const {Point} = Graphics;
+
+function initGroup() {
+
+  const G = new Group("test");
+
+  const A = Node.fromKernel("input/number",Point(10,0)); 
+  G.addNode(A);
+  
+  const B = Node.fromKernel("input/number",Point(10,100)); 
+  G.addNode(B);
+
+  const B2 = Node.fromKernel("input/number",Point(10,200)); 
+  G.addNode(B2);
+
+  const C = Node.fromKernel("math/sum",Point(300,120));
+  G.addNode(C);
+
+  Node.connect(A.getOutput(0),C.getInput(0));
+  Node.connect(B.getOutput(0),C.getInput(1));
+
+  const D = Node.fromKernel("math/sub",Point(300,300)); 
+  G.addNode(D);
+
+  return G;
+}
+
+const group = initGroup();
+
+document.body.append(<View group={group} />);
+
+        </script>
+    </head>
+    <body>
+
+
+    </body>
+</html>

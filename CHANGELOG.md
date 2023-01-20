@@ -1,3 +1,17 @@
+## 5.0.2.1
+
+### New:
+
+* [Linux] Better support of touch screen and touch pad scrolling gestures on Linux/GTK; "overscroll" indication is back;
+
+### Fixes:
+
+* fix of `<popup>` dynamic update.  
+* fix of touch[pad] scroll animation when x and y axis are both scrollable.
+* scapp/run.js mode - fix of https://sciter.com/forums/topic/run-js-cant-find-htm-to-create-window-after-packing/ issue.
+* [reactor] fix of "flattened kids" issue. 
+* `<input|text>` scroll position fix : https://sciter.com/forums/topic/input-cursor/ 
+
 ## 5.0.2.0
 
 ### New:

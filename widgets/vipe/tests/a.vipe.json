@@ -1,0 +1,122 @@
+{
+  "name": "test",
+  "nodes": [
+    {
+      "id": 1,
+      "name": "Number",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "A",
+          "type": "number"
+        }
+      ],
+      "controls": {},
+      "position": [
+        100,
+        10
+      ],
+      "kernel": "input/number"
+    },
+    {
+      "id": 2,
+      "name": "Number",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "A",
+          "type": "number"
+        }
+      ],
+      "controls": {},
+      "position": [
+        10,
+        100
+      ],
+      "kernel": "input/number"
+    },
+    {
+      "id": 3,
+      "name": "Number",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "A",
+          "type": "number"
+        }
+      ],
+      "controls": {},
+      "position": [
+        10,
+        200
+      ],
+      "kernel": "input/number"
+    },
+    {
+      "id": 4,
+      "name": "Sum",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "number"
+        },
+        {
+          "name": "B",
+          "type": "number"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "A+B",
+          "type": "number"
+        }
+      ],
+      "controls": {},
+      "position": [
+        300,
+        120
+      ],
+      "kernel": "math/sum"
+    },
+    {
+      "id": 5,
+      "name": "Sub",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "number"
+        },
+        {
+          "name": "B",
+          "type": "number"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "A-B",
+          "type": "number"
+        }
+      ],
+      "controls": {},
+      "position": [
+        300,
+        300
+      ],
+      "kernel": "math/sub"
+    }
+  ],
+  "connections": [
+    [
+      1,
+      0,
+      4,
+      0
+    ],
+    [
+      2,
+      0,
+      4,
+      1
+    ]
+  ]
+}
