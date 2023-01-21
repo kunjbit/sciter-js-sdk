@@ -94,7 +94,7 @@ section#project {
 }
 
 section#project > form {
-  size:*;
+  width:*;
   flow: row(label,input select fileselector);
   border-spacing: 3dip;
 }
@@ -102,10 +102,11 @@ section#project > form {
 section#project > form > label {
   display:block;
   line-height: 2em;
-  white-space: nowrap;
+  white-space: no-wrap;
   vertical-align:top;
   text-align:right;
-  width:max-content;
+  min-width:max-content;
+  width:6em;
 }
 
 section#project > form input {
