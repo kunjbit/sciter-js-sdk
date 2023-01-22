@@ -3,7 +3,7 @@
 @const LIGHT_BASE: #f3f3f8;
 
 html { 
-  background: transparent; 
+  background: white; 
   width:680dip;
   height:680dip;
 }

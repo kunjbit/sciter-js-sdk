@@ -1,3 +1,11 @@
+## 5.0.2.2
+
+### Fixes:
+
+* [CSS] fix of `%` units handling in children of flex containers.
+* popup componentWillUnmount() fix, see: https://sciter.com/forums/topic/componentwillumount-doesnt-get-called-for-popup-component/
+* Missed methods: sys.fs.unlinkSync(), sys.fs.chmodSync(), sys.fs.copyfileSync()
+
 ## 5.0.2.1
 
 ### New:

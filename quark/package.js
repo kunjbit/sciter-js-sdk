@@ -100,6 +100,72 @@ function makePath(dir, subdirs, nameext) {
   return path + "/" + nameext;
 }
 
+// TODO 1: .icns file generation
+// TODO 2: clean async/sync mess here:
+function mkAppleBundle(exefile, params){
+  var plistInfo = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\
+  <!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n\
+  <plist version=\"1.0\">\n\
+  <dict>\n\
+    <key>CFBundleDevelopmentRegion</key>\n\
+    <string>en</string> \n\
+    <key>CFBundleIVersion</key>\n\
+    <string>{version}</string>\n\
+    <key>CFBundleShortVersionString</key>\n\
+    <string>{version}</string>\n\
+    <key>CFBundleIdentifier</key>\n\
+    <string>{name}</string>\n\
+    <key>CFBundlePackageType</key>\n\
+    <string>APPL</string>\n\
+    <key>CFBundleSignature</key>\n\
+    <string>MOOS</string>\n\
+    <key>LSMinimumSystemVersion</key>\n\
+    <string>10.9</string>\n\
+    <key>NSMainNibFile</key>\n\
+    <string>MainMenu</string>\n\
+    <key>NSPrincipalClass</key>\n\
+    <string>NSApplication</string>\n\
+    <key>CFBundleName</key>\n\
+    <string>{name}</string>\n\
+    <key>CFBundleExecutable</key>\n\
+    <string>{name}</string>\n\
+    <key>CFBundleIconFile</key>\n\
+    <string>{name}.icns</string>\n\
+  </dict>\n\
+  </plist>";
+
+  function copyFileForce(fnSrc, fnDes) {
+    if(sys.fs.$stat(fnDes))
+      sys.fs.$unlink(fnDes);
+    sys.fs.$copyfile(fnSrc, fnDes);
+  }
+  let appPath = `${params.out}/macos/${params.exe}.app`;
+  
+  if(!checkFolder(appPath))
+    sys.fs.$mkdir(appPath);
+  
+  sys.fs.$chmod(appPath, 0o755);
+  
+  appPath += "/Contents";
+  if(!checkFolder(appPath))
+    sys.fs.$mkdir(appPath);
+  
+  makePath(appPath, ["MacOS"], "");
+  makePath(appPath, ["Resources"], "");
+
+  let fn = sys.fs.$open(appPath+"/Info.plist", "w");
+  if(!fn) throw "Can't open plist.info to write";
+  let plist = plistInfo.replace(/{name}/g, params.exe).replace(/{version}/g, params.productVersion);
+  fn.$write(plist);
+  fn.$close();
+  copyFileForce(exefile, appPath+"/MacOS/"+params.exe);
+  sys.fs.$chmod(appPath+"/MacOS/"+params.exe, 0o755);
+  //TODO
+  // proper .icns generation here please. See: https://gist.github.com/jamieweavis/b4c394607641e1280d447deed5fc85fc#creating-an-iconset 
+  //copyFileForce(params.logo, `${appPath}/Resources/${params.exe}.icns`);
+}
+
+
 function assembleExe(target, scapp, datfile, exefile, params = null) {
   const r = Window.this.scapp.assembleExe(scapp, datfile, exefile, params);
   let msg;
@@ -110,6 +176,7 @@ function assembleExe(target, scapp, datfile, exefile, params = null) {
     case -2: LogRunner.add(`${target} FAILURE opening output file`, "stderr"); break;
     case -3: LogRunner.add(`${target} FAILURE writing output file`, "stderr"); break;
   }
+  if(target==="mac") mkAppleBundle(exefile, params)
 }
 
 export async function assemble(params) {
@@ -125,7 +192,7 @@ export async function assemble(params) {
     return;
   }
 
-
+  
   const datfile = params.out + "/" + params.exe + ".dat";
   const icofile = params.out + "/" + params.exe + ".ico";
 
@@ -157,7 +224,7 @@ export async function assemble(params) {
         case "mac": { // TODO: build proper .app bundle folder here
           const scapp = checkFile(env.home("scapp")) || checkFile(env.home("../../bin.osx/scapp"));
           const exefile = makePath(params.out, ["macos"], params.exe);
-          assembleExe(target, scapp, datfile, exefile);
+          assembleExe(target, scapp, datfile, exefile, params);
         } break;
         case "linuxX64": {
           const scapp = checkFile(env.home("../x64/scapp")) || checkFile(env.home("../../bin.lnx/x64/scapp"));
