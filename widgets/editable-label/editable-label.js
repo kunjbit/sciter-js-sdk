@@ -14,10 +14,10 @@ export class EditableLabel extends Element {
   }
 
   startEditing()  { 
+    const before = this.innerText;    
     this.classList.add("editing"); 
-    this.#textBefore = this.innerText;    
     this.post(() => { 
-      this.state.value = this.#textBefore;
+      this.value = before;
       this.edit.selectAll();
       this.state.focus = true;
     }); 
@@ -34,9 +34,14 @@ export class EditableLabel extends Element {
     }
   }
 
-  onmouseup(evt) {
-    if(evt.isOnIcon)
-      this.classList.contains("editing") ? this.commitEditing() : this.startEditing();
+  onmousedown(evt) {
+    if(evt.isOnIcon) {
+      if(this.classList.contains("editing"))
+        this.commitEditing();
+      else 
+        this.startEditing();
+      return true;
+    }
   }
 
 }
