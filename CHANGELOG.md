@@ -2,7 +2,7 @@
 
 ### New:
 
-* + `gesture-XXX` events support (touchpad and touchscreen), for the list of supported see [Gesture events](docs/Event.md#Gestures). 
+* + `gesture-XXX` events support (touchpad and touchscreen), for the list of supported see [Gesture events](docs/md/Event.md#Gestures). 
   Implementation status:
   * Windows - all gestures supported on touchpad and touchscreen. Gesture recognition implemented from scratch by handling raw WM_INPUT and WM_TOUCH.
   * MacOS - uses OS gesture recognizers.
