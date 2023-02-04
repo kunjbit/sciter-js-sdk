@@ -60,7 +60,16 @@ NOTE: the _window_ below is an instance of Sciter's Window class - e.g. `Window.
   * `window.graphicsBackend` - read-only, string, reports current graphics backend used: "direct2d", "Skia/OpenGL", etc. 
   * `window.minSize = [w,h]` - get/set minimal size of resizable window. 
   * `window.maxSize = [w,h]` - get/set maximum size of resizable window.
-  * `window.blurBehind = "none" | "auto" | "dark" | "ultra-dark" | "light" | "ultra-light"` - blur-behind effect configuration.
+  * <a name="blurbehind">`window.blurBehind = "..."`</a>  - blur-behind effect configuration string, either: 
+    
+    * `"none"` - no blur behind effect;
+    * `"dark|light|auto [ultra] [source-auto|source-windows|source-desktop]"` - flags composition string, where:
+        * `"source-windows"` - blur of all windows behind this one;  
+        * `"source-desktop"` - blur of desktop background image - so called _Mica_ effect;
+        * `"source-auto"` - default, blur source is chosen according to window type;  
+
+    Example: W11 Mica light effect window: `window.blurBehind = "light source-desktop"`; 
+
   * `window.isActive` - read-only, boolean, reports if window has input focus.
   * `window.caption` - read-write, string, window's caption (title).
   * `window.isAlive` - read-only, boolean, it is true if the window is alive - has valid HWINDOW. The property is false when the window was closed and destroyed.

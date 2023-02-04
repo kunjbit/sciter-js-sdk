@@ -62,7 +62,7 @@ Window (`<html>`) specific attributes
 | `window-minimizable` | `true\|false`
 | `window-maximizable` | `true\|false`
 | `window-alignment` | `1..9` - align the window relative to desktop, `-1..-9` - align the window relative to parent window;
-| `window-blurbehind` | `auto\|dark\|light\|ultra-dark\|ultra-light` translucent effect.
+| `window-blurbehind` | blur behind effect configuration, see [`window.blurBehind`](Window.md#blurbehind).
 | `window-corners` | `default\|not-round\|round\|round-small` - define window corner roudness on supported OS (e.g. Win11) .
 | `window-state` | `shown\|minimized\|maximized\|full-screen\|hidden` - initial state of HTML window
 | `lang` | ISO 639-1 value, define dictionary for spellcheck, Date...
@@ -71,7 +71,11 @@ Window (`<html>`) specific attributes
 
 ## Misc
 
-- **Attribute events (onclick..) are not supported. (unless you implement method for it to work).**
+- **Attribute events (onclick..) in static HTML are not supported. (unless you implement method for it to work).** But you can use them in JSX:
+  ```JavaScript
+  function func() {...}
+  document.body.append(<button onclick={func}>Hello</button>);
+  ```
 - Sciter allows the use of custom element tags, make sure to give them a default style.
 - You can show popup with [`Element.popup`](Element.md#popup).
 - String `&platform-cmd-mod;` is replaced with `Ctrl/CMD...`
