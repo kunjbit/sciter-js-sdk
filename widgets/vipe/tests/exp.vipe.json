@@ -1,0 +1,114 @@
+{
+  "name": "test",
+  "nodes": [
+    {
+      "id": 1,
+      "name": "Number",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "A",
+          "type": "number"
+        }
+      ],
+      "controls": {},
+      "position": [
+        13,
+        28.5
+      ],
+      "kernel": "input/number"
+    },
+    {
+      "id": 2,
+      "name": "Number",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "A",
+          "type": "number",
+          "data": 14
+        }
+      ],
+      "controls": {
+        "val": 14
+      },
+      "position": [
+        8,
+        168
+      ],
+      "kernel": "input/number"
+    },
+    {
+      "id": 3,
+      "name": "Sum",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "number"
+        },
+        {
+          "name": "B",
+          "type": "number",
+          "data": 14
+        }
+      ],
+      "outputs": [
+        {
+          "name": "A+B",
+          "type": "number",
+          "data": null
+        }
+      ],
+      "controls": {},
+      "position": [
+        300,
+        120
+      ],
+      "kernel": "math/sum"
+    },
+    {
+      "id": 9,
+      "name": "subtest",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "number",
+          "data": 14
+        }
+      ],
+      "outputs": [
+        {
+          "name": "A+B",
+          "type": "number",
+          "data": 44
+        }
+      ],
+      "controls": {},
+      "position": [
+        289.5,
+        279
+      ],
+      "kernel": "group"
+    }
+  ],
+  "connections": [
+    [
+      1,
+      0,
+      3,
+      0
+    ],
+    [
+      2,
+      0,
+      3,
+      1
+    ],
+    [
+      2,
+      0,
+      9,
+      0
+    ]
+  ]
+}

@@ -1,5 +1,4 @@
 
-
 const kernelGroups = new Map();
 
 // Each kerner is an object {
@@ -60,7 +59,7 @@ export function registerFormula(id,formula) {
 
 registerKernel(
   "math/sum", 
-  (node,control,output) => <output|number value={output["A+B"]} />,
+  null, //(node,control,output) => <output|number value={output["A+B"]} />,
   (node,input,control,output) => { output["A+B"] = input.A + input.B } , // can be async
   {"A":"number","B":"number"},
   {"A+B":"number"},
@@ -69,7 +68,7 @@ registerKernel(
 
 registerKernel(
   "math/sub", 
-  (node,control,output) => <output|number value={output["A-B"]} />,
+  null, //(node,control,output) => <output|number value={output["A-B"]} />,
   (node,input,control,output) => { output["A-B"] = input.A - input.B } , // can be async
   {"A":"number","B":"number"},
   {"A-B":"number"},
@@ -78,7 +77,7 @@ registerKernel(
 
 registerKernel(
   "math/mul", 
-  (node,control,output) => <output|number value={output["A*B"]} />,
+  null, //(node,control,output) => <output|number value={output["A*B"]} />,
   (node,input,control,output) => { output["A*B"] = input.A * input.B } , // can be async
   {"A":"number","B":"number"},
   {"A*B":"number"},
@@ -87,7 +86,7 @@ registerKernel(
 
 registerKernel(
   "math/div", 
-  (node,control,output) => <output|number value={output["A/B"]} />,
+  null, //(node,control,output) => <output|number value={output["A/B"]} />,
   (node,input,control,output) => { output["A/B"] = input.A / input.B } , // can be async
   {"A":"number","B":"number"},
   {"A/B":"number"},

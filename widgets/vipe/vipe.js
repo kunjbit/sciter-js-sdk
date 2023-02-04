@@ -132,7 +132,15 @@ export class ViPE extends Element {
   }
 
   load(json = null) {
-    const group = json ? Group.fromJSON(json) : new Group("(New group)");
+    try {
+      const group = json ? Group.fromJSON(json) : new Group("(New group)");
+      this.loadGroup(group);
+    } catch(e) {
+      console.error(e.toString() + "\r\n" + e.stack);
+    }
+  }
+
+  loadGroup(group) {
     if(this.currentGroup.isEmpty) {
       // replace current stack element
       this.stack.length = this.stackPosition; // prune stack
@@ -141,10 +149,10 @@ export class ViPE extends Element {
       this.stack.length = this.stackPosition + 1; // prune stack
     }
     this.stack.push({group});
-    console.log(group);
     this.stackPosition = this.stack.length - 1;
     this.componentUpdate();
   }
+
 
   get canGoBack() { return this.stackPosition > 0; }
   goBack() {
@@ -207,9 +215,10 @@ export class ViPE extends Element {
     }
   }
 
-  /*["on state-change at toolbar"](evt) {
-    this.componentUpdate();
-  }*/
+  ["on edit-group"](evt) {
+    const group = evt.data;
+    this.loadGroup(group);
+  }
 
 
 }

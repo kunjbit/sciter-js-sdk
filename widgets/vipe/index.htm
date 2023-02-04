@@ -5,11 +5,83 @@
         <script|module>
 
 import {ViPE} from "vipe.js";
-import {Node,Group} from "model.js";
+import {Node,Group,NodeGroup} from "model.js";
 import {getKernel} from "kernels.js";
 const {Point} = Graphics;
 
+function initSubGroup() {
+
+  return Group.fromJSON({
+    "name": "subtest",
+    "nodes": [
+      {
+        "id": 4,
+        "name": "Input X",
+        "inputs": [],
+        "outputs": [
+          { "name": "A", "type": "number", "data": 10 }
+        ],
+        "controls": {
+          "val": 10
+        },
+        "position": [ 10, 10 ],
+        "kernel": "input/number"
+      },
+      {
+        "id": 5,
+        "name": "Sum",
+        "inputs": [
+          { "name": "A", "type": "number", "data": 10 },
+          { "name": "B", "type": "number", "data": 8  }
+        ],
+        "outputs": [
+          { "name": "A+B", "type": "number", "data": 18 }
+        ],
+        "controls": {},
+        "position": [ 521, 97.5 ],
+        "kernel": "math/sum"
+      },
+      {
+        "id": 7,
+        "name": "Mul",
+        "inputs": [
+          { "name": "A", "type": "number" },
+          { "name": "B", "type": "number", "data": 2 }
+        ],
+        "outputs": [
+          { "name": "A*B", "type": "number", "data": null }
+        ],
+        "controls": {},
+        "position": [ 235, 201 ],
+        "kernel": "math/mul"
+      },
+      {
+        "id": 8,
+        "name": "Input Y",
+        "inputs": [],
+        "outputs": [
+          { "name": "A", "type": "number", "data": 2 }
+        ],
+        "controls": {
+          "val": 1
+        },
+        "position": [
+          14.5,
+          360.5
+        ],
+        "kernel": "input/number"
+      }
+    ],
+    "connections": [
+      [ 4, 0, 5, 0],
+      [ 7, 0, 5, 1],
+      [ 8, 0, 7, 1]
+    ]
+  });
+}
+
 function initGroup() {
+
 
   const G = new Group("test");
 
@@ -24,6 +96,10 @@ function initGroup() {
 
   Node.connect(A.getOutput(0),C.getInput(0));
   Node.connect(B.getOutput(0),C.getInput(1));
+
+  const S = new NodeGroup( initSubGroup());
+  S.position = Point(400,400);
+  G.addNode(S);
 
   return G;
 }

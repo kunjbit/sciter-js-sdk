@@ -5,7 +5,7 @@
     flow:stack;
     size:*;
     overflow:auto;
-    background: linear-gradient(to bottom,#ffe,#E6E6FA);
+    background: linear-gradient(to bottom,#F5FFFA,#ADD8E6);
     var(connector-color): #191970;
     var(connector-hover-color): #5bb3c7;
     font:system;
@@ -20,24 +20,36 @@
   node {
     display:block;
     flow:vertical;      
-    background:#FFD700EF;
+    background:#FFF8DCEF;
     width:max-content;
     min-width:8em;
     max-width:16em;
     border-radius:0.5em;
-    border:2px solid #DAA520;
+    border:2px solid #D2B48C;
     hit-margin: 0.7em;
     border-spacing: 0.5em;
+  }
+
+  node[group] {
+    background:#ffcba0EF;
   }
 
   node > caption {
     padding:0 1em;
     font-weight:bold;
     line-height:2em;
-    //cursor: pointer;
+    white-space:pre;
+    flow:text;
+    overflow-x: hidden-scroll;
+    width:*;
   }
   node > caption:hover {
     background:#FFFFFF77;
+  }
+
+  node > caption.renaming {
+    behavior:edit;
+    background:#fff;
   }
 
   div.ports {
@@ -46,15 +58,6 @@
     border-spacing: 0.5em;
   }
   div.ports > .break { clear:after; }
-
-  .port {
-    flow:stack;
-    hit-margin: 0.7em;
-  }
-  .port > text {
-    white-space:pre;
-    padding:0em 1em;
-  }
 
   .controls {
     display:block;
@@ -70,6 +73,25 @@
 
   .controls > output {
     display:block;
+    width:max-content;
+  }
+
+  .controls.group {
+    flow:row(label,div);
+    width:max-content;
+    margin:0 *;
+  }
+
+  .controls.group > label {
+     display:block;
+     width:10em;
+     max-width:max-content;
+     line-height:2em;
+     text-align:right;
+  }
+
+  .controls.group .controls {
+    horizontal-align:left; 
     width:max-content;
   }
 
@@ -92,10 +114,17 @@
     //border-color: var(connector-hover-color);
   }
 
-  .port.output { margin-left:*; } 
-  .port.input { margin-right:*; } 
+  .port { flow:stack; hit-margin: 0.7em; }
 
-  .port.output > .socket { margin: * -0.7em * *; }
+  .port > div { flow:horizontal; white-space:pre; padding:0em 1em; border-spacing:0.5em; } 
+  .port > div > label { display:block; width:max-content; }
+  .port > div > var { font-weight: bold; display:block; width:max-content; max-width:10em; }
+
+  .port.input { margin-right:*; } 
   .port.input > .socket { margin: * * * -0.7em; }
+
+  .port.output { margin-left:*; } 
+  .port.output > .socket { margin: * -0.7em * *; }
+
 
 }

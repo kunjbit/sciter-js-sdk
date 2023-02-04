@@ -91,7 +91,7 @@ export class Node {
   controls = {}; // control values
   position = Point(0,0);
   kernel;
-  group = null;
+  parentGroup = null;
 
   static lastId = 0;    
 
@@ -164,7 +164,7 @@ export class Node {
     }
   }
 
-  // returns list (iterator) of nodes reacheable from output ports of this node.
+// returns list (iterator) of nodes reacheable from output ports of this node.
   // the list contains this node too.
   getOutboundNodes() {
     const nodes = new Set(); // nodes
@@ -189,8 +189,8 @@ export class Node {
   }
 
   notifyContentChange(what,arg) {
-    if( this.group ) 
-      this.group.notifyContentChange(this,what,arg);
+    if( this.parentGroup ) 
+      this.parentGroup.notifyContentChange(this,what,arg);
   }
 
   static connect(thisPort, otherPort) {
@@ -218,7 +218,7 @@ export class Node {
 
   toJSON() {
     return {
-      id: this.#id,
+      id: this.id,
       name: this.name,
       inputs: this.inputs.map(input => input.toJSON()),
       outputs: this.outputs.map(output => output.toJSON()),
@@ -229,13 +229,17 @@ export class Node {
   }
 
   static fromJSON(json,group) {
+
+    if(json.group)
+      return NodeGroup.fromJSON(json,group);
+
     const node = new Node(json.name,json.id);
     node.inputs = json.inputs.map((json,index) => Port.fromJSON(json,node,true,index));
     node.outputs = json.outputs.map((json,index) => Port.fromJSON(json,node,false,index));
     node.controls = json.controls;
     node.position = Point(json.position[0],json.position[1]);
     node.kernel = getKernel(json.kernel);
-    node.group = group;
+    node.parentGroup = group;
     return node;
   }
 
@@ -251,7 +255,7 @@ export class Node {
     const outputValues = {};
     try {
     // call kernel's evaluate and get output values
-      await this.kernel.evaluate(this,inputValues,controlValues,outputValues);
+      this.kernel.evaluate(this,inputValues,controlValues,outputValues);
     } catch(e) {
       valueObserver.onEvaluationError(this,e);
       valueObserver.onLeaveEvaluation(this);
@@ -299,7 +303,7 @@ export class Node {
 ///
 
 export class Group {
-
+  name;
   nodes = []; 
   #contentObservers; // set or null
   #valueObservers; // set or null
@@ -309,21 +313,21 @@ export class Group {
   }
 
   addNode(node) { 
-    node.group = this;
+    node.parentGroup = this;
     this.nodes.push(node);
     this.notifyContentChange(node,"add");
     return this; 
   }
   
   deleteNode(node) { 
-    console.assert(node.group === this);
+    console.assert(node.parentGroup === this);
     for(const [outputPort,inputPort] of node.connections())
       Node.disconnect(outputPort,inputPort);
     const idx = this.nodes.indexOf(node);
     console.assert(idx >= 0);
     this.nodes.splice(idx,1);
     this.notifyContentChange(node,"remove");
-    node.group = null;
+    node.parentGroup = null;
     return this; 
   }
 
@@ -365,6 +369,23 @@ export class Group {
     return this.nodes.length == 0; 
   }
 
+  // finds diconnected ports 
+  getDanglingPorts(dir /* "in"|"out" */) {
+     const out = [];
+     for(const node of this.nodes) {
+       const ports = dir == "in" ? node.inputs : node.outputs;
+       for(const port of ports) {
+         if(!port.isConnected)
+           out.push(port);
+       }
+     }
+     return out;
+  }
+
+  getInputNodes() {
+    return this.nodes.filter(node => node.kernel.id.startsWith("input"));
+  }
+
   getNode(nodeId) {
     return this.nodes.find(node => node.id == nodeId);
   }
@@ -400,8 +421,99 @@ export class Group {
     }
     return group;
   }
-
   
+}
+
+
+// this is a proxy port from outside to inners of sub group
+class ProxyPort extends Port {
+  otherPort;
+  constructor(node,index, otherPort) {
+    super(node,index,otherPort.type,otherPort.name,otherPort.isInput);
+    this.otherPort = otherPort;
+    this.data = otherPort.data;
+  }
+}
+
+// Node that wraps Group
+export class NodeGroup extends Node {
+  group;
+
+  constructor(group, id = null) {
+    super(group.name, id);
+    this.group = group;
+    this.kernel = {id:"group"};
+    this.inputs = group.getDanglingPorts("in").map((port,index) => new ProxyPort(this,index,port));
+    this.outputs = group.getDanglingPorts("out").map((port,index) => new ProxyPort(this,index,port));
+  }
+
+  async evaluate(valueObserver) {
+
+    valueObserver.onEnterEvaluation(this);
+
+    // I. propagate inputs to internal inputs
+
+    const inputNodes = new Set(); // affected output nodes
+
+    for(const port of this.inputs) {
+      port.otherPort.data = port.data;    
+      inputNodes.add(port.otherPort.node);
+    }
+
+    // evaluate internal input nodes 
+    for(const inputNode of inputNodes) {
+      await inputNode.evaluate(valueObserver);
+    }
+
+    // II. propagate outputs
+
+    const queue = new Set(); // affected output nodes
+
+    for(const outputPort of this.outputs) {
+      // fill data of each output port from internal port
+      const val = outputPort.data = outputPort.otherPort.data;
+      // propagate the data to peers - input ports of connected nodes
+      for(const inputPort of outputPort.peers) {
+        if(inputPort.data == val) continue;
+        inputPort.data = val; // set their input data      
+        queue.add(inputPort.node);      
+      }
+    }
+
+    valueObserver.onValueChange(this);
+
+    for(const outputNode of queue) {
+      outputNode.evaluate(valueObserver);
+    }
+
+    valueObserver.onLeaveEvaluation(this);
+
+  }
+
+  toJSON() {
+    return {
+      id: this.id,
+      name: this.name,
+      inputs: this.inputs.map(input => input.toJSON()),
+      outputs: this.outputs.map(output => output.toJSON()),
+      position: [this.position.x, this.position.y],
+      group: this.group.toJSON(),
+    };
+  }
+
+  static fromJSON(json,parentGroup) {
+
+    if(json.kernel)
+      return new Node(json,parentGroup);
+
+    const group = Group.fromJSON(json.group);
+    const node = new NodeGroup(group,json.id);
+    node.position = Point(json.position[0],json.position[1]);
+    node.parentGroup = parentGroup;
+    return node;
+  }
+
+
 }
 
 

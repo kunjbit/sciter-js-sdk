@@ -307,7 +307,7 @@ typedef SBOOL SC_CALLBACK SciterBehaviorFactory( LPCSTR, HELEMENT, LPElementEven
       UINT      reason;       // key or scrollbar part
   } SCROLL_PARAMS;
 
-  typedef enum GESTURE_CMD
+  /*typedef enum GESTURE_CMD
   {
     GESTURE_START = 0,
     GESTURE_MOVE = 1,
@@ -343,19 +343,15 @@ typedef SBOOL SC_CALLBACK SciterBehaviorFactory( LPCSTR, HELEMENT, LPElementEven
     GESTURE_FLAGS_ALL               = 0xFFFF, //
   } GESTURE_TYPE_FLAGS;
 
+  */
   typedef struct GESTURE_PARAMS
   {
     UINT      cmd;          // GESTURE_EVENTS
     HELEMENT  target;       // target element
     POINT     pos;          // position of cursor, element relative
     POINT     pos_view;     // position of cursor, view relative
-    UINT      flags;        // for GESTURE_REQUEST combination of GESTURE_FLAGs. 
-                            // for others it is a combination of GESTURE_STATe's
-    UINT      delta_time;   // period of time from previous event.
-    SIZE      delta_xy;     // for GESTURE_PAN it is a direction vector 
-    double    delta_v;      // for GESTURE_ROTATE - delta angle (radians) 
-                            // for GESTURE_ZOOM - zoom value, is less or greater than 1.0    
   } GESTURE_PARAMS;
+
 
   typedef enum EXCHANGE_CMD {
     X_DRAG_ENTER = 0,       // drag enters the element

@@ -22,6 +22,7 @@ Rect instances can be constructed by `new Rect(...)` or by `Rect(...)` "convesrs
 * `Rect(Size)`  - constructs rectangle with its origin set to [0,0] and size to the _Size_;
 * `Rect(Point,Size)`  - constructs rectangle with its origin set to the _Point_ and size to the _Size_;
 * `Rect(Point,Point)`  - constructs rectangle with its origin and corners set to the _Point_ s;
+* `Rect(Size,Size)`  - constructs rectangle with its origin and corners set to the _Size_ s;
 * `Rect(Rect)`  - constructs copy of the rectangle;
 * `Rect(x,y,w,h)`  - constructs rectangle from four numbers;
 
@@ -62,23 +63,37 @@ returns new rectangle, copy of this rect, by moving its _which_ point to the _po
 
 * `isEmpty(): bool`
 
-returns _true_ if the rectange is empty.
+  returns _true_ if the rectange is empty.
 
 * `overlaps(Rect): bool`
 
-returns _true_ if this rect overlaps the other rect. Equivalent of `!(thisRect & otherRect).isEmpty()`
+  returns _true_ if this rect overlaps the other rect. Equivalent of `!(thisRect & otherRect).isEmpty()`
 
 * `contains(Rect): bool`
 
-returns _true_ if this rect contains the other rect in full. Equivalent of `!(thisRect & otherRect) == otherRect`
+  returns _true_ if this rect contains the other rect in full. Equivalent of `!(thisRect & otherRect) == otherRect`
 
 * `distance(Point): float`
 
-returns minimal distance between the rectangle and the point, or zero if the point is inside the rectangle.
+  returns minimal distance between the rectangle and the point, or zero if the point is inside the rectangle.
 
 * `normalize(): Rect`
 
-returns normalized copy of the rectangle so rect.origin < rect.corner and rect.size >= 0.
+  returns normalized copy of the rectangle so rect.origin < rect.corner and rect.size >= 0.
+
+* `inflate(Size): Rect`
+* `inflate(topleft:Size, bottomright: Size): Rect`
+
+  returns inflated copy of the rectangle by moving rectangle points outwards.
+
+  `thisRect.inflate(Size)` is equivalent of `newRect = thisRect >> Size`.
+
+* `deflate(Size): Rect`
+* `deflate(topleft:Size, bottomright: Size): Rect`
+
+  returns deflated copy of the rectangle by moving rectangle points inwards.
+  
+  `thisRect.deflate(Size)` is equivalent of `newRect = thisRect << Size`.
 
 ### operators:
 
@@ -98,4 +113,14 @@ Rect supports following operators:
 
  * `Rect.make(x1,y1,x2,y2):Rect`
  
- Static constructor that constructs the rect from origin and corner points.
+   Static constructor that constructs the rect from origin (x1,y1) and corner (x2,y2) points.
+ 
+ * `Rect.make(Point,Size):Rect`
+ 
+   Static constructor that constructs the rect from origin point and size.
+ 
+ * `Rect.make(Point,Point):Rect`
+ 
+   Static constructor that constructs the rect from origin and corner points.
+ 
+ 

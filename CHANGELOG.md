@@ -1,10 +1,35 @@
+## 5.0.2.3
+
+### New:
+
+* + `gesture-XXX` events support (touchpad and touchscreen), for the list of supported see [Gesture events](docs/Event.md#Gestures). 
+  Implementation status:
+  * Windows - all gestures supported on touchpad and touchscreen. Gesture recognition implemented from scratch by handling raw WM_INPUT and WM_TOUCH.
+  * MacOS - uses OS gesture recognizers.
+  * Linux - only gesture-pan so far. Others will added on demand.
+* new `<icon|name />` element and built-in set of vector icons, see usciter.exe/icons button; 
+* + [vipe] + subgroups;
+* + sdk.js/samples.css/css-fontawesome;
+
+### Fixes:
+
+* [css,reactor] @styleset={...} applicability fix;
+* [virtual-list] regression fix of scroll positioning;
+* [css] fix of `@keyframes` parsing: `0%,90% {....}`
+* [css] fix of `margin:xx%` handling;
+* [css] fix of `calc(-XXpx)` handling;
+* [css] fix of `border-radius` rendering with [semi-]transparent colors;
+* [css] fix of `var()` handling inside `calc()`; 
+* Fix of `flow:horizontal-wrap` and `%` units;
+
 ## 5.0.2.2
 
 ### Fixes:
 
+* [osx] scapp fixes.
 * [CSS] fix of `%` units handling in children of flex containers.
 * popup componentWillUnmount() fix, see: https://sciter.com/forums/topic/componentwillumount-doesnt-get-called-for-popup-component/
-* Missed methods: sys.fs.unlinkSync(), sys.fs.chmodSync(), sys.fs.copyfileSync()
+* Missed methods: sys.fs.unlinkSync(), sys.fs.chmodSync(), sys.fs.copyfileSync().
 
 ## 5.0.2.1
 

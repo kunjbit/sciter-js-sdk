@@ -1,0 +1,235 @@
+{
+  "name": "test",
+  "nodes": [
+    {
+      "id": 1,
+      "name": "Number",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "A",
+          "type": "number"
+        }
+      ],
+      "controls": {},
+      "position": [
+        10,
+        0
+      ],
+      "kernel": "input/number"
+    },
+    {
+      "id": 2,
+      "name": "Number",
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "A",
+          "type": "number",
+          "data": 3
+        }
+      ],
+      "controls": {
+        "val": 3
+      },
+      "position": [
+        12,
+        102
+      ],
+      "kernel": "input/number"
+    },
+    {
+      "id": 3,
+      "name": "Sum",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "number"
+        },
+        {
+          "name": "B",
+          "type": "number",
+          "data": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "A+B",
+          "type": "number",
+          "data": null
+        }
+      ],
+      "controls": {},
+      "position": [
+        300,
+        120
+      ],
+      "kernel": "math/sum"
+    },
+    {
+      "id": 9,
+      "name": "subtest",
+      "inputs": [
+        {
+          "name": "A",
+          "type": "number",
+          "data": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "A+B",
+          "type": "number",
+          "data": 16
+        }
+      ],
+      "position": [
+        400,
+        400
+      ],
+      "group": {
+        "name": "subtest",
+        "nodes": [
+          {
+            "id": 4,
+            "name": "Input X",
+            "inputs": [],
+            "outputs": [
+              {
+                "name": "A",
+                "type": "number",
+                "data": 10
+              }
+            ],
+            "controls": {
+              "val": 10
+            },
+            "position": [
+              10,
+              10
+            ],
+            "kernel": "input/number"
+          },
+          {
+            "id": 5,
+            "name": "Sum",
+            "inputs": [
+              {
+                "name": "A",
+                "type": "number",
+                "data": 10
+              },
+              {
+                "name": "B",
+                "type": "number",
+                "data": 6
+              }
+            ],
+            "outputs": [
+              {
+                "name": "A+B",
+                "type": "number",
+                "data": 16
+              }
+            ],
+            "controls": {},
+            "position": [
+              521,
+              97.5
+            ],
+            "kernel": "math/sum"
+          },
+          {
+            "id": 7,
+            "name": "Mul",
+            "inputs": [
+              {
+                "name": "A",
+                "type": "number",
+                "data": 3
+              },
+              {
+                "name": "B",
+                "type": "number",
+                "data": 2
+              }
+            ],
+            "outputs": [
+              {
+                "name": "A*B",
+                "type": "number",
+                "data": 6
+              }
+            ],
+            "controls": {},
+            "position": [
+              235,
+              201
+            ],
+            "kernel": "math/mul"
+          },
+          {
+            "id": 8,
+            "name": "Input Y",
+            "inputs": [],
+            "outputs": [
+              {
+                "name": "A",
+                "type": "number",
+                "data": 2
+              }
+            ],
+            "controls": {
+              "val": 2
+            },
+            "position": [
+              14.5,
+              360.5
+            ],
+            "kernel": "input/number"
+          }
+        ],
+        "connections": [
+          [
+            4,
+            0,
+            5,
+            0
+          ],
+          [
+            7,
+            0,
+            5,
+            1
+          ],
+          [
+            8,
+            0,
+            7,
+            1
+          ]
+        ]
+      }
+    }
+  ],
+  "connections": [
+    [
+      1,
+      0,
+      3,
+      0
+    ],
+    [
+      2,
+      0,
+      3,
+      1
+    ],
+    [
+      2,
+      0,
+      9,
+      0
+    ]
+  ]
+}

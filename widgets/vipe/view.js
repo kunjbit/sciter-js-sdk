@@ -270,9 +270,9 @@ export class View extends Element {
     return true;
   }
 
-  ["on value-change at node"](evt, nodeView) {
-    //console.log("value-change",nodeView);
-    nodeView.node.evaluate(this);
+  ["on value-change"](evt) {
+    const node = evt.data;
+    node.evaluate(this);
     return true;
   }
 
@@ -342,10 +342,12 @@ export class View extends Element {
     }
   }
   onValueChange(node) {   // - called on output value[s] change
-    this.viewOf(node).componentUpdate();
+    const nodeView = this.viewOf(node);
+    if(nodeView) nodeView.componentUpdate();
   }
   onEvaluationError(node, error) { // - error
-    this.viewOf(node).componentUpdate({error: error.toString()});
+    const nodeView = this.viewOf(node);
+    if(nodeView) nodeView.componentUpdate({error: error.toString()});
   }
 
 }

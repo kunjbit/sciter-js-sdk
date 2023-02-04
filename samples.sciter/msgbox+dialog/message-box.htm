@@ -42,6 +42,24 @@ document.on("click","button#buttons", function()
   console.log(r);
 });
 
+document.on("click","button#prompt", function() 
+{
+  var r = Window.this.modal(
+    <question>
+      <content>
+        <form>
+          <text>What is your name?</text>
+          <input|text(name) style="display:block; width:*" />
+        </form>
+      </content>
+      <buttons>
+         <button id="ok" role="default-button">Ok</button>
+         <button id="no" role="cancel-button">Don't know</button>
+      </buttons>
+    </question>);
+  console.log(r);
+});
+
 
 document.on("click","button#styling", function() 
 {
@@ -62,6 +80,7 @@ document.on("click","button#styling", function()
       <button id="error">error message box</button>
 
       <button id="buttons">custom buttons</button>
+      <button id="prompt">prompt</button>
 
       <button id="styling">custom styling</button>
 

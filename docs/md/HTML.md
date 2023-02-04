@@ -61,6 +61,7 @@ Window (`<html>`) specific attributes
 | `window-resizable`  | `true\|false\|LENGTH-UNIT` i.e. `10px` counted from window frame inwards
 | `window-minimizable` | `true\|false`
 | `window-maximizable` | `true\|false`
+| `window-alignment` | `1..9` - align the window relative to desktop, `-1..-9` - align the window relative to parent window;
 | `window-blurbehind` | `auto\|dark\|light\|ultra-dark\|ultra-light` translucent effect.
 | `window-corners` | `default\|not-round\|round\|round-small` - define window corner roudness on supported OS (e.g. Win11) .
 | `window-state` | `shown\|minimized\|maximized\|full-screen\|hidden` - initial state of HTML window

@@ -56,20 +56,31 @@ class OutputSocket extends Socket {
 }
 
 function Output({port}) { 
-  return <div.port.output index={port.index}>
+
+  /*return <div.port.output index={port.index}>
     <text>{port.name ? printf("%s : %s",port.name,port.type) : port.type}</text>
+    <OutputSocket port={port} />
+  </div>;*/
+  const val = port.data ?? port.type;
+  return <div.port.output index={port.index}>
+    <div><label>{port.name}:</label><var>{val}</var></div>
     <OutputSocket port={port} />
   </div>;
 }
 
 function Input({port}) {
+  //return <div.port.input index={port.index}>
+  //  <text>{port.name ? printf("%s : %s",port.name, port.type) : port.type}</text>
+  //  <InputSocket port={port} />
+  //</div>;
+  const val = port.data ?? port.type;
   return <div.port.input index={port.index}>
-    <text>{port.name ? printf("%s : %s",port.name,port.type) : port.type}</text>
+    <div><label>{port.name}:</label><var>{val}</var></div>
     <InputSocket port={port} />
   </div>;
 }
 
-class Controls extends Element {
+class NodeControls extends Element {
   node;
   constructor({node}) {
     super();
@@ -79,30 +90,82 @@ class Controls extends Element {
     const node = this.node;
     const outputValues = node.getOutputValues();
     const controlValues = node.getControlValues();
-    return <div.controls>
-      { node.kernel.render(node,controlValues,outputValues) }
-    </div>
+    const content = node.kernel.render ? node.kernel.render(node,controlValues,outputValues) : [];
+    return <div.controls>{ content }</div>;
   }
   ["on change at :root > *"](evt) {
     const namedCtls = this.$$("[name]");
     function reducer(obj,ctl) { obj[ctl.attributes.name] = ctl.value; return obj; }
     this.node.setControlValues( namedCtls.reduce(reducer,{}) );
-    this.parentElement.postEvent(new Event("value-change", {bubbles:true}));
-    return true;
+    this.parentElement.postEvent(new Event("value-change", {bubbles:true,data:this.node}));
   }
+}
+
+class GroupControls extends Element {
+  node;
+  group;
+  constructor({node}) {
+    super();
+    this.node = node;
+    this.group = node.group;
+  }
+  render() {
+    const list = [];
+    for( const node of this.group.getInputNodes() ) {
+      list.push(<label>{node.name}:</label>);
+      list.push(<Controls node={node}/>);
+    }
+    return <div.group.controls>{ list }</div>;
+  }
+  ["on change"](evt) {
+    this.parentElement.postEvent(new Event("value-change", {bubbles:true,data:this.node}));
+  }
+
+}
+
+function Controls(props,kids) {
+  const node = props.node;
+  return node.group?<GroupControls node={node} />:<NodeControls node={node} />; 
 }
 
 class Caption extends Element {
   node;
-  constructor({node}) {
-    super();
+  renaming = false;
+  originalName;
+  this({node}) {
     this.node = node;
   }
   render() {
-    return <caption>{this.node.name}</caption>;
+    if(this.renaming) {
+      this.post(() => { 
+        this.originalName = this.value;
+        this.edit.selectAll();
+        this.state.focus = true;
+      });
+      return <caption.renaming>{this.node.name}</caption>;
+    }
+    else
+      return <caption>{this.node.name}</caption>;
+  }
+
+  onchange() {
+    this.node.name = this.value;
+    return true;
+  }
+
+  onblur() {
+    this.componentUpdate({renaming:false});
+  }
+
+  onkeyup(evt) {
+    switch(evt.code) {
+      case "Enter": this.componentUpdate({renaming:false}); return true;
+      case "Escape": this.node.name = this.value = this.originalName; this.componentUpdate({renaming:false}); return true;
+    }
   }
 
   onmousedragrequest(evt) {
+    if(this.renaming) return false;
     const nodeView = this.parentElement;
     const offset = evt.position + this.box("inner",nodeView).origin;
     const view = nodeView.parentElement;
@@ -134,8 +197,10 @@ export class NodeView extends Element {
       else
         ports.push(<Output.break port={op}/>);
     }
+
+    const atts = node.group ? {group:true} : {};
  
-    return <node x={node.position.x} y={node.position.y}>
+    return <node x={node.position.x} y={node.position.y} {atts} >
       <Caption node={node} />
       <div.ports>{ports}</div>
       <Controls node={node} />
@@ -160,17 +225,26 @@ export class NodeView extends Element {
 
   ["on contextmenu"](evt) {
     const deleteNode = () => { 
-       console.log("about delete-node", this.node );
+       //console.log("about delete-node", this.node );
        this.postEvent(new Event("delete-node",{ bubbles:true, data: this.node })); 
     }
     const renameNode = () => { 
        //this.postEvent(new Event("delete-node",{ bubbles:true, data: this.node })); 
+       this.$("caption").componentUpdate({renaming:true});
+    }
+
+    const editGroup = () => { 
+       //console.log("about delete-node", this.node );
+       this.postEvent(new Event("edit-group",{ bubbles:true, data: this.node.group })); 
     }
 
     const menuItems = [
       <li.remove-node onclick={deleteNode}>Delete Node</li>,
       <li.rename-node onclick={renameNode}>Rename Node</li>
     ];
+    if( this.node.group )
+      menuItems.push(<li.edit-group onclick={editGroup}>Edit Group Node</li>);
+
     evt.source = Element.create(<menu.context>{menuItems}</menu>);
     return true;
   }

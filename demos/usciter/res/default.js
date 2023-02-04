@@ -137,6 +137,11 @@ function setupTheme(params, force) {
     Settings.saveState();
 }
 
+on("click", "button#icons", function(evt, button) {
+   loadFile(__DIR__ + "stock-icons.htm");
+   return true;
+});
+
 function onMediaChange() {
     setupTheme({ambience: view.mediaVar("ui-ambience")});
 }

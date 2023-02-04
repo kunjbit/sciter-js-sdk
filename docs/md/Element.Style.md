@@ -4,7 +4,7 @@ Instances of Element.Style class represent list of CSS properties set on element
 
 To get reference to style collection use ```element.style``` property.
 
-#### Properties:  
+## Properties:
 
 To get/set a property use either camelCase notation as: 
 
@@ -18,55 +18,45 @@ or the "hyphen-case" form:
 var bgColor = element.style["background-color"];
 ```
 
-#### Methods:
+## Methods:
 
-<details>
-<summary>element.style.<b>getPropertyValue</b>(name)</summary>
 
-returns a string containing the value of a specified CSS property.
+* ### `element.style.getPropertyValue(name)`
 
-</details>
-<details>
-<summary>element.style.<b>setProperty</b>(name, value [,important])</summary>
+  returns a string containing the value of a specified CSS property.
 
-sets a new value for a CSS property.
+* ### `element.style.setProperty(name, value [,important])`
 
-</details>
-<details>
-<summary>element.style.<b>removeProperty</b>(name)</summary>
+  sets a new value for a CSS property.
 
-removes a property value previously set by setProperty.
+* ### `element.style.removeProperty(name)`
 
-</details>
-<details>
-<summary>element.style.<b>colorOf</b>(name)</summary>
+  removes a property value previously set by setProperty.
 
-reports a value of property _name_ as an instance of [`Graphics.Color`](Graphics/Graphics.Color.md) class. Returns null if the propety is not a color.
+* ### `element.style.colorOf(name)`
 
-</details>
-<details>
-<summary>element.style.<b>pixelsOf</b>(name): number</summary>
+  reports a value of property _name_ as an instance of [`Graphics.Color`](Graphics/Graphics.Color.md) class. Returns null if the propety is not a color.
 
-reports used value of property _name_ as a number of CSS pixels. Returns null if the propety is not a length.
+* ### `element.style.pixelsOf(name): number`
 
-</details>
-<details>
-<summary>element.style.<b>imageOf</b>(name):Image</summary>
+  reports used value of property _name_ as a number of CSS pixels. Returns null if the propety is not a length.
 
-reports used value of property _name_ as an instance of [`Graphics.Image`](Graphics/Graphics.Image.md). Returns null if the propety is not an image.
+* ### `element.style.imageOf(name):Image`
 
-</details>
-<details>
-<summary>element.style.<b>variables</b>([{name:value,...}]):{name:value, ...}</summary>
+  reports used value of property _name_ as an instance of [`Graphics.Image`](Graphics/Graphics.Image.md). Returns null if the propety is not an image.
 
-if parameter is not provided reports CSS variables seen by the element, returns the set as {name:value, ...} map.
+* ### `element.style.variables([{name:value,...}]):{name:value, ...}`
 
-Otherwise, if the parameter is an object (name/value map), sets CSS variables on the element.
+  if parameter is not provided reports CSS variables seen by the element, returns the set as {name:value, ...} map.
 
-</details>
-<details>
-<summary>element.style.<b>setCursor</b>(null | image, hotspotX, hotspotY)</summary>
+  Otherwise, if the parameter is an object (name/value map), sets CSS variables on the element.
 
-sets/resets element's cursor.
+* ### `element.style.variable(name [, value]): value`
 
-</details>
+  if _value_ parameter is not provided, returns value of CSS variable seen by the element.
+
+  Otherwise sets CSS variable on the element.
+
+* ### `element.style.setCursor(null | image, hotspotX, hotspotY)`
+
+  sets/resets element's cursor by the image and hotspot coordinates.
