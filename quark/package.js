@@ -2,13 +2,13 @@ import * as env from "@env";
 import * as sys from "@sys";
 import * as sciter from "@sciter";
 
-import {LogRunner} from "logrunner.js";
+import { LogRunner } from "logrunner.js";
 
 export function checkForImageMagic(resultCb) {
   let signatureFound = false;
 
-  if (env.PLATFORM != "Windows")
-    return; // we need it only on Windows so far
+  if (env.PLATFORM != "Windows" && env.PLATFORM != "OSX")
+    return; // we need it only on Windows or OSX so far
 
   async function readPipe(pipe) {
     try {
@@ -17,11 +17,11 @@ export function checkForImageMagic(resultCb) {
         signatureFound = signatureFound || text.indexOf("ImageMagic") >= 0;
       }
     }
-    catch (e) {}
+    catch (e) { }
     resultCb(signatureFound);
   }
 
-  const proc = sys.spawn(["magick", "-version"], {stdout: "pipe", stderr: "pipe"});
+  const proc = sys.spawn(["magick", "-version"], { stdout: "pipe", stderr: "pipe" });
 
   if (!proc)
     document.post(() => resultCb(false));
@@ -57,15 +57,15 @@ function checkFile(path) {
 function getPackfolderPath() {
   if (env.PLATFORM == "Windows") {
     return checkFile(env.home("../packfolder.exe")) ||
-        checkFile(env.home("../../bin/windows/packfolder.exe"));
+      checkFile(env.home("../../bin/windows/packfolder.exe"));
   }
   else if (env.PLATFORM == "OSX") {
     return checkFile(env.home("packfolder")) ||
-        checkFile(env.home("../../bin/macosx/packfolder"));
+      checkFile(env.home("../../bin/macosx/packfolder"));
   }
   else if (env.PLATFORM == "Linux") {
     return checkFile(env.home("../packfolder")) ||
-        checkFile(env.home("../../bin/linux/packfolder"));
+      checkFile(env.home("../../bin/linux/packfolder"));
   }
 }
 
@@ -100,9 +100,26 @@ function makePath(dir, subdirs, nameext) {
   return path + "/" + nameext;
 }
 
-// TODO 1: .icns file generation
-// TODO 2: clean async/sync mess here:
-function mkAppleBundle(exefile, params){
+// Use imagemagick to convert svg into pngs, then iconutil to convert into icons
+// Notice here inf means: input file (svg), outp means: out path, the result is: ${outp}/icon.icns
+// imagick alwasy draw black border on path,  please install inkscape to avoid this(imagick will use inkscape if detected)
+async function convertSvgToIcns(inf, outp) {
+  const iconset = [{ size: 16, name: "16x16" }, { size: 32, name: "16x16@2x" }, { size: 32, name: "32x32" }, { size: 64, name: "32x32@2x" },
+  { size: 128, name: "128x128" }, { size: 256, name: "128x128@2x" }, { size: 256, name: "256x256" }, { size: 512, name: "256x256@2x" },
+  { size: 512, name: "512x512" }, { size: 1024, name: "512x512" }]
+
+  let setfolder = makePath(outp, ["icon.iconset"], "")
+  for(let icon of iconset) {
+    let dst = setfolder+"icon_"+icon.name+".png"
+    let args = ["convert", "-resize", `${icon.size}x${icon.size}`, "-background", "none", inf, dst]
+    let r = await LogRunner.run(args);
+    if (r != 0) throw "convertSvgToIcns: failed to covert svg into png file";
+  }
+    let r = await LogRunner.run(["iconutil", "--convert", "icns", setfolder]);
+    if (r != 0) throw "convertSvgToIcns: failed to produce icon.icns file";
+}
+
+function mkAppleBundle(exefile, params) {
   var plistInfo = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\
   <!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n\
   <plist version=\"1.0\">\n\
@@ -135,34 +152,26 @@ function mkAppleBundle(exefile, params){
   </plist>";
 
   function copyFileForce(fnSrc, fnDes) {
-    if(sys.fs.$stat(fnDes))
+    if (sys.fs.$stat(fnDes))
       sys.fs.$unlink(fnDes);
     sys.fs.$copyfile(fnSrc, fnDes);
   }
+  
+  makePath(params.out, ["macos", `${params.exe}.app`, "Contents", "MacOS"], "");
+  makePath(params.out, ["macos", `${params.exe}.app`, "Contents", "Resources"], "");
+  
   let appPath = `${params.out}/macos/${params.exe}.app`;
-  
-  if(!checkFolder(appPath))
-    sys.fs.$mkdir(appPath);
-  
   sys.fs.$chmod(appPath, 0o755);
-  
-  appPath += "/Contents";
-  if(!checkFolder(appPath))
-    sys.fs.$mkdir(appPath);
-  
-  makePath(appPath, ["MacOS"], "");
-  makePath(appPath, ["Resources"], "");
+  appPath += "/Contents"
 
-  let fn = sys.fs.$open(appPath+"/Info.plist", "w");
-  if(!fn) throw "Can't open plist.info to write";
+  let fn = sys.fs.$open(appPath + "/Info.plist", "w");
+  if (!fn) throw "Can't open plist.info to write";
   let plist = plistInfo.replace(/{name}/g, params.exe).replace(/{version}/g, params.productVersion);
   fn.$write(plist);
   fn.$close();
-  copyFileForce(exefile, appPath+"/MacOS/"+params.exe);
-  sys.fs.$chmod(appPath+"/MacOS/"+params.exe, 0o755);
-  //TODO
-  // proper .icns generation here please. See: https://gist.github.com/jamieweavis/b4c394607641e1280d447deed5fc85fc#creating-an-iconset 
-  //copyFileForce(params.logo, `${appPath}/Resources/${params.exe}.icns`);
+  copyFileForce(exefile, appPath + "/MacOS/" + params.exe);
+  sys.fs.$chmod(appPath + "/MacOS/" + params.exe, 0o755);
+  copyFileForce(params.out+"/icon.icns", `${appPath}/Resources/${params.exe}.icns`);
 }
 
 
@@ -176,7 +185,7 @@ function assembleExe(target, scapp, datfile, exefile, params = null) {
     case -2: LogRunner.add(`${target} FAILURE opening output file`, "stderr"); break;
     case -3: LogRunner.add(`${target} FAILURE writing output file`, "stderr"); break;
   }
-  if(target==="mac") mkAppleBundle(exefile, params)
+  if (target === "mac") mkAppleBundle(exefile, params)
 }
 
 export async function assemble(params) {
@@ -192,7 +201,7 @@ export async function assemble(params) {
     return;
   }
 
-  
+
   const datfile = params.out + "/" + params.exe + ".dat";
   const icofile = params.out + "/" + params.exe + ".ico";
 
@@ -204,24 +213,25 @@ export async function assemble(params) {
           await convertSvgToIco(params.logo, icofile);
           const scapp = checkFile(env.home("../x32/scapp.exe")) || checkFile(env.home("../../bin.win/x32/scapp.exe"));
           const exefile = makePath(params.out, ["windows", "x32"], params.exe + ".exe");
-          var p = Object.assign({}, params, {icofile: icofile});
+          var p = Object.assign({}, params, { icofile: icofile });
           assembleExe(target, scapp, datfile, exefile, p);
         } break;
         case "winX64": {
           await convertSvgToIco(params.logo, icofile);
           const scapp = checkFile(env.home("../x64/scapp.exe")) || checkFile(env.home("../../bin.win/x64/scapp.exe"));
           const exefile = makePath(params.out, ["windows", "x64"], params.exe + ".exe");
-          var p = Object.assign({}, params, {icofile: icofile});
+          var p = Object.assign({}, params, { icofile: icofile });
           assembleExe(target, scapp, datfile, exefile, p);
         } break;
         case "winARM64": {
           await convertSvgToIco(params.logo, icofile);
           const scapp = checkFile(env.home("../arm64/scapp.exe")) || checkFile(env.home("../../bin.win/arm64/scapp.exe"));
           const exefile = makePath(params.out, ["windows", "arm64"], params.exe + ".exe");
-          var p = Object.assign({}, params, {icofile: icofile});
+          var p = Object.assign({}, params, { icofile: icofile });
           assembleExe(target, scapp, datfile, exefile, p);
         } break;
         case "mac": { // TODO: build proper .app bundle folder here
+          await convertSvgToIcns(params.logo, params.out)
           const scapp = checkFile(env.home("scapp")) || checkFile(env.home("../../bin.osx/scapp"));
           const exefile = makePath(params.out, ["macos"], params.exe);
           assembleExe(target, scapp, datfile, exefile, params);
