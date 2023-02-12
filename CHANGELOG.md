@@ -1,3 +1,34 @@
+## 5.0.2.4
+
+### New:
+
+* `storage.registerClass(cls)` - persistable objects with classes. This allows the following:
+```JavaScript
+  class Note {...}
+  ...
+  storage.registerClass(Note);
+  ...
+  const firstNote = storage.root.notes[0];  
+  firstNote instanceof Note; // >> true 
+  ```
+* [quark] OSX, icons generation. Thanks to [mice2100](https://sciter.com/forums/users/mice2100/).
+* [css] `{ attr(filename):attr(key) }` - attributes aliasing. Example: `filename` attribute is an alias of `this.attributes["key"]`
+* [widgets] new widget: sdk.js/widgets/virtual-tree  - virtual tree.
+* [widgets] new widget: widgets/color-selector - defines `<widget|color>` and `<input|color>`
+* [js] + `Intl.Collator` implementation (partial) - lexical string comparison support.
+* [dom] + `Element.flushPaint()` - force paint of element's window.
+* [dom] + `Element.animate()` is split into `Element.replaceContent(vdom)` and `Element.morphContent(step)`, see documentation. **Warning**: the `Element.animate()` is obsolete now - it will be replaced in upcoming builds by [WebAPI compatible version](https://developer.mozilla.org/en-US/docs/Web/API/Element/animate), replace its use by the functions above.
+* [richtext,plaintext] +  transactCtx.lastPosition -> [node,offset] reports last used caret position.
+* [js] `Length.morph(from,to,ratio)` and `Color.morph(from,to,ratio)` functions, used in custom transition/animations.
+
+### Fixes:
+
+* [richtext,plaintext] transactional update fixes;
+* [css] fix of mem resource consumption in gradients;
+* [js, storage] binary db compatibility with Sciter.TIS (I am porting https://notes.sciter.com)
+* [css,js] regression fix of `el.style.variables({...})`;
+* [css] fix of .slider {min-height:...} in customized scroll-indicators, see: https://sciter.com/forums/topic/min-height-in-scroll-indicator/
+
 ## 5.0.2.3
 
 ### New:

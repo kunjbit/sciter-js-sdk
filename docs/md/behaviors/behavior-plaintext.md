@@ -55,21 +55,22 @@ string, reflects current status of internal editing buffer.
 
 ## Commands
 
-Commands supported by the behavior through `Element.execCommand()` and `Element.queryMethods()`:
+Commands supported by the behavior through `Element.execCommand()` and `Element.queryMethods()`:
 
-* `"edit:cut"` \- cut selection - copy selection to the clipboard and remove it;
-* `"edit:copy"` \- copy selection to the clipboard;
-* `"edit:paste"` \- paste content of the clipboard;
-* `"edit:selectall"` \- select whole content of the element;
-* `"edit:undo"` \- undo last editing operation;
-* `"edit:redo"` \- redo last operation that was undone;
-* `"edit:delete-next"` \- if there is a selection - delete selected content, otherwise delete next character;
-* `"edit:delete-prev"` \- if there is a selection - delete selected content, otherwise delete previous character;
-* `"edit:delete-word-next"` \- if there is a selection - delete selected content, otherwise delete next word;
-* `"edit:delete-word-prev"` \- if there is a selection - delete selected content, otherwise delete previous word;
-* `"edit:insert-break"` \- inserts line break;
-* `"edit:insert-text"` \- inserts text at current position: `element.execCommand("edit:insert-text", text);`
-* navigational commands, move caret:
+* content mutation commands:
+  - `"edit:cut"` \- cut selection - copy selection to the clipboard and remove it;
+  - `"edit:copy"` \- copy selection to the clipboard;
+  - `"edit:paste"` \- paste content of the clipboard;
+  - `"edit:selectall"` \- select whole content of the element;
+  - `"edit:undo"` \- undo last editing operation;
+  - `"edit:redo"` \- redo last operation that was undone;
+  - `"edit:delete-next"` \- if there is a selection - delete selected content, otherwise delete next character;
+  - `"edit:delete-prev"` \- if there is a selection - delete selected content, otherwise delete previous character;
+  - `"edit:delete-word-next"` \- if there is a selection - delete selected content, otherwise delete next word;
+  - `"edit:delete-word-prev"` \- if there is a selection - delete selected content, otherwise delete previous word;
+  - `"edit:insert-break"` \- inserts line break;
+  - `"edit:insert-text"` \- inserts text at current position:`element.execCommand("edit:insert-text", text);`
+  - navigational commands, move caret:
   * `"navigate:backward"`
   * `"navigate:forward"`
   * `"navigate:word-start`

@@ -28,3 +28,7 @@ Represents color value with red, blue. green and alpha components.
 * `Color.RGB(0..255,0..255,0..255[,0..255])` same as above but components are integers in 0...255 range.
 * `Color.hsv( h, s, v [,a]) : Color` - creates color instance from HSV components - float numbers in `0.0 .. 1.0` range but `h` is in `0.0 .. 360.0` range.
 * `Color.hsl( h, s, l [,a]) : Color` - creates color instance from HSL components - float numbers in `0.0 .. 1.0` range but `h` is in `0.0 .. 360.0` range.
+
+* `Color.morph(from:Color,to:Color,ratio:0...1):Color`
+
+   Morph _from_ color into _to_ color value according to _ratio_. If _ratio_ == 0.0 it returns _from_ and if _ratio_ == 1.0 it returns _to_ value. Color morphing is done in premultipled color space.

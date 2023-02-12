@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+#tree {
+   display:block;
+   width:50%;
+   height:*;
+}
+
+#tree icon {
+  behavior:file-icon;
+  margin-right:0.25em;
+}
+
+        </style>
+        <script|module>
+
+import {VirtualTree, TreeController} from "virtual-tree.js";
+
+import {fs} from "@sys";
+
+function cmp(a,b) {
+  if(a.isdir && !b.isdir) return -1;
+  if(b.isdir && !a.isdir) return 1;
+  return a.name.localeCompare(b.name);
+}
+
+class FolderController extends TreeController {
+  rootFolder;
+
+  constructor(rootPath) {
+    super();
+    this.rootFolder = rootPath;
+  }
+
+  keyOf(item) { return item.name }
+  textOf(item) { return [<icon filename={item.parent + "/" + item.name}/>,item.name] } // may return VDOM
+  isNode(item) { return item.type & fs.UV_DIRENT_DIR }
+  kidsOf(item) { 
+    const path = item.parent + "/" + item.name;
+    const r = fs.sync.readdir(path)
+    r.forEach(entry => { entry.parent = path; entry.isdir = (entry.type & fs.UV_DIRENT_DIR)  != 0 });
+    r.sort(cmp);
+    return r;
+  }
+  get roots() {
+    const path = this.rootFolder;
+    const r = fs.sync.readdir(path); 
+    r.forEach(entry => { entry.parent = path; entry.isdir = (entry.type & fs.UV_DIRENT_DIR)  != 0 });
+    r.sort(cmp);
+    return r;
+  }
+}
+
+const fsController = new FolderController( URL.toPath(__DIR__ + "../.."));
+
+document.body.append(<VirtualTree id="tree" controller={fsController} treelines={true} />);
+
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

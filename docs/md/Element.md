@@ -264,11 +264,11 @@ read only
 
   Engine tries to replace popup so _popupAt_ position is at _anchorAt_ on screen.
 
-* ### `element.animate(changer:function,params:object)`
+* ### `element.replaceContent(newContent:JSX[,params:object])`
   
-  various animation effects, where *params* contains following fields:
+  various animation effects, where _params_ may contain following fields:
 
-  * `params.duration` - integer, milliseconds - duration of the animation;
+  * `params.duration` - integer, milliseconds - duration of the animation, optional, 200ms if not provided;
   * `params.ease` - string, name of ease function, one of: 
     
     <a name="animate-ease"></a> "linear","ease","ease-in","ease-in-out","ease-out","quad-in","quad-out","quad-in-out","cubic-in","cubic-out","cubic-in-out",
@@ -277,7 +277,9 @@ read only
     "back-in","back-out","back-in-out","x-back-in","x-back-out","x-back-in-out","xx-back-in","xx-back-out","xx-back-in-out",
     "bounce-in","bounce-out","bounce-in-out";
 
-  * **`params.effect`** - string, name of transition method, one of: 
+    Optional, "linear" is used by default;
+
+  * **`params.effect`** - string, name of transition effect method, one of: 
     * "blend",
     * "blend-atop",
     * "slide-top",
@@ -296,8 +298,14 @@ read only
     * "scroll-bottom",
     * "scroll-left",
     * "scroll-right"
+    
+    Optional, "blend" by default.
 
-* ### `element.animate(step:function,params:object)`
+  If _params_ object is ommited then the function does instant replacement, equivalent of `element.patch(JSX,true/*only-children*/)`.
+
+  If _params_ object is provided then the function returns `await`'able promise that gets resolved on the end of animation. 
+
+* ### `element.morphContent(step:function,params:object)`
 
   The method offers "manual" animation support. The _step_ function has following signature `function step(progress:0.0 ... 1.0): true | false`
 
@@ -307,7 +315,6 @@ read only
 
   * `params.duration` - integer, optional, milliseconds - duration of the animation;
   * `params.ease` - string, optional, name of ease function, see [params.ease](#animate-ease) above. This parameter determines curvature of *progress* values. 
-  * `params.FPS` - integer, times per second - frequency of the _step_ function calls;
 
 ---
 

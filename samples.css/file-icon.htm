@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+icon.file { behavior:file-icon; }
+
+        </style>
+        <script|module>
+
+import {fs} from "@sys";
+
+function FileName({filename}) {
+  const [folder,file] = fs.splitpath(filename);
+  return <text filename={filename}><icon.file/>{file}</text>
+}
+
+const thispath = URL.toPath(__FILE__);
+
+document.body.append(<FileName filename={thispath} />);
+
+        </script>
+    </head>
+    <body>
+
+
+    </body>
+</html>

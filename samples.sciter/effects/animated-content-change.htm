@@ -7,19 +7,16 @@
             font:system;
           }
 
-          #content {
+          section {
             size:*;
-          }
-
-          #content > div {
-            size:*;
+            background:gold;
             flow:vertical-wrap;
             border-spacing: 4px;
             padding: 4px;
-            overflow-x:auto;
+            overflow:auto;
           }
 
-          #content > div > div {
+          section > div {
             width:15vw;
             border:1px solid;
             color:#fff;
@@ -48,20 +45,17 @@
             return printf("background:#%02x%02x%02x", rand(255), rand(255), rand(255));
           }           
 
-          function gc() {
-            return printf("background: linear-gradient(to bottom, #fff, #%02x%02x%02x)", rand(255), rand(255), rand(255));
-          }
-
           document.on("click", "button#go", async function(evt,button) {
-            function changer() { 
-              let nelements = rand(100);
-              let list = [];
-              for( let n = 1; n <= nelements; ++n )
-                list.push( <div style={bc()}>item {n}</div>);
-              this.content(<div style={gc()}>{list}</div>);
-            }
+            
+            let nelements = rand(100);
+            let list = [];
+            for( let n = 1; n <= nelements; ++n )
+              list.push( <div style={bc()}>item {n}</div>);
+            
+            const nc = <section>{list}</section>;
+
             button.state.disabled = true;
-            await content.animate(changer, params);
+            await content.replaceContent(nc, params);
             button.state.disabled = false;
           });
 
@@ -132,8 +126,8 @@
         </select>
         <button #go>Go!</button>
       </form>
-
-      <section#content>Press Go to change content here</section>
+      Press Go to change content here:
+      <section#content />
 
     </body>
 </html>

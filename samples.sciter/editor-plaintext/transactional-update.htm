@@ -8,17 +8,18 @@
 <script>
 
 function handleSmile(plaintext,caret,text,re) {
-  var sequence = re[0];
-  var anchor = [bookmark:caret[0],caret[1] - sequence.length,false];
-  var imgsrc = this.img;
+  let sequence = re[0];
+  let anchor = [caret[0],caret[1] - sequence.length];
+  let imgsrc = this.img;
 
-  return plaintext.plaintext.update( (transaction) => {
+  plaintext.plaintext.update( (transaction) => {
     const [node1, offset1] = transaction.deleteRange(anchor[0],anchor[1],caret[0],caret[1]);
-    const nodes = transaction.insertHTML(node1, offset1,"<img src='"+ imgsrc +"'/>");
-    plaintext.selection.selectNodeContent(nodes[0]);
-    plaintext.selection.collapseToEnd();
+    transaction.insertHTML(node1, offset1,"<img src='"+ imgsrc +"'/>");
+    caret = transaction.lastPosition;
     return true; // done,commit
   });
+  plaintext.selection.collapse(caret[0],caret[1]);
+  return true;
 }
 
 var sequences = [];

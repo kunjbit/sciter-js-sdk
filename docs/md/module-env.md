@@ -30,6 +30,10 @@ Machine network name.
   
 Machine network domain.
 
+### `env.arguments()`
+
+Returns array of command line arguments.
+
 ### `env.launch(path)`
   
 Method to open documents and start applications;

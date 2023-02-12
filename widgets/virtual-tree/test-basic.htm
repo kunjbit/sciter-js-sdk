@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+#tree {
+   display:block;
+   width:50%;
+   height:*;
+}
+
+        </style>
+        <script|module>
+import {VirtualTree} from "virtual-tree.js";
+
+const roots = [
+  { text:"A", items:[ 
+      {text: "A.1", items:[{text: "A.1.1"},{text: "A.1.2"}]},
+      {text: "A.2"},
+      {text: "A.3"} ]},
+  { text:"B", items:[ 
+      {text: "B.1"},
+      {text: "B.2"},
+      {text: "B.3"} ]},
+  { text:"C", items:[ 
+      {text: "C.1"},
+      {text: "C.2"}]},
+  { text: "D" },
+  { text: "E" },
+];
+
+document.body.append(<VirtualTree id="tree" roots={roots} treelines={true} />);
+
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

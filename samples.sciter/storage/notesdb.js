@@ -54,3 +54,6 @@ export class Note {
     return root.notesByDate;
   }
 }
+
+storage.registerClass(Note);
+

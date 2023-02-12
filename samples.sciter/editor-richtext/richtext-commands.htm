@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+htmlarea { size:*; }
+
+        </style>
+        <script type="module">
+
+const htmlarea = document.$("htmlarea");
+
+document.on("click","button#append",function() {
+  htmlarea.state.focus = true;
+  htmlarea.execCommand("navigate:end");
+  htmlarea.execCommand("edit:insert-html","<b>Hello</b>");
+});
+
+        </script>
+    </head>
+    <body>
+
+<div>
+  <button#append>Append HTML</button>
+</div>
+
+<htmlarea>
+  <p></p>
+</htmlarea>
+
+
+    </body>
+</html>

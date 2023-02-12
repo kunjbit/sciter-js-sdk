@@ -27,7 +27,7 @@
 
             function step(progress) { p = progress; div.requestPaint(); return true; }
 
-            await div.animate(step,{ease:"sine-in-out",duration:600});
+            await div.morphContent(step,{ease:"sine-in-out",duration:600});
 
             div.paintForeground = null;
           });

@@ -19,6 +19,10 @@
             border-spacing: 0.5em 0;
         }
 
+        input(red) { fill: red; }
+        input(green) { fill: green; }
+        input(blue) { fill: royalblue; }
+
         output { font-family:monospace; }
         
     </style>
@@ -38,10 +42,10 @@
     document.on("change", "form", function(ev, form){
        const v = form.value;
        document.style.variables {
-         "red-channel": Length.pct(v.red),
-         "green-channel": Length.pct(v.green),
-         "blue-channel": Length.pct(v.blue),
-         "alpha-channel": Length.pct(v.alpha),
+         "red-channel": Length.percent(v.red),
+         "green-channel": Length.percent(v.green),
+         "blue-channel": Length.percent(v.blue),
+         "alpha-channel": Length.percent(v.alpha),
        };
        document.$("#rgba1").value = printf("rgba(%d%%,%d%%,%d%%,%d%%)", v.red, v.green, v.blue, v.alpha);
        document.$("#rgba2").value = printf("#%02x%02x%02x%02x", v.red * 2.55 + 0.5, v.green * 2.55 + 0.5, v.blue * 2.55 + 0.5, v.alpha * 2.55 + 0.5);

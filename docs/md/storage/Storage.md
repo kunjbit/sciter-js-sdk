@@ -10,18 +10,24 @@ Represents persistent storage.
 ## Methods
 
 
-* ```Storage.open(filename : string [,allowWrite: true] ) : storage | null```
+* ### `Storage.open(filename : string [,allowWrite: true] ) : storage | null`
 
   Static method. Opens the storage and returns an instance of Storage object. If *allowWrite* is *false* then storage is opened in read-only mode. 
 
-* ```storage.close()```
+* ### `storage.close()`
 
   Closes underlying Storage object. Commits all data before closing. After closing the storage all persistent objects that are still in use are set to non-persistent state.
 
-* ```storage.commit()```
+* ### `storage.commit()`
 
   Commits (writes) all persistent objects reachable from its root into storage.
 
-* ```storage.createIndex(type : string [, unique: bool]) returns: Index | null```
+* ### `storage.createIndex(type : string [, unique: bool]) returns: Index | null`
 
   Creates an index of given type and returns the index object. Index can have unique or duplicated keys depending on unique argument. Default value for *unique* is *true*. Supported types: "integer", "long", "float", "date" and "string".
+
+* ### `storage.registerClass(cls)`
+
+  Registers class (a.k.a. constructor function in terms of ES5) of persistable objects.
+
+  When an object is stored into DB, name of its class is also stored. When the object is fetched from the DB, it gets the class assigned automatically if that class was registered before. 

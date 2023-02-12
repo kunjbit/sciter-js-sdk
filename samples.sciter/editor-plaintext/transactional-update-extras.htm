@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>Test</title>
+<style>
+  span { 
+    display:inline-block;
+    vertical-align:middle;  
+    border-radius:3px;
+    background:gold;
+    padding:2px 2em 2px 4px;
+  }
+
+  span::marker {
+    margin:0 0 0 *;
+    width:2em;
+    height:*;
+    background: url(stock:cross-x) no-repeat 50% 50%;
+    background-size:0.5em;
+    fill:red;
+    cursor:pointer;
+  }
+
+</style>
+
+<script>
+
+const editor = document.$("plaintext");
+
+let cnt = 0;
+
+document.on("click","button#insert", function() {
+  editor.state.focus = true;
+  let sel = editor.selection;
+  if(!sel.focusNode) {
+    editor.execCommand("navigate:end");
+    sel = editor.selection;
+  }
+  let caret;
+  editor.plaintext.update(ctx => {
+    ctx.insertHTML(sel.focusNode,sel.focusOffset,`<span>BC${++cnt}</span>`);
+    caret = ctx.lastPosition;
+    return true;
+  });
+  editor.selection.collapse(caret[0], caret[1]);
+});
+
+document.on("^mousedown","span", function(evt,span) {
+  
+  if(evt.target.tag == "::marker") { // click on ::marker pseudo-element
+    editor.plaintext.update(ctx => {
+      ctx.deleteNode(span);
+      return true;
+    });
+    return true;
+  }
+});
+
+
+</script>
+</head>
+<body>
+  <button#insert>Insert inline blok</button>
+  <plaintext>A</plaintext>    
+</body>
+</html>

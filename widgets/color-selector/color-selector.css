@@ -1,0 +1,188 @@
+
+@set color-selector {
+  :root {
+    var(hue): #ff0000;
+    var(clr): #ff0000;
+    display:block;
+    size:max-content;
+    background:var(button-scrollbar);
+    padding:6px 0;
+    font:system;
+  }
+  input.hue {
+    display:block; 
+    border:none;
+    height: 6px;
+    width:200px;
+    margin:3px *;
+    background: linear-gradient(to right, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+  }
+
+  input.alpha {
+    display:block; 
+    border:none;
+    height: 3px;
+    width:200px;
+    margin:0 *;
+    background: linear-gradient(to right, #00000000 0%, #000000FF 100%);
+  }
+
+  div.layers { 
+    width:200px;
+    height:124px;
+    flow:stack;
+    margin:*;
+  }
+
+  div.value {
+    size:*;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.0) 1%, rgba(0,0,0,1.0) 100%); 
+  }
+  div.saturation {
+    size:*;
+    //background: linear-gradient(to right, var(hue) 0%, #ffffff 100%); 
+  }
+
+  div.switch {
+    height:1.8em;
+    width:0.9em;
+  }
+
+  div.switch > icon {
+    size:0.9em;
+    behavior:clickable;
+  }
+
+  div.switch > icon:hover {
+    foreground-color:var(highlight-hover);
+  }
+
+  section {
+    flow:horizontal;
+    width:200px;
+    margin:0 *;
+    border-spacing:6px;
+  }
+  section div.current {
+    size:1.8em;
+    margin:* 0;    
+    border-radius:50%;
+  }
+
+  section form { width:*; flow:horizontal; line-height:1.8em; }
+
+  section input { display:block; width:*; line-height:1.2em; padding:0;}
+  section input caption { padding:1px 3px; }
+  section input.sole { padding:1px 3px; line-height:1.4em; }
+
+  div.predefined {
+    flow:horizontal-wrap;
+    border-spacing:3px;
+    margin:6px 3px 0 3px;
+  }
+  div.predefined > div {
+    width:*;
+    height:1.6em;
+  }
+  div.predefined > div:nth-child(9) { clear:after; }
+  div.predefined > div:hover {
+    outline:2px solid var(accent);
+  }
+
+}
+
+widget[type="color"] { prototype: ColorSelector url(color-selector.js); style-set:color-selector; }
+
+@set color-input 
+{
+  :root
+  {
+    font:system;
+    display:inline-block;
+    flow:horizontal;
+    color: color(widget-text);
+    background: color(widget-back);
+    border:none;
+    text-selection: color(selection-nf-text) color(selection-nf);
+    padding:0;
+    height:min-content;
+    min-height:1.8m;
+    border-radius: length(border-radius); 
+  }
+
+  :root:owns-popup,
+  :root:focus            { text-selection: color(selection-text) color(selection); }
+  :root:disabled         { background:color(widget-disabled); color:color(widget-disabled-text); }  
+  :root:tab-focus        { outline:@STD-OUTLINE-FOCUS; }  
+
+  :root > caption 
+  { 
+    display:block;
+    height:*; 
+    width:9ch;
+    flow:text;
+    behavior: edit;      
+    cursor:text;
+    white-space:pre;
+    overflow-x:hidden-scroll;
+    line-height:1.4em;
+    padding:0.2em 0 0.2em 0.4em;
+    border-top:1px solid color(widget-border);
+    border-bottom:1px solid color(widget-border);
+  }
+
+  :root:rtl > caption {
+    padding:0.2em 0.4em 0.2em 0;
+  }
+
+  :root:disabled > caption { color:color(widget-disabled-text); }  
+
+  :root > span.current {
+    display:block;
+    height:*;
+    padding:0;
+    width:1.2em;
+    background:color(button-face);
+    border:1px solid color(widget-border);
+    border-radius: length(border-radius) 0 0 length(border-radius);
+  }
+  
+  :root > button
+  {
+    behavior:clickable;
+    height:*;
+    padding:0;
+    width:1.2em;
+    background:color(button-face);
+    border:1px solid color(widget-border);
+    foreground-image: url(stock:chevron-down);
+    foreground-position:50% 50%;
+    foreground-size:5px;
+    foreground-repeat:no-repeat;
+    border-radius: 0 length(border-radius) length(border-radius) 0;
+  }
+
+  :root > button:hover
+  {
+    transition:none;
+    background:color(button-hover);
+  }
+
+  :root > button:active
+  {
+    background:color(button-hover);
+  }
+
+  :root:disabled > button
+  {
+    background: color(widget-disabled);
+    color: color(widget-disabled-text);
+    fill: color(widget-disabled-text);
+  }
+
+  :root:rtl > button {
+    border-radius: length(border-radius) 0 0 length(border-radius);
+  }
+}
+
+input[type="color"] { prototype: ColorInput url(color-selector.js); style-set:color-input; }

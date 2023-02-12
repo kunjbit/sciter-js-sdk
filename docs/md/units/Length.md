@@ -92,5 +92,9 @@ Length units support following operators:
  * `Length.rem(n):length`
  * `Length.ppx(n):length`
  * `Length.ch(n):length`
+   
+   These function above are static constructors of length values.
 
- These above are static constructors of length values.
+ * `Length.morph(from:Length,to:Length,ratio:0...1[,element]):length`
+
+   Morph _from_ length into _to_ length value according to _ratio_. If _ratio_ == 0.0 it returns _from_ and if _ratio_ == 1.0 it returns _to_ value.

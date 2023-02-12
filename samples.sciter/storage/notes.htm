@@ -59,6 +59,7 @@ class NoteList extends Element {
     function linesOf(text) { return text.split("\n").map(line => <text>{line}</text>); }
 
     for(let note of DB.Note.all()) {
+      console.assert(note instanceof DB.Note);
       list.push(<div.note key={note.id}>
           <header>{note.date.toLocaleString()}</header>
           <div.text state-html={md2htm(note.text)} /></div>);
