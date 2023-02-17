@@ -10,13 +10,12 @@ export class VirtualTree extends Element {
   roots;
   controller;
   treelines;
-  #openNodes = new WeakSet();
+  #openNodes = new Set(); // keys of open nodes
 
-  constructor({roots,controller,treelines}) {
-    super();
+  this({roots,controller,treelines}) {
     this.treelines = treelines;
     this.controller = controller ?? new TreeController();
-    this.roots = roots || this.controller?.roots;    
+    this.roots = roots || controller.roots;    
   }
   
   rootItems() { return this.roots || []; }
@@ -26,7 +25,7 @@ export class VirtualTree extends Element {
     const key = controller.keyOf(item);
     const text = controller.textOf(item);
     if(controller.isNode(item)) {
-      const expanded = this.#openNodes.has(item);
+      const expanded = this.#openNodes.has(key);
       let children = [];
       if(expanded) {
         const items = controller.kidsOf(item);
@@ -51,13 +50,13 @@ export class VirtualTree extends Element {
 
   ["on expand at option"](e,option) {
      const item = option.data;
-     this.#openNodes.add(item);
+     this.#openNodes.add(this.controller.keyOf(item));
      option.patch(this.renderItem(item));
      return true;
   }
   ["on collapse at option"](e,option) {
      const item = option.data;
-     this.#openNodes.delete(item);
+     this.#openNodes.delete(this.controller.keyOf(item));
      option.patch(this.renderItem(item));
      return true;
   }
@@ -65,7 +64,7 @@ export class VirtualTree extends Element {
   ["on dblclick at option:not(:node)"](e,option) {
      const data = option.data;
      this.postEvent(new Event("item-activate",{bubbles:true,data}));
-     console.log(data);
+     //console.log(data);
      return true;
   }
 

@@ -45,15 +45,13 @@ class Scene extends Element {
     this.state.wantsGestures(...gestures);
   }
 
-  ["on gesture-rotation"](evt) {
+  ["on gesture-pinch"](evt) {
     this.rotation += evt.deltaRotation;
-    this.style.variable("rotation", this.rotation);
-    return true;
-  }
-
-  ["on gesture-zoom"](evt) {
-    this.zoom = Math.max(0.5, Math.min(4.0,this.zoom * evt.deltaZoom));
-    this.style.variable("zoom",this.zoom);
+    this.zoom = Math.max(0.5, Math.min(4.0,this.zoom * evt.deltaZoom));    
+    this.style.variables({
+      rotation :this.rotation,
+      zoom: this.zoom 
+    });
     return true;
   }
 

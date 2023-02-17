@@ -55,11 +55,40 @@ document.on("^mousedown","span", function(evt,span) {
   }
 });
 
+document.on("click","button#get-text", function() {
+
+  function gatherText(el) {
+    let out = "";
+    for(let node of el.childNodes) {
+      switch(node.nodeType) {
+        case 1: // element 
+          out += "[" + gatherText(node) + "]"; 
+          break; 
+        case 3: // text node 
+          out += node.data; 
+          break; 
+      }
+    }
+    return out;
+  }
+
+  let out = "";
+
+  for(let textEl of editor.children) {
+    let line = gatherText(textEl);
+    out += line + "\r\n";
+  }
+
+  Window.this.modal(<info>{out}</info>)
+  
+});
+
 
 </script>
 </head>
 <body>
-  <button#insert>Insert inline blok</button>
+  <button#insert>Insert inline block</button>
+  <button#get-text>Show text</button>
   <plaintext>A</plaintext>    
 </body>
 </html>

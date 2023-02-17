@@ -6863,7 +6863,7 @@
 	"../include/sciter-x-api.h"
 	"../include/aux-cvt.h"
 
-1673029025 /home/andrew/sciter/work/sdk.js/demos/usciter/resources.cpp
+1675470936 /home/andrew/sciter/work/sdk.js/demos/usciter/resources.cpp
 
 1657980699 source:/home/andrew/sciter/work/sdk.js/include/sciter-gtk-main.cpp
 	<gtk/gtk.h>

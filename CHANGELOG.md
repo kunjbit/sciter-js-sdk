@@ -1,3 +1,18 @@
+## 5.0.2.5
+
+### Fixes:
+
+* [Windows] touchpad and touchscreen gesture suppot is again implemented by using DirectManipulation. Reason: DM supports various touchpad models better than I can afford by manual parsing of WM_INPUT.
+* [scrollables] close owned popups before scrolling;
+* fix of doubled _onclick_ event handler call;
+* [CSS] Tweaks of `list-style-type: tree-line` (Sciter specific value);
+* [plaintext] `element.plaintext[idx]` and `element.plaintext.someProp` inconsistency fix. 
+* [core] Fixes in `Color` conversions;
+* [JS] Fixes in event handlers defined inline, like `<el onchange={...}>`
+* [widgets/color-selector] alpha channel and custom views support;
+* [JS] fix of `let a = 1%10;` parsing.
+
+
 ## 5.0.2.4
 
 ### New:

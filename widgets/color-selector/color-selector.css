@@ -1,31 +1,52 @@
 
+@const BLOCK_WIDTH : 200px;
+
 @set color-selector {
   :root {
-    var(hue): #ff0000;
     var(clr): #ff0000;
     display:block;
     size:max-content;
     background:var(button-scrollbar);
-    padding:6px 0;
+    padding:6px;
     font:system;
   }
-  input.hue {
-    display:block; 
+  input(h) {
+    display:inline-block; 
     border:none;
     height: 6px;
-    width:200px;
-    margin:3px *;
+    width:*;
     background: linear-gradient(to right, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
   }
 
-  input.alpha {
-    display:block; 
+  input(a) {
+    display:inline-block;
     border:none;
-    height: 3px;
-    width:200px;
-    margin:0 *;
-    background: linear-gradient(to right, #00000000 0%, #000000FF 100%);
+    height: 6px;
+    width:*;
+    background: url(sciter:no-color.png) repeat linear-gradient(to right, #00000000 0%, morph(var(clr),opacity:1) 100%);
+    background-size:6px;
   }
+
+  div.current {
+    display:inline-block;
+    size:2.2em;
+    margin:* 0;
+    background: url(sciter:no-color.png) repeat;
+    background-size:6px;
+    background-clip:border-box;
+    border-radius:50%;
+    foreground: url(stock:disk) 50% 50% no-repeat;
+    foreground-size:100%;
+    fill:var(clr);
+  }
+
+  form.sliders {
+    width:200px;
+    flow:grid(1 2,1 3);
+    border-spacing-x:6px;
+    margin:3px 0;
+  }
+
 
   div.layers { 
     width:200px;
@@ -40,8 +61,10 @@
   }
   div.saturation {
     size:*;
-    //background: linear-gradient(to right, var(hue) 0%, #ffffff 100%); 
+    background:linear-gradient(to right, morph(var(clr),saturation:100%,lightness:50%,opacity:100%) 0%, #ffffff 100%);
   }
+
+  div.rep { width:*; }
 
   div.switch {
     height:1.8em;
@@ -57,35 +80,35 @@
     foreground-color:var(highlight-hover);
   }
 
-  section {
+  div.numerics {
     flow:horizontal;
     width:200px;
     margin:0 *;
     border-spacing:6px;
   }
-  section div.current {
-    size:1.8em;
-    margin:* 0;    
-    border-radius:50%;
+
+  div.numerics form { width:*; flow:horizontal; line-height:1.8em; }
+
+  div.numerics input { display:block; width:*; line-height:1.2em; padding:0;}
+  div.numerics input caption { padding:1px 3px; }
+  div.numerics input.sole { padding:1px 3px; line-height:1.4em; }
+
+  [name="extra"] {
+    margin:6px 0px;
   }
-
-  section form { width:*; flow:horizontal; line-height:1.8em; }
-
-  section input { display:block; width:*; line-height:1.2em; padding:0;}
-  section input caption { padding:1px 3px; }
-  section input.sole { padding:1px 3px; line-height:1.4em; }
 
   div.predefined {
     flow:horizontal-wrap;
-    border-spacing:3px;
-    margin:6px 3px 0 3px;
+    border-spacing:*;
+    margin:6px 0 0 0;
+    flow:row(span,span,span,span,span,span,span,span,span);
   }
-  div.predefined > div {
-    width:*;
+  div.predefined > span {
+    display:inline-block;
+    width:1.6em;
     height:1.6em;
   }
-  div.predefined > div:nth-child(9) { clear:after; }
-  div.predefined > div:hover {
+  div.predefined > span:hover {
     outline:2px solid var(accent);
   }
 
