@@ -60,6 +60,7 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
   Some characters (`< > : " / \ | ? *`) are reserved under Windows as documented by Naming Files, Paths, and Namespaces. Under NTFS, if the filename contains a colon, Node.js will open a file system stream, as described by this MSDN page.
 
 * #### `fs.sync.open(path:string, flags:string [, mode:integer]): File`
+* #### `fs.openSync(path:string, flags:string [, mode:integer]): File`
 
   Synchronous version of `fs.open()`. Returns fs.File object, see below.  
 
@@ -132,10 +133,15 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
   ```JS
     async function deleteFile(path) { await sys.fs.unlink(path) }
   ```
+* #### `fs.sync.unlink(path:string)`
+* #### `fs.unlinkSync(path:string)`
 
 * #### `fs.rename(oldPath:string,newPath:string) : Promise`
   
   Renames the file. Note: this may move the file to different device. Equivalent to [rename](https://man7.org/linux/man-pages/man2/rename.2.html). 
+
+* #### `fs.renameSync(oldPath:string,newPath:string)`
+* #### `fs.sync.rename(oldPath:string,newPath:string)`
 
 * #### `fs.mkdtemp(template:string) : Promise(result:string)`
 
@@ -182,6 +188,8 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
   * `fs.UV_FS_COPYFILE_FICLONE` - to attempt to create a reflink, if copy-on-write is not supported, a fallback copy mechanism is used.
   * `fs.UV_FS_COPYFILE_FICLONE_FORCE` - to attempt to create a reflink, if copy-on-write is not supported, an error is returned.
 
+* #### `fs.sync.copyfile(srcpath,dstpath[,flags:int])`
+* #### `fs.copyfileSync(srcpath,dstpath[,flags:int])`
 
 * #### `fs.readdir(path:string) : Promise(Dir)`
   
@@ -219,6 +227,7 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
   Returns _null_ if _path_ is not a folder.  
 
 * #### `fs.readFile(path:string) : Promise(ArrayBuffer)`
+* #### `fs.readfile(path:string) : Promise(ArrayBuffer)`
   
   Read whole file asynchronously. The promise resolves to ArrayBuffer on success or fails:
 
@@ -232,7 +241,9 @@ sys is built on top of [libuv](https://github.com/libuv/libuv) that Sciter.JS us
   ```
 
 * #### `fs.sync.readFile() : ArrayBuffer`
+* #### `fs.sync.readfile() : ArrayBuffer`
 * #### `fs.readFileSync() : ArrayBuffer`
+* #### `fs.readfileSync() : ArrayBuffer`
   
   Synchronous version of the `fs.readFile(path:string)` above. Throws exception in case of error.
 
