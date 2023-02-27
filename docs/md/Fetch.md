@@ -29,6 +29,8 @@ Sciter extras:
 
 * `request.abort()` - method, on call will try to abort current request; Response of aborted request will have `response.aborted` property set to _true_.
 * `request.progress(function(bytesLoaded, totalBytes) {...})` the method allows to setup callback on downloading progress.
+* `request.fulfill(data:ArrayBuffer, mime: string [,status:integer])` - method, on call will set data to the request as if server responded with that data/mime-type.
+* `request.reject(status:integer)` - method, on call will reject the request as if server responded with that status code.
 
 > Note: fetch API uses either HTTP client to get remote files or OS API for local files. In the first case return values are HTTP response codes, while in the second case error codes are coming from OS.
   

@@ -3,60 +3,42 @@
     <title></title>
     <style>
     
-      picture,
-      img { fill:red; outline:1dip dashed blue; }
-      
-      section { flow: horizontal; }
-      section > div {
-        background-image: url(path:E M0,-0 C10,-0,10,0,20,0 L-20,0 C-10,0,-10,-0,-0,-0);
-        background-repeat:no-repeat;
-        background-size:100% 100%;
+      picture { 
+        size:*;
         fill:gold;
         stroke:#444;
-        stroke-width:1dip;
-        width:max-content;
-        padding:4dip 25dip;
-        margin:5dip;
-        outline:1dip dashed #aaa;
-      } 
-      section > div:hover {
-        fill:yellow;
+        stroke-width:1px;
+        //stroke:none;
+      }
+
+      div.triangle {
+        size:*;
+        fill:gold;
+        stroke:#444;
+        stroke-width:1px;
+        background: no-repeat path(M 0 0 L 1* 0 L 0.5* 1* Z);
+        background-size:100% 100%;
+        text-align: center;
       }
       
     </style>
-    <script type="text/tiscript"></script>
+    <script></script>
   </head>
 <body>
 
     <h2>Demonstration of expandable inline vector images</h2>
 
-    <!--flexible image , uses 0.5* - 50% of width -->
-    <picture src="path:E M0,0 L0.5*,-0 L-0,0z" style="width:*; height:*; fill:green" />
- 
-    <img src="path:E M0,0 L50%,-0 L-0,0z" style="width:100dip; height:100dip;" >
-    <!--diagonal lines -->
-    <img src="path:E M0,0 L-0,-0 M0,-0 L-0,0" style="width:200dip; height:100dip; stroke-width:8dip; stroke-linecap:round" >
-    
-    
-    <p>Eexpandable vector images used as a background-image in CSS:</p>
-    
-    <section>
-      <div src="path:E M0,-0 C25,-0,25,0,50,0 L-50,0 C-25,0,-25,-0,-0,-0 ">
-        first
-      </div>
-      <div src="path:E M0,-0 C25,-0,25,0,50,0 L-50,0 C-25,0,-25,-0,-0,-0 ">
-        second 
-      </div>
-      <div src="path:E M0,-0 C25,-0,25,0,50,0 L-50,0 C-25,0,-25,-0,-0,-0 ">
-        third 
-      </div>
-      <div src="path:E M0,-0 C25,-0,25,0,50,0 L-50,0 C-25,0,-25,-0,-0,-0 ">
-        quite-long-long-item 
-      </div>
-   
-        
-  </section>      
+    <!--flexible image , uses 0.5* or 0.5*X- 50% of width, 0.5*Y - 50% of height, etc. -->
 
+    <div.triangle>Vector background defined by CSS</div>
+ 
+    <picture src="path:M 0 0 H -0.5*Y c 0.66*Y 0 0.66*Y 1* 0 1* V 1* H 0 z" />
+
+    <picture style="width:*; height:2em" src="path:M 5 0 H 1* V 1* H 5 Z 
+     M 0 0.2* h 10 c 0 -0.1*Y 0.14*Y -0.1*Y 0.14*Y 0 c 0 0.1*Y -0.14*Y 0.1*Y -0.14*Y 0
+     M 0 0.4* h 10 c 0 -0.1*Y 0.14*Y -0.1*Y 0.14*Y 0 c 0 0.1*Y -0.14*Y 0.1*Y -0.14*Y 0
+     M 0 0.6* h 10 c 0 -0.1*Y 0.14*Y -0.1*Y 0.14*Y 0 c 0 0.1*Y -0.14*Y 0.1*Y -0.14*Y 0
+     M 0 0.8* h 10 c 0 -0.1*Y 0.14*Y -0.1*Y 0.14*Y 0 c 0 0.1*Y -0.14*Y 0.1*Y -0.14*Y 0" />
 
 </body>
 </html>

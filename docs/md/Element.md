@@ -255,7 +255,8 @@ read only
   Schedules re-paint of the element. This will trigger `element.paintXXXX` later calls (if any). On Windows this will end up in [InvalidateRect](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-invalidaterect) call.
 
 * ### `element.flushPaint()`
-  Force paint of element's window immediately
+
+  Force paint of element's window immediately.
 
 * ### `element.popup(popup:Element | VNode, params : Object )`
 

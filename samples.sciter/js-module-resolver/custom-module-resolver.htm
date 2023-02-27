@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style></style>
+        <script|module src="custom-module-resolver.js" />
+
+        <script|module>
+// here we can use our custom module resolution schema
+import * as test from "foo";
+document.body.append(test.foo());
+        
+        </script>
+
+
+    </head>
+    <body>
+    </body>
+</html>

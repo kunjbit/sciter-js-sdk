@@ -2,15 +2,42 @@
 
 The Zip class allows to access content of zip files and blobs.
 
+Zip Archive can be mounted at particular URL:
+
+```JavaScript
+const rs = await fetch("remote url");
+const archive = Zip.openData(rs.arrayBuffer());
+
+archive.mountTo("this://mounts/test/"); 
+```
+
+After that data from the archive can be accessed as any other resource:
+
+```HTML
+<img src="this://mounts/test/images/foo.png">
+```
+
+```JS
+import {Bar} from "this://mounts/test/bar.js";
+```
+
+and so on.
+
 ## Static methods
 
-### `Zip.openFile(path:string): Zip`
+### `Zip.openFile(path:string [,password]): Zip`
 
 Opens zip file for reading. Returns instance of Zip class.
 
-### `Zip.openData(data:ArrayBuffer): Zip`
+### `Zip.open(data:ArrayBuffer[,password]): Zip`
 
 Opens zip blob for reading. Returns instance of Zip class.
+
+### ~~`Zip.create(provider[,password]): ArrayBuffer`~~
+
+~~Creates zipped blob from items supplied by _provider_ function. _provider_ has the following signature:~~
+
+~~`function(n) : [localPath:string, itemData: ArrayBuffer [,fileAttributes:int] | null`~~
 
 ## Properties:
 

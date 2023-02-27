@@ -1,3 +1,31 @@
+## 5.0.2.6
+
+### New:
+
+* updates in Sciter module resolution algorithm. + `sciter.setModuleUrlResolver(resolver)`, see: https://sciter.com/forums/topic/on-module-url-resolution-npm-style/ discussion, and sample samples.sciter/js-module-resolver/ 
+* `zip.mountTo(url)` support - downloadable packages, see: samples.sciter/zip/;  
+* [JS] Support of `__FUNC__` (current function name) and `__LINE__` (current line) constants.
+* [css] + `border-shape: path(...)` support, see: sdk.js/samples.css/css++inline-vector-images/border-shape-path.htm
+* `Event.char` propery is writeable now, so in event ^keypress it is possible to filter/transform user input as `if(evt.char = "X") evt.char = "x";` 
+* [behavior:edit] `element.edit.isStandalone` mode - consumes non-handled up/down/left/right keys.
+* + `Request.fulfill(...)`, `Request.reject(...)` used in frame|htmlarea.onrequest(rq) handlers to e.g. fulfill requests from local DB for example. 
+
+
+### Fixes:
+
+* attempt to fix "garbage" background rendering in SVGs. Let me know if you still see the problem.
+* fix of `flow:horizontal` calculation inside `display:inline-block`;
+* fix of `Window.this.box(...,false)` (logic coordinates) calculations on high-dpi monitors on secondary windows.
+* [css,layout] `flow:horizontal`, `height:auto` children are treated as `height:*`;
+* [css,layout] `flow:horizontal[-wrap]` + `box-sizing: border-box` + `vertical-align` fix. 
+* fix of https://sciter.com/forums/topic/flex-layout-issues/ and similar;
+* fix of window position when initial x,y was defined in constructor; 
+* [JS] Number formatting fix;
+* [JS, persistence] fix of `db.commit()` operations related to indexes;
+* [JS, persistence] fix of delete obj["prop"]
+* [reactor] `<table>` content update fix;
+
+
 ## 5.0.2.5
 
 ### Fixes:

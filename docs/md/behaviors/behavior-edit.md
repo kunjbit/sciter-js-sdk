@@ -1,28 +1,28 @@
 # behavior: edit
 
-Standard single line input element behavior. This behavior can be applied to any element that has `flow:text` and `white-space:pre` model.
+Standard single line input element behavior. This behavior can be applied to any element that has `flow:text` and `white-space:pre` model.
 
 ## Elements
 
 that have this behavior applied by default:
 
-* `<input type="text" />` - inline single line
+* `<input type="text" />` - inline single line
 
 ## Attributes
 
 that this behavior knows about:
 
-* `value="text"` \- initial value of the input element
-* `size=integer` \- determines value of (intrinsic and default) width of the element.
-* `maxlength=integer` \- maximum number of characters that this element can contain.
-* `filter="filter-expr"` \- limits set of characters allowed to input in the field. `filter-expr` string accepts single characters and character ranges. Example: ".@0~9a~zA~Z" - all alpha-numeric characters, '.' and '@'. If you just want to exclude some characters then you can prepend filter with '^' sign. So this `filter="^.,-"` filter will allow to input any character except '.', ',' and '-'.
-* `placeholder="text"` \- if textbox is empty then it shows text provided by the *novalue* attribute. You can style this state by using `:empty` CSS selector.
-* `readonly` \-  declares that element is read only.
-* `spellcheck="yes"` \- enables spell checking in the element.
+* `value="text"` \- initial value of the input element
+* `size=integer` \- determines value of (intrinsic and default) width of the element.
+* `maxlength=integer` \- maximum number of characters that this element can contain.
+* `filter="filter-expr"` \- limits set of characters allowed to input in the field. `filter-expr` string accepts single characters and character ranges. Example: ".@0~9a~zA~Z" - all alpha-numeric characters, '.' and '@'. If you just want to exclude some characters then you can prepend filter with '^' sign. So this `filter="^.,-"` filter will allow to input any character except '.', ',' and '-'.
+* `placeholder="text"` \- if textbox is empty then it shows text provided by the *novalue* attribute. You can style this state by using `:empty` CSS selector.
+* `readonly` \-  declares that element is read only.
+* `spellcheck="yes"` \- enables spell checking in the element.
 
 ## Events
 
-Together with the standard set of events (mouse, keyboard, focus) *behavior: button* generates:
+Together with the standard set of events (mouse, keyboard, focus) *behavior: button* generates:
 
 * `"input"` or `"change"` / EDIT\_VALUE\_CHANGED event - value of the element was changed due to user actions. Posted (asynchronous) event.
 * `"changing"` / EDIT\_VALUE\_CHANGING event - is sent before making any change of value of the element. By handling this event you can filter characters before they get inserted into the editor. Synchronous event where:
@@ -53,7 +53,7 @@ string, reflects current status of internal editing buffer.
 * CTRL+X
 * CTRL+V
 * CTRL+Z
-* CTRL+(LEFT)SHIFT and CTRL+(RIGHT)SHIFT - in forms having the `dir` attribute these key combinations switches between `dir="ltr"` and `dir="rtl"`.
+* CTRL+(LEFT)SHIFT and CTRL+(RIGHT)SHIFT - in forms having the `dir` attribute these key combinations switches between `dir="ltr"` and `dir="rtl"`.
 
 ## Methods
 
@@ -65,6 +65,7 @@ string, reflects current status of internal editing buffer.
 
 ## Properties
 
-* `selectionStart: int` -  returns start position of the selection, or caret position if there is no selection.
-* `selectionEnd: int` -  returns end position of the selection, or caret position if there is no selection.
-* `selectionText: string` - returns selected text or empty string if there is no selection.
+* `element.edit.selectionStart: int` - returns start position of the selection, or caret position if there is no selection.
+* `element.edit.selectionEnd: int` -  returns end position of the selection, or caret position if there is no selection.
+* `element.edit.selectionText: string` - returns selected text or empty string if there is no selection.
+* `element.edit.isStandalone: bool` - read/write, defines "standalone" mode: `isStandalone = true` causes navigational keys to be always consumed. By default ArrowLeft, ArrowRight keys are not handled if caret moves outside of the content;

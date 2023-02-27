@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style></style>
+        <script|module>
+import {fs} from "@sys";
+import {encode,decode} from "@sciter";
+
+const LOREM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+const content = [
+  ["foo.txt",encode("foo")],
+  ["bar.txt",encode("bar")],
+  ["zoo/lorem.txt",encode(LOREM)],
+];
+
+function packArchive() {
+  return Zip.create( n => n < content.length && content[n] );
+}
+
+async function test() {
+  // archive creation and reading
+  
+  const blob = packArchive();
+  const f = await fs.open(__DIR__ + "new.zip","w");
+  await f.write(blob);
+  await f.close();
+  
+  /*
+  const archive = Zip.open(blob);
+  console.assert(archive.length == content.length, "#0");
+
+  console.assert(decode(archive.item("zoo/lorem.txt").data) == LOREM, "#1");
+  console.assert(decode(archive.item("bar.txt").data) == "bar","#2");
+  console.assert(decode(archive.item("foo.txt").data) == "foo","#3");
+  */
+
+  document.body.append(<h1>success!</h1>);
+} 
+
+test();
+
+        </script>
+    </head>
+    <body>
+      <h1>DOES NOT WORK YET</h1>
+    </body>
+</html>

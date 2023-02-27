@@ -34,6 +34,23 @@ import * as module from 'my-module.js';
 
 For more information, check the `samples.sciter/runtime` demo.
 
+### `sctr.setModuleUrlResolver(func):string|false`
+
+Set url resolver for names in `import ... from "name"`.
+
+The function is expected to have the following signature:
+
+```function resolver(name:string, documentDir:string, srcDir:string) {}```
+
+and return a string with **fully qualified absolute url** of the module to load. Example:
+
+```
+// NPM style module resolver:
+sctr.setModuleUrlResolver((name,documentDir)=>{
+  return `${documentDir}node_modules/${name}/index.js`;
+});
+```
+
 ### `sctr.loadLibrary("name"): any`
 
 Loads Sciter extension native library (dll,so,dylib). 

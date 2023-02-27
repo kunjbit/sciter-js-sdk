@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style></style>
+        <script>
+
+function ZipMount() {
+  const path = __DIR__ + "test.zip";
+  const zip = Zip.openFile(path);
+  zip.mountTo("this://mounts/test/");
+}
+
+ZipMount();
+
+document.body.append(<frame src="this://mounts/test/main.htm" />);
+
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
