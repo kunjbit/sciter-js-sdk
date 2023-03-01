@@ -1,3 +1,17 @@
+## 5.0.2.7
+
+### Fixes:
+
+* regression fixes in `<input type="text">` handling;
+* external scroll bar "scroll" event generation fix;
+* [storage] fix of Index handling by `commit()`;
+* [storage] fix of `Date` objects persistence handling;
+
+### New:
+
+[reactor] + `element.componentDidUpdate()` lifecycle method, called after `render()` caused by `componentUpdate()`
+
+
 ## 5.0.2.6
 
 ### New:

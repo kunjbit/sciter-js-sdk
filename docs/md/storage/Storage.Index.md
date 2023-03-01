@@ -14,7 +14,7 @@ Indexes support ```for(of)``` enumeration style:
 
 ```JavaScript
 // log all objects in the index 
-for( var obj in index ) 
+for( var obj of index ) 
   console.log(obj);
 ```
 

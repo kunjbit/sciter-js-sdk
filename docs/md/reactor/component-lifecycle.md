@@ -45,8 +45,9 @@ An update of already mounted component can be caused by eiter `render()` call of
 #### Updating by `componentUpdate()`
 
 * [**`render()`**](#render)
+* [**`componentDidUpdate()`**](#render) - if it is defined.
 
-When you call `this.componentUpdate({... properties ...})` Reactor may call `render()` to re-render the component.
+When you call `this.componentUpdate({... properties ...})`, if any of requested properties were changed, the runtime will call `render()` to re-render the component and `componentDidUpdate()` after it.  
 
 > Note:
   
@@ -133,3 +134,16 @@ class Comp extends Element {
 ```
 
 `componentWillUnmount()` is invoked immediately before a component is unmounted and destroyed. Perform any necessary cleanup in this method.
+
+### <a name="componentDidUpdate"></a>`componentDidUpdate()`
+
+```JavaScript
+class Comp extends Element {
+    componentDidUpdate() { ... }
+}
+```
+
+This method is called immediately after `render()` call caused by `componentUpdate()` request.
+
+Implement this method if you need to do some actions after specific updates: set focus for example.
+
