@@ -44,6 +44,11 @@
             Window.this.state = Window.WINDOW_SHOWN;
           }   
 
+          function showDialog(evt){
+            evt.target.window.close(); // close popup window this menu item is in
+            Window.this.modal(<info>Hi from menu</info>);
+          }   
+
           function getOutOfHere(evt) {
             evt.target.window.close(); // close popup window this menu item is in
             // exiting the application
@@ -68,6 +73,7 @@
                     <body>
                       <menu.popup.visible>
                         <li onClick={revealWindow}>Show window</li>
+                        <li onClick={showDialog}>Show dialog</li>
                         <li onClick={getOutOfHere}>Exit</li>
                       </menu>
                     </body>

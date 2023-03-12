@@ -167,7 +167,7 @@ Table editing operations. These operations are available only if selection is in
   *  `tctx.setAttribute(element,attributeName:string,attributeValue:string)` - adds or changes value of one attribute;
   *  `tctx.setTag(element,tagName:string)` - changes tag of the element, used to change `<p>` to `<li>` for example;
   *  `tctx.setText(node,text:string)` - change node text;
-  *  `tctx.insertHTML(node,offset, html:string): [nodes...]` - insert HTML at given node/offset position, retuns list of nodes inserted;
+  *  `tctx.insertHTML(node,offset, html:string): [node,offset]` - insert HTML at given node/offset position, returns position of the end of insertion;
   *  `tctx.insertText(node,offset, text:string): [node,offset]` - insert text at given node/offset position;
   *  `tctx.insertNode(node,offset, node): [node,offset]` - insert node at given node/offset position;
   *  `tctx.deleteSelection(): [node,offset]` - delete current selected range (if any);

@@ -1,4 +1,4 @@
-# class Node 
+# class Node
 
 Node is an abstract class that is inherited by [Element](Element.md), [Text](#class-text-extends-class-node) and [Comment](#class-comment-extends-class-node) classes.
 
@@ -30,6 +30,9 @@ Node is an abstract class that is inherited by [Element](Element.md), [Text](#cl
 * `node.isSameNode(): bool`
 * `node.remove()`
 
+## static methods:
+
+* `Node.commonParent(nodeA,nodeB):Element` - returns nearest common parent element of two nodes;
 
 # class Text, extends class Node
 

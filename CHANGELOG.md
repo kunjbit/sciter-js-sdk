@@ -1,3 +1,31 @@
+## 5.0.2.8
+
+### New:
+
+* [demo] sdk.js/samples.sciter/@inputs/builtin-inputs.htm - list of inputs supported by Sciter out of the box;
+* [css] `flow:horizontal-wrap` - wraps row if sum of flexes reaches 1* (grid system support);
+* NodeJS compatibility, built-in modules `path` and `process` (partial);  
+* [DOM] `Element.replaceWith(otherelement)` browser API support;
+* [DOM] `Document.createRange()` API.
+* [DOM+] `Node.commonParent(nodeA,nodeB) : element` - to find out common parent element of two nodes;
+* [DOM+] `Tokenizer.elementType(tagName) : [defaultElementType,defaultContentModel,parsingModel]` default HTML element classification utility;
+* [DOM+] `DateTimeFormat.monthView()` helper function to generate month view like in `<input|calendar>`, see: sdk.js/samples.sciter/i18n/year-view.htm
+* [DOM+] `Range.nodes()` - list of nodes covered by the range.
+* `<button|menu>` generates event `requestpopup` to create menus dynamically.
+* [reactor|signals] + `signal.send(value)` - unconditional fire of the signal, [rationale](https://github.com/preactjs/signals/discussions/321);
+* [VueJS] basic support, see sdk.js/samples/vue
+  * [DOM] `SVGElement` class marker (compatibility with VueJS);
+
+### Fixes:
+
+* [css/master] Various fixes in default theme;
+* [css] `%` calculation uses round to nearest int rather than roundf(). This fixes jumpy behavior when things like `width:25%` are used;
+* [CSSOM] fix of `element.style.variable("...")` -> deep value resolution is used (vars based on vars, etc)
+* `transactionCtx.insertHTML()` returns _bookmark_ rather than list of nodes. NOTE: this can be a breaking change;
+* fix of `keydown` `+/=` event generation.
+* [richtext/plaintext] spell check in readonly mode is disabled by default;
+
+
 ## 5.0.2.7
 
 ### Fixes:

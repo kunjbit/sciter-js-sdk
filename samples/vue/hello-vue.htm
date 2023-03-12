@@ -1,0 +1,18 @@
+<html>
+<body>
+  <div id="app">{{ message }}</div>
+</body>
+<script|module>
+
+  import { createApp } from "./vue-esm.js";
+
+  createApp({
+    data() {
+      return {
+        message: 'Hello Vue!'
+      }
+    }
+  }).mount('#app');
+</script>
+
+</html>

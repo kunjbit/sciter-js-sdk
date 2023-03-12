@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+        @import url(month-view.css);
+
+        section {  width: max-content; }
+        section > h2 { text-align:center; } 
+        section > div {
+          flow:horizontal-wrap;
+          border-spacing:2em;
+        }
+        section > div > div.month-view:nth-child(3n) { clear:after; }
+
+        </style>
+        <script|module>
+
+class YearView extends Element {
+  formatter;
+  params;
+  constructor() {
+    super();
+    this.formatter = new Intl.DateTimeFormat();
+    this.today = new Date();
+    this.params = {
+       today:this.today, 
+       showMonth:true,
+       showWeekDays:true,
+       dayOfWeekLength:2, // day abbr length
+       // custom classes for some days
+       dayClass: (day,month,year) => day == 1 ? ".som":"",
+    }
+  }
+  render() {
+    const months = [];
+    const year = this.today.getFullYear();
+    const params = this.params;
+    const formatter = this.formatter;
+    for(let month = 0; month < 12; ++month) {
+       // convert HTML-in-string to VDOM by eval() the string:
+       const vdom = eval(formatter.monthView(year,month,params));
+       months.push(vdom);
+    }
+    return <section>
+      <h2>{year}</h2>
+      <div>{months}</div>
+    </section>;
+  }
+}
+
+document.body.append(<YearView/>);
+
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

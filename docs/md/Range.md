@@ -2,7 +2,7 @@
 
 The Range represents a fragment of a document that can contain nodes and parts of text nodes.
 
-#### Properties:  
+#### Properties:
 
 * `range.isCollapsed:bool` - true if the range is collapsed to one position (start == end)
 * `range.commonAncestorContainer:Element` - nearest container element that encloses as start as end positions
@@ -30,6 +30,7 @@ The Range represents a fragment of a document that can contain nodes and parts o
 
 #### Methods (Sciter specific):
 
+* `range.nodes():array<Node>` - returns list of nodes covered by the range.
 * `range.applyMark(name | [name1, name2,...])` - apply mark(s) to the range so it can be styles by CSS `::mark(name) {...}`.
 * `range.highlight(name | [name1, name2,...])` - synonym of `applyMark`.
 * `range.clearMark(name | [name1, name2,...])` - removes mark(s) from the range.

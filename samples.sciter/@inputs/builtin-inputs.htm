@@ -1,0 +1,461 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+@import url(table-select.css);
+
+section.horizontal {
+  flow:horizontal;
+  border-spacing:2em;
+}
+
+select|list {
+  display:block;
+  overflow-y: scroll-indicator;
+}
+
+plaintext, htmlarea, terminal {
+  display:block;
+  width:200px;
+  height:140px;
+  overflow: scroll-indicator;
+}
+
+htmlarea {
+  padding:0 1em;  
+}
+
+        </style>
+        <script>
+
++function(){
+    const terminal = document.$("terminal").terminal;
+    terminal.write("hello world!");
+    terminal.write("\r\nAgain hello world!");
+    terminal.write("\r\n\033[1;31mThis is red text\033[0m");
+}();
+
+        </script>
+    </head>
+    <body>
+
+<p>Note: input elements use current system accent color</p>
+
+<h2>Buttons</h2>
+
+<h3>Command buttons</h3>
+<div>
+  <button>button</button>
+  <button.primary>button.primary</button>
+  <button.danger>button.danger</button>
+  <button.success>button.success</button>
+  <button.warning>button.warning</button>
+  <button|menu>
+    button|menu
+    <menu.popup>
+      <li>First</li>
+      <li>Second</li>
+      <li>Third</li>
+    </menu>
+  </button>
+</div>
+
+</div>
+
+<h3>Radio buttons</h3>
+<div>
+  <button|radio(group) checked>button|radio checked</button>
+  <button|radio(group)>button|radio</button>
+  <button|radio(group)>button|radio</button>
+</div>
+
+<h3>Checkbox buttons</h3>
+<div>
+  <button|checkbox checked>button|checkbox checked</button>
+  <button|checkbox>button|checkbox</button>
+  <button|checkbox mixed>button|checkbox mixed</button>
+</div>
+
+<h3>Toggle buttons</h3>
+<h4>toggle</h4>
+<div>
+  <toggle value="foo">
+    <option value="bar">Bar</option>  
+    <option value="foo">Foo</option>
+  </toggle>
+  <toggle>
+    <option value="false">No</option>  
+    <option value="true">Yes</option>
+  </toggle>
+</div>
+<h4>switch</h4>
+<div>
+  <switch value="foo">
+    <option value="bar">Bar</option>  
+    <option value="foo">Foo</option>
+    <option value="baz">Baz</option>  
+  </switch>
+  <switch>
+    <option value="1">100</option>  
+    <option value="2">200</option>
+    <option value="3">300</option>  
+    <option value="3">400</option>  
+  </switch>
+</div>
+
+<h2>Toolbar buttons</h2>
+<text>normal, checkbox, radio group and menu:</text>
+<toolbar>
+  <button><icon|text/></button>
+  <button|checkbox><icon|bold /></button>
+  <splitter/>
+  <button|radio(tgroup) value="left"><icon|align-left /></button>
+  <button|radio(tgroup) value="center"><icon|align-center /></button>
+  <button|radio(tgroup) value="right"><icon|align-right /></button>
+  <splitter/>
+  <button|menu>
+    <icon|flag />
+    <menu.popup>
+      <li>Foo</li>
+      <li>Bar</li>
+    </menu>
+  </button>
+</toolbar>
+
+<h2>Edits</h2>
+<section.horizontal>
+    <div>
+        <text>text</text>
+        <input|text novalue="some" />
+    </div>
+    <div>
+        <text>password</text>
+        <input|password novalue="some" />
+    </div>
+    <div>
+        <text>integer</text>
+        <input|integer value="0" min="0" max="10000" step="1" />
+    </div>
+    <div>
+        <text>decimal</text>
+        <input|decimal value="0.0" min="0.0" max="10000.0" step="10.0" />
+    </div>
+    <div>
+        <text>masked</text>
+        <input|masked mask="____-____-____-____" />
+    </div>
+</section>
+
+<h2>Multiline edits</h2>
+<section.horizontal>
+    <div>
+        <text>plaintext</text>
+<plaintext>dum
+spiro
+spero</plaintext>        
+    </div>
+    <div>
+        <text>plaintext/linenumbers</text>
+<plaintext linenumbers>dum
+spiro
+spero</plaintext>        
+    </div>
+    <div>
+        <text>htmlarea</text>
+        <htmlarea>
+          <p>Hello <em>world</em>!</p>
+          <p>And that's <strong>it</strong>!</p>
+        </htmlarea>
+    </div>
+</section>
+
+
+<h2>Date/Time</h2>
+<section.horizontal>
+    <div>
+        <text>date</text>
+        <input|date />
+    </div>
+    <div>
+        <text>time</text>
+        <input|time />
+    </div>
+    <div>
+        <text>calendar</text>
+        <input|calendar />
+    </div>
+
+</section>
+
+<h2>Dropdown selects</h2>
+<section.horizontal>
+    <div>
+        <text>basic</text>
+        <select|dropdown>
+           <option value="1">First</option>
+           <option value="2">Second</option>
+           <option value="3">Third</option>
+           <option value="4">Fourth</option>
+           <option value="5">Fifth</option>
+           <option value="6">Sixth</option>
+           <option value="7">Seventh</option>
+           <option value="8">Eight</option>
+           <option value="9">Nineth</option>
+           <option value="A">Tenth</option>
+        </select>
+    </div>
+
+    <div>
+        <text>editable</text>
+        <select|dropdown editable>
+           <option value="1">First</option>
+           <option value="2">Second</option>
+           <option value="3">Third</option>
+           <option value="4">Fourth</option>
+           <option value="5">Fifth</option>
+           <option value="6">Sixth</option>
+           <option value="7">Seventh</option>
+           <option value="8">Eight</option>
+           <option value="9">Nineth</option>
+           <option value="A">Tenth</option>
+        </select>
+    </div>
+    <div>
+        <text>multiple</text>
+        <select|dropdown multiple>
+           <option value="1" checked>First</option>
+           <option value="2">Second</option>
+           <option value="3" checked>Third</option>
+           <option value="4" checked>Fourth</option>
+           <option value="5">Fifth</option>
+           <option value="6">Sixth</option>
+           <option value="7">Seventh</option>
+           <option value="8">Eight</option>
+           <option value="9">Nineth</option>
+           <option value="A">Tenth</option>
+        </select>
+    </div>
+</section>
+
+<h2>Select lists</h2>
+
+<section.horizontal>
+  <div>
+    <text>basic</text>
+    <select|list>
+       <option>First</option>
+       <option selected>Second</option>
+       <option>Third</option>
+       <option>Fourth</option>
+       <option>Fifth</option>
+       <option>Sixth</option>
+       <option>Seventh</option>
+       <option>Eight</option>
+       <option>Nineth</option>
+       <option>Tenth</option>
+    </select>
+  </div>
+  <div>
+    <text>basic, "valued"</text>
+    <select|list value="3">
+       <option value="1">First</option>
+       <option value="2">Second</option>
+       <option value="3">Third</option>
+       <option value="4">Fourth</option>
+       <option value="5">Fifth</option>
+       <option value="6">Sixth</option>
+       <option value="7">Seventh</option>
+       <option value="8">Eight</option>
+       <option value="9">Nineth</option>
+       <option value="A">Tenth</option>
+    </select>
+  </div>
+  <div>
+    <text>multiple</text>
+    <select|list multiple>
+       <option value="1">First</option>
+       <option value="2">Second</option>
+       <option value="3">Third</option>
+       <option value="4">Fourth</option>
+       <option value="5">Fifth</option>
+       <option value="6">Sixth</option>
+       <option value="7">Seventh</option>
+       <option value="8">Eight</option>
+       <option value="9">Nineth</option>
+       <option value="A">Tenth</option>
+    </select>
+  </div>
+  <div>
+    <text>multiple/checkmarks</text>
+    <select|list multiple="checkmarks">
+       <option value="1">First</option>
+       <option value="2">Second</option>
+       <option value="3">Third</option>
+       <option value="4">Fourth</option>
+       <option value="5">Fifth</option>
+       <option value="6">Sixth</option>
+       <option value="7">Seventh</option>
+       <option value="8">Eight</option>
+       <option value="9">Nineth</option>
+       <option value="A">Tenth</option>
+    </select>
+  </div>
+  <div>
+    <text>table.select</text>
+    <table.select>
+       <thead><tr><th>Name</th><th>Description</th><th>Counter</th></thead>
+       <tbody value="3">
+           <tr value="1"><td>1</td><td>First  </td><td>12</td></tr>
+           <tr value="2"><td>2</td><td>Second </td><td>122</td></tr>
+           <tr value="3"><td>3</td><td>Third  </td><td>11</td></tr>
+           <tr value="4"><td>4</td><td>Fourth </td><td>21</td></tr>
+           <tr value="5"><td>5</td><td>Fifth  </td><td>345</td></tr>
+           <tr value="6"><td>6</td><td>Sixth  </td><td>34</td></tr>
+           <tr value="7"><td>7</td><td>Seventh</td><td>17</td></tr>
+           <tr value="8"><td>8</td><td>Eight  </td><td>86</td></tr>
+           <tr value="9"><td>9</td><td>Nineth </td><td>123</td></tr>
+           <tr value="A"><td>A</td><td>Tenth  </td><td>14</td></tr>
+       </tbody>
+    </table>
+  </div>
+
+</section>
+
+<h2>Tree select lists</h2>
+
+<section.horizontal>
+  <div>
+    <text>basic</text>
+    <select|tree style="width:160px">
+       <option expanded>
+         <caption>First</caption>
+         <option>First A</option>
+         <option>First B</option>
+         <option>First C</option>
+       </option>
+       <option>
+         <caption>Second</caption>
+         <option>
+           <caption>Second A</caption>
+           <option>Second A.1</option>
+           <option>Second A.2</option>
+           <option>Second A.3</option>
+         </option>
+         <option>Second B</option>
+         <option>Second C</option>
+        </option>
+       <option>Third</option>
+       <option>Fourth</option>
+       <option>Fifth</option>
+       <option>Sixth</option>
+       <option>Seventh</option>
+    </select>
+  </div>
+  <div>
+    <text>tree/checkmarks</text>
+    <select|tree multiple="checkmarks" style="width:160px">
+       <option expanded>
+         <caption>First</caption>
+         <option>First A</option>
+         <option>First B</option>
+         <option>First C</option>
+       </option>
+       <option>
+         <caption>Second</caption>
+         <option>
+           <caption>Second A</caption>
+           <option>Second A.1</option>
+           <option>Second A.2</option>
+           <option>Second A.3</option>
+         </option>
+         <option>Second B</option>
+         <option>Second C</option>
+        </option>
+       <option>Third</option>
+       <option>Fourth</option>
+       <option>Fifth</option>
+       <option>Sixth</option>
+       <option>Seventh</option>
+    </select>
+  </div>
+  <div>
+    <text>treelines</text>
+    <select|tree treelines style="width:160px">
+       <option expanded>
+         <caption>First</caption>
+         <option>First A</option>
+         <option>First B</option>
+         <option>First C</option>
+       </option>
+       <option>
+         <caption>Second</caption>
+         <option>
+           <caption>Second A</caption>
+           <option>Second A.1</option>
+           <option>Second A.2</option>
+           <option>Second A.3</option>
+         </option>
+         <option>Second B</option>
+         <option>Second C</option>
+        </option>
+       <option>Third</option>
+       <option>Fourth</option>
+       <option>Fifth</option>
+       <option>Sixth</option>
+       <option>Seventh</option>
+    </select>
+  </div>
+  <div>
+    <text>treelines/checkmarks</text>
+    <select|tree treelines multiple="checkmarks" style="width:160px">
+       <option expanded>
+         <caption>First</caption>
+         <option>First A</option>
+         <option>First B</option>
+         <option>First C</option>
+       </option>
+       <option>
+         <caption>Second</caption>
+         <option>
+           <caption>Second A</caption>
+           <option>Second A.1</option>
+           <option>Second A.2</option>
+           <option>Second A.3</option>
+         </option>
+         <option>Second B</option>
+         <option>Second C</option>
+        </option>
+       <option>Third</option>
+       <option>Fourth</option>
+       <option>Fifth</option>
+       <option>Sixth</option>
+       <option>Seventh</option>
+    </select>
+  </div>
+</section>
+
+<h2>Auxilliary</h2>
+
+<section.horizontal>
+  <div>
+    <text>input|slider</text>
+    <input|hslider min="0" max="100" step="10" />
+  </div>
+  <div>
+    <text>widget|scrollbar<br/>(standalone scrollbar)</text>
+    <widget|hscrollbar min="0" max="100" step="10" style="width:160px"/>
+  </div>
+</section>
+
+
+<h2>Assorted</h2>
+
+<section.horizontal>
+  <div>
+    <text>terminal</text>
+    <terminal></terminal>
+  </div>
+</section>
+    </body>
+</html>

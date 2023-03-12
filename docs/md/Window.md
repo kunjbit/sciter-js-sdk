@@ -85,7 +85,8 @@ NOTE: the _window_ below is an instance of Sciter's Window class - e.g. `Window.
   * `window.parent` - read-only, Window | null - parent window of this one.
   * `window.document` - read-only, Document - root document of the window.
   * `window.screen` - read-only, integer - screen (monitor) number where this window is on at the moment.
-  * `window.parameters` = read-only, any - parameters provided by constructor, available inside the window as they are.
+  * `window.parameters` - read-only, any - parameters provided by constructor, available inside the window as they are.
+  * `window.icon` - read/write, Graphics.Image, window icon.
 
 ## methods:
 

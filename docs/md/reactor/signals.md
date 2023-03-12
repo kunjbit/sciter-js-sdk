@@ -171,7 +171,8 @@ It can be used for example in functional components:
 
 Signal objects returned by the `signal()`, `computed()` and `effect()` functions have the following properties and methods:
 
-* `signal.value:any` - property, read/write, access to payload of the signal.
+* `signal.value:any` - property, read/write, access to payload of the signal. On assignment, if value changes it will fire the signal, notifying all subscribers.
+* `signal.send(value:any)` - the function will fire the signal unconditionally, even if the signal has this value already.
 * `signal.dispose()` - the function stops signal operation - frees all links and references. Rarely used.
 * `signal.peek():any` - the function returns value without subscription of the signal to anything.
 * `signal.valueElements: array` - property, readonly, returns list of DOM input elements where this signal is used as a value.

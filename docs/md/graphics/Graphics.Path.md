@@ -14,14 +14,14 @@ N/A
 
 ## Methods
 
-* ### `path.moveTo(x, y)`
-* ### `path.lineTo(x, y)`
-* ### `path.quadraticCurveTo(cpx, cpy, x, y)`
-* ### `path.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)`
+* ### `path.moveTo(x, y)`, `path.moveTo(Point)`
+* ### `path.lineTo(x, y)`, `path.lineTo(Point)`
+* ### `path.quadraticCurveTo(cpx, cpy, x, y)` `path.quadraticCurveTo(cp:Point, p:Point)`
+* ### `path.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y)` `path.bezierCurveTo(cp1:Point, cp2:Point, p: Point)`
 * ### `path.arc(x, y, radius, startAngle, endAngle [, anticlockwise])`
 * ### `path.arcTo(x1, y1, x2, y2, radius)`
 * ### `path.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle [, anticlockwise])`
-* ### `path.rect(x, y, width, height)`
+* ### `path.rect(x, y, width, height)`, `path.rect(Rect)`, `path.rect(Point,Size)`
 * ### `path.closePath()`
 
 * ### `path.isPointInside(x,y):bool`

@@ -1,0 +1,52 @@
+@set month-view /* style block for the content of the calendar */
+{
+  :root
+  {
+    width: max-content;
+    height: auto;
+    white-space: nowrap;
+    font:system;
+  }
+ 
+  :root > table { size:*; border-spacing:0; }
+
+  :root > table > tbody { size:*; }
+
+  :root > caption {
+    text-align:center;
+  }
+
+  tr.weekdays {
+    font-size:75%;
+  }
+    
+  th.caption > .month  { width:max-content; }
+  th.caption > .year   { width:max-content; }
+
+  td 
+  {
+    width: 3ch;
+    height: *;
+    text-align:center;
+    vertical-align:middle;
+    overflow:visible;
+  }
+       
+  th  { text-align:center; }
+  td.month.off,
+  td.day.off { color: brown; }
+  
+  td.day.other-month {
+    visibility:hidden; /* hide days from other months */
+  }
+
+  // custom class test
+  td.som { background:#fda; border-radius:50%; }  
+
+  td.today { background:gold; }
+  td.day.past { background:#ddd; }
+
+}
+
+div.month-view { style-set: month-view; }
+

@@ -1,0 +1,45 @@
+
+@set table-select {
+
+  :root {
+     width: 200px;
+     height: *;
+     font: system;
+     border-collapse:collapse;
+     border-spacing:0;
+     padding:0;
+     border-bottom:1px solid var(widget-border);     
+  }
+
+  thead th { 
+    text-align:center; 
+    border:1px solid var(widget-border);
+    padding:0 0.5em;
+  }
+  thead th:nth-child(2) { width:*; } // second column spans available space
+
+  tbody {
+    behavior:select; // behaves as single choice select
+    overflow-y:scroll-indicator;
+    size:*; // spans resto of the space in table
+  }
+
+  tbody > tr {
+    attr(role): "option"; // row is an option
+  }
+
+  tbody > tr > td {
+    padding:0 0.5em;
+    border:1px solid var(widget-border);
+  }
+  tbody > tr > td:nth-child(3) { text-align:end; } 
+
+  tbody > tr:current {
+    background: color(accent-lite);
+  }
+
+}
+
+table.select {
+  style-set: table-select;
+}
