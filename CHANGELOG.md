@@ -1,3 +1,11 @@
+## 5.0.2.8-bis
+
+### Fixes:
+
+* * [richtext] fix of caret navigation.
+* [DOM] regression fix of `graphics.fillStyle = "..."` parsing.
+* [CSS] regression fix of `flow:vertical-wrap;` handling.
+
 ## 5.0.2.8
 
 ### New:
