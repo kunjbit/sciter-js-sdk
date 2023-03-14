@@ -106,6 +106,19 @@ Element area clip with optional opacity. Area name is one of:
   * `"padding-box"`,
   * `"margin-box"`,
   * `"content-box"`
+
+The filter is one of CSS filter values:
+
+  * `"blur(radius)"` - radius here is a length unit
+  * `"brightness(0.0...1.0)"`
+  * `"contrast(0.0...1.0)"`
+  * `"grayscale(0.0...1.0)"`
+  * `"hue-rotate(0...360)"`
+  * `"invert(0.0...1.0)"`
+  * `"opacity(0.0...1.0)"`
+  * `"saturate(0.0...1.0)"`
+  * `"sepia(0.0...1.0)"`
+  * `"drop-shadow( color, dx, dy, radius, spread)"` - dx,dy,radius and spread are length units
   
 ##### `graphics.pushLayer(path [,opacity] )`
 
