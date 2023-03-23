@@ -3,7 +3,7 @@
         <title>Test</title>
         <style>
 
-htmlarea { size:*; }
+htmlarea { size:*; padding:1em; }
 
         </style>
         <script type="module">
@@ -13,7 +13,7 @@ const htmlarea = document.$("htmlarea");
 document.on("click","button#append",function() {
   htmlarea.state.focus = true;
   htmlarea.execCommand("navigate:end");
-  htmlarea.execCommand("edit:insert-html","<b>Hello</b>");
+  htmlarea.execCommand("edit:insert-html","<p><b>Hello</b> world!</p>");
 });
 
         </script>

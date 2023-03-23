@@ -11,7 +11,6 @@ export class RichtextEditor extends Element
     this.toolbar = this.$("toolbar");
     this.current = this.$("htmlarea");
     this.setupToolbar();
-    console.log("*");
   }
 
   setupToolbar() {
@@ -31,7 +30,7 @@ export class RichtextEditor extends Element
           uiel.state.disabled = (cmdState & DISABLED) != 0;
         });
       } else if(typeof cmd == "string") {
-        uiel.on("click",  () => this.current.executeCommand(cmd,param) );
+        uiel.on("click", () => this.current.execCommand(cmd,param) );
         this.observers.push( () => {
           var cmdState = (this.current ? this.current.queryCommand(cmd,param) : 0) || 0;
           uiel.state.checked  = (cmdState & ACTIVE) != 0;

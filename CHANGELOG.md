@@ -1,3 +1,32 @@
+## 5.0.2.9
+
+### New:
+
+* `Element.box("selection","window")` - to get selection area location.
+* `window.addHotkeyHandler(combination,function)`, `window.removeHotkeyHandler(id)` - works on Windows only so far. On other platforms returns _false_.
+*  `Element.selection.$("selector")` and `element.selection.$$("selector")` - reports element[s] covered by the selection.
+
+### Fixes:
+
+* [richtext] fix of caret navigation.
+* [richtext] better caret position outside of tables;
+* [richtext] UP/DOWN caret navigation fixes;
+* [richtext] fix of table editing operations (insert row/column, merge cells, etc);
+* [richtext] draw selected image when it is a block;
+* [richtext] insert paragraph on block insertion point;
+* [richtext] `<br>` handling fixes;
+* regression fix of `graphics.fillStyle = "..."` parsing.
+* [css] regression fix of `flow:vertical-wrap;` handling.
+* [windows] PrintScreen key code fix.
+* compress(lzf), fix of short sequences handling. 
+* [DOM] fix of event click handling on popups.
+* [DOM] fix of TAB handling by `<select|dropdown>`.
+* [reactor] fix of `<select|dropdown>` reconciliation.
+* `sciter.home()` fix of '/' appearance.
+* `<frameset>` fix of cursor appearance.
+
+
+
 ## 5.0.2.8-bis
 
 ### Fixes:

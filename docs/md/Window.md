@@ -286,6 +286,29 @@ NOTE: the _window_ below is an instance of Sciter's Window class - e.g. `Window.
 
     requests user attention by flashing or bouncing window icon in task/dock bar. 
 
+  * ### `window.addHotKeyHandler(keyCombination:string, callback:function):id`
+  
+    NOTE: this function is supported only on Windows for a while as only this OS has official hotkey API.
+
+    Registers global system hotkey hook. hotkey handlers allows to handle key combinations when the window is not in focus or even hidden.
+
+    The function throws an error if the system rejects the hotkey, for example if that hotkey is already assigned to other application.
+
+    _keyCombination_ is a `+`  combination of optional modifiers and key name (event.code names) like: `"F5"` and `"Control+KeyN"`. Supported modifiers:
+
+    *  `Control` or `Ctrl`; 
+    *  `Command` or `Cmd` - CMD key on MacOS and Win key on Windows;
+    *  `Alt`;
+    *  `AltGr`;
+    *  `Shortcut` - is CMD key on MacOS and Ctrl on other OSes;
+    *  `Shift`;
+    
+    The function returns an id that can be used to unregister hot key.
+
+  * ### `removeHotKeyHandler(id)`
+   
+    Removes hotkey handler set by `addHotKeyHandler`.
+
 ## class methods and properties:
 
   * ### `Window.this: Window`
