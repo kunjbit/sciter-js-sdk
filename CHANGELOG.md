@@ -1,3 +1,11 @@
+## 5.0.2.10
+
+### Fixes:
+
+* Fix of `input|text:not(:focus) { text-overflow:ellipsis; }` handling;
+* [plaintext] `el.state.focus = true` fix;
+* [frameset] fix of layout issue after popup appearance;
+
 ## 5.0.2.9
 
 ### New:
