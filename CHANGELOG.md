@@ -1,3 +1,11 @@
+## 5.0.2.11
+
+### Fixes:
+
+* [richtext] fix of insert column after last column;
+* [linux/gtk] fix of modal dialogs in scapp; 
+* [quark] use of internal svg2png convertor, imagemagic produces bad results at least on Mac.
+
 ## 5.0.2.10
 
 ### Fixes:

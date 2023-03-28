@@ -7,8 +7,8 @@ import { LogRunner } from "logrunner.js";
 export function checkForImageMagic(resultCb) {
   let signatureFound = false;
 
-  if (env.PLATFORM != "Windows" && env.PLATFORM != "OSX")
-    return; // we need it only on Windows or OSX so far
+  if (env.PLATFORM != "Windows")
+    return; // we need it only on Windows so far
 
   async function readPipe(pipe) {
     try {
@@ -104,19 +104,42 @@ function makePath(dir, subdirs, nameext) {
 // Notice here inf means: input file (svg), outp means: out path, the result is: ${outp}/icon.icns
 // imagick alwasy draw black border on path,  please install inkscape to avoid this(imagick will use inkscape if detected)
 async function convertSvgToIcns(inf, outp) {
-  const iconset = [{ size: 16, name: "16x16" }, { size: 32, name: "16x16@2x" }, { size: 32, name: "32x32" }, { size: 64, name: "32x32@2x" },
-  { size: 128, name: "128x128" }, { size: 256, name: "128x128@2x" }, { size: 256, name: "256x256" }, { size: 512, name: "256x256@2x" },
-  { size: 512, name: "512x512" }, { size: 1024, name: "512x512" }]
+
+  async function svg2png(pathin,pathout,w,h) {
+     w *= 1ppx;
+     h *= 1ppx;
+     let svg = await Graphics.Image.load(pathin);
+     console.assert(svg,`cannot read ${svg}`);
+     console.log(svg);
+     let out = new Graphics.Image(w,h,gfx => { gfx.draw(svg, {x:0,y:0,width:w,height:h}) });
+     let bytes = out.toBytes();
+     let file = await fs.open(pathout,"w");
+     await file.write(bytes);
+     await file.close(); 
+  }
+
+  const iconset = [
+    { size: 16, name: "16x16" }, 
+    { size: 32, name: "16x16@2x" }, 
+    { size: 32, name: "32x32" }, 
+    { size: 64, name: "32x32@2x" },
+    { size: 128, name: "128x128" }, 
+    { size: 256, name: "128x128@2x" }, 
+    { size: 256, name: "256x256" }, 
+    { size: 512, name: "256x256@2x" },
+    { size: 512, name: "512x512" }, 
+    { size: 1024, name: "512x512@2x" }];
 
   let setfolder = makePath(outp, ["icon.iconset"], "")
   for(let icon of iconset) {
-    let dst = setfolder+"icon_"+icon.name+".png"
-    let args = ["convert", "-resize", `${icon.size}x${icon.size}`, "-background", "none", inf, dst]
-    let r = await LogRunner.run(args);
-    if (r != 0) throw "convertSvgToIcns: failed to covert svg into png file";
+    let outf = setfolder + "icon_" + icon.name + ".png";
+    await svg2png(inf,outf,icon.size,icon.size);
+    //let args = ["convert", "-resize", `${icon.size}x${icon.size}`, "-background", "none", inf, dst]
+    //let r = await LogRunner.run(args);
+    //if (r != 0) throw "convertSvgToIcns: failed to covert svg into png file";
   }
-    let r = await LogRunner.run(["iconutil", "--convert", "icns", setfolder]);
-    if (r != 0) throw "convertSvgToIcns: failed to produce icon.icns file";
+  let r = await LogRunner.run(["iconutil", "--convert", "icns", setfolder]);
+  if (r != 0) throw "convertSvgToIcns: failed to produce icon.icns file";
 }
 
 function mkAppleBundle(exefile, params) {
