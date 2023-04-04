@@ -1,3 +1,18 @@
+## 5.0.2.12
+
+### New:
+
+* support of `Window.this.modal( new Window(...));` - allows to show arbitrary windows as modals.
+* better implementation of `getComputedStyle(el)`;
+* samples.sciter/printing sample;
+
+### Fixes:
+
+* [richtext] fix of column removal in tables;
+* [richtext] fix of undo stack clearance on richtext.load();
+* [win] fix of FreeLibrary(hSciterLib);
+* frameset panel resizing fix;
+
 ## 5.0.2.11
 
 ### Fixes:

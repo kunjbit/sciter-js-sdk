@@ -233,6 +233,10 @@ NOTE: the _window_ below is an instance of Sciter's Window class - e.g. `Window.
     
     shows new window as dialog, for params see `new Window({params})` above. The function returns window close value of `window.close(valToReturn)` call inside the window. 
 
+  * ### `window.modal(new Window(...)) : any`
+    
+    shows the window modally.
+
   * ### `window.performDrag(data:object, mode: "copy" | "move", dragIcon: Image | Element[, dragIconXoff:int, dragIconYoff:int] ): null | "copy" | "move"`
     
     Performs drag-and-drop using system D&D mechanism.

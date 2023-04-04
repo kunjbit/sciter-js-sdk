@@ -108,6 +108,11 @@
 * `disabledstatechange` 
 * `readonlystatechange` 
 
+* `navigation` 
+  
+  The event is generated in response of click on a hyperlink.  `event.data` is an object `{ url:string, target:string }`. 
+  Consuming this event in sinking phase will prevent default loading of target document into window or frame.
+
 * `contextmenu` - context menu request for the element
 * `contextmenusetup` - notification to setup context menu, context menu DO< element is event.source
 

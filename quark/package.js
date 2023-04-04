@@ -113,7 +113,7 @@ async function convertSvgToIcns(inf, outp) {
      console.log(svg);
      let out = new Graphics.Image(w,h,gfx => { gfx.draw(svg, {x:0,y:0,width:w,height:h}) });
      let bytes = out.toBytes();
-     let file = await fs.open(pathout,"w");
+     let file = await sys.fs.open(pathout,"w");
      await file.write(bytes);
      await file.close(); 
   }

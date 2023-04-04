@@ -75,7 +75,7 @@ export class Dock extends Element {
     this.dragEnded(dockable); 
     this.dropLocation = null;
     this.targetDockable = null;
-      }
+  }
 
   takeOffDockable(dockable) {
       let parent = dockable.parentElement;
@@ -95,14 +95,14 @@ export class Dock extends Element {
           const w = parent.firstElementChild.state.box("width");
           parent.firstElementChild.style.set({
             width: Length.px(w),
-            height: Length.fx(1) 
+            height: 1fx 
           });
         }
         else if(isVertFrameset(parent.parentElement)) {
           const h = parent.firstElementChild.state.box("height");
           parent.firstElementChild.style.set({
             height: Length.px(h),
-            width: Length.fx(1) 
+            width: 1fx
           });
         }
         // remove <frameset> that has just one child
@@ -113,6 +113,7 @@ export class Dock extends Element {
       //console.log("BEFORE beginMoveDrag");
       dockable.window.performMove(); // 
       //console.log("AFTER beginMoveDrag");
+      parent.dispatchEvent(new Event("dock-normalize"));
   }
 
   dragEnded(dockable)
@@ -216,6 +217,8 @@ export class Dock extends Element {
       target.insertAfter(dockable,after);
     else if(before)
       target.insertBefore(dockable,before);
+
+    target.dispatchEvent(new Event("dock-normalize"));
 
     dockable.style.removeProperties();
     dockable.classList.remove("detached","window");
@@ -389,7 +392,8 @@ export class Dock extends Element {
 
   ["on statechange"]() {
     // request state saving
-    Settings.saveState();
+    if(globalThis.Settings)
+      globalThis.Settings.saveState();
   }
 
 }
@@ -711,6 +715,7 @@ function constructKids(defs) {
 
 class DockSplitSet extends Element {
   atts = {};
+  type; // "cols", "rows"
 
   this(props,kids) {
     if( props.data ) {
@@ -754,6 +759,38 @@ class DockSplitSet extends Element {
       sizes: this.frameset.state.join(","),
       children
     };
+  }
+
+  normalize() {
+    const panels = this.$$(":root>:not(splitter)");
+    let emax,vmax = 0;
+    // we need at least one flex element to fill the gap:
+    if(this.type === "cols") {
+      for(const panel of panels) 
+        if(panel.style.width.units === "fx")
+          return;
+        else if(panel.box("inner").width > vmax) {
+          vmax = panel.box("inner").width;
+          emax = panel;
+        }
+      if(emax)
+        emax.style.width = 1fx;
+    }
+    else {
+      for(const panel of panels) 
+        if(panel.style.height.units === "fx")
+          return;
+        else if(panel.box("inner").height > vmax) {
+          vmax = panel.box("inner").height;
+          emax = panel;
+        }
+      if(emax)
+        emax.style.height = 1fx;
+    }  
+  }
+
+  ["on dock-normalize"](e) {
+    this.normalize();
   }
 
 }
