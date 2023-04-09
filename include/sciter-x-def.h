@@ -501,6 +501,7 @@ typedef enum SCITER_RT_OPTIONS
 
    SCITER_USE_INTERNAL_HTTP_CLIENT = 18,  // hWnd - N/A , TRUE - use internal HTTP client
                                           //              FALSE - use system HTTP client (on platforms that has it: Win,Mac,Lin)
+   SCITER_EXTENDED_TOUCHPAD_SUPPORT = 19, // hWnd - N/A , TRUE/FALSE, enables/disables extended touchpad support, TRUE by default   
 
 } SCITER_RT_OPTIONS;
 

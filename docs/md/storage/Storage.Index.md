@@ -23,7 +23,7 @@ for( var obj of index )
 
 * ```index.set( key, obj [, replace: true|false ] ) : true|false```
 
-  Inserts *obj* object into the index and associates it with the *key* value. Optionally, in-case of non-unique index, replaces it with existing object if such key is already present in the index.
+  Inserts *obj* object into the index and associates it with the *key* value. Optionally, in-case of non-unique index, replaces it with existing object if such key is already present in the index and _replace_ is _true_.
 
 * ```index.get( key ) returns: object | [objects...]```
 

@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+canvas.chart {
+    width:*;
+    height:*;
+}
+
+        </style>
+        <script|module>
+
+import {Chart} from "../chart.js";
+
+const DATA_COUNT = 7;
+const NUMBER_CFG = {count: DATA_COUNT, min: -100, max: 100};
+
+ const labels = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+  ];
+
+const data = {
+  labels: labels,
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: [65, 59, 80, -81, 56, 55, 40],
+      backgroundColor: "#F00",
+    },
+    {
+      label: 'Dataset 2',
+      data: [65, 59, 80, 81, 56, -55, 40],
+      backgroundColor: "#0F0",
+    },
+    {
+      label: 'Dataset 3',
+      data: [65, -59, 80, 81, 56, 55, 40],
+      backgroundColor: "#00F",
+    },
+  ]
+};
+
+const config = {
+  type: 'bar',
+  data: data,
+  options: {
+    plugins: {
+      title: {
+        display: true,
+        text: 'Chart.js Bar Chart - Stacked'
+      },
+    },
+    responsive: true,
+    scales: {
+      x: {
+        stacked: true,
+      },
+      y: {
+        stacked: true
+      }
+    }
+  }
+};
+
+    document.body.append(<Chart config={config} />);
+
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

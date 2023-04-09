@@ -1,3 +1,17 @@
+## 5.0.2.13
+
+### New:
+
+* [win] `SciterSetOption(NULL,SCITER_EXTENDED_TOUCHPAD_SUPPORT,FALSE)` to disable extended touchpad and touch support by DirectManipulation
+
+### Fixes:
+
+* Skia backends: support of CSS::`image-rendering` property;
+* [Storage] fix of possible AV in `index.set(...)`;
+* [JSX] erroneous @styleset value is reported as an error rather than warning;
+* regression fixes: ChartJS compatibility;
+* [DOM] fix of possible memory leak;
+
 ## 5.0.2.12
 
 ### New:
