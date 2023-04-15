@@ -11,9 +11,9 @@
   import {$,on,loadLibrary } from "@sciter";
   if(!globalThis.SQLite)
     globalThis.SQLite = loadLibrary("sciter-sqlite");
+
  
-  on("click","#test", function()
-  {  
+  on("click","#test", function() {  
     var db = SQLite.open(":memory:"); // in memory, temporary DB
 
     //debug log: db;
@@ -27,14 +27,14 @@
 
         // with params:
         db.exec("insert into stocks values (?,?,?,?,?)", ["2006-04-05", "BUY", "MSOFT", 1000, 72.00] );
-        db.exec("insert into stocks values (?,?,?,?,?)", ["2006-04-06", "SELL", "IBM", 500, 53.00] );
 
-        //db.exec("update stocks set trans = 'U'");
+        let [result,rowsAffected] = db.exec("insert into stocks values (?,?,?,?,?)", ["2006-04-06", "SELL", "IBM", 500, 53.00] );
+        // result is one of https://gitlab.com/sciter-engine/sciter-js-sdk/-/blob/main/sqlite/sqlite3.h#L425
+        console.log(result,rowsAffected);
 
+    let rs = db.exec("select * from stocks order by price");
 
-    var rs = db.exec("select * from stocks order by price");
-
-    if ( rs )
+    if ( Asset.instanceOf(rs,"Recordset") )
       showRecordset(rs);
     else
       $("#result").innerText = "Wrong type:" + rs;

@@ -25,6 +25,8 @@
 #if defined(__cplusplus) && !defined( PLAIN_API_ONLY )
 
 #include "aux-slice.h"
+#include <vector>
+#include <utility>
 
 namespace sciter
 {
@@ -106,6 +108,21 @@ namespace sciter
     void append_data( LPCBYTE data, UINT dataLength)
     {
       rapi()->RequestAppendDataChunk( hrq, data, dataLength);
+    }
+
+    typedef std::pair<sciter::string, sciter::string> name_value;
+
+    std::vector<name_value> rq_headers() {
+      UINT n = 0;
+      std::vector<name_value> out;
+      rapi()->RequestGetNumberOfRqHeaders(hrq, &n);
+      for (UINT i = 0; i < n; ++i) {
+        name_value nv;
+        rapi()->RequestGetNthRqHeaderName(hrq, i, _LPCWSTR2STRING, &nv.first);
+        rapi()->RequestGetNthRqHeaderValue(hrq, i, _LPCWSTR2STRING, &nv.second);
+        out.push_back(nv);
+      }
+      return out;
     }
     
   };

@@ -1,3 +1,19 @@
+## 5.0.2.14
+
+### New:
+
+* `Asset` namespace helpers:
+  * `Asset.instanceOf(object,assetClassName)`
+  * `Asset.typeOf(object)`
+
+### Fixes:
+
+* [printing] Table rendering fix;
+* [QuickJS], fix of error reporting when error happens in module initialization code;
+* `<select editable>`, fix of `:empty` state calculation;
+* fix of click on popup of button handling;
+* border-radius rendering fix, see:   https://sciter.com/forums/topic/box-shadow-border-radius-problem/
+
 ## 5.0.2.13
 
 ### New:

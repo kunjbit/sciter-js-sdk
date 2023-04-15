@@ -39,6 +39,7 @@ read only
 * `element.scrollTop` - read only
 * `element.scrollWidth`
 * `element.scrollHeight`
+* `element.scrollPosition:Point` - read only, Point(scrollLeft,scrollTop)
 ---
 * `element.style` - returns reference to [Element.Style](Element.Style.md) class.
 * `element.state` - returns reference to [Element.State](Element.State.md) class (Sciter.JS specific).
@@ -126,8 +127,9 @@ read only
 
   sets scroll position of scrollable. _options_ is an object with fields:
 
-  * `left` - x scroll position;
-  * `top` - y scroll position;
+  * `position` - Point, scroll position as point, or
+  * `left` - x scroll position, if _position_ is not defined,
+  * `top` - y scroll position, if _position_ is not defined;
   * `behavior` : `"instant"` | `"smooth"`, if _smooth_ performs animated scroll;
 
 * ### `element.scrollIntoView([toTop:true])`
@@ -354,9 +356,9 @@ read only
 
   patches content of the element by `vnode` using rules of React[or]. If second parameter is provided and is _true_ the function patches only children but not element itself.
 
-* ### `element.componentUpdate( obj )`
+* ### `element.componentUpdate( [obj] )`
 
-  patch properties and enqueue rendering, does roughly the following:  
+  patch properties and enqueue rendering if _obj_ properties are different, does roughly the following:  
 
   ```JavaScript
   if(Object.assignIf(element,obj))    // 1. merge properties and if they are different
@@ -365,6 +367,8 @@ read only
        element.patch(vnode);          // 4. reconciliation / patching
      });
   ```
+
+  If _obj_ is ommited then the method performs uncoditional update ( `render()` -> `patch()` calls ).
 
 * ### `element.rangeFromPoint(x,y) : Range | null`
 
