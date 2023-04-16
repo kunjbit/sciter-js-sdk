@@ -6,47 +6,38 @@
 	<dict>
 		<key>Resources/AppIcon.icns</key>
 		<data>
-		n7N3Cf2xIpbOrTgpmVOnagzxuXw=
+		lC1EYHQDB4dPjCHCxF9F4AaI9wk=
 		</data>
 		<key>Resources/Assets.car</key>
 		<data>
-		enP8cRjsfu2xjgpwJTaIwrQpE5M=
+		cbU4ZqcsVSZ704omSV2+whkwS8w=
 		</data>
 		<key>Resources/Base.lproj/MainMenu.nib</key>
 		<data>
-		+XXeg3WHxmIXbo8TosYlvaTed8U=
+		/mhorpoQp0A+dKgSD6YHjbYQK94=
 		</data>
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>MacOS/sciter-webview.dylib</key>
-		<dict>
-			<key>cdhash</key>
-			<data>
-			WQpNcNh5aaf+9f0FYiu7jF7WP/A=
-			</data>
-			<key>requirement</key>
-			<string>cdhash H"590a4d70d87969a7fef5fd05622bbb8c5ed63ff0" or cdhash H"34cee19c0f7553f1767a5d6fd7b49453c282cd0c"</string>
-		</dict>
 		<key>Resources/AppIcon.icns</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			N1FSlKV2XbmUuRLcpeRj7IdnfjYST8t6vY4n4NsnXnk=
+			qMLBQmAs0rJi+Xe1OTOJLcounj0Q6fwsCXRi2fqII+I=
 			</data>
 		</dict>
 		<key>Resources/Assets.car</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			JcMANkiV0VqS75WhgnrQzJ80FkPiA/wAaSIR/GMcuyg=
+			6uwowUA7GCRwgMktS3E+nTgdChiMb48f/wA/tIqhsJ4=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/MainMenu.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ecAz9bPzDjOmC2cuHEstTsrsgYkfUwHGZzIsH4jtt6g=
+			9fX9ly6G/R0s3NeV5Qrf9gyZ4xY3PeID1OKlyC2PsmQ=
 			</data>
 		</dict>
 	</dict>
