@@ -6682,7 +6682,7 @@
 	<unicode/utf16.h>
 	<math.h>
 
-1666398209 source:/home/andrew/sciter/work/sdk.js/demos/usciter/usciter.cpp
+1681054721 source:/home/andrew/sciter/work/sdk.js/demos/usciter/usciter.cpp
 	"sciter-x-window.hpp"
 	"sciter-x-graphics.hpp"
 	"sciter-x-types.h"
@@ -6728,7 +6728,7 @@
 	"sciter-x-host-callback.h"
 	"sciter-x-debug.h"
 
-1673906347 /home/andrew/sciter/work/sdk.js/include/sciter-x-def.h
+1681055656 /home/andrew/sciter/work/sdk.js/include/sciter-x-def.h
 	"sciter-x-types.h"
 	"sciter-x-request.h"
 	"value.h"
@@ -6748,7 +6748,7 @@
 	"sciter-x-primitives.h"
 	"value.hpp"
 
-1673030042 /home/andrew/sciter/work/sdk.js/include/value.hpp
+1679933746 /home/andrew/sciter/work/sdk.js/include/value.hpp
 	"value.h"
 	<string>
 	<functional>
@@ -6792,14 +6792,14 @@
 	<stdio.h>
 	"sciter-x-behavior.h"
 
-1674765171 /home/andrew/sciter/work/sdk.js/include/sciter-x-behavior.h
+1679940797 /home/andrew/sciter/work/sdk.js/include/sciter-x-behavior.h
 	"sciter-x-types.h"
 	"sciter-x-dom.h"
 	"sciter-x-value.h"
 	"sciter-x-graphics.h"
 	"sciter-om.h"
 
-1644204227 /home/andrew/sciter/work/sdk.js/include/sciter-x-graphics.h
+1682874060 /home/andrew/sciter/work/sdk.js/include/sciter-x-graphics.h
 	"sciter-x-types.h"
 
 1644204227 /home/andrew/sciter/work/sdk.js/include/sciter-om.h
@@ -6810,11 +6810,11 @@
 	<atomic>
 	"sciter-om-def.h"
 
-1667762495 /home/andrew/sciter/work/sdk.js/include/sciter-om-def.h
+1679933746 /home/andrew/sciter/work/sdk.js/include/sciter-om-def.h
 	"sciter-om.h"
 	<exception>
 
-1670791577 /home/andrew/sciter/work/sdk.js/include/sciter-x-api.h
+1679933746 /home/andrew/sciter/work/sdk.js/include/sciter-x-api.h
 	"sciter-x-types.h"
 	"sciter-x-def.h"
 	"sciter-x-dom.h"
@@ -6852,7 +6852,7 @@
 	<atomic>
 	"sciter-om.h"
 
-1670791577 /home/andrew/sciter/work/sdk.js/include/sciter-x-graphics.hpp
+1682874060 /home/andrew/sciter/work/sdk.js/include/sciter-x-graphics.hpp
 	"sciter-x-graphics.h"
 	"sciter-x-api.h"
 	"aux-slice.h"
@@ -6863,7 +6863,7 @@
 	"../include/sciter-x-api.h"
 	"../include/aux-cvt.h"
 
-1675470936 /home/andrew/sciter/work/sdk.js/demos/usciter/resources.cpp
+1682874060 /home/andrew/sciter/work/sdk.js/demos/usciter/resources.cpp
 
 1657980699 source:/home/andrew/sciter/work/sdk.js/include/sciter-gtk-main.cpp
 	<gtk/gtk.h>

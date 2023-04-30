@@ -80,7 +80,7 @@ public:
     return rv;
   }
 
-  // this method starts native thread and call callbacks methods
+  // this method starts native thread and calls callbacks methods
   bool startNativeThread(sciter::value doneCb, sciter::value progressCb)
   {
     std::thread([=]() {
@@ -94,7 +94,7 @@ public:
     return true;
   }
 
-  // this method starts native thread and call callbacks methods
+  // this method starts native thread and calls callbacks methods
   bool startNativeThreadWithObject(sciter::value params)
   {
     std::thread([=]() {

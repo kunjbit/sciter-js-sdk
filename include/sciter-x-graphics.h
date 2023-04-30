@@ -130,16 +130,25 @@ typedef SBOOL SCAPI image_write_function(LPVOID prm, const BYTE* data, UINT data
 // imagePaint callback:
 typedef VOID SCAPI image_paint_function(LPVOID prm, HGFX hgfx, UINT width, UINT height);
 
+typedef enum SCITER_PIXMAP_FORMAT
+{
+  SCITER_PIXMAP_FORMAT_IGNORE_ALPHA = 0, 
+  SCITER_PIXMAP_FORMAT_PREMUL_ALPHA = 1,
+  SCITER_PIXMAP_FORMAT_RAW = 2,
+} SCITER_PIXMAP_FORMAT;
+
+
 struct SciterGraphicsAPI
 {
 // image primitives
   GRAPHIN_RESULT
         SCFN(imageCreate)( HIMG* poutImg, UINT width, UINT height, SBOOL withAlpha );
 
-  // construct image from B[n+0],G[n+1],R[n+2],A[n+3] data.
-  // Size of pixmap data is pixmapWidth*pixmapHeight*4
+  // construct image from B[n+0],G[n+1],R[n+2],A[n+3] data. 
+  // size of pixmap data is pixmapWidth*pixmapHeight*4,
+  // pixmap_format is SCITER_PIXMAP_FORMAT above.
   GRAPHIN_RESULT
-        SCFN(imageCreateFromPixmap)( HIMG* poutImg, UINT pixmapWidth, UINT pixmapHeight, SBOOL withAlpha, const BYTE* pixmap );
+        SCFN(imageCreateFromPixmap)( HIMG* poutImg, UINT pixmapWidth, UINT pixmapHeight, UINT pixmap_format, const BYTE* pixmap );
 
   GRAPHIN_RESULT
         SCFN(imageAddRef)( HIMG himg );

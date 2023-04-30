@@ -94,6 +94,16 @@ namespace sciter
       return image(0);
     }
 
+    // create image from premultiplied BGRA data. Size of pixmap is width*height*4 bytes. 
+    static image create(UINT width, UINT height, const BYTE* pixmap, SCITER_PIXMAP_FORMAT format)
+    {
+      HIMG himg = 0;
+      GRAPHIN_RESULT r = gapi()->imageCreateFromPixmap(&himg, width, height, format, pixmap); assert(r == GRAPHIN_OK); (void)(r);
+      if (himg)
+        return image(himg);
+      return image(0);
+    }
+
     // grab DOM element snapshot
     static image create(HELEMENT he)
     {

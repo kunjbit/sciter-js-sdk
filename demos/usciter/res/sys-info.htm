@@ -103,9 +103,9 @@
         $("#sqlite-version").innerText = SQLite.version;
     };
 
-    on("^click", "a[href]", function() {
-      sciter.launch(this.attributes["href"]);
-        return true;
+    on("^click", "a[href]", function(evt,link) {
+      env.launch(link.attributes["href"]);
+      return true;
     });
 
   </script>

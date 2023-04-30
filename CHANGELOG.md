@@ -1,3 +1,20 @@
+## 5.0.2.15
+
+### New:
+
+* + `document.defaultView` property, alias of `globalThis`;
+* `Window.this.animationsEnabled = true | false;` to enable / disable animations;
+* + `Element.ownerElement` property and /sdk.js/samples.reactor/portal/ sample; 
+
+### Fixes:
+
+* [Win11] fix of "HTMAXBUTTON issue"
+* [win] Fix of animation on two windows: https://sciter.com/forums/topic/multiple-windows-simultaneous-rendering/;
+* LeafletJS compatibility fix;
+* Fix of `console.log("...unicode chars ...");`
+
+
+
 ## 5.0.2.14
 
 ### New:
