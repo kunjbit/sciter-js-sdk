@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+        </style>
+        <script|module>
+
+import {EditLookup} from "./edit-lookup.js";
+
+const suggestions = [
+  "first",
+  "second",
+  "third",
+  "fourth",
+  "fifth",
+  "sixth",
+  "seventh",
+  "eighth",
+  "nineth",
+  "tenth",
+];
+
+function suggestor(text) {
+  return suggestions.filter( entry => entry.startsWith(text) );
+}
+
+document.on("lookup", function({data}) {
+  if(!suggestions.includes(data))
+    suggestions.push(data);
+  console.log("do lookup", data);
+});
+
+document.body.append(<EditLookup #search suggestor={suggestor} />);
+
+        </script>
+    </head>
+    <body>
+
+      <p>Try to search for ordinals: first, second, etc.</p>
+
+    </body>
+</html>
