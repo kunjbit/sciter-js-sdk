@@ -1,0 +1,44 @@
+<html>
+<head>
+  <style>
+  
+    popup#details
+    {
+      text-align:start;
+      background: white;
+      border:1px solid #000;
+      padding:1em;
+      cursor:pointer;
+    }
+  
+
+  </style>  
+  <script>
+    
+      document.on("click", "button#with-details", function(evt,button)
+      {
+        if(!button.state.ownspopup) {
+          button.popup(this.$("#details"),{anchorAt:2, popupAt: 8 });
+        }
+      });
+      
+    </script>
+  
+</head>
+<body>
+    <button #with-details>
+      Show details
+      <popup #details>
+        Details:
+        <div>
+          <button|radio(foo) value="a">A</button>
+          <button|radio(foo) value="b">B</button>
+        </div>
+        <div>
+          <button|checkbox(bar) value="c">C</button>
+          <button|checkbox(baz) value="d">D</button>
+        </div>
+      </popup>
+    </button>
+</body>
+</html>

@@ -137,44 +137,52 @@ export class VirtualList extends Element {
         return this.itemAt(element.elementIndex + this.vlist.firstBufferIndex);
     }
 
+    advanceNext() {
+        if (!this.currentItem)
+            this.componentUpdate({currentItem: this.itemOfElement(this.vlist.firstVisibleItem)});
+        else {
+            let index = this.indexOf(this.currentItem);
+            if (++index < this.totalItems()) {
+                this.componentUpdate({currentItem: this.itemAt(index)});
+                this.vlist.advanceTo(index);
+            }
+        }
+        return true;
+    }
+
+    advancePrevious() {
+        if (!this.currentItem)
+            this.componentUpdate({currentItem: this.itemOfElement(this.vlist.lastVisibleItem)});
+        else {
+            let index = this.indexOf(this.currentItem);
+            if (--index >= 0) {
+                this.componentUpdate({currentItem: this.itemAt(index)});
+                this.vlist.advanceTo(index);
+            }
+        }
+        return true;
+    }
+
+    advanceFirst() {
+        this.currentItem = this.itemAt(0);
+        this.vlist.navigateTo("start");
+        return true;
+    }
+
+    advanceLast() {
+        this.currentItem = this.itemAt(this.totalItems() - 1);
+        this.vlist.navigateTo("end");
+        return true;
+    }
+
     onkeydown(evt) {
         switch (evt.code) {
-            case "ArrowDown":
-                if (!this.currentItem)
-                    this.componentUpdate({currentItem: this.itemOfElement(this.vlist.firstVisibleItem)});
-                else {
-                    let index = this.indexOf(this.currentItem);
-                    if (++index < this.totalItems()) {
-                        this.componentUpdate({currentItem: this.itemAt(index)});
-                        this.vlist.navigate("advance", index);
-                    }
-                }
-
-                break;
-            case "ArrowUp":
-                if (!this.currentItem)
-                    this.componentUpdate({currentItem: this.itemOfElement(this.vlist.lastVisibleItem)});
-                else {
-                    let index = this.indexOf(this.currentItem);
-                    if (--index >= 0) {
-                        this.componentUpdate({currentItem: this.itemAt(index)});
-                        this.vlist.navigate("advance", index);
-                    }
-                }
-
-                break;
-            case "End":
-                this.currentItem = this.itemAt(this.totalItems() - 1);
-                this.vlist.navigate("end");
-                break;
-            case "Home":
-                this.currentItem = this.itemAt(0);
-                this.vlist.navigate("start");
-                break;
-            default:
-                return false;
+            case "ArrowDown": return this.advanceNext();
+            case "ArrowUp": return this.advancePrevious();
+            case "End": return this.advanceLast();
+            case "Home": return this.advanceFirst();
+            default: return false;
         }
-
         this.post(new Event("input", {bubbles: true}));
         return true;
     }

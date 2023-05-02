@@ -5,6 +5,7 @@
     display:block;
     flow:vertical;
     size:*;
+    color:var(widget-text);
     overflow-x:none; 
     overflow-y:scroll-indicator;
   }

@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+popup.list {
+    width:800px;
+    height:600px;
+    background:#fff;
+    border:1px solid #888;
+    text-align:left;
+}
+
+        </style>
+        <script type="module">
+
+    import {VirtualSelect} from "virtual-select.js";
+
+    function generate() {
+        const items = [];
+        for (let i = 0; i < 50; ++i)
+            items.push({key: i, text: `item # ${i}`});
+        return items;
+    }
+
+    const items = generate();
+
+    function renderOption(item, isCurrent, isSelected) {
+        console.log("renderOption", item.key);
+        return <option key={item.key}
+            state-current={isCurrent}
+            state-checked={isSelected}>{item.text}</option>;
+    }
+
+    class EditPlus extends Element {
+
+        popupList = null;
+
+        showPopup() {
+            this.popup(<popup.list>
+                <VirtualSelect items={items} renderItem={renderOption} />
+            </popup>);
+        }
+
+        ["on keydown"](e) {
+            if(e.target !== this) 
+              return false;
+            switch (e.code) {
+                case "ArrowDown": 
+                  if( !this.popupList ) this.showPopup();
+                  return this.popupList.$("virtual-select").advanceNext();
+                case "ArrowUp": 
+                  if( !this.popupList ) return;
+                  return this.popupList.$("virtual-select").advancePrevious();
+                case "Escape": 
+                  if( !this.popupList ) return;
+                  this.popupList.state.popup = false;
+                  break;
+            }
+        }
+
+        ["on popupready"](e) {
+            this.popupList = e.target;
+        }
+        ["on popupdismissed"](e) {
+            this.popupList = null;
+        }
+
+        render() {
+           return <input|text />;
+        }
+    }
+
+    document.body.append(<EditPlus/>);
+    
+
+        </script>
+    </head>
+    <body>
+      <p>Arrow down will show popup</p>
+    </body>
+</html>
