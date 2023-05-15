@@ -29,7 +29,7 @@ function suggestionMenu(host,provider) {
   }
 
   function hide() {
-    if(menu)
+    if(menu?.state)
       menu.state.popup = false;
   }
 
@@ -49,7 +49,7 @@ function suggestionMenu(host,provider) {
 
   function focus() {
     if(menu)
-      menu.state.focus = true;  
+      menu.state.focus = true;
   }
 
   host.on("keydown",function(evt) {
@@ -90,6 +90,8 @@ export class EditLookup extends Element {
   }
 
   componentDidMount() {
+    if(typeof this.suggestor == "string")
+      this.suggestor = eval(this.suggestor);
     this.suggestionMenu = suggestionMenu(this,this.suggestor);
   }
 
@@ -121,6 +123,6 @@ export class EditLookup extends Element {
       return true;
     }
   }
-
-
 }
+
+globalThis.EditLookup = EditLookup;
