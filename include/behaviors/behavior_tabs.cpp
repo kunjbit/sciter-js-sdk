@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "sciter-x.h"
 #include "sciter-x-behavior.h"
 
