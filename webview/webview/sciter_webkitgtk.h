@@ -18,6 +18,9 @@ namespace webview
         ~sciter_webkitgtk();
 
         void load_engine(const completion_fn_t &completion);
+        bool set_parent_window(void* newparent) {
+          return false;
+        }
 
         void navigate(const std::string &url);
         void reload();
@@ -45,6 +48,7 @@ namespace webview
         navigation_callback_t m_navigationCallback;
         msg_callback_t m_msgCallback;
         std::string m_allowWindowOpen = "nopopup";
+
 
         bool m_isNaviError = false;
         bool m_debugtools = false;

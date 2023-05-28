@@ -74,12 +74,10 @@ public:
 int uimain(std::function<int()> run ) {
 
 //#if defined(LINUX)
-//    SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_VULKAN);
-//#endif
-
-//#if defined(LINUX)
+//  SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_VULKAN);
 //  SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_OPENGL);
 //#endif
+
 
   // enable features to be used from script
   SciterSetOption(NULL, SCITER_SET_SCRIPT_RUNTIME_FEATURES,

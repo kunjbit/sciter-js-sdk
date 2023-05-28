@@ -1,3 +1,26 @@
+## 5.0.2.16
+
+### New:
+
+* `element.lang` property;
+* [gtk] fallback OpenGL to OpenGLES;
+* `Element.replaceChildren(...)` method;
+* [css] support of `pointer-events:auto | none`;
+
+### Fixes:
+
+* echarts compatibility fixes, part I.
+* Fix `<input|date>.value = "iso string"`.
+* [dom] details/summary fix.
+* [gtk] Fix of "100% CPU" issue;
+* `<input|date />` fix - `input.value === undefined`, if it was not set by user.
+* [virtual-list] virtual `<table>` scrolling fix.
+* [scapp] run.js, fix of encoding. 
+* context menu disabled items fix.
+* `<input|number>` caret appearance fix.
+* [Windows] flickering in window-frame=extended fix.
+* `element.richtext.update(transaction)` fix - reports errors instead of AV.
+
 ## 5.0.2.15
 
 ### New:

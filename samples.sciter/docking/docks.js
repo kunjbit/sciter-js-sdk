@@ -218,7 +218,7 @@ export class Dock extends Element {
     else if(before)
       target.insertBefore(dockable,before);
 
-    target.dispatchEvent(new Event("dock-normalize"));
+    target?.dispatchEvent(new Event("dock-normalize"));
 
     dockable.style.removeProperties();
     dockable.classList.remove("detached","window");

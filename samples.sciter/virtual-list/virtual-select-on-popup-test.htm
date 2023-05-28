@@ -26,7 +26,6 @@ popup.list {
     const items = generate();
 
     function renderOption(item, isCurrent, isSelected) {
-        console.log("renderOption", item.key);
         return <option key={item.key}
             state-current={isCurrent}
             state-checked={isSelected}>{item.text}</option>;

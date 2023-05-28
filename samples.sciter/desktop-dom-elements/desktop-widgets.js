@@ -19,7 +19,7 @@ export class Widget extends Element
   get placement() 
   { 
     const THRESHOLD = 64 * devicePixelRatio;
-    var [vx1,vy1,vx2,vy2] = Window.this.box("rect","border",true);
+    var [vx1,vy1,vx2,vy2] = Window.this.box("rect","border","self",true);
     var [x1,y1,x2,y2] = this.state.box("rect","border","window",true); // screen pixels
     
     if( y1 > vy2 + THRESHOLD) return "far-bottom";
@@ -46,7 +46,7 @@ export class Widget extends Element
 	  
   dragEnded()
   {
-    var [vx1,vy1,vx2,vy2] = Window.this.box("rect","border",true);
+    var [vx1,vy1,vx2,vy2] = Window.this.box("rect","border","self",true);
     var [x,y,w,h] = this.state.box("xywh","inner","window", true);
     var [bx1,by1,bx2,by2] = this.state.box("rect","border","inner",true); // border+padding widths, in screen units
     

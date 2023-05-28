@@ -46,6 +46,7 @@ export class FolderView extends Element
 
   navigateTo(path, currentNode = "..") 
   {
+
     if(sys.fs.match(path,"file://*") || sys.fs.match(path,"home://*"))
       path = URL.toPath(path);
 
@@ -208,24 +209,25 @@ export class FolderView extends Element
   }
 
 
-  render() 
-  {
+  render() {
+
     var path = this.path;
 
     var currentName = this.currentNode;
 
     var pathparts = path.split("/"); pathparts.pop();
+
     function partialpath(i) { return pathparts.slice(0,i+1).join("/"); }
 
     var folders = this.folders.map(name => <option.folder key={name+"/d"} filename={path + name} state-current={currentName == name}>{name}</option>);
     var files = this.files.map(name => <option.file key={name+"/f"} filename={path + name} state-current={currentName == name}>{name}</option>);
     
     var pathoptions = pathparts.map( (name,index) => <option.folder filename={partialpath(index)}>{name}</option>);
-    var first = ( this.path && this.path != "/" ) ? <option.up filename={this.parentPath} state-current={currentName == ".."}></option> : [];
+    var first = ( this.path && this.path != "/" ) ? <option.up filename={this.parentPath[0]} state-current={currentName == ".."}></option> : [];
 
     return <folder path={path} styleset="folder-view.css#folder-view">
       <select|list.path>{first}{pathoptions}</select>
-      <select|list.content #test>{folders}{files}</select>
+      <select|list.content>{folders}{files}</select>
     </folder>;
   }
 }

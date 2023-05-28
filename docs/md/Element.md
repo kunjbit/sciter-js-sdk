@@ -87,6 +87,10 @@ read only
 
   replaces a child oldNode by the newNode.
 
+* ### `element.replaceChildren([node1[, node2, ...]])`
+
+  Clears the element and adds nodes (if any).
+
 * ### `element.childElement(n) : element`
 
   returns n-th child element; n is in [0, element.childElementCount) range. 

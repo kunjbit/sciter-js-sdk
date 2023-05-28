@@ -149,6 +149,7 @@ project "usciter"
            "include/behaviors/behavior_video_generator.cpp",
            "include/behaviors/behavior_video_generator_full.cpp",
            "include/behaviors/behavior_camera_capture.cpp",
+           "include/behaviors/behavior_tabs.cpp",
            "demos/usciter/win-res/usciter.rc",
            "demos/usciter/win-res/dpi-aware.manifest" }
     links { "shell32", "advapi32", "ole32", "oleaut32", "gdi32", "comdlg32" }
@@ -427,7 +428,7 @@ project "sciter-webview"
 
   settargetdir()
 
-  removeconfigurations { "*skia" }  
+  --removeconfigurations { "*skia" }  
 
   filter "system:windows"
     files {

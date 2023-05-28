@@ -68,7 +68,6 @@ export async function store() {
 
     await file.write(encode(JSON.stringify(data, null, "  "), "utf-8"));
 
-    console.log("Settings stored");
   }
   catch (e) {
     Window.this.modal(<warning>Cannot open file {path} for writing.<br/>{e}<br/>Settings will not be saved.</warning>);

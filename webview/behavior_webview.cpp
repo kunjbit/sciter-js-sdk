@@ -39,14 +39,13 @@ namespace sciter
 			self.attach_hwnd(window);
 
 			this_webview->set_navigation_callback([&](const char *evt, const std::string &param) -> int
-												  {
+			{
 				sciter::value strEvt = sciter::value::make_string(aux::utf2w(evt));
 				sciter::value strParam = sciter::value::make_string(aux::utf2w(param));
 				dom::element self = dom::element(this_element);
 				sciter::value ret = self.call_method("onNavigation", strEvt, strParam);
 				return ret.get(0);
-				}
-			);
+			});
 
 			this_webview->load_engine([=](bool succeed) -> void {
 

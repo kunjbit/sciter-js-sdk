@@ -20,7 +20,9 @@
 
   .dockable.window {
     border:3px solid var(widget-border);
-    box-shadow: 1px 1px 10px rgba(0,0,0,0.5); 
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.5);
+    min-width:100px; 
+    min-height:100px;
   }
 
   .dockable.window.dragging { opacity:0.65; }

@@ -454,7 +454,7 @@ namespace webview {
 #elif defined(WEBVIEW_GTK) 
 
   #include "sciter_webkitgtk.h"
-  #include "sciter_webkitgtk.cpp"
+  //#include "sciter_webkitgtk.cpp"
 
 namespace webview {
     using browser_engine = sciter_webkitgtk;
