@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style></style>
+        <script|module>
+
+import {ColorSelector, ColorInput} from "color-selector.js";
+
+function CustomColorSection({color}) {
+  const [h,s,l] = color.hsl;
+  return <div.custom>The color is <b>{l > 0.5 ? "light" : "dark"}</b></div>;
+}
+
+document.body.append(<ColorSelector colors="default">
+    <CustomColorSection />
+</ColorSelector>);
+
+document.body.append(<p><ColorInput><CustomColorSection /></ColorInput></p>);
+
+
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

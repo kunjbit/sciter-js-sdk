@@ -130,9 +130,12 @@ export class ColorSelector extends Element
       // <input|hslider.alpha min="0.0" max="1.0" value="1.0"/>
   }
 
-  componentDidMount() {
-    if( this.children.length == 0 )
+  componentDidMount(byCss) {
+    if( this.children.length == 0 ) {
+      // mounted by CSS::prototype declaration
+      this.color = new Color(this.attributes["value"] ?? "#f00");
       this.patch(this.render(),true);
+    }
     const valLayer = this.$("div.value");
 
     this.updateValue(this.color);    
@@ -273,7 +276,8 @@ export class ColorInput extends Element {
 
   componentDidMount() {
     if( this.children.length == 0 ) {
-      this.colors = this.attributes["colors"]?.split(",");      
+      this.colors = this.attributes["colors"]?.split(",");   
+      this.color = new Color(this.attributes["value"] ?? "#f00");
       this.patch(this.render(),true);  
     }
   }
