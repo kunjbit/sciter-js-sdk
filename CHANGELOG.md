@@ -1,3 +1,25 @@
+## 5.0.2.17
+
+### New
+
+* `componentDidMount([byCSS:bool])` - _byCSS_ parameter to distinguish reason of componentDidMount call;
+* `sciter::video_destination::render_external_frame()` new method for video rendering from user's supplied buffer.
+* behavior `video_generated_stream_direct` demo implementation.
+* `<terminal>`/`behavior:terminal` updates, `terminal.read(...)` method + documentation. 
+
+### Fixes:
+
+* `<input|number>` to generate event _changing_.
+* [gtk] CURL HTTP client is disabled in favour of internal HTTP client;
+* `<canvas>` fix AV on create_image_buffer_graphics returning nullptr;
+* internal http client, fix of post json;
+* Win11, fix of "maximize hover";
+* `transaction.deleteRange()` fix;
+* `sys.fs.sync.rename(src,dst)` fix;
+* fix of https://sciter.com/forums/topic/access-violation-while-trying-to-insert-a-new-tag-in-a-plaintext-component/
+* [a11y] fix of `<span>` (inline elements) handling in NVDA. 
+* [Windows XP] compatibility fixes;
+
 ## 5.0.2.16
 
 ### New:

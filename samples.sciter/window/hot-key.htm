@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style></style>
+        <script>
+
+document.on("ready", function() {
+
+    Window.this.addHotKeyHandler("Control+F8", function(){
+      Window.this.modal(<alert>Control+F8!</alert>);
+    });
+
+    Window.this.addHotKeyHandler("Control+PrintScreen", function(){
+      Window.this.modal(<alert>Control+PrintScreen!</alert>);
+    });
+
+    /*Window.this.addHotKeyHandler("AltGr+PrintScreen", function(){
+      Window.this.modal(<alert>AltGr+PrintScreen!</alert>);
+    });*/
+
+});
+
+
+
+        </script>
+    </head>
+    <body>
+
+<ol>
+  <li>Control+F8</li>
+  <li>Control+PrintScreen</li>
+</ol>
+
+    </body>
+</html>

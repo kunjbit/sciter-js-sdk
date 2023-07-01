@@ -11,12 +11,33 @@
         <script>
 
 const terminalView = document.$("terminal").terminal;
+const statsView = document.$("form");
 
 let counter = 0;
 
 document.on("click","#append", function(){
   for(let n = 0; n < 10; ++n)
     terminalView.write("line no  " + (++counter) + "\r\n" );
+
+  statsView.value = {
+    row: terminalView.caretRow,
+    column: terminalView.caretColumn,
+    rows: terminalView.rows,
+    columns: terminalView.columns,
+  };
+
+});
+
+
+document.on("click","#test-caret", function(){
+  terminalView.moveCaret(10,10);
+  document.$("terminal").state.focus = true;
+});
+
+document.on("click","#test-read", function(){
+  const text = terminalView.read(5,5);
+  console.log(text);
+  
 });
 
 
@@ -25,6 +46,16 @@ document.on("click","#append", function(){
     <body>
      <button#append>Append</button> 
      <terminal />
+
+     <form>
+       <label>Caret row</label> <output(row) /> 
+       <label>Caret column</label> <output(column) />
+       <label>Total rows</label> <output(rows) /> 
+       <label>Total columns</label> <output(columns) /> 
+     </form>
+
+     <button#test-caret>Test moveCaret(10,10)</button>
+     <button#test-read>Test read(5,5)</button>
 
     </body>
 </html>

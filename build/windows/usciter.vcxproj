@@ -695,6 +695,7 @@
     <ClCompile Include="..\..\include\behaviors\behavior_native_textarea.cpp" />
     <ClCompile Include="..\..\include\behaviors\behavior_tabs.cpp" />
     <ClCompile Include="..\..\include\behaviors\behavior_video_generator.cpp" />
+    <ClCompile Include="..\..\include\behaviors\behavior_video_generator_direct.cpp" />
     <ClCompile Include="..\..\include\behaviors\behavior_video_generator_full.cpp" />
     <ClCompile Include="..\..\include\sciter-win-main.cpp" />
     <ClCompile Include="..\..\sqlite\sciter-sqlite-db.cpp" />

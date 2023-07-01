@@ -1,0 +1,47 @@
+<html>
+  <head/>
+  <body >
+    <!-- Prepare a DOM with a defined width and height for ECharts -->
+    <main style="width: 600px; height:400px;" />
+
+    <script type="module">
+      import * as echarts from './echarts.esm.js';
+      import * as SciterPlatformAPI from './echarts.sciter.js';
+      
+      echarts.setPlatformAPI(SciterPlatformAPI);
+      // Initialize the echarts instance based on the prepared dom
+      let myChart = echarts.init(document.$("main"));
+
+      // Specify the configuration items and data for the chart
+      let option = {
+        title: {
+          text: 'ECharts Getting Started Example'
+        },
+        animation: false,
+        tooltip: { 
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow'
+            }
+          },
+        legend: {
+          data: ['sales']
+        },
+        xAxis: {
+          data: ['Shirts', 'Cardigans', 'Chiffons', 'Pants', 'Heels', 'Socks']
+        },
+        yAxis: {},
+        series: [
+          {
+            name: 'sales',
+            type: 'bar',
+            data: [5, 20, 36, 10, 10, 20]
+          }
+        ]
+      };
+
+      // Display the chart using the configuration items and data just specified.
+      myChart.setOption(option);
+    </script>
+  </body>
+</html>

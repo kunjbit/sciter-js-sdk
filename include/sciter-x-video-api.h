@@ -17,6 +17,8 @@
 #include "aux-asset.h"
 #include "sciter-x-types.h"
 
+typedef void frame_release_f(const BYTE* data, void* context);
+
 namespace sciter {
 
   enum COLOR_SPACE {
@@ -69,6 +71,7 @@ namespace sciter {
      // render frame request, false - video_destination is not available ( isn't alive, document unloaded etc.) 
      virtual bool render_frame(const BYTE* frame_data, UINT frame_data_size) = 0;
      virtual bool render_frame_with_stride(const BYTE* frame_data, UINT frame_data_size, UINT stride) = 0;
+     virtual bool render_external_frame(const BYTE* frame_data, UINT frame_data_size, UINT stride, frame_release_f* prelease, void* context ) = 0;
 
   };
 

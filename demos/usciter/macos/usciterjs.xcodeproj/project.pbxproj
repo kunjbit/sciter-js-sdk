@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		490ED1DB2A4783490057B4FD /* behavior_video_generator_full.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 490ED1D92A4783490057B4FD /* behavior_video_generator_full.cpp */; };
+		490ED1DC2A4783490057B4FD /* behavior_video_generator_direct.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 490ED1DA2A4783490057B4FD /* behavior_video_generator_direct.cpp */; };
 		4952782B260688710002A42C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4952782A260688710002A42C /* AppDelegate.m */; };
 		4952782D260688740002A42C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4952782C260688740002A42C /* Assets.xcassets */; };
 		49527830260688740002A42C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4952782E260688740002A42C /* MainMenu.xib */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		490ED1D92A4783490057B4FD /* behavior_video_generator_full.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = behavior_video_generator_full.cpp; path = ../../../include/behaviors/behavior_video_generator_full.cpp; sourceTree = "<group>"; };
+		490ED1DA2A4783490057B4FD /* behavior_video_generator_direct.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = behavior_video_generator_direct.cpp; path = ../../../include/behaviors/behavior_video_generator_direct.cpp; sourceTree = "<group>"; };
 		49527826260688710002A42C /* usciterjs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = usciterjs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49527829260688710002A42C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4952782A260688710002A42C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -52,6 +56,8 @@
 		4952781D260688710002A42C = {
 			isa = PBXGroup;
 			children = (
+				490ED1DA2A4783490057B4FD /* behavior_video_generator_direct.cpp */,
+				490ED1D92A4783490057B4FD /* behavior_video_generator_full.cpp */,
 				49A80B622696A87A00FB2936 /* behavior_video_generator.cpp */,
 				4952784A260689E90002A42C /* sciter-sqlite-db.cpp */,
 				49527848260689E80002A42C /* sciter-sqlite-rs.cpp */,
@@ -163,6 +169,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				490ED1DB2A4783490057B4FD /* behavior_video_generator_full.cpp in Sources */,
 				4952782B260688710002A42C /* AppDelegate.m in Sources */,
 				49A80B632696A87A00FB2936 /* behavior_video_generator.cpp in Sources */,
 				4952783E260688FF0002A42C /* sciter-osx-main.mm in Sources */,
@@ -170,6 +177,7 @@
 				4952784D260689E90002A42C /* sciter-sqlite.cpp in Sources */,
 				4952784C260689E90002A42C /* sciter-sqlite-rs.cpp in Sources */,
 				4952784E260689E90002A42C /* sciter-sqlite-db.cpp in Sources */,
+				490ED1DC2A4783490057B4FD /* behavior_video_generator_direct.cpp in Sources */,
 				4952784B260689E90002A42C /* sqlite-wrap.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

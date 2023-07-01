@@ -74,8 +74,7 @@ public:
 int uimain(std::function<int()> run ) {
 
 //#if defined(LINUX)
-//  SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_VULKAN);
-//  SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_OPENGL);
+//  SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_GDI);
 //#endif
 
 

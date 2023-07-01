@@ -23,6 +23,8 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(lpCmdLine);
   UNREFERENCED_PARAMETER(nCmdShow);
 
+  SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_GDI);
+
 #if defined(MANUAL_LOOP)
   OleInitialize(0); // for system drag-n-drop
 
