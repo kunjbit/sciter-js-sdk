@@ -57,6 +57,13 @@ export function lightbox(jsxDialog)
     }
   });
   
+
+  // close window request will not close the window but rather close the dialog.
+  Window.this.document.on("closerequest.lightbox", (evt) => {
+      dlg.state.collapsed = true;
+      evt.preventDefault();
+      return true;
+  });  
  
   // and finally run the modal loop:
   
@@ -70,13 +77,18 @@ export function lightbox(jsxDialog)
 
   var savedFocus = wnd.focus;
   wnd.eventsRoot = dlg;
-  while (!dlg.state.collapsed && wnd.state != Window.WINDOW_HIDDEN) 
+  while(true) { 
+     if(dlg.state.collapsed) break;
+     if(wnd.state == Window.WINDOW_HIDDEN) break;
+     if(wnd.state == Window.WINDOW_STATE_NA) break;
      wnd.doEvent();
+  }
   wnd.eventsRoot = null;
   wnd.focus = savedFocus;
   
   dlg.remove(); // remove it from the DOM
   document.body.classList.remove("dialog-shown");
+  Window.this.document.off("closerequest.lightbox");
   
   return retval;
 }
