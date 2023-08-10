@@ -132,7 +132,7 @@ typedef enum SC_KB_CODES {
   KB_MENU               = 348,
   KB_CONTEXT_MENU       = 349,
                           
-  KB_KEY_LAST           = KB_MENU
+  KB_KEY_LAST           = KB_CONTEXT_MENU
 
 } SC_KB_CODES;
 

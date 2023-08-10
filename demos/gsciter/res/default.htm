@@ -2,12 +2,24 @@
   <head>
     <title>gSciter</title>
     <style src="default.css" />
+
+    <menu.window>
+       <li>File
+           <menu>
+             <li.open-file>Load</li>
+             <li.open-file-in-view>Load in Window</li>
+             <hr/>
+             <li.exit>Exit</li>
+           </menu>  
+       </li>
+    </menu>
+
     <script type="module" src="default.js" />
   </head>
   <body aria-label="Sciter Frame Body">
     <toolbar role="toolbar">
       <button #open accesskey="^O" title="load html" aria-label="Load Document" />
-      <button #open-in-view title="load html in view" aria-label="Load Document in View" />
+      <button #open-in-window title="load html in view" aria-label="Load Document in Window" />
       <button #reload accesskey="!F5" title="reload html" disabled aria-label="Reload Document" />
       <button #help title="Help browser" aria-label="Help" />
       <hr>

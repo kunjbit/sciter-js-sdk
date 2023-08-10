@@ -1,4 +1,5 @@
 import {View} from "view.js";
+import * as Settings from "settings.js";
 
 export class DOMView extends View {
   constructor(props) {
@@ -232,7 +233,7 @@ class ElementMetrics extends View {
 
     const {margin, padding, border, inner, content, dppx} = this.metrics;
 
-    const pxunits = this.viewstate.units == "px";
+    const pxunits = this.viewstate.units == "ppx";
 
     function u(val) {
       if (!val) return "-";
@@ -241,11 +242,10 @@ class ElementMetrics extends View {
     }
 
     return <section styleset="facade.css#element-metrics">
-
       <header>Units:
-        <button|radio .units value="ppx" checked={!this.units || this.units=="ppx"}>screen px</button>
-        <button|radio .units value="px" checked={this.units=="px"}>css px</button></header>
-
+        <button|radio .units value="ppx" state-checked={!this.viewstate.units || this.viewstate.units=="ppx"}>screen px</button>
+        <button|radio .units value="px" state-checked={this.viewstate.units=="px"}>css px</button>
+      </header>
       <div.box.margin>    
         <var>{u(margin[1])}</var>
         <var>{u(margin[0])}</var>
@@ -265,18 +265,18 @@ class ElementMetrics extends View {
           </div>     
         </div>     
       </div>
-      <dl .content>
+      <dl.content>
         <dt>width min</dt><dd><var>{u(content[0])}</var></dd><dt>max</dt><dd><var>{u(content[2])}</var></dd>
         <dt>height min</dt><dd><var>{u(content[1])}</var></dd><dt>max</dt><dd><var>{u(content[3])}</var></dd>
       </dl>
     </section>;
   }
 
-  ["on input at button.units"](evt, button) {
+  ["on click at button.units"](evt, button) {
     this.viewstate.units = button.getAttribute("value");
-    // console.log(this.viewstate.units);
+    Settings.saveState();
     this.componentUpdate();
-    return false;
+    return true;
   }
 }
 

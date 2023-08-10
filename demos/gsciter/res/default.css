@@ -11,6 +11,10 @@
       overflow:hidden;
     }
 
+    head > menu {
+      behavior:sys-menu-bar;
+    }
+
     body { flow:horizontal; margin:0; }
    
     toolbar  

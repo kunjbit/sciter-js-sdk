@@ -43,11 +43,12 @@ NOTE: the _window_ below is an instance of Sciter's Window class - e.g. `Window.
 ## properties:
  
   * `window.state:int` - read/write, one of:
-    * 1 `Window.WINDOW_SHOWN` - default state
-    * 2 `Window.WINDOW_MINIMIZED`
-    * 3 `Window.WINDOW_MAXIMIZED`
-    * 4 `Window.WINDOW_HIDDEN`
-    * 5 `Window.WINDOW_FULL_SCREEN`
+    * 1 `Window.WINDOW_SHOWN` - window is shown normally;
+    * 2 `Window.WINDOW_MINIMIZED` - window is collapsed to icon/tray, also known as "iconified" state; 
+    * 3 `Window.WINDOW_MAXIMIZED` - window spans whole working area  (excludes taskbar, etc) of the desktop;
+    * 4 `Window.WINDOW_HIDDEN` - window is hidden (not visible);
+    * 5 `Window.WINDOW_FULL_SCREEN` - window spans whole desktop area, so appears on top of all other windows including taskbar, etc;
+    * 0 `Window.WINDOW_SHOWN_NA` - write only value, use it to show window without activating it (setting focus on it);
     
   * `window.frameType:string` - read/write, frame type of the window, one of:
     * `"standard"` - default frame type;

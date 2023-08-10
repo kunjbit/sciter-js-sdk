@@ -1,7 +1,17 @@
 <html>
     <head>
         <title>Test</title>
-        <style></style>
+        <style>
+
+option {
+  border-bottom:1px solid;
+}
+
+#vselect {
+    border:1px solid red;
+}
+
+        </style>
         <script type="module">
 
 import {VirtualSelect} from "virtual-select.js";
@@ -16,7 +26,6 @@ function generate() {
 const items = generate();
 
 function renderOption(item, isCurrent, isSelected) {
-    console.log("renderOption", item.key);
     return <option key={item.key}
         state-current={isCurrent}
         state-checked={isSelected}>{item.text}</option>;
@@ -33,7 +42,6 @@ document.on("click", "button#append", function(evt) {
     const n = items.length;
     for (let i = n; i < n + 50; ++i)
         items.push({key: i, text: `item # ${i}`});
-    console.log("before append");
     document.$("#vselect").componentUpdate();
 });
 

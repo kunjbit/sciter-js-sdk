@@ -1,8 +1,18 @@
 ﻿<html>
     <head>
         <title>Test</title>
-        <style></style>
+        <style>
+
+menu.context li label { aspect: MenuItemLabel; }
+
+        </style>
         <script|module>
+
+// built-in context menu translator
+globalThis.MenuItemLabel = function() {
+  const label = JSX_translateText(this.innerText);
+  if(label) this.innerText = label;
+}
 
 class App extends Element {
 

@@ -13,6 +13,8 @@ namespace sciter
 	   See: samples/webview/webview.htm
 	*/
 
+  #define INIT_WEBVIEW (FIRST_APPLICATION_EVENT_CODE + 1)
+
 	struct sciter_webview : public event_handler
 	{
 		webview::webview *this_webview;
@@ -28,37 +30,28 @@ namespace sciter
 			return true;
 		}
 
-		virtual void attached(HELEMENT he) override
+		void attached(HELEMENT he) override
 		{
 			this_element = he;
 
 			dom::element self = dom::element(this_element);
-			HWINDOW parent = self.get_element_hwnd(false);
-			this_webview = new webview::webview(false, parent);
-			HWINDOW window = (HWINDOW)this_webview->window();
-			self.attach_hwnd(window);
 
-			this_webview->set_navigation_callback([&](const char *evt, const std::string &param) -> int
-			{
-				sciter::value strEvt = sciter::value::make_string(aux::utf2w(evt));
-				sciter::value strParam = sciter::value::make_string(aux::utf2w(param));
-				dom::element self = dom::element(this_element);
-				sciter::value ret = self.call_method("onNavigation", strEvt, strParam);
-				return ret.get(0);
-			});
-
-			this_webview->load_engine([=](bool succeed) -> void {
-
-				if (succeed) {
-					bindSciterJSCall();
-					on_allowWindowOpen_changed();
-					on_src_changed();
-				}
-
-			});
+			// NOTE: the attached() method 
+			// a) should return as soon as possible - do not perform heavy and time consuming operations.
+			// b) is not supposed to draw anything, but WebView forces parent window to be redrawn synchronously. 
+			// so we delay WebView initialization until DOM build completion:
+			self.post_event(INIT_WEBVIEW);
 		}
 
-		virtual void detached(HELEMENT he) override
+		bool on_event(HELEMENT he, HELEMENT target, BEHAVIOR_EVENTS type, UINT_PTR reason) override { 
+			if (type == INIT_WEBVIEW) {
+				init_webview();
+				return true;
+			}
+			return false; 
+		}
+
+		void detached(HELEMENT he) override
 		{
 			if (nullptr != this_webview)
 			{
@@ -88,6 +81,34 @@ namespace sciter
 			else if (0 == strcmp(name, "allowWindowOpen")) {
 				on_allowWindowOpen_changed();
 			}
+		}
+
+		void init_webview() {
+			dom::element self = dom::element(this_element);
+
+			HWINDOW parent = self.get_element_hwnd(false);
+			this_webview = new webview::webview(false, parent);
+			HWINDOW window = (HWINDOW)this_webview->window();
+			self.attach_hwnd(window);
+
+			this_webview->set_navigation_callback([&](const char* evt, const std::string& param) -> int
+				{
+					sciter::value strEvt = sciter::value::make_string(aux::utf2w(evt));
+					sciter::value strParam = sciter::value::make_string(aux::utf2w(param));
+					dom::element self = dom::element(this_element);
+					sciter::value ret = self.call_method("onNavigation", strEvt, strParam);
+					return ret.get(0);
+				});
+
+			this_webview->load_engine([=](bool succeed) -> void {
+
+				if (succeed) {
+					bindSciterJSCall();
+					on_allowWindowOpen_changed();
+					on_src_changed();
+				}
+
+				});
 		}
 
 		void on_src_changed() {

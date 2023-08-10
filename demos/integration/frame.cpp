@@ -299,7 +299,7 @@ int uimain(std::function<int()> run ) {
 
   sciter::om::hasset<frame> pwin = new frame();
 
-  // example, setting "usciter" media variable, check https://sciter.com/forums/topic/debugging-issues/
+  // example, setting "desktop" media variable, check https://sciter.com/forums/topic/debugging-issues/
   SciterSetMediaType(pwin->get_hwnd(), WSTR("desktop"));
 
   // note: this:://app URL is dedicated to the sciter::archive content associated with the application

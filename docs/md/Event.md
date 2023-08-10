@@ -104,7 +104,8 @@
 * `expand`  
 * `collapse`  
 * `statechange` 
-* `visualstatechange` 
+* `visualstatechange` - element become visible or invisible, for example due to `visibility` value change.
+* `currentstatchange` - `:current` state change (select,menu).
 * `disabledstatechange` 
 * `readonlystatechange` 
 
@@ -156,6 +157,13 @@
 * `scroll`
 * `scrollanimationstart` 
 * `scrollanimationend` 
+
+* `scrollstepplus` - clicks on scrollbar parts:
+* `scrollstepminus`
+* `scrollpageplus`
+* `scrollpageminus`
+* `scrollsliderpress`
+* `scrollsliderrelease`
 
 ### Gestures
 

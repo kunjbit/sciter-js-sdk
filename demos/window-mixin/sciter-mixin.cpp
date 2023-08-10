@@ -101,6 +101,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // Store instance handle in our global variable
 
+   SciterSetOption(NULL, SCITER_SET_SCRIPT_RUNTIME_FEATURES,
+     ALLOW_FILE_IO |
+     ALLOW_SOCKET_IO |
+     ALLOW_EVAL |
+     ALLOW_SYSINFO);
+
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
@@ -110,6 +116,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    }
 
    SciterSetCallback(hWnd, SciterCallback, NULL);
+   SciterSetOption(hWnd, SCITER_SET_DEBUG_MODE, TRUE);
+   
 
    SciterLoadFile(hWnd, TEXT("res:main.html"));
    

@@ -24,7 +24,7 @@ html[dnd] .drop-target:hover {
 
 function doDrag(element,evt, callback) {
 
-  let {clientX: x,clientY: y} = evt;
+  let {x,y} = evt;
   let lasttarget = null;
 
   function onmove(evt) { lasttarget = evt.target; }
@@ -76,6 +76,8 @@ document.$(".draggable").on("mousedragrequest", function(evt) {
         </script>
     </head>
     <body>
+
+      <h1>Simple implemantation of Drag-n-drop.</h1>
 
       <div.draggable>Draggable</div>
 

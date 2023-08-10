@@ -196,6 +196,10 @@ read only
   
   Unsubscribe event handlers by function reference;
 
+* ### `element.once(eventname: string, [selector: string,] handler: function): Element`
+
+  Same as `element.on()` but calls `element.off(handler)` after handling the event once.
+
 * ### `element.onGlobalEvent(eventname: string, handler: function): Element`
 
   jQuery style event subscription to application wide events:
@@ -382,6 +386,34 @@ read only
 
   Returns element as string
 
+* ### `element.box(boxType[,relativeTo[,asPpx]]) : Rect`
+
+  Returns Graphics.Rect object. 
+
+  _boxType_ defines particular metric of the element:
+
+  * "inner" - inner box of the element in terms of CSS box model;
+  * "border" - border box of the element;
+  * "padding" - padding box of the element;
+  * "margin" - margin box of the element;
+  * "client" - client box of the element - scrollable clip area of the element, usually that is padding box minus scrollbars;
+  * "content" - content outline of the element. For scrollable elements that is size of scrollable content;
+  * "caret" - caret postion (if any);
+  * "icon" - position of *foreground* image (CSS) on the element;
+  * "scroll" - projection of *client* rect on content box of the element:
+    ![scroll schema](images/scroll-box.png) 
+
+  _relativeTo_ defines offset of x/y values of returned box, one of:
+
+  * *element* - reference to other element, coordinates are relative to the _element_;
+  * "screen" - relative to screen - absolute coordinates of the element on screen (desktop);
+  * "window" - relative to client area of the window;
+  * "document" - relative to root element - document;
+  * "parent" - relative to DOM parent of the element;
+  * "container" - relative to layout container - for position'ed elements this tells position relative to nearest positioned container;
+  * "self" - default, relative to the element itself, "inner" x/y are 0 in this case;
+
+  _asPpx_ if defined and is _true_ tells the function to return coordinates in screen pixels. By default the function returns logical CSS pixels, a.k.a. DIPs - logical units, 1/96 of inch.
 
 * ### `Element.create(vnode | tag:string) : Element`
 

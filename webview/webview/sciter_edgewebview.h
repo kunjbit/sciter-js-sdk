@@ -2,6 +2,7 @@
 #define _sciter_edgewebview_h_
 
 #define WIN32_LEAN_AND_MEAN
+#include <string>
 #include <functional>
 #include <atlbase.h>
 #include <atlwin.h>

@@ -53,6 +53,7 @@ export class VirtualList extends Element {
 
             lastIndex = Math.min(totalItems, firstIndex + this.vlist.slidingWindowSize) - 1;
             this.post(() => {
+                console.log(totalItems,this.vlist.itemsBefore,this.children.length);
                 this.vlist.itemsAfter = totalItems - this.vlist.itemsBefore - this.children.length;
             });
         }

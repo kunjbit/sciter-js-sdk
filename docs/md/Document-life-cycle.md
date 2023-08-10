@@ -57,7 +57,7 @@ document.on("DOMContentLoaded",function() {
 While unloading the following events are invoked and in this order 
 
 ```JavaScript
-document.on("unloadequest", function(evt){
+document.on("closerequest", function(evt){
   // call this  
   evt.preventDefault();
   // if needed to prevent document unloading.
@@ -74,7 +74,7 @@ document.on("beforeunload", function(evt){
 ```
 
 ```JavaScript
-frame.on("unload", function(evt){
+frame.on("close", function(evt){
   // non cancelable event.
   // The document is almost gone. It make sense to handle this event on
   // document containers: <frame> or window.

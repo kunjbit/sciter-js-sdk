@@ -310,7 +310,8 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
 @set element-metrics {
 
   :root { border-top: 1px solid @DECOLOR; }
-  :root > header { text-align: center; }
+  :root > header { text-align:center; }
+  :root > header > button { behavior:check; }
 
   div.box {
     flow:grid(1 1 1,
@@ -349,6 +350,7 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
     flow:row(dt,dd,dt,dd);
     margin:0 * * *; 
     width:max-content;
+    border-spacing:0.5em;
   }
   dl.content > dt { white-space:no-wrap; text-align:right; margin:0; padding:0; }
   dl.content > dd { width:max-width; display:block; margin:0; padding:0; }

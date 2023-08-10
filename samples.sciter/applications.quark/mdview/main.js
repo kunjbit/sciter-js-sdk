@@ -65,7 +65,7 @@ function loadFolder(path) {
     if (content.length)
       return <option .folder collapsed=""><caption>{name}</caption>{content}</option>;
     else
-      return "";
+      return null;
   }
 
   const DIR_ENTRY_FILE = 1;
@@ -102,6 +102,7 @@ function loadFolder(path) {
       else
         content.push(<Folder name={file.name} folder={at} />);
     }
+  
     return content;
   };
 

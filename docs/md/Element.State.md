@@ -72,6 +72,12 @@ rule to be applied.
   "stack", "text", "null", "image", "svg", "svg-child" or "";
 
 * `visible` - readonly, boolean, true if it is and any of its containers are visible - that are not `display:none` and not `visibility:none | hidden | collapsed`.
+* `animationType` - readonly, string, reports current type of animation performed on the element:
+  - *undefined* - no current animation performing; 
+  - `"blend"` - blend effect animation running initiated by `element.replaceContent()`;
+  - `"transition"` - CSS transition is running; 
+  - `"animation"` - CSS animation is running; 
+  - `"image"` - image is animating (GIF,aPNG, WebP); 
 
 
 Some properties of Element.State may cause CSS pseudo-class rules to be triggered:

@@ -23,10 +23,12 @@ ul#menu-bar > li /* menu item in menu bar */
   flow:horizontal;
 }
 
+ul#menu-bar:focus > li:current,
 ul#menu-bar > li:owns-popup {
   background-color:highlight; 
   color:highlighttext;  
 }
+
 
 menu  /* popup menu */
 {

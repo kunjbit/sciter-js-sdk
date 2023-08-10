@@ -32,6 +32,10 @@
 
     import { lightbox } from "lightbox.js";
 
+    Window.this.document.on("closerequest", (evt) => {
+      console.log("closerequest");
+    });    
+
     document.on("click", "#button1", function()
     {
       document.$("#result1").innerText = "waiting...";

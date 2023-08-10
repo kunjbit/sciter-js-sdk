@@ -79,6 +79,26 @@ on("click", "button#open-in-window", function() {
     window.load(fn);
 })
 
+on("click","menu.window li.open-file", function(ev,li) {
+    var fn = window.selectFile("open",file_filter);
+    if( fn ) 
+      loadFile(fn);
+    return true;
+})
+
+on("click","menu.window li.open-file-in-view", function(ev,li) {
+    var fn = window.selectFile("open",file_filter);
+    if( fn ) 
+      window.load(fn);
+    return true;
+})
+
+on("click","menu.window li.exit", function(ev,li) {
+    window.close();
+    return true;
+})
+
+
 let theme = {
   ambience: "light",
   blurBehind : true,

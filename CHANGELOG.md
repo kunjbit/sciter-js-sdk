@@ -1,3 +1,50 @@
+## 5.0.2.18
+
+### Fixes:
+
+* [master-css] `<select|list multiple=checkmarks>` `option:current` style fix;
+* [CSS] fix of animation when `animation-name` is removed (shall stop);
+* [i18n-reactor] demo of context menu translation;
+* sciter-mixin demo: enabling connection with inspector;
+* `el.removeAttribute("style")` fix;
+* `<select|list>` fix of `.value = ...;`;
+* `Graphics.Rect(Point start,Point end)` fix when end < start;
+* [sciter-webview] fix of initialization sequence on Windows;
+* [touch scroll] rollback error fix;
+* [layout] fix of extra 1ppx width in `<br/>`;
+* [CSS] fix of  "a > b c" selector handling;
+* [reactor] fix of reconciliation issue on similar elements, see: https://sciter.com/forums/topic/reactor-always-have-inexplicable-problems/;
+* [reactor] fix of attribute `style` handling;
+* `color.toString("RGBA")` fix;
+* documentation of `<select|list multiple>` and `<select|tree>`;
+* document node is always focusable if not explicitly disabled;
+* [JSX] state-checked update fix;
+* [CSS] `::marker` drawing fix;
+* `flow:horizontal-flow;` fix of flex children handling;
+* [JS] `fetch()` fix: https://sciter.com/forums/topic/fetch-does-not-support-binary-body ;
+* `<input|text>` fix of caret position restoration;
+* behavior:menu fix of focus restoration after menu closure;
+* "unloadequest" -> "unloadrequest" fix;
+* [DOM] `new Event("keydown", {code:"ArrowDown"})` fix;
+* sdk.js/samples.sciter/lightbox-dialog/lightbox.js, fix of Alt+F4 handling;
+* `plaintext.value = "text";` fix of extra line;
+* JS error -> sciter::value, conversion fix;
+* `<plaintext>` support of `editor.execCommand("edit:insert-html",...);`;
+* [osx] OpenGL multiple Sciter windows fix;
+
+### New:
+
+* [gsciter] + demo of sys-menu-bar behavior; 
+* [JS] + `Element.box(...) : Rect`, same as `Element.state.box(...)` but returns *Graphics.Rect*;
+* `Window.this.state = Window.WINDOW_SHOWN_NA` - show window without activation;
+* [API] event_handler, HANDLE_STYLE_CHANGE callback;
+* [JSX] support of `<$...>` and `<_...>` as component markers;
+* + `selectEl.select.optionByValue(val): Element`
+* [JS] + `element.once("event"[,selector"], handler)` to subscribe and perform the event only once;
+* [JS] + `Element.state.animationType:string` - reports current type of animation performed on element ("scroll", "transition", etc.);
+* [JS] + event *scrollStepPlus* & Co. - click on scrollbar parts;
+* [JS] + event *currentStateChange* - `:current` state change (select,menu);
+
 ## 5.0.2.17
 
 ### New

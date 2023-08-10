@@ -10,28 +10,27 @@ body {
         </style>
         <script>
 
+const {Rect, Point} = Graphics;        
+
 function SelectionBox() {
 
-    let x,y,w,h;
+    let origin, corner;
 
     const paint = gfx => {
         gfx.strokeStyle = "#000";
         gfx.strokeWidth = 2;
-        gfx.strokeRect(x, y, w, h);
+        gfx.strokeRect(Rect(origin, corner));
     };
 
     const move = event => {
-        w = event.x - x;
-        h = event.y - y;
+        corner = event.position;
         this.requestPaint();
         return true;
     };
 
     this.on("^mousedown", event => {
       this.paintForeground = paint;
-      x = event.x;
-      y = event.y;
-      w = h = 0;
+      origin = corner =event.position;
       this.state.capture(true);
 
       this.on("^mousemove",move);
