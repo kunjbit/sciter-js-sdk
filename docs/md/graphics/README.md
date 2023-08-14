@@ -20,6 +20,10 @@ Class Graphics also is a namespace that contains classes:
   - [Size](Graphics.Size.md) - geometric size, pair of width/height values. 
   - [Rect](Graphics.Rect.md) - rectangle, can be expressed as quad [x1,y1,x2,y2] or as pair of Point (origin) and Size (dimension).
 
+##### All units are in physical device pixels:
+
+For converting CSS pixels (dip) to physical device pixels, consider using the global variable `devicePixelRatio`, which holds the ratio number between these units (multiply CSS pixels by `devicePixelRatio` to get physical device pixels). Display scaling also affects this number.
+
 #### Properties:
 
 * `graphics.lineCap` 
