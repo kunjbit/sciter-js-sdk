@@ -2,6 +2,10 @@
 
 Represents an image.
 
+### Note:
+
+  All units in physical device pixels.
+
 ## Properties:
 
 * `image.src` - read-only, url of the image.
@@ -41,6 +45,10 @@ Represents an image.
 
   Returns the image.
 
+* #### `image.crop(x,y, width, height): Image`
+
+  crops image and returns the cropped area as a new Image.
+
 ## Static methods:
 
 * ### `Graphics.Image.fromBytes( data: ArrayBuffer ) : Image`
@@ -54,3 +62,8 @@ Represents an image.
   > Note 1: it is an async function (returns promise) so it needs to be `await`'ed. 
   
   > Note 2: this method allows to cancel load request, see [Fetch](../Fetch.md).
+
+## Limitations:
+
+* Direct2D limits the rendering of any dimension (width or height) to 16,384 pixels.
+  * For a workaround, consider using `image.crop` as suggested [here](https://sciter.com/forums/topic/cannot-show-entirety-of-long-picture/).
