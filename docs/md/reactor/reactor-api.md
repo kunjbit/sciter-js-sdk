@@ -1,23 +1,38 @@
+---
+sidebar_position: 9
+title: Top Level API
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
+
 # Reactor, Top-Level API
 
 
 ## Creating Reactor Elements
 
-#### `JSX(type,[props],[...children]): VNode`
+### JSX()
+
+```js
+JSX(type,[props],[...children]): VNode
+```
 
 Constructs virtual node. 
 
 These two expressions are equivalent:
 
-```JS
+```js
   const vn = <div id="foo">bar</div>;
 ```
 is 
-```JS
+```js
   const vn = JSX("div", {id="foo"}, ["bar"]);
 ```
 
-#### `Reactor.cloneOf(velement,[props],[...children]): VNode`
+### Reactor.cloneOf()
+
+```js
+Reactor.cloneOf(velement,[props],[...children]): VNode
+```
 
 Clone and return a new Reactor virtual element using _velement_ as the prototype. 
 
@@ -30,28 +45,43 @@ If _children_ array is defined it will replace children of original element.
 
 ## Inspection of virtual DOM
 
+### Reactor.isNode()
 
-#### `Reactor.isNode(object): boolean`
+```js
+Reactor.isNode(object): boolean
+```
 
 Returns _true_ if the object is JSX literal or was constructed by either `JSX` function or `Reactor.cloneOf`
 
-#### `Reactor.tagOf(vnode)`
+### Reactor.tagOf()
+
+```js
+Reactor.tagOf(vnode)
+```
 
 Returns tag of virtual node. 
-```JS 
+```js 
    Reactor.tagOf(<div/>) == "div"; // true
 ```
 
-#### `Reactor.propsOf(vnode)`
+### Reactor.propsOf()
+
+```js
+Reactor.propsOf(vnode) : Object
+```
 
 Returns properties (attributes) of virtual node as an object. 
-```JS 
+```js 
    Reactor.propsOf(<div id="foo" />).id == "foo"; // true
 ```
 
-#### `Reactor.kidsOf(vnode)`
+### Reactor.kidsOf()
+
+```js
+Reactor.kidsOf(vnode) : Array
+```
 
 Returns children collection of virtual node as an array. 
-```JS 
+```js 
    Reactor.kidsOf(<div>bar</div>)[0] == "bar"; // true
 ```

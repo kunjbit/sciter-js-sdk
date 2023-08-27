@@ -32,7 +32,7 @@ If value is requested from the element directly then value will have `true` or `
 
 For _mixed_ checkbox the behavior also accepts _null_ value - undetermined state.
 
-If checkbox element is placed inside a <form> then form's value collection will include value of checkbox@value attribute if it is checked.
+If checkbox element is placed inside a `<form>` then form's value collection will include value of checkbox@value attribute if it is checked.
 
 ## Methods
 

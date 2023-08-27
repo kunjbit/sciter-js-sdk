@@ -37,14 +37,14 @@ true/false - read-only, value of the button reflects pressed state of the button
 
 ### raw `onclick` handler
 
-```JavaScript
+```js
 let btn = document.$("button#some");
 btn.onclick = function() { ... event handling code ... }
 ```
 
 ### `on()` subscription
 
-```JavaScript
+```js
 let btn = document.$("button#some");
 btn.on("click", function() { ... event handling code ... });
 document.on("click", "button#some", function() { ... event handling code ... });

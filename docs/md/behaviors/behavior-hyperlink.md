@@ -39,7 +39,7 @@ N/A.
 
 ### raw `onclick` handler
 
-```JavaScript
+```js
 var btn = document.$("a#some");
 btn.onclick = function() { event handling code ...; 
                            return true; /*consume the event*/ }
@@ -47,7 +47,7 @@ btn.onclick = function() { event handling code ...;
 
 ### `on()` subscription
 
-```JavaScript
+```js
 var btn = document.$("a#some");
 btn.on("click", function() { ... event handling code ... });
 document.on("click", "a#some", function() { ... event handling code ... });
@@ -55,7 +55,7 @@ document.on("click", "a#some", function() { ... event handling code ... });
 
 ### class method handler
 
-```JavaScript
+```js
 class SomeComponentWithLinks extends Element {
   ...
   

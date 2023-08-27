@@ -16,7 +16,7 @@ div.list {
 
 The list element is assumed to contain child element (list items) with `<caption>` element inside:
 
-```HTML
+```html
 <div.list>
    <section dafault>
       <caption>A</caption>

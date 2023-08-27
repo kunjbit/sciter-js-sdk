@@ -1,3 +1,10 @@
+---
+sidebar_position: 10
+title: Internalization Support
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
+
 # Internalization support in Sciter's JSX...
 
 Sciter offers built-in, **zero-runtime-cost** mechanism for JSX literals translation.  
@@ -5,7 +12,7 @@ Sciter offers built-in, **zero-runtime-cost** mechanism for JSX literals transla
 ## Current state of affairs of i18n support in ReactJS.
 
 Consider the following function that uses JSX literal:
-```JS
+```js
 render() {
   return <caption>Settings</caption>;
 }
@@ -14,17 +21,17 @@ It is definitely a subject of translation to other languages.
 
 Ideally in, let's say, Russian version of the application, the function should look like this:
 
-```JS
+```js
 render() {
   return <caption>Настройки</caption>;
 }
 ```
 
-"Ideally" here means that English and Russion versions of the application will work in the same speed and CPU load. Each time we execute `render()` function our JavaScript VM will load and output string literal with exactly the same runtime cost no matter the language we use.
+"Ideally" here means that English and Russion versions of the application will work at the same speed and CPU load. Each time we execute `render()` function our JavaScript VM will load and output string literal with exactly the same runtime cost no matter the language we use.
 
 But in reality translation adds runtime cost, for example, in [React-i18n](https://react.i18next.com/) we may see such suggestions:
 
-```JS
+```js
 render() {
   return <caption>{t('Settings')}</caption>;
 }
@@ -41,8 +48,8 @@ To solve the problem Sciter offers mechansim where the lookup will happen just o
 
 In order to define string literal as translatable in JS sources prepend the string literal with `@` sign:
 
-```JS
-  const title = @"Meeting preferences";
+```js
+const title = @"Meeting preferences";
 ```
 At parsing of such literal Sciter runtime will call `JSX_translateText(text)` translation hook function and 
 will place its resuslt into bytecode as a string literal. 
@@ -53,14 +60,14 @@ So called translationID, unique identifier of the text in translation table, wil
 
 Languages may vary on order of words in phrases. One of possible ways of handling that is to use parametrized format strings, for example:
 
-```JS
-  const greeting = @"Hello %1%, today is %2%".format(name,date.toLocaleDateString());
+```js
+const greeting = @"Hello %1%, today is %2%".format(name,date.toLocaleDateString());
 ```
 
 In this case `JSX_translateText()` will be called with `"Hello %1%, today is %2%"` string. For Russian translation, it may return `"%1%, привет, сегодня %2%"` for example. And used formatted string will be `"Вася, привет, сегодня 31.02.2021"`
 
 Note use of non-standard `format` string method above, you can define in your sources as: 
-```JS
+```js
 String.prototype.format = function(...values) {
   return this.replace(/%([0-9]+)%/g, (match, index) => values[index - 1] ?? match );
 };
@@ -70,8 +77,8 @@ String.prototype.format = function(...values) {
 
 In order to define HTML attribute that is subject of translation prepend its name with `@` sign and provide initial value:
 
-```JS
-  <button @title="Meeting preferences">Show preferences</button>
+```js
+<button @title="Meeting preferences">Show preferences</button>
 ```
 At parsing of such attribute Sciter runtime will call `JSX_translateText(text)` translation hook function and 
 will place its resuslt into bytecode as a string literal. At the end DOM element will have `title` attribute translated and without `@` marker. 
@@ -82,8 +89,8 @@ So called translationID, unique identifier of the text in translation table, wil
 
 In order to mark DOM element as translatable put standaline `@` sign or `@name` as its attribute:
 
-```JS
-  <button @>Show preferences</button>
+```js
+<button @>Show preferences</button>
 ```
 At parsing of such element Sciter runtime will call `JSX_translateText(text)` translation hook function and 
 will place its resuslt into bytecode as string literal (text). That text will appear in the final DOM.
@@ -94,25 +101,24 @@ TranslationID in this case will be either original element's text or, if `@name`
 
 Sometimes we just need to translate portion of a text. In such cases we can use "translateable fragment" marker:
 
-```JS
+```js
 render() {
   return <caption><@>Hello</>, {userName}!</caption>;
 }
 ```
 That `<@>...</>` marks fragment of text as translatable. That fragment will be its translation ID.
 
-
 ## Dynamic translation markers
 
 In some cases we need more complex translation processing than just static case. Consider that we need to output somethnig like bottle counter:
 
-```JS
+```js
 render() {
   return <span @>{n} bottles</span>;
 }
 ```
 Idealy we should have output like these: "no bottles", "1 bottle", "2 bottles" ... 
-In common case we cannot handle such construct with just static tables - numeral rules a) different in different languages, b) can be quite complex and c) can be different in diferent contexts.
+In common case we cannot handle such construct with just static tables - numeral rules a) are different in different languages, b) can be quite complex and c) can be different in diferent contexts.
 
 The only option in this case is to implement such logic as a function. Sciter runtime will call `JSX_translateNode(node)` translation hook function in this case.
 
@@ -121,11 +127,11 @@ The only option in this case is to implement such logic as a function. Sciter ru
 
 Translation hooks are custom functions that needs to be defined on application side to support translation.  
 
-### `JSX_translateText`
+### JSX_translateText()
 
 Is called to translate static text - either attribute value or element's text:  
 
-```JS
+```js
 JSX_translateText = function(text, context, type) {
   ...
 }
@@ -138,11 +144,11 @@ parameters:
 
 The function shall return a string - result of translation.
 
-### `JSX_translateNode`
+### JSX_translateNode()
 
 Is called to translate dynamic text, for example to pluralize some numeric value:  
 
-```JS
+```js
 JSX_translateNode = function(node, translationId) {
   ...
 }
@@ -158,18 +164,18 @@ The function shall return virtual DOM node - result of translation. Use `JSX(tag
 
 These global variables are available inside _JSX_translateXXX_ hook functions: 
 
-### `JSX_translationFileName`
+### JSX_translationFileName
 
 string, URL of source script file.
 
-### `JSX_translationlineNo`
+### JSX_translationlineNo
 
 integer, line number of string or JSX literal.
 
-### `JSX_translationContext`
+### JSX_translationContext
 
 string, translation context. Translation context is defined in source code by a comment that has `@` symbol at first position, example:
-```JS
+```js
 /*@Host meeting*/
 let text = @"Host";
 ```
@@ -178,7 +184,7 @@ In this case `JSX_translateText()` will be called as `JSX_translateText("Host")`
 Note: that some words may have different translations in different contexts so some clarification is required for proper translation. 
 For example "Host" could be a noun, e.g. "host machine", or a verb like "to host a meeting".
 
-### `JSX_translateTags`
+### JSX_translateTags
 
 That is a map of tags that need to be translated by default - without translation markers.
 
@@ -200,7 +206,7 @@ Possible scenarios:
 
 ### In different script sections:
 
-```HTML
+```html
   <head>
     <script type="module" src="i18n/hooks.js" /> 
     <script type="module" src="application/main.js" /> 
@@ -210,7 +216,7 @@ First script will install hooks and second one is main root script of the applic
 
 ### Framed application:
 
-```HTML
+```html
   <head>
     <script type="module" src="i18n.js" /> 
   </head>

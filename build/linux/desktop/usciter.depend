@@ -6682,7 +6682,7 @@
 	<unicode/utf16.h>
 	<math.h>
 
-1687641871 source:/home/andrew/sciter/work/sdk.js/demos/usciter/usciter.cpp
+1688095993 source:/home/andrew/sciter/work/sdk.js/demos/usciter/usciter.cpp
 	"sciter-x-window.hpp"
 	"sciter-x-graphics.hpp"
 	"sciter-x-types.h"
@@ -6792,7 +6792,7 @@
 	<stdio.h>
 	"sciter-x-behavior.h"
 
-1683598554 /home/andrew/sciter/work/sdk.js/include/sciter-x-behavior.h
+1691698443 /home/andrew/sciter/work/sdk.js/include/sciter-x-behavior.h
 	"sciter-x-types.h"
 	"sciter-x-dom.h"
 	"sciter-x-value.h"

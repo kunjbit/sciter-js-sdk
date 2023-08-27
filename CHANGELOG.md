@@ -1,3 +1,41 @@
+## 5.0.2.19
+
+### Fixes:
+
+* `<frameset>`, fix of mouse move handling.
+* [reactor] fix of fragment stripping attributes. See: https://sciter.com/forums/topic/unexpected-behavior-with-blank-jsx-nodes/ .
+* Fix of an issue with [CSS variables on root node](https://sciter.com/forums/topic/css-variables-in-html-selector/).
+* fix of `<details>`
+* `<widget|?scrollbar>` generation of "change" event + standalone-scrollbar demo 
+* [API] Fix of "silent error issue".
+* [CSS] fix of hit-test on `position:relative;z-index:...` inside scrollables.
+* `element.state.box(...)` fix to report actual DOM positions.
+* [layout] fix of layout adjustments after scroll bar appearance/disappearance.
+* `env.arguments()`, implementation;
+* [virtual-list] fix of `vlist.navigateTo()`;
+* [reactor] r13n fix of elements that contain callbacks in attributes.
+* [css] adjacent selector handling fixes;
+* [osx] fix of random error in popup window creation;
+* promise callbacks to come before `setTimer(,0)`;
+* fix of mouse handling on vertical-align: middle | bottom; layouts
+* [osx] NSOpenGLPFAAccelerated is optional while creating OpenGL context, to allow it to run VM.
+* Fix of https://sciter.com/forums/topic/select-dropdown-emojis/
+* `element.takeOff()`, `element.popup()` to not activate host window by default.
+* [virtual-list] fix of non-animated scroll.
+* [reactor] `componentDidMount` - not posted but immediate (sort of) event.
+* `<br>` spacing, one more fix.
+* videostart, videostop, videoready events
+
+### New:
+
+* [JSDOM] + `element.offsetParent` property.
+* + `ZipItem.attributes` 
+* `<select editable filter="...">` support.
+* documentation refactoring for https://docs.sciter.com
+* [lottie] support width:auto and height:auto;
+* /samples.css/css-flex/ to match documentation.
+
+
 ## 5.0.2.18
 
 ### Fixes:

@@ -8,7 +8,7 @@ The behavior maintains and renders 2D array of characters (screen buffer) of ter
 
 By default the behavior is applied to `<terminal>` element (Sciter specific)
 
-```HTML
+```html
   <terminal />
 ```
 

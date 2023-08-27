@@ -86,7 +86,7 @@ Commands supported by the behavior through `Element.execCommand()` and `Element.
 
 Note: API of plaintext is accessible on element by using *.plaintext.* interface modifier:
 
-```JavaScript
+```js
 const editor = document.$("plaintext#editor");
 editor.plaintext.load("file://users/documents/readme.txt");
 ```

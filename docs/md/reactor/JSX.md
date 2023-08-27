@@ -1,3 +1,10 @@
+---
+sidebar_position: 1
+title: JSX
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
+
 
 Note: this document is written intentionally close to [ReactJS/JSX introduction](https://reactjs.org/docs/introducing-jsx.html).
 
@@ -5,7 +12,7 @@ Note: this document is written intentionally close to [ReactJS/JSX introduction
 
 Consider this variable declaration:
 
-```JavaScript
+```js
 const velement = <h1 id="hw">Hello, world!</h1>;
 ```
 
@@ -13,7 +20,7 @@ It is called JSX, and it is an integral part of SciterJS syntax - parsing of suc
 
 That above is neither a string nor HTML but is a "tuple" declaration:
 
-```JavaScript
+```js
 const velement = JSX("h1", { id:"hw"}, ["Hello, world!"]);
 ```
 
@@ -23,20 +30,20 @@ Technically JSX is not strictly required - we can use such tuple literals direct
 
 Here we declare a variable *name* and use it in tuple construction:
 
-```JavaScript
+```js
 const name = "Alice";
 const velement = <h1>Hello, {name}</h1>;
 ```
 
 That above can be written exactly as this:
 
-```JavaScript
+```js
 const velement = JSX("h1", {}, ["Hello, ",name]);
 ```
 
 And you can put any valid JS expression inside those curly braces:
 
-```JavaScript
+```js
 const velement = <div>1 + 1 is { 1 + 1 }</div>;
 ```
 
@@ -44,7 +51,7 @@ const velement = <div>1 + 1 is { 1 + 1 }</div>;
 
 As JSX literal is actually a tuple literal then we can use it in our code as any other literals:
 
-```JavaScript
+```js
 function getGreeting(user) {
   if (user)
     return <h1>Hello, {formatName(user)}!</h1>;
@@ -59,13 +66,13 @@ The above function returns one of two tuples defined there.
 
 You may use quotes to specify string literals as attributes:
 
-```JavaScript
+```js
 const velement = <div tabindex="0"></div>;
 ```
 
 You may also provide value of attribute from a variable or expression:
 
-```JavaScript
+```js
 const velement = <img src={user.avatarUrl}></img>;
 ```
 
@@ -75,7 +82,7 @@ Note: you should either use quotes (for string values) or curly braces (for expr
 
 If tag is empty then you may close it immediately with `/>` :
 
-```JavaScript
+```js
 const velement = <img src={user.avatarUrl} />;
 ```
 
@@ -83,7 +90,7 @@ Note: JSX does not support "tail-less" HTML tags like: `<img>`, `<input>` or `<b
 
 Yet JSX may contain children:
 
-```JavaScript
+```js
 const velement = 
   <div> 
     <h1>Hello!</h1>
@@ -95,7 +102,7 @@ const velement =
 
 Along with attributes you may want to define runtime states of elements:
 
-```JavaScript
+```js
 const velement = 
   <li state-expanded={ isOpen(item) } > 
     <caption>Hello!</caption>
@@ -109,7 +116,7 @@ States here correspond to so called pseudo-classes in CSS:`:active`, `:hover`, `
 
 To specify current runtime value of `<input>` elements use `state-value` runtime state attribute - it reflects current value of the input at runtime:
 
-```JavaScript
+```js
 <input|text(firstname) state-value="John" />
 ```
 
@@ -119,14 +126,14 @@ Note that just *value* attribute: `<input|text(firstname) value="Initial value" 
 
 In some cases you may need to set HTML content of an element from a string. In order to do that use `state-html` attribute in JSX: 
 
-```JavaScript
+```js
 const htmlContent = "<b>some</b> literal <i>HTML</i>";
 <div state-html={htmlContent} />
 ```
 
 That above will generate 
 
-```JavaScript
+```js
 <div>
   <b>some</b> literal <i>HTML</i>
 </div>
@@ -144,7 +151,7 @@ JSX follows HTML parsing shortcut rules used in SciterJS and so:
 ### Using compound component names in JSX
 
 If components in an application are organized in namespaces/modules like `App.ComponentA` then to use such fully qualified name use `-` instead of `.` as name separators:
-```JS
+```js
 <App-ComponentA>
    ... content ...
 </App-ComponentA>
@@ -153,19 +160,19 @@ If components in an application are organized in namespaces/modules like `App.Co
 
 Under the hood, this code:  
 
-```JavaScript
+```js
 const velement = <h1 id="hw">Hello, world!</h1>;
 ```
 
 is translated into a call of built-in JSX function:
 
-```JavaScript
+```js
 const velement = JSX("h1", {id:"hw"}, ["Hello, world!"]);
 ```
 
 Default implementation of that JSX function simply does this:
 
-```JavaScript
+```js
 function JSX(tagName,attributes,children) {
   return [tagName,attributes,children];
 }
@@ -173,7 +180,7 @@ function JSX(tagName,attributes,children) {
 
 So by default JSX generates JSX function calls. JSX() generates *VNODE*s - virtual DOM node definitions:
 
-```JavaScript
+```js
 const vnode = JSX("tag", {attributes}, [children]);
 ```
 
@@ -185,7 +192,7 @@ Where:
 
 > Note: **JSX function can be redefined in JavaScript**. 
 > For example in MithrilJS case it may look like as:
-  ```JavaScript
+  ```js
   JSX = m; // m is a Mithril's function - constructor of vnodes
   ```
 
@@ -193,13 +200,13 @@ Where:
 
 Some methods of Element class allow to populate DOM by the vnode definitions:
 
-```JavaScript
+```js
 container.content(<div>Hello wonderful world</div>);
 ```
 
 After that the container will have single child element: `<div>`
 
-```JavaScript
+```js
 var arr = [1,2,3];
 var children = arr.map( (n) => <li>item #{n}</li> );
 container.content(children);

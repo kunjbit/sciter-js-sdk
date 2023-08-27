@@ -1,3 +1,10 @@
+---
+title: scapp.runtime
+sidebar_position: 10
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
+
 # Scapp Executable Runtime
 
 scapp[.exe] is Sciter engine packaged as a standlone executable. 
@@ -6,8 +13,7 @@ While it uses the same Sciter engine as embeddable sciter.dll(.so,.dylib) it has
 
 One of major differences is that scapp supports "assembly" mode: UI resources (html,css,js and image files) can be packaged and appended to the scapp.exe. This allows to generate (assemble) standalone executables - monolithitic executables without external dependencies. Such assembly support enables [Sciter.Quark](https://quark.sciter.com/) functionality.
 
-## Scapp startup sequences:
-
+## Scapp startup sequences
 
 ### Original scapp.exe
 

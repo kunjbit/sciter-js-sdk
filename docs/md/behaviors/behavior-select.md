@@ -124,14 +124,14 @@ Note: commands are invoked by calling `element.execCommand("cmd-name"[,params])`
 
 ### raw `onchange` handler
 
-```JavaScript
+```js
 var sel = document.$("select#some");
 sel.onchange = function() { var v = this.value; ... }
 ```
 
 ### `on()` subscription
 
-```JavaScript
+```js
 var sel = document.$("select#some");
 sel.on("change", function() { ... event handling code ... });
 document.on("change", "select#some", function() { ... event handling code ... });

@@ -85,8 +85,8 @@ export class Widget extends Element
       if(!delta_x && !delta_y)
       {
         this.takeOff({x:posX,y:posY,relativeTo:"window",window:"attached"});
-				if( onEnd )
-				  onEnd.call(this);
+	if( onEnd )
+	  onEnd.call(this);
         return false;
       }
       return true;

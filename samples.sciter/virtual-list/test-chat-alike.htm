@@ -9,9 +9,12 @@
             flow: vertical;
             overflow: scroll-indicator;
             size: *;
-            //scroll-manner: scroll-manner(animation:false, wheel-step:100%); //to disable animated scroll, wheel step is full height of element
-            vertical-align: bottom;
-            // last "messages" are seen first
+            vertical-align: bottom; // last "messages" are seen first
+        }
+
+        tape:not(.animated) {
+            //to disable animated scroll, wheel step is 50% of height of element            
+            scroll-manner: scroll-manner(animation:false, wheel-step:50%); 
         }
 
         tape > div {
@@ -60,7 +63,7 @@
         let tape;
         // need to postpone tape retrieval to after DOM initialization:
         document.ready = function() {
-            tape = document.$("tape#test");
+            tape = document.$("tape");
         };
 
         document.on("click", "button#btn-add-item", () => {
@@ -110,11 +113,22 @@
             console.log(el);
         });
 
+        document.on("change", "form", (e,form) => {
+          const st = form.value.scrollType;
+          tape.classList.toggle("animated", st == "animated" );
+          return true;
+        });        
+
     </script>
 </head>
 <body>
     <h2>Test of <code>behavior:virtual-list</code>:</h2>
-    <tape #test />
+    <form>
+        Wheel scroll: 
+        <button|radio(scrollType) value="animated" checked>Animated</button>
+        <button|radio(scrollType) value="not-animated">Instant</button>
+    </form>
+    <tape.animated />
     <button #btn-add-item>add item</button>
     <button #btn-del-item>delete item</button>
     <button #btn-repl-items>replace all items</button>

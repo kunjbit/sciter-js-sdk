@@ -1,10 +1,17 @@
-## Lists and Keys
+---
+sidebar_position: 6
+title: Lists and Keys
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
+
+# Lists and Keys
 
 We can build collections of elements and include them in JSX using curly braces `{}`.
 
 Below, we loop through the numbers array using the `map()` function. We return a `<li>` element for each item. Finally, we assign the resulting array of elements to listItems:
 
-```JavaScript
+```js
 const numbers = [1, 2, 3, 4, 5];
 const listItems = numbers.map((number) =>
   <li>{number}</li>
@@ -13,7 +20,7 @@ const listItems = numbers.map((number) =>
 
 Then we include the entire `listItems` array inside a `<ul>` element, and render it to the DOM:
 
-```JavaScript
+```js
 document.body.content(<ul>{listItems}</ul>);
 ```
 
@@ -23,7 +30,7 @@ But if we plan to update the list using `Element.patch()` we need to add keys 
 
 The best way to pick a key is to use a string that uniquely identifies a list item among its siblings. Most often you would use IDs from your data as keys:
 
-```JavaScript
+```js
 const todoItems = todos.map( todo =>
   <li key={todo.id} status={todo.status}>
     {todo.text}
@@ -32,15 +39,15 @@ const todoItems = todos.map( todo =>
 
 Note: It is not recommend to use indexes for keys if the order of items may change. This can negatively impact performance and may cause issues with component state.
 
-#### Keys Must Only Be Unique Among Siblings
+## Keys Must Only Be Unique Among Siblings
 
 Keys used within arrays should be unique among their siblings. However they don’t need to be globally unique.
 
-#### Embedding map() into JSX expressions
+## Embedding map() into JSX expressions
 
 JSX allows to embed any expression in curly braces so we could inline the `map()` result too:
 
-```JavaScript
+```js
 function NumberList(props) {
   const numbers = props.numbers;
   return

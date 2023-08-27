@@ -124,7 +124,7 @@ input.ip4 { aspect:IP4 }
 
 Script:
 
-```JavaScript
+```js
 function IP4() {
   const ipmask = [
             { type:"integer", width:3, min:0, max:255, "leading-zero":true }, ".",

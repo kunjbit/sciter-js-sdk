@@ -1,5 +1,12 @@
-
-Note: this document is written intentionally close to [ReactJS/Components and Props](https://reactjs.org/docs/components-and-props.html) article to highlight differences and similarities with ReactJS.
+---
+sidebar_position: 3
+title: Components
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
+:::note
+this document is written intentionally close to [ReactJS/Components and Props](https://reactjs.org/docs/components-and-props.html) article to highlight differences and similarities with ReactJS.
+:::
 
 ## Components and Props
 
@@ -9,7 +16,7 @@ Conceptually, components are script functions. They accept arbitrary inputs (cal
 
 The simplest way to define a component is to write a script function:
 
-```JavaScript
+```js
 function Welcome(props) {
   return <h1>Hello, {props.name}</h1>;
 }
@@ -19,7 +26,7 @@ This function is a valid Reactor component because it accepts a single "props" o
 
 You can also use classes to define a component:
 
-```JavaScript
+```js
 class Welcome extends Element {
   this(props) { 
     this.props = props; 
@@ -35,13 +42,15 @@ These two components will do exactly the same when used.
 
 Class-based components have some additional features that we will discuss in the next sections. Until then, we will use function components for their conciseness.
 
-#### Note: Component names (either functional or class-based) shall start from capital letter.
+:::note
+Component names (either functional or class-based) shall start from capital letter.
+:::
 
 ### Component-functions and component constructors signatures
 
 Full declaration of component functions and constructors may look like as:
 
-```JavaScript
+```js
 function FunctionComponent(props, kids [,parent]) {}
 ```
 
@@ -54,7 +63,7 @@ Where:
 
 Example, this declaration:
 
-```XML
+```html
 <FunctionComponent mode="start">
    <div>bar</div>
 </FunctionComponent>
@@ -67,7 +76,7 @@ will get call of FunctionComponent() with this parameters:
 
 Constructors of class components follow the same convention:
 
-```JavaScript
+```js
 class ClassComponent extends Element {
   constructor(props,kids,parent) {...} 
 }
@@ -79,13 +88,13 @@ The *parent* argument receives DOM element - future or existing container DOM el
 
 Previously, we only encountered Reactor virtual elements that represent DOM tags:
 
-```JavaScript
+```js
 const velement = <div />;
 ```
 
 However, elements can also represent user-defined components:
 
-```JavaScript
+```js
 const velement = <Welcome name="John" />;
 ```
 
@@ -93,7 +102,7 @@ When script compiler sees an element representing a user-defined component, it p
 
 For example, this code renders “Hello, Ivan!” on the page:
 
-```JavaScript
+```js
 function Welcome(props) {
   return <h1>Hello, {props.name}!</h1>;
 }
@@ -116,7 +125,7 @@ Components can refer to other components in their output. This lets us use the s
 
 For example, we can create an `App` component that renders `Welcome` many times:
 
-```JavaScript
+```js
 function Welcome(props) {
   return <h1>Hello, {props.name}!</h1>;
 }
@@ -138,7 +147,7 @@ Don’t be afraid to split components into smaller components.
 
 For example, consider this `Comment` component:
 
-```JavaScript
+```js
 function Comment(props) {
   return
     <div .comment>
@@ -158,7 +167,7 @@ This component can be tricky to change and maintain because of all the nesting, 
 
 Let’s extract a few components from it. First, we will extract `Avatar`:
 
-```JavaScript
+```js
 function Avatar(props) {
   return <img.avatar
           src={props.user.avatarUrl}
@@ -168,7 +177,7 @@ function Avatar(props) {
 
 Next, we will extract a `UserInfo` component that renders an `Avatar` next to the user’s name:
 
-```JavaScript
+```js
 function UserInfo(props) {
   return <div.userinfo>
       <Avatar user={props.user} />
@@ -179,7 +188,7 @@ function UserInfo(props) {
 
 And finally simplified `Comment` that is composed from the above:
 
-```JavaScript
+```js
 function Comment(props) {
   return <div.comment>
    <UserInfo user={props.author} />

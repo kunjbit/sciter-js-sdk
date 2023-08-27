@@ -1,24 +1,31 @@
+---
+title: Behaviors
+sidebar_position: 8
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
+
 # Behaviors - native extensions of standard DOM elements
 
 Behaviors in Sciter are native "DOM element controllers" that get attached to DOM elements by CSS:
 
 ```CSS
 div.editable {
-  behavior:edit; // makes this div to behave as text editing field
+  behavior:edit; // this div behaves as a text editing field
   white-space:pre;
-  overflow:hidden-scroll;
+  overflow-x:hidden-scroll;
   border:1px solid;
 }
 ```
 
-Each behavior may have its own method and properties accessible by JavaScript.
+Each behavior may have its own methods and properties accessible by JavaScript.
 
-In order to avoid name collisions with standard DOM elements those methods and properties are accessible by dot notation that contains behavior name as "interface name":
+In order to avoid name collisions with standard DOM elements those methods and properties are accessible by dot notation that contains behavior name as an "interface name":
 
-```JavaScript
+```js
 let el = document.$("div.editable");
 
-el.edit.setRange(0,10); // call of behavior method
+el.edit.setRange(0,10); // call method of behavior:edit 
 ```
 
 Here is a list of such built-in behaviors that are available out of the box in Sciter:
@@ -42,11 +49,7 @@ Here is a list of such built-in behaviors that are available out of the box in S
   * [plaintext](behavior-plaintext.md) - plaintext multiline editor
   * [richtext](behavior-richtext.md) - WYSIWYG HTML editor
 * selects 
-  * [select](behavior-select.md) 
-  * [select-multiple](behavior-select-multiple.md) 
-  * [select-checkmarks](behavior-select-checkmarks.md) 
-  * [tree-view](behavior-tree-view.md) 
-  * [tree-checkmarks](behavior-tree-checkmarks.md) 
+  * [select,select-multiple,select-checkmarks, tree, tree-checkmarks](behavior-select.md) 
   * [dropdown-select](behavior-select-dropdown.md) - dropdown select and editable dropdown select
 * date/time input 
   * [calendar](behavior-calendar.md) 

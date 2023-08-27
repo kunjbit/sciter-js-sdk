@@ -22,15 +22,15 @@ this behavior knows about:
 
 ## Properties
 
-* #### `video.isPlaying` 
+* #### `video.isPlaying`
   
   read-only, boolean, reports playback status. If *true* then video is playing at the moment.
 
-* #### `video.isEnded` 
+* #### `video.isEnded`
   
   read-only, boolean, *true* if video playback has reached the end of the movie.
 
-* #### `video.duration` 
+* #### `video.duration`
    
   read-only, float, reports duration in seconds of the movie. If duration is not available it returns 0.
 
@@ -42,15 +42,15 @@ this behavior knows about:
  
   read-only, integer, screen pixels. Reports natural width and height of video frame of the movie.
 
-* #### `video.renderingBox` 
+* #### `video.renderingBox`
 
   read-only, `[x,y,width,height]`, reports video box rectangle in pixels relative to the content box of the element. Note if *sizing* attribute is "cover" then either *x* or *y* can be negative.
 
-* #### `video.audioVolume` 
+* #### `video.audioVolume`
  
   read/write, float (0.0...1.0). Current volume level of audio track. 1.0 correspond to 0db, 0.0 (mute) -100db.
 
-* #### `video.audioBalance` 
+* #### `video.audioBalance`
  
   read/write, float ( -1.0 ... +1.0  ). Current stereo balance.
 
@@ -75,11 +75,11 @@ this behavior knows about:
 
 ## Events
 
-Besides of the standard set of events (mouse, keyboard, focus) *behavior:video* generates following behavior events:
+Besides of the standard set of events (mouse, keyboard, focus) *behavior:video* generates following behavior events:
 
-* `"ready"` - the video has been loaded successfully and video.width/height and video.duration are available.
-* `"start"` - the video just started, first frame rendered.
-* `"stop"`  - the video has stopped.
+* `"videoready"` - the video has been loaded successfully and video.width/height and video.duration are available.
+* `"videostart"` - the video just started, first frame rendered.
+* `"videostop"`  - the video has stopped.
 
 ## Value
 

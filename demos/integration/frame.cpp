@@ -260,12 +260,15 @@ public:
         }
         else if (target.test("button#test-script-func-3"))
         {
-          // call function by its "path", passing script object { data: counter, title: "text" } :
+          // call function by its "path"
           try {
             this->call_function("scriptNS.testErroneousFunc");
           }
           catch (sciter::script_error e) {
              std::string err = e.what();
+             if (auto pdo = sciter::debug_output::instance()) {
+               pdo->print(err.c_str());
+             }
           }
           return true;
         }

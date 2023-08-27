@@ -1,12 +1,17 @@
+---
+sidebar_position: 7
+title: Signals
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
 
-## Reactive Signals
+# Reactive Signals
 
 TL;DR: Signals in Sciter/Reactor are observable values that application can subscribe on.
 
-
 In essence, a `signal` is an object with a `.value` property that holds a value. This has an important characteristic: a signal's value can change, but the signal itself always stays the same:
 
-```JavaScript
+```js
 const { signal } = Reactor;
 
 // signal with initial value 0:
@@ -28,7 +33,7 @@ Sciter supports four types of signal subscribers:
 
 1. **effect functions** - functions that will be invoked on change of signal(s) value:
 
-   ```JavaScript
+   ```js
    const { signal, effect } = Reactor;
 
    const count = signal(0); 
@@ -41,7 +46,7 @@ Sciter supports four types of signal subscribers:
 
 2. **computed signal-functions** - functions that are a) signals by themselves and b) are invoked when signal(s) value change:
 
-   ```JavaScript
+   ```js
    const { signal, computed, effect } = Reactor;
 
    const name = signal("John");
@@ -55,7 +60,7 @@ Sciter supports four types of signal subscribers:
 
 3. **Reactive components**:
 
-   ```JavaScript
+   ```js
    const { signal } = Reactor;
 
    const clickCounter = signal(0); 
@@ -75,7 +80,7 @@ Sciter supports four types of signal subscribers:
 
 3. **Signal bound input elements** - value property of an input element can bound with a signal in bidirection (duplex) manner.  
 
-   ```JavaScript
+   ```js
    const { signal } = Reactor;
 
    const count = signal(0); 
@@ -104,7 +109,7 @@ The Signal API consists of three functions in Reactor namespace:
 
 Note: you can always make shortcuts of these functions:
 
-```JavaScript
+```js
 const { signal, computed, effect } = Reactor;
 ...
 ```
@@ -112,7 +117,7 @@ const { signal, computed, effect } = Reactor;
 ### signal(initialValue)
 
 Creates a new signal with the given argument as its initial value:
-```JavaScript
+```js
 const count = signal(0);
 ```
 
@@ -123,7 +128,7 @@ The returned signal is an instance of [Signal] class that has a `.value` propert
 ### computed(fn)
 
 Creates new composite signal that is computed based on the values of other signal[s]:
-```JavaScript
+```js
 const name = signal("Jane");
 const surname = signal("Doe");
 
@@ -132,7 +137,7 @@ const fullName = computed(() => `${name} ${surname}`);
 
 **Note:** signal values in R-value expressions can be used just by names of signal variables, like the last statement above. It is an equivalent of 
 
-```JavaScript
+```js
 const fullName = computed(() => `${name.value} ${surname.value}`);
 ```
 
@@ -146,7 +151,7 @@ The `effect()` function returns Signal instance that you can use to `.dispose()`
 
 Creates new signal object with the given argument as its initial value. The signal is associated with the element and have lifespan of that element.
 It can be used for example in functional components:
-```HTML
+```html
 <html>
     <head>
         <title>Counter</title>

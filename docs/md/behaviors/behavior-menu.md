@@ -82,14 +82,14 @@ N/A
 
 ## Menu item clicks handling in script
 
-```JavaScript
+```js
 var menuitem = document.$("menu#some>li:first-child");
 menuitem.onclick = function(evt) { ... }
 ```
 
 ### `on()` subscription
 
-```JavaScript
+```js
 document.on("click", "menu#some > li.file-open", function(evt) { 
   // 'this' here is that li#file-open item  
 });

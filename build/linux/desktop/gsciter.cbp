@@ -1,9 +1,10 @@
-﻿<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
 		<Option title="gsciter" />
 		<Option pch_mode="2" />
+		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug|x64">
 				<Option output="../../../bin/linux/x64/gsciter" prefix_auto="0" extension_auto="0" />
@@ -11,8 +12,6 @@
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-m64" />
-					<Add option="-g" />
 					<Add option="-m64" />
 					<Add option="-g" />
 					<Add option="-std=c++17" />
@@ -47,9 +46,6 @@
 					<Add option="-m64" />
 					<Add option="-flto" />
 					<Add option="-Os" />
-					<Add option="-m64" />
-					<Add option="-flto" />
-					<Add option="-Os" />
 					<Add option="-std=c++17" />
 					<Add option="-DDEVICE=DESKTOP" />
 					<Add option="-D_GNU_SOURCE" />
@@ -81,7 +77,6 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add option="-g" />
 					<Add option="-std=c++17" />
 					<Add option="-DDEVICE=DESKTOP" />
 					<Add option="-D_GNU_SOURCE" />
@@ -110,8 +105,6 @@
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-flto" />
-					<Add option="-Os" />
 					<Add option="-flto" />
 					<Add option="-Os" />
 					<Add option="-std=c++17" />
@@ -144,7 +137,6 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add option="-g" />
 					<Add option="-std=c++17" />
 					<Add option="-DDEVICE=DESKTOP" />
 					<Add option="-D_GNU_SOURCE" />
@@ -175,8 +167,6 @@
 				<Compiler>
 					<Add option="-flto" />
 					<Add option="-Os" />
-					<Add option="-flto" />
-					<Add option="-Os" />
 					<Add option="-std=c++17" />
 					<Add option="-DDEVICE=DESKTOP" />
 					<Add option="-D_GNU_SOURCE" />
@@ -201,21 +191,8 @@
 				</Linker>
 			</Target>
 		</Build>
-		<Unit filename="../../../demos/gsciter/gsciter.cpp">
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|arm64" />
-			<Option target="Debug|arm64" />
-			<Option target="Debug|x64" />
-			<Option target="Release|x64" />
-		</Unit>
-		<Unit filename="../../../include/sciter-gtk-main.cpp">
-			<Option target="Debug|arm32" />
-			<Option target="Release|arm32" />
-			<Option target="Release|arm64" />
-			<Option target="Debug|arm64" />
-			<Option target="Debug|x64" />
-			<Option target="Release|x64" />
-		</Unit>
+		<Unit filename="../../../demos/gsciter/gsciter.cpp" />
+		<Unit filename="../../../include/sciter-gtk-main.cpp" />
+		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

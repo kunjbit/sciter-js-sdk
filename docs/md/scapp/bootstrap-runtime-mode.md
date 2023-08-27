@@ -6,7 +6,7 @@ Main purpose of bootstrap JS code is to configure and run some preparation code 
 
 Here is content of typical run.js code:
 
-```JavaScript
+```js
 
 import * as env from "@env";
 import * as sys from "@sys";

@@ -51,7 +51,7 @@ N/A
 
 ### `on()` subscription
 
-```JavaScript
+```js
 document.on("click", "li#file-open", function(evt) {
   // 'this' here is that li#file-open item
 });

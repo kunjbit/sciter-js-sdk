@@ -1,4 +1,11 @@
-## Introduction
+---
+sidebar_position: 1
+title: Introduction
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
+
+# Introduction
 
 This module provides built-in data persistence - data storage and retrieval.
 
@@ -18,7 +25,9 @@ To create or open existing database you will use ```Storage.open(path)``` method
 
 ```storage.root``` property is a reference to stored root object (or array).
 
-> **All objects accessible from (contained in) the ```storage.root``` object are automatically persistent – stored in the DB.**
+:::note
+All objects accessible from (contained in) the `storage.root` object are automatically persistent – stored in the DB.
+:::
 
 As simple as that. ```storage.root``` is ordinary script object that can be used by standard script means to access and/or modify data in storage.
 
@@ -28,7 +37,7 @@ When you will make any change in any object or collection under that root object
 
 Idiomatic code to open or create database looks like this:
 
-```JavaScript
+```js
 import * as Storage from "storage"; // or "@storage" if Sciter.JS
 
 var storage = Storage.open("path/to/data/file.db");
@@ -37,7 +46,7 @@ var root = storage.root || initDb(storage); // get root data object or initializ
 
 where ```initDb(storage)``` is called only when storage was just created and so is empty – its root is null in this case. That function may look like as:
 
-```JavaScript
+```js
 function initDb(storage) {
   storage.root = { 
      version: 1, // integer property ("integer field" in DB terms)
@@ -53,7 +62,7 @@ function initDb(storage) {
 
 Having the ```root``` variable containing persistent root object, we can access and populate the data in it as we normally do – no other special mechanism is required:
 
-```JavaScript
+```js
 // printout elements of root.children collection (array)
 let root = storage.root;
 for( let child of root.children ) 
@@ -62,7 +71,7 @@ for( let child of root.children )
 
 In the same way, to populate the data in storage we use standard JavaScript means:
 
-```JavaScript
+```js
 var collection = root.children; // plain JS array
   collection.push( { name: "Mikky", age: 7 } ); // calling Array's method push() to add 
   collection.push( { name: "Olly", age: 6 } );  // objects to the collection
@@ -83,7 +92,9 @@ These collections allow to organize data in various ways but sometimes these are
 
 To support such use cases the module introduces Index objects.
 
-> **Index is a keyed persistent collection that can be assigned to properties of other persistent objects or placed into arrays. Indexes provide effective access and ordering of potentially large data sets.**
+:::tip
+Index is a keyed persistent collection that can be assigned to properties of other persistent objects or placed into arrays. Indexes provide effective access and ordering of potentially large data sets.
+:::
 
 Indexes support string, integer, long (BigInt), float and date keys and contain objects as index elements (a.k.a. records).
 
@@ -100,7 +111,7 @@ Indexes are created by ```storage.createIndex(type[,unique]) : Index``` method, 
 
 To open storage database we can reuse code above, but storage initialization routine will look different this time:
 
-```JavaScript
+```js
 function initNotesDb(storage) { 
   storage.root = { 
     version: 1, 
@@ -115,7 +126,7 @@ As you see the storage contains two indexes: one will list notes by their date o
 
 Having such setup, adding notes to DB is trivial:
 
-```JavaScript
+```js
 function addNote(storage, noteText) {
   var note = {
     id   : UUID.create(), // generate UID  
@@ -134,7 +145,7 @@ We use here ```index.set(key,value)``` method to add items.
 
 Getting elements of unique indexes is trivial – we use ```index.get(key)``` method similar to methods of standard Map or Set collections:
 
-```JavaScript
+```js
 function getNoteById(noteId) {
   return storage.root.notesById.get(noteId); // returns the note or undefined 
 }
@@ -142,7 +153,7 @@ function getNoteById(noteId) {
 
 To get items from non-unique indexes we need pair of keys to get items in range between keys by using ```index.select()``` method:
 
-```JavaScript
+```js
 function getTodayNotes() {
   let now = new Date();
   let yesterday = new Date(now.year,now.month,now.day-1);
@@ -158,7 +169,7 @@ function getTodayNotes() {
 So far we were dealing with plain objects and arrays, but the Storage allows to store objects of custom classes too. This can be useful if your data objects have specific methods. Let’s refactor our notes storage to use it in OOP way:
 
 
-```JavaScript
+```js
 // module NotesDB.js 
 
 import * as Storage from "storage"; // or "@storage" if Sciter.JS
@@ -200,7 +211,7 @@ Technical details: while storing objects of customs classes, the Storage will st
 
 That particular application uses Sciter/TIScript but principles are the same. You can see it’s [database handling routines on GitHub](https://github.com/c-smile/sciter-sdk/tree/master/notes/res/db), in particular its DB initialization may look in JS as:
 
-```JavaScript
+```js
 //|
 //| open database and initialize it if needed
 //|

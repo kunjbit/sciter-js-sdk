@@ -8,7 +8,7 @@ Click on `<summary>` or `<caption>` element causes switch between `:collapsed` a
 
 By default the behavior is applied to standard HTML5 `<details>` element:
 
-```HTML
+```html
 <details>
     <summary>Details</summary>
     Something small enough to escape casual notice.
@@ -26,7 +26,7 @@ li:expanded > p { visibility:visible; }
 ```
 and HTML:
 
-```HTML
+```html
 <li>
    <caption>Summary</caption>
    <p>Details</p>

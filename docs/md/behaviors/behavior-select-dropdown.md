@@ -84,7 +84,7 @@ Other than standard properties of DOM elements the select also supports:
    
    Use it to populate options at runtime: 
 
-   ```JS
+   ```js
    const el = document.$("select");
    el.select.options.append(<option value="a">A</option>);
    el.select.options.append(<option value="b">B</option>);
@@ -100,14 +100,14 @@ any, read/write. value of selected option. Value of the option is its value attr
 
 ### raw `onchange` handler
 
-```JavaScript
+```js
 var sel = document.$("select#some");
 sel.onchange = function() { var v = this.value; ... }
 ```
 
 ### `on()` subscription
 
-```JavaScript
+```js
 var sel = document.$("select#some");
 sel.on("change", function() { ... event handling code ... });
 document.on("change", "select#some", function() { ... event handling code ... });

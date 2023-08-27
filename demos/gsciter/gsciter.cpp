@@ -32,7 +32,7 @@ public:
 
 int uimain(std::function<int()> run ) {
 
-  //SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_GPU);
+  SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_GPU);
   //SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_RASTER);
   //SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_VULKAN);
   //SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_OPENGL);

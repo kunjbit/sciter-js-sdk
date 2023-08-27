@@ -1,6 +1,13 @@
-## Defining Default Style of a Component
+---
+sidebar_position: 5
+title: Styles, Events and Mounting points
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
 
-### By external CSS file
+# Defining Default Style of a Component
+
+## By external CSS file
 
 Normally you define styles globally in your application. But some components may require some styling (e.g. particular layout) that is critical for their operation.
 
@@ -10,7 +17,7 @@ Reactor (Sciter's internal code in fact) offers simple way to define component s
 Let's redefine our `Clock` class that we used earlier :
 
 
-```JavaScript
+```js
 class Clock extends Element 
 {
   time = new Date(); // setting initial state 
@@ -55,11 +62,11 @@ General consideration: if component is designed to be used in many applications 
 
 Note that style sets in Sciter are not polluting global list of style rules and so are very effective - reduce time needed for style resolution of DOM elements.
 
-### By embedded CSS style set declaration
+## By embedded CSS style set declaration
 
 Instead of declaring component styles in separate CSS file we can declare styles in the same JS file using `CSS.set` constructor.
 
-```JavaScript
+```js
 const clockStyles = CSS.set` 
   :root {
     display: block;
@@ -95,7 +102,7 @@ In contrast with ReactJS Sciter does not require any special constructs for hand
 
 Sample of small component that encapsulates search block enclosing `<input>` and `<button>` in one entity:
 
-```JavaScript
+```js
 class Search extends Element {
 
   render() {
@@ -125,7 +132,7 @@ Word about event handling functions like `["on change at input"](evt,input)` abo
 
 That format is a standard JS/ES2020 way of defining functions with [computable names](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Method_definitions#computed_property_names) or names that include namespaces. It is just in Sciter event handlers are using this form to describe event handling functions that have the following signatures:    
 
-```JavaScript
+```js
 ["on eventname"](event) {}
 ["on eventname at selector"](event, selectorElement) {}
 ```
@@ -145,7 +152,7 @@ Reactor Components are executable entities even if they look as HTML.
 
 Normally in ReactJS you see JSX code only inside `<script>` sections and JS code files like here:
 
-```JavaScript
+```js
 function App() {
   return
     <main>
@@ -162,7 +169,7 @@ While this works in general it may look non-natural or inconvenient to someone.
 
 Alternatively Sciter offers special `<reactor>` HTML element as a mounting point:
 
-```XML
+```html
 <body>
    <p>Test of Tabs component.</p>
       
@@ -182,7 +189,7 @@ The `<reactor>` element expects two attributes:
 
 Please note that, while it looks like HTML, content between `<reactor>` and `</reactor>` is parsed by script rules (JSX in this case). Essentially you may think as the whole `<reactor>` section is just `<script>` element (pseudo code):
 
-```XML
+```html
 <body>
    <p>Test of <Tabs> component.</p>
       
@@ -197,9 +204,9 @@ Please note that, while it looks like HTML, content between `<reactor>` and `</r
 
 The only major difference of the `<reactor>`: it is a placeholder element - as soon as component gets instantiated it **replaces** the `<reactor>` DOM element. Therefore final DOM after `<reactor>`'s *execution* will look like:
 
-```XML
+```html
 <body>
-   <p>Test of &lt;Tabs> component.</p>
+   <p>Test of <tabs> component.</p>
       
    <tabs>
      <tab name="first" label="First tab">First tab content</tab>

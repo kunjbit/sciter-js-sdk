@@ -47,7 +47,7 @@ string, reflects current status of internal editing buffer.
 
 Note: API of plaintext is accessible on element by using *.textarea.* interface modifier:
 
-```JavaScript
+```js
 const editor = document.$("textarea#editor");
 editor.textarea.insertText("foo");
 ```

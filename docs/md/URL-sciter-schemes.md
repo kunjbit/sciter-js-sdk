@@ -1,3 +1,10 @@
+---
+sidebar_position: 9
+title: URL Schemes
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
+
 # URL Schemes supported by Sciter
 
 ## Common URL schemes:
@@ -21,7 +28,7 @@ Access to local file system. Sciter uses direct reading from FS using memory map
 Access to files in local file system relative to location in FS of running sciter.dll/.so or application executable if Sciter is linked statically.
 
 Example, getting local file placed in the same folder:
-```JS
+```js
 let res = await fetch("home://config.json");
 ```
 

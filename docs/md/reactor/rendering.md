@@ -1,10 +1,18 @@
-Note: this document is written intentionally close to [ReactJS/Rendering-Elements](https://reactjs.org/docs/rendering-elements.html) article to highlight differences and similarities with ReactJS.
+---
+sidebar_position: 2
+title: Rendering
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
+:::note
+this document is written intentionally close to [ReactJS/Rendering-Elements](https://reactjs.org/docs/rendering-elements.html) article to highlight differences and similarities with ReactJS.
+:::
 
 ## Rendering Elements
 
 Reactor's virtual DOM element is a definition of real DOM element. At some point real DOM element will be created using virtual one as a prototype.
 
-```JavaScript
+```js
 const velement = <h1>Hello, world</h1>;
 ```
 
@@ -24,20 +32,20 @@ Applications that use Reactor may have as a single root DOM node as many isolate
 
 To render a Reactor element into a root DOM node, call `element.patch(velement)` method:
 
-```JavaScript
+```js
 const velement = <div id="root"><h1>Hello, world</h1></div>;
 document.$("div#root").patch(velement);
 ```
 
 That above will display "Hello, world" text inside that `<h1>` element.
 
-## Updating the Rendered Element
+## Updating the Rendered Element {#updating-rendered-element}
 
 To update already rendered element we simply call `element.patch(velement)` again on it with changed velement. The `element.patch()` native function will patch that existing DOM element by new velement definition.
 
 Consider this ticking clock example:
 
-```JavaScript
+```js
 function tick() {
   const velement = <div id="root">
       <h1>Hello, world!</h1>
@@ -50,7 +58,7 @@ function tick() {
 setInterval(tick,1000);
 ```
 
-Code above will call `tick()` function every second. And the tick will update the <div> element.
+Code above will call `tick()` function every second. And the tick will update the `<div>` element.
 
 ## Element.patch() only updates what is necessary
 

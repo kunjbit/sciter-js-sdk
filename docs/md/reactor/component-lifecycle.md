@@ -1,3 +1,11 @@
+---
+sidebar_position: 8
+title: Components Lifecycle, details
+toc_min_heading_level: 2
+toc_max_heading_level: 5
+---
+
+# Components Lifecycle, details
 
 ## Overview
 
@@ -5,7 +13,7 @@ Sciter's Reactor allows you define components as classes or functions. Function 
 
 To define a Reactor component class, you need to extend `Element` DOM element class:
 
-```JavaScipt
+```js
 class Welcome extends Element {
   name = "World";
   render() {
@@ -14,9 +22,9 @@ class Welcome extends Element {
 }
 ```
 
-> Note:
-  
-  Sciter's Reactor is different from ReactJS in this respect. In ReactJS React.Component is not associated directly with real DOM element, but in Reactor `this` in component methods, after mounting, refers to real DOM element. 
+:::note
+Sciter's Reactor is different from ReactJS in this respect. In ReactJS React.Component is not associated directly with real DOM element, but in Reactor `this` in component methods, after mounting, refers to real DOM element. 
+:::
 
 The only method you *must* define in class components is `render()`. All the other methods of a component are optional.
 
@@ -49,9 +57,9 @@ An update of already mounted component can be caused by eiter `render()` call of
 
 When you call `this.componentUpdate({... properties ...})`, if any of requested properties were changed, the runtime will call `render()` to re-render the component and `componentDidUpdate()` after it.  
 
-> Note:
-  
-  In case of `componentUpdate()` the `render()` is called without `props` and `kids` arguments as Reactor is not storing props/kids anywhere. If needed, you can store props and/or kids in `this(props,kids)` method.
+:::note
+In case of `componentUpdate()` the `render()` is called without `props` and `kids` arguments as Reactor is not storing props/kids anywhere. If needed, you can store props and/or kids in `this(props,kids)` method.
+:::
 
 ### Unmounting
 
@@ -59,14 +67,14 @@ This method is called when a component is being removed from the DOM:
 
 * [**`componentWillUnmount()`**](#componentwillunmount)
 
-### Lifecycle Methods in detail
+### Lifecycle methods in detail
 
-### `render([props,kids])`
+#### render()
 
-```JavaScript
+```js
 
 class Comp extends Element {
-    render() {
+    render(props,kids) {
       return <div>sample</div>;
     }
 ```
@@ -77,14 +85,13 @@ When called, it shall return  **React element** typically created via [JSX](JSX.
 
 If you need to interact with the browser, perform your work in `componentDidMount()` or the other lifecycle methods instead. Keeping `render()` pure makes components easier to think about.
 
-> Note
-  
-  `render()` can be called as on initial creation of the element (before creation of real DOM element) as on live DOM element (update of existing DOM element). To distinguish these two cases you can use  
+:::note
+`render()` can be called as on initial creation of the element (before creation of real DOM element) as on live DOM element (update of existing DOM element). To distinguish these two cases you can use  
+:::
 
+#### constructor()
 
-### <a name="constructor"></a>`constructor(props,kids)`
-
-```JavaScript
+```js
 class Comp extends Element {
     constructor(props,kids) { super(); ...}
 }
@@ -94,9 +101,9 @@ class Comp extends Element {
 
 The constructor for a Reactor component is called before any other methods. When implementing the constructor for a Reactor component, you should call `super()` before any other statement - this is a JavaScript requirement for derived classes. 
 
-### <a name="this"></a>`this(props,kids)`
+#### this()
 
-```JavaScript
+```js
 class Comp extends Element {
     this(props,kids) { ... }
 }
@@ -106,28 +113,28 @@ The `this(props,kids)` method is called by Reactor runtime in two cases: on init
 
 Method `this()` is used to process passed properties and kids content uniformely.
 
-```JavaScript
+```js
 this(props,kids) {
   super.this(props,kids); // call of this() in superclass.
   ...
 }
 ```
 
-### <a name="componentDidMount"></a>`componentDidMount()`
+#### componentDidMount()
 
-```JavaScript
+```js
 class Comp extends Element {
     componentDidMount() { ... }
 }
 ```
 
-`componentDidMount()` is invoked immediately after a component is mounted (inserted into the tree). Initialization that requires DOM nodes should go here. If you need to load data from a remote endpoint, this is a good place to instantiate the network request.
+`componentDidMount()` is invoked after a component is mounted (inserted into the tree). Initialization that requires DOM nodes should go here. If you need to load data from a remote endpoint, this is a good place to instantiate the network request.
 
 This method is a good place to set up any subscriptions. If you do that, don’t forget to unsubscribe in `componentWillUnmount()`.
 
-### <a name="componentWillUnmount"></a>`componentWillUnmount()`
+#### componentWillUnmount
 
-```JavaScript
+```js
 class Comp extends Element {
   componentWillUnmount() { ... }
 }
@@ -135,9 +142,9 @@ class Comp extends Element {
 
 `componentWillUnmount()` is invoked immediately before a component is unmounted and destroyed. Perform any necessary cleanup in this method.
 
-### <a name="componentDidUpdate"></a>`componentDidUpdate()`
+#### componentDidUpdate()
 
-```JavaScript
+```js
 class Comp extends Element {
     componentDidUpdate() { ... }
 }
