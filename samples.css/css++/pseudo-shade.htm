@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+div { 
+  size: 200px; 
+  border:3px solid red;
+  padding:30px;
+}
+div::shade { 
+  size:*; /* spans whole padding-box */
+  background: gold;
+  z-index:1; /* on top of content layer */
+  prototype: Shade;
+  padding:1em;
+}
+
+        </style>
+        <script>
+
+class Shade extends Element {
+  componentDidMount() {
+    this.content(<>
+       <p>Shadow DOM here!</p>
+       <button|checkbox>Cool, isn't it?</button>
+    </>);
+  }
+}
+
+        </script>
+    </head>
+    <body>
+
+This DIV has shadow DOM
+
+<div />
+
+    </body>
+</html>

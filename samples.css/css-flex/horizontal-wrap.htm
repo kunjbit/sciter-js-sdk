@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+section {
+    flow:horizontal-wrap;
+    border:1px solid;
+    height:*;
+    border-spacing:2px;
+    padding:2px;
+    overflow-y:scroll-indicator;  
+}
+
+section > p {
+    width:100px;
+    margin:0;
+    border:1px solid;
+    box-sizing: border-box;
+    background:gold;
+}
+
+//section > p:nth-child(3n) {
+//    clear:after;
+//}
+
+        </style>
+
+        <script>
+
+function Section() {
+  const list = [];
+  for(let i = 0; i < 200; ++i)    
+    list.push(<p>item {i}</p>);
+  return <section>{list}</section>;
+}
+
+document.body.content(
+  <>
+    <h2>Horizontal flow</h2>
+    <Section/>
+  </>
+);
+
+        </script>
+        
+    </head>
+    <body>
+    </body>
+</html>

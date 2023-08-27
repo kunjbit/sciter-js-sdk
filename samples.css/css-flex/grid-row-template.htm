@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+form {
+  /* first column - only <label>
+     second column - either <input> or <select>*/
+  flow:row(label, input select); 
+  flow-columns: max-content *;
+  border-spacing: 1em 0.5em; /* inter cell spacing */
+}
+
+label {
+    text-align:right;
+}
+
+label::after {
+    content: " :";
+}
+
+dl {
+  flow:row(dt, dd); 
+  flow-columns: max-content *;
+}
+
+dl > dt { font-weight: bold; }
+
+dl > dd {
+  margin-left:1em; /* inter column spacing */
+  padding:0;
+}
+
+dl > header {
+  background:#ddd;
+  padding: 0.5em 1em;
+}
+
+        </style>
+    </head>
+    <body>
+
+<h2>flow:row() with variants</h2>
+
+<form>
+  <label>first name</label> 
+    <input|text(first-name) />
+  <label>second name</label> 
+    <input|text(second-name) />
+  <label>gender</label> 
+    <select(gender) novalue="{sex}">
+      <option>male</option>
+      <option>female</option>
+      <option>liberal</option>
+    </select>
+</form>
+
+<h2>flow:row() with non-templated elements</h2>
+
+<dl>
+  <header>First header (spans both columns)</header>
+  <dt>Lorem</dt>
+  <dd>ipsum dolor sit amet, consectetur adipiscing elit, 
+      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</dd>
+  <dt>Ut enim</dt>
+  <dd>ad minim veniam, quis nostrud exercitation ullamco laboris 
+      nisi ut aliquip ex ea commodo consequat.</dd>
+  <header>Second header (spans both columns)</header>      
+  <dt>Duis aute</dt>
+  <dd>irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</dd>
+  <dt>Excepteur</dt>
+  <dd>sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</dd>
+</dl>
+
+
+    </body>
+</html>

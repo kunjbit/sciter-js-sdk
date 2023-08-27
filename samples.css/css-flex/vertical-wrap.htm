@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+section {
+    flow:vertical-wrap;
+    border:1px solid;
+    height:*;
+    border-spacing:2px;
+    padding:2px;
+}
+
+section > p {
+    width:100px;
+    margin:0;
+    border:1px solid;
+    box-sizing: border-box;
+    background:gold;
+}
+
+section.one {
+  overflow-y:scroll-indicator;  
+}
+
+section.two {
+  overflow-x:scroll-indicator;  
+}
+
+//section > p:nth-child(3n) {
+//    clear:after;
+//}
+
+        </style>
+
+        <script>
+
+function Section() {
+  const list = [];
+  for(let i = 0; i < 200; ++i)    
+    list.push(<p>item {i}</p>);
+  return <section>{list}</section>;
+}
+
+document.body.content(
+  <>
+    <h2>vertical scroll: items grow to the bottom</h2>
+    <Section.one/>
+    <h2>horizontal scroll: items grow to the right</h2>
+    <Section.two/>
+  </>
+);
+
+        </script>
+        
+    </head>
+    <body>
+    </body>
+</html>
