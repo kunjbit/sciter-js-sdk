@@ -24,6 +24,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
   UNREFERENCED_PARAMETER(nCmdShow);
 
 //  SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_GDI);
+//  SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_RASTER);
 
 #if defined(MANUAL_LOOP)
   OleInitialize(0); // for system drag-n-drop

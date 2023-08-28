@@ -13,8 +13,6 @@ To get reference to style collection use `element.style` property.
 
 ## properties:
 
-### get/set CSS property
-
 To get/set a property use either camelCase notation as: 
 
 ```js
@@ -26,10 +24,6 @@ or the "hyphen-case" form:
 ```js
 var bgColor = element.style["background-color"];
 ```
-
-### cssText
-
-The cssText property returns or sets the text of the element's inline style declaration only.
 
 ## methods:
 
@@ -45,18 +39,8 @@ returns a string containing the value of a specified CSS property.
 ```js
 element.style.setProperty(name, value [,important])
 ```
+
 sets a new value for a CSS property.
-
-
-### set()
-```js
-element.style.set({ prop1:value1 [, ... prop2:value2] })
-```
-sets multiple style properties at once.
-
-:::info
-Sciter specific feature - updates style properties in transactional manner.
-:::
 
 ### removeProperty()
 
@@ -112,4 +96,3 @@ Otherwise sets CSS variable on the element.
 element.style.setCursor(null | image, hotspotX, hotspotY)
 ```
 sets/resets element's cursor by the image and hotspot coordinates.
-

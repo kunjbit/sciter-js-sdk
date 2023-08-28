@@ -1,3 +1,12 @@
+## 5.0.2.20
+
+### Fixes:
+
+* [layout] fix of whitspace handling after `<br>`
+* [linux/cairo] fix of Graphics.fillRect();
+* `<select editable>` handling fix;
+* [gtk] new Window() / OpenGL fix;
+
 ## 5.0.2.19
 
 ### Fixes:
