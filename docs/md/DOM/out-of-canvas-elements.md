@@ -126,10 +126,10 @@ popup positioning can be defined in CSS by [popup-position](../CSS/properties#po
 
 ### Popup life-cycle events
 
-* "popuprequest" - evt.source is the popup element that is about to be shown, sent to popup anchor/owner element.
-* "popupready" - evt.source is the popup element when it is shown. 
-* "popupdismissing" - evt.target is the popup element, sent to the popup before its destruction.
-* "popupdismissed" - evt.target is the popup owner element, sent after the popup destruction.
+* "popup-request" - evt.source is the popup element that is about to be shown, sent to popup anchor/owner element.
+* "popup-ready" - evt.source is the popup element when it is shown. 
+* "popup-dismissing" - evt.target is the popup element, sent to the popup before its destruction.
+* "popup-dismissed" - evt.target is the popup owner element, sent after the popup destruction.
 
 ## Airborn elements
 

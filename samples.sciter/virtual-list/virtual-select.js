@@ -127,8 +127,7 @@ export class VirtualList extends Element {
     }
 
     oncontentrequired(evt) {
-        let {length, start, where} = evt.data;
-        if (start < 0) start = 0;
+        const {length, start, where} = evt.data;
         if (where > 0) evt.data = this.appendElements(start, length); // scrolling down, need to append more elements
         else if (where < 0) evt.data = this.prependElements(start, length); // scrolling up, need to prepend more elements
         else evt.data = this.replaceElements(start, length); // scrolling to index

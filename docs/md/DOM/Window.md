@@ -258,6 +258,7 @@ returns string - folder URL;
 ```js
 window.mediaVar(varname[,value])
 ```
+
 gets/sets media variable that can be used in CSS as `@media varname {...}`
 
 ### mediaVars()
@@ -265,7 +266,9 @@ gets/sets media variable that can be used in CSS as `@media varname {...}`
 ```js
 window.mediaVars([values:object])
 ```
+
 gets/sets multiple media variables at once. 
+
 ---
 
 ### addEventHandler()

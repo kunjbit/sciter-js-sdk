@@ -1,3 +1,19 @@
+## 5.0.2.21
+
+### Fixes:
+
+* [Graphics] regression fixes.
+* [JS] GC issue, forcing `Window.share = null` at main window closure.
+* [gtk/cairo] fix of font metrics calculation;
+* [virtual-list] fix;
+* [select|dropdown] @set inheritance fix;
+* [css] fix of AV in _appearance_ property inheritance;
+* [i18n] `Intl.DateTimeFormat()` implementation;
+
+### New:
+
+* alternative event names, see [Known Events](https://docs.sciter.com/docs/DOM/Event#known-events).
+
 ## 5.0.2.20
 
 ### Fixes:

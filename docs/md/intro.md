@@ -13,6 +13,22 @@ While some efforts are made it to be compatible with W3C browser runtime and ren
    - is [desktop window](DOM/Window) centric;
    - supports ability to render DOM elements as ["airborns"](DOM/out-of-canvas-elements) - in separate desktop windows;
   
+## HTML
+
+* [Extended set of input elements](HTML/html-inputs);
+* `<frame>` can appear at any place where block elements are allowed;
+* `<frame type=pager>` –  print and print preview frame;
+* `<frameset>` can appear anywhere as a split container. It can also contain explicit `<splitter>` elements that can be styled to match your design. `<frameset>` may contain not only frame elements but other block containers like `<div>`, `<section>`, etc.
+* Elements with custom tags are fully supported. If, for example, you feel that `<toolbar>` looks better then `<div class="toolbar">` you can use `<toolbar>` tag. The only thing that you will need to do is to define style for it: toolbar `{display:block; flow:horizontal; }` in your CSS.
+* Real menus and popup elements:
+   * `<menu class=popup>` – popup menu that is normal DOM element but gets rendered in separate popup window so can appear outside of host window;
+   * `<menu class=context>` – popup context menu that can be attached to a DOM element by Sciter specific context-menu CSS property;
+   * `<popup>` – generic popup element rendered in special popup window. Popup elements can be shown by [Element.popup()](DOM/Element#popup) function in script;
+* [HTML shortcuts](HTML#syntaxshortcuts) –  instead of typing `<div id="component" class="super">` you can just write `<div#component.super>`;
+* [HTML Windows](HTML/html-window) – desktop windows defined by HTML.
+* [HTML `<include>`](HTML/html-include) – assemble final HTML from HTML fragments.
+* [Built-in set of HTML tags](HTML/html-elements).
+
 ## CSS
 
 CSS 2.1 is implemented in full.
@@ -35,12 +51,16 @@ CSS 3 implementation is limited by selected modules that are practical in deskto
 
 Alternatives:
 
-* `display:flexbox` is not supported but Sciter provides flow/flex (TBD) alternative.
-* `display:grid` is not supported but `flow:grid()` and flex units provide reasonable alternative.
+* [flow/flex](CSS/flows-and-flexes) as an alternative to `display:flexbox`.
+* [`flow:grid()`](CSS/flows-and-flexes#flowgrid) and flex units provide reasonable alternative to `display:grid`.
 
 Sciter specific:
 
-* style sets - `@set name { ...rules... }`
+* [Style sets](CSS/style-sets) - `@set name { ...rules... }`
+* [CSS constants and mixins](CSS/media-const-mixin)
+* [context-menu: selector(...)](CSS/properties#contextmenu) property – allows to define `<menu class=context>`  to be used as a context menu for other element(s).
+* [@image-map](CSS/image-map) - ergonomic CSS sprites.
+* [Scripting behaviors and aspects](CSS/behaviors-and-aspects) – declarative script code assignment (binding) by CSS.
 
 For more details see [CSS](CSS) section.
 
@@ -54,5 +74,3 @@ The language and its runtime was updated for better serving "language-behind-UI"
 * Built-in [JSX](Reactor/JSX) support with native compiler; 
 * Built-in persistent [Storage](Storage) - NoSQL database available out of the box; 
 * Built-in susbset of NodeJS runtime in [@sys module](JS.runtime/module-sys);
-
-

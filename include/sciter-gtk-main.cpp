@@ -21,7 +21,7 @@ int main (int argc, char *argv[])
 {
   for(int n = 0; n < argc; ++n)
     _argv.push_back(utf2w(chars_of(argv[n])));
-  //SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_GPU);
+  //SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_CAIRO);
   sciter::application::start();
   int r = uimain([]() -> int { return sciter::application::run(); });
   sciter::application::shutdown();

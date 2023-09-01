@@ -5,7 +5,9 @@ sidebar_position: 4
 
 # JavaScript
 
-JavaScript in Sciter is a superset of ES2020 specification. Here is list of extra features added:
+JavaScript in Sciter is a superset of [ES2020](https://mbeaudru.github.io/modern-js-cheatsheet/) specification. 
+
+Here is the list of extra features added to JS core by Sciter:
 
 ## Predefined constants:
 

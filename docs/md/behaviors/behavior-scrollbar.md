@@ -36,7 +36,10 @@ integer, reflects position of slider, integer in range \[min ... max\].
 
 Along with the standard set of events (mouse, keyboard, focus) *behavior: scrollbar* generates:
 
-* `"scroll"`
+### Primary events
+
+These are clicks on scrollbar parts, non-bubbling events:
+
 * `"scroll-step-plus"`
 * `"scroll-step-minus"`
 * `"scroll-page-plus"`
@@ -44,4 +47,8 @@ Along with the standard set of events (mouse, keyboard, focus) *behavior: scrol
 * `"scroll-slider-press"`
 * `"scroll-slider-release"`
 
-Events are delivered to the element and are not bubbling up to its parents. Use `element.on("scroll",function(evt) {})` handler in script to handle scroll events.
+### Change event
+
+* `"change"` - bubbling event, generated in response of primary events and after the value changes.
+
+Events are delivered to the element and are not bubbling up to its parents. Use `element.on("scroll-step-plus",function(evt) {})` handler in script to handle scroll events.

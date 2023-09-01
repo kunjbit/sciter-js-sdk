@@ -7,9 +7,9 @@ toc_max_heading_level: 5
 
 # Window representation in HTML
 
-Sciter window always has some HTML loaded in it.
+Sciter window is a host of HTML document loaded in it.
 
-That HTML defines content of the window in full. Root `<html>` element of a window has special meaning - its `window-XXX` attributes define look and feel of the window.
+This HTML defines content of the window in full. Root `<html>` element of a window has special meaning - its `window-XXX` attributes define look and feel of the window.
 
 ## Window Root Attributes
 

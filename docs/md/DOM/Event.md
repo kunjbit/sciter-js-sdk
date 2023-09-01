@@ -87,207 +87,221 @@ toc_max_heading_level: 5
 
 ### Mouse
 
-* `mousemove`
-* `mouseenter`
-* `mouseleave`
-* `mouseidle` - mouse stays not moving in the element, the event triggers tooltip show.
-* `mousetick` - mouse is pressed for some time in element, periodic event
-* `mousedown`
-* `mouseup`
-* `mousewheel`
-* `mousedragrequest`
-* `dblclick` | `doubleclick`
-* `tripleclick`
+| name | alt name | description |
+| ---- | -------- | ----------- |
+| **mousemove**   | **mouse-move** |
+| **mouseenter**  | **mouse-enter** |
+| **mouseleave**  | **mouse-leave** |
+| **mouseidle**   | **mouse-idle** | mouse stays not moving in the element, the event triggers tooltip show.
+| **mousetick**   | **mouse-tick** | mouse is pressed for some time in element, periodic event
+| **mousedown**   | **mouse-down** | 
+| **mouseup**     | **mouse-up** |
+| **wheel**       | **mouse-wheel** |
+| **mousedragrequest** | **mouse-drag-request** | pressed mouse starts moving after system defined threshold 
+| **dblclick**    | **double-click** | 
+| **tripleclick** | **triple-click** |
 
 ### Behaviors
 
-* `click`
-* `input` - posted event, arrived after user changes something.
-* `change` - synchronous event, arrived on user's change and before screen update.
-* `press` 
-* `changing` 
-* `submit` 
-* `reset`  
-* `expand`  
-* `collapse`  
-* `statechange` 
-* `visualstatechange` - element become visible or invisible, for example due to `visibility` value change.
-* `currentstatchange` - `:current` state change (select,menu).
-* `disabledstatechange` 
-* `readonlystatechange` 
-
-* `navigation` 
-  
-  The event is generated in response of click on a hyperlink.  `event.data` is an object `{ url:string, target:string }`. 
-  Consuming this event in sinking phase will prevent default loading of target document into window or frame.
-
-* `contextmenu` - context menu request for the element
-* `contextmenusetup` - notification to setup context menu, context menu DO< element is event.source
-
-* `animationend`
-* `animationstart` 
-* `animationloop` 
-
-* `transitionend`
-* `transitionstart` 
-
-* `mediachange` 
-* `contentchange` 
-* `inputlangchange` 
-* `pastehtml` 
-* `pastetext` 
-* `pasteimage` 
-* `popuprequest`  
-* `popupready`    
-* `popupdismissing` 
-* `popupdismissed`  
-
-* `tooltiprequest` 
+| name | alt name | description |
+| ---- | -------- | ----------- |
+| **click** | | 
+| **press** | | mouse down on clickable element  
+| **input** | | posted event, arrived after user changes something.
+| **change** | | synchronous event, arrived on user's change and before screen update.
+| **changing**  | | before change, in text editors
+| **submit**  | | in `<form>`
+| **reset**  | | in `<form>`  
+| **expand**  | | notification that some element was expanded (opened), e.g. `option` in `<select|tree>` 
+| **collapse**  | | notification that some element was collapsed (closed), e.g. `option` in `<select|tree>`  
+| **statechange** | **state-change** | UI state change, e.g. caret was moved by the user, splitter moved in frameset, etc.
+| **currentstatechange** | **current-state-change** | **:current** state change (select,menu).
+| **disabledstatechange**  | **disabled-state-change** |
+| **readonlystatechange** | **readonly-state-change** |
+| **navigation** | The event is generated in response of click on a hyperlink.  `event.data` is an object `{ url:string, target:string }`. Consuming this event in sinking phase will prevent default loading of target document into window or frame.
+| **contextmenu** | **context-menu** | context menu request for the element
+| **contextmenusetup** | **context-menu-setup** | notification to setup context menu, context menu DO< element is event.source
+| **animationend** | **animation-end** |
+| **animationstart** | **animation-start** |
+| **animationloop** | **animation-loop** |
+| **transitionend** | **transition-end** |
+| **transitionstart** | **transition-start** |
+| **mediachange** | **media-change** | the event is sent to the window only when media variables have changed
+| **contentchange** | **content-change** | DOM change notification: elements added or removed, attrributes changed
+| **inputlangchange** | **input-lang-change** | user has switched input language
+| **pastehtml** | **paste-html** | is sent by [behavior:richtext](../behaviors/behavior-richtext) on paste of HTML from clipboard
+| **pastetext** | **paste-text** | is sent by [behavior:richtext](../behaviors/behavior-richtext) on paste of plain text from clipboard
+| **pasteimage** | **paste-image** | is sent by [behavior:richtext](../behaviors/behavior-richtext) on paste of image from clipboard
+| **popuprequest** | **popup-request** | see [popup life-cycle events](../DOM/out-of-canvas-elements#popuplifecycleevents)  
+| **popupready** | **popupready**  | see [popup life-cycle events](../DOM/out-of-canvas-elements#popuplifecycleevents)     
+| **popupdismissing** | **popup-dismissing** | see [popup life-cycle events](../DOM/out-of-canvas-elements#popuplifecycleevents)     
+| **popupdismissed** | **popup-dismissed** | see [popup life-cycle events](../DOM/out-of-canvas-elements#popuplifecycleevents)     
+| **tooltiprequest** | **tooltip-request** | see [popup life-cycle events](../DOM/out-of-canvas-elements#dynamictooltips)     
 
 ### Focus
 
-* `focusin`
-* `focusout` 
-* `focus` 
-* `blur` 
+| name | alt name | description |
+| ---- | -------- | ----------- |
+| **focusin** | **focus-in** | sent to a container when focus moves on a child inside it
+| **focusout** | **focus-out** | sent to a container when focus moves outside of it
+| **focus** | |
+| **blur**  | |
 
 ### Keyboard
 
-* `keydown`
-* `keyup`  
-* `keypress`
-* `compositionstart`
-* `compositionend`
+| name | alt name | description |
+| ---- | -------- | ----------- |
+| **keydown** | **key-down** | keyboard key pressed
+| **keyup**   | **key-up** | keyboard key depressed
+| **keypress** | **key-char** | keyboard key pressed and depressed, key code was translated to produce `event.char`
+| **compositionstart** | **composition-start** | IME composition started
+| **compositionend** | **composition-end** | IME composition ended
 
 ### Scroll
 
-* `scroll`
-* `scrollanimationstart` 
-* `scrollanimationend` 
-
-* `scrollstepplus` - clicks on scrollbar parts:
-* `scrollstepminus`
-* `scrollpageplus`
-* `scrollpageminus`
-* `scrollsliderpress`
-* `scrollsliderrelease`
+| name | alt name | description |
+| ---- | -------- | ----------- |
+| **scroll** | | is sent to scrollable element after its scroll position changed
+| **scrollanimationstart** | **scroll-animation-start**  | is sent to scrollable element on scroll animation start
+| **scrollanimationend** | **scroll-animation-end** | is sent to scrollable element on scroll animation end
+| **scrollstepplus** | **scroll-step-plus** | click on the part of a scrollbar 
+| **scrollstepminus** | **scroll-step-minus** | click on the part of a scrollbar 
+| **scrollpageplus** | **scroll-page-plus** | click on the part of a scrollbar 
+| **scrollpageminus** | **scroll-page-minus** | click on the part of a scrollbar 
+| **scrollsliderpress** | **scroll-slider-press** | scroll slider pressed
+| **scrollsliderrelease** | **scroll-slider-release** | scroll slider released
 
 ### Gestures
 
 Set of events coming from touch devices - touchpad/trackpad or touchscreen.
 
-* `gesture-start`
+
+| name | alt name | description |
+| ---- | -------- | ----------- |
+| **gesturestart** | **gesture-start** | see [Gesture Handling Initiation](#GestureHandlingInitiation)
+| **gestureend** | **gesture-end** | the event is sent after last touch contact is removed. 
+| **gesturepress** | **gesture-press** | the event is sent when the element is touched. For eaxample Android shows expanding circle animation on such event. 
+| **gesturepinch** | **gesture-pinch** | click|zoom|rotation gesture event. 
+| **gesturepan**   | **gesture-pan**   | pan (scroll) gesture event. 
+| **gestureswipe** | **gesture-swipe** | swipe (fast pan) gesture event. 
+
+#### Gesture Handling
+
+For element to receive gesture events it shall handle the **gesture-start** event. The event is sent when first touch contact is made. 
+
+Element that receives this event may call `element.state.wantsGestures(...)` method to define gestures it wants to receive.
   
-  the event is sent when first touch contact is made. 
+`element.state.wantsGestures(event1,event2,...)` accepts list of events of gestures the element wants to receive:
 
-  Element that receives that event may call `element.state.wantsGestures(...)` method to define gestures it want to receive.
-  
-  `element.state.wantsGestures(event1,event2,...)` accepts list of events of gestures the element wants to receive:
++ `"pan-vertical"` - vertical scroll
++ `"pan-horizontal"` - horizontal scroll
++ `"zoom"` 
++ `"rotation"`
 
-  * `"pan-vertical"` - vertical scroll
-  * `"pan-horizontal"` - horizontal scroll
-  * `"zoom"` 
-  * `"rotation"`
-  * `"tap1"` - single finger tap
-  * `"tap2"` - two finger tap
-  * `"long-tap"`
-  * `"double-tap"`
-  
-  Note: `element.state.wantsGestures()` method is expected to be called in `gesture-start` event handler.
+:::caution
+`element.state.wantsGestures()` method is expected to be called in `gesture-start` event handler only.
+:::
 
-* `gesture-end`
+:::tip
+If "rotation" gesture is requested use event.deltaRotation in _gesture-pinch_ handler to get delta angle.
 
-  the event is sent after last touch contact is removed. 
+If "zoom" gesture is requested use event.deltaZoom in _gesture-pinch_ handler to get the delta zoom.
+:::
 
-* `gesture-press`
-
-  the event is sent when the element is touched. For eaxample Android shows expanding circle animation on such event. 
-
-* `gesture-tap`
-  
-  the event is sent when the element is touched and detouched without significant move. 
-
-* `gesture-doubletap`
-
-  the event is sent when the element is taped twice. 
-
-* `gesture-longtap`
-
-  the event is sent after the element is taped with significant delay between touch down and up moments. 
-
-* `gesture-zoom`
-  
-  the event is sent on zoom (a.k.a. magnification) gesture by two fingers. 
-
-  `event.deltaZoom` multiplier can be used to change zoom (a.k.a. scale) factor:
-
-  ```js
-  let zoom = 1;
-  ...
-  element.on("gesture-zoom", event => zoom *= event.deltaZoom);
-  ```
-
-* `gesture-rotation`
-
-  the event is sent on rotation gesture by two fingers. 
-
-  `event.deltaRotation:Angle` is the delta angle that needs to be added to current rotation angle. 
-
-* `gesture-pan`
-
-  the event is sent on pan (scroll) gesture detection. `event.delta` needs to be added to current scroll position.
-
-* `gesture-swipe`
-
-  the event is sent after fast pan (scroll) gesture. `event.delta` is an exit speed (pixels per second). On scrollable elements Sciter starts kinetic scroll animation.
 
 ### Document lifecycle events
 
 Loading:
 
-* `parsed` - document just got a DOM structure, scripts are not run yet. This event can be handled by document container only (window or frame). 
-* `ready` | `DOMContentLoaded` - document loaded, DOM is parsed, scripts are loaded and run.
-* `complete` - document loaded in full scripts were run, all resources defined in HTML are loaded.
+| name | alt name | description |
+| ---- | -------- | ----------- |
+| **parsed** | **document-parsed** | document just got a DOM structure, scripts are not run yet. This event can be handled by document container only (window or frame). 
+| **DOMContentLoaded** | **document-ready** | document loaded, DOM is parsed, scripts are loaded and run.
+| **complete** | **document-complete** | document loaded in full, scripts were run, all resources defined in HTML are finished loading (with success or failure).
 
 Closing:
 
-* `close` | `unload` - document is closed and about to be deleted soon.
-* `beforeunload` - document is about to be unloaded, script namespace is still operational.
-* `closerequest` - first phase of document closure, it can be rejected at this point by calling `event.preventDefault()`.
+| name | alt name | description |
+| ---- | -------- | ----------- |
+| **closerequest** | **document-unload-request** | first phase of document closure, it can be rejected at this point by calling `event.preventDefault()`.
+| **beforeunload** | **document-before-unload** | document is about to be unloaded, script namespace is still operational.
+| **unload** | **document-unload** | document is closed and about to be deleted soon.
+
 
 ### Element's state change
 
-* `sizechange` - not bubbling event, change of element dimensions;
-* `visibilitychange` - not bubbling event, change of element visibility status;
+:::note
+These are not a bubbling events - delivered only to the element itself.
+:::
+
+| name | alt name | description |
+| ---- | -------- | ----------- |
+| **sizechange** | **size-change** | change of element dimensions detected
+| **visualstatechange** | **visibility-state-change** | element become visible or invisible, for example due to **visibility** value change.
 
 ### Image
 
-* `load`
-* `error`
+| name | alt name | description |
+| ---- | -------- | ----------- |
+| **load** | **image-load** | image has been loaded
+| **error** | **image-error** | image load error occured
 
 ### Pager (print preview)
 
-* `paginationstart`
-* `paginationpage` 
-* `paginationend` 
+`<frame|pager>` (print preview) related events
+
+| name | alt name | description |
+| ---- | -------- | ----------- |
+| **paginationstart** | **pagination-start** | pagination has been started on the frame/pager
+| **paginationpage** | **pagination-page** | pagination of one page complete
+| **paginationend** | **pagination-ended** | pagination has been ended
 
 ### Drag-n-drop
 
-* `drag`
-* `dragenter` 
-* `dragleave` 
-* `drop` 
-* `dragcancel` 
-* `dragaccept` 
-* `willacceptdrop`
+System drag-n-drop events:
+
+| name | alt name | description |
+| ---- | -------- | ----------- |
+| **drag** |  | D&D cursor moves over the element 
+| **dragenter** | **drag-enter** | D&D cursor enters the element
+| **dragleave** | **drag-leave** | D&D cursor leaves the element
+| **drop** |  | User drops the data by releasing primary mouse button
+| **dragcancel** | **drag-cancel** | User cancels D&D operation by pressing ESC.
+| **willacceptdrop** | **will-accept-drop** | see below
+
+#### Accepting Drag-n-Drop
+
+For an element, in order to accept drop from system's D&D, it should handle _will-accept-drop_ event and if _event.detail_ contains acceptable data and consume the event by calling 
+`event.stopPropagation()`
+
+In D&D events event.detail is an object with the following fields
+
+- _dataType_ - string, primary format, one of: "text","html","file" or "json". 
+- _data_ - object, may contain one or several fields: 
+  + `text: string` - plain text data;
+  + `html: string` - HTML data; 
+  + `file : [path1,path2,...] | path0` - single or multiple file names;
+  + `json`: any - any data that can be JSON.stringify'ed;
+
+#### Initiating Drag-n-Drop
+
+Call [window.performDrag(...)](Window#performdrag) to initiate D&D operation.
+
+```js
+event.detail = { dataType: ...; data: {} }
+```
 
 ### Video
 
-* `videoplay`
-* `videoended`
+`<video>` related events
 
-* `videocoordinate`
-* `videoframeready`
+| name | alt name | description |
+| ---- | -------- | ----------- |
+| **videoready** | **video-ready** | 
+| **videostart** | **video-start** | 
+| **videostop** | **video-stop** | 
+| **videocoordinate** | **video-coordinate** | 
+| **videoframeready** | **video-frame-ready** | 
 
 ## MISC
 

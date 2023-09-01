@@ -7,7 +7,7 @@ Default style system of the engine does not provide default styling of menu bars
 
 ## Elements
 
-No elements has this behavior applied by default.  {sdk}/samples/menu/std-menu.css assumes that top level menu is defined by `<ul id="menu-bar">`  element.
+No elements has this behavior applied by default.  {sdk}/samples/menu/std-menu.css assumes that top level menu is defined by `<ul id="menu-bar">`  element.
 
 ## Model
 
@@ -38,8 +38,8 @@ No specific methods.
 
 ## States
 
-* `:owns-popup` - state flag is set on menu owner element ( `menuOwnerElement` above ) when menu is shown;
-* `:popup` - is set on the`<menu>`  element when it is shown.
+* `:owns-popup` - state flag is set on menu owner element ( `menuOwnerElement` above ) when menu is shown;
+* `:popup` - is set on the`<menu>`  element when it is shown.
 
 ## Events
 
@@ -49,7 +49,7 @@ No specific methods.
 
 N/A
 
-### `on()` subscription
+### `on()` subscription
 
 ```js
 document.on("click", "li#file-open", function(evt) {

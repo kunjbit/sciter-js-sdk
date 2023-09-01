@@ -366,7 +366,7 @@ If not stated otherwise these properties behave as defined in W3C specs.
 - `behavior`: `<name-of-native-behavior>` see [behaviors](../behaviors) 
 ---
 - `prototype`
-- `aspect` - see [DOM components and aspects](../DOM/Components)
+- `aspect` - see [DOM components and aspects](../CSS/behaviors-and-aspects)
 
 #### foreground
 
