@@ -47,9 +47,12 @@ struct native_textarea: public event_handler
 
       HWND parent = self.get_element_hwnd(false);
 
-      this_hwnd = ::CreateWindow(TEXT("EDIT"), 
+      //SetWindowLong(parent, GWL_STYLE, WS_CLIPCHILDREN | GetWindowLong(parent,GWL_STYLE));
+
+      this_hwnd =
+          ::CreateWindow(TEXT("EDIT"), 
                                  TEXT(""), 
-                                 WS_CHILD | WS_CLIPSIBLINGS | WS_VISIBLE | WS_BORDER | ES_LEFT | ES_AUTOHSCROLL | ES_WANTRETURN | ES_MULTILINE,
+                                 WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT | ES_AUTOHSCROLL | ES_WANTRETURN | ES_MULTILINE,
                                  rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top,
                                  parent, NULL, THIS_HINSTANCE, 0);
 

@@ -72,28 +72,28 @@ export class VideoControls extends Element {
   showBar(onOff) { 
     this.componentUpdate { barIsShown: onOff };
     if( onOff ) {
-      this.timer(500, this.pulse);
+      this.timer(500ms, this.pulse);
       this.pulse();
     }
   }
 
   //onready() {}
 
-  onstart() { 
+  ["on video-start"]() { 
     if(this.status == "initial") {
       this.video.stop();
       this.componentUpdate({ status: "stopped" });
     } else
       this.componentUpdate({ status: "playing" });
   }
-  onstop() { 
+  ["on video-stop"]() { 
     this.componentUpdate({ status: this.video.isEnded ? "ended" : "stopped" });
   }
 
-  onmouseenter() {
+  ["on mouse-enter"]() {
     this.showBar(true);
   }  
-  onmouseleave() {
+  ["on mouse-leave"]() {
     this.showBar(false);
   }  
 

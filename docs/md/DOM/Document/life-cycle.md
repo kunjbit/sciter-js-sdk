@@ -63,12 +63,16 @@ document.on("DOMContentLoaded",function() {
 While unloading the following events are invoked and in this order 
 
 ```js
+const UNLOAD_BY_CHROME = 0; // user clicked close button on window
+const UNLOAD_BY_CODE = 1;   // window.close() issued
+const UNLOAD_BY_LOAD = 2;   // document unload-old/load-new
+
 document.on("closerequest", function(evt){
   // call this  
-  evt.preventDefault();
-  // if needed to prevent document unloading.
+  if(evt.reason == UNLOAD_BY_CHROME)
+    evt.preventDefault(); // if needed to prevent document unloading when user clicked on X
   // On root document this also prevents window from closing.
-})
+});
 ```
 
 ```js

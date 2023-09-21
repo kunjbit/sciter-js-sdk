@@ -20,6 +20,9 @@
 #include "sciter-x.h"
 // SCITER-
 
+#define MAX_FPS FALSE // will show max FPS in window caption
+                      // change it to FALSE for render-on-demand - to drop CPU consumption 
+
 //--------------------------------------------------------------------------------------
 // Global Variables
 //--------------------------------------------------------------------------------------
@@ -85,6 +88,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
   // Main message loop
   MSG msg = { 0 };
+#if MAX_FPS
   while (WM_QUIT != msg.message)
   {
     if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -95,9 +99,23 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
     else {
       Render();
     }
-    
-    
   }
+#else 
+  BOOL bRet;
+  while ((bRet = GetMessage(&msg, NULL, 0, 0)) != 0)
+  {
+    if (bRet == -1)
+    {
+      // handle the error and possibly exit
+      break;
+    }
+    else
+    {
+      TranslateMessage(&msg);
+      DispatchMessage(&msg);
+    }
+  }
+#endif
 
   CleanupDevice();
 
@@ -343,6 +361,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
   {
   case WM_PAINT:
     hdc = BeginPaint(hWnd, &ps);
+#if !MAX_FPS
+    Render();
+#endif
     EndPaint(hWnd, &ps);
     break;
 

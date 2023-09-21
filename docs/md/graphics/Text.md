@@ -20,6 +20,14 @@ Full set of block and text CSS styles is supported, so you may define
 
 to have a bordered text box.
 
+## constructor
+
+```js
+let textLayout = new Graphics.Text(text:String [, cssClassName: String ])
+```
+
+constructs new instance of the Text with the _text_ and optionally _class_
+
 ## properties:
 
 ### lines

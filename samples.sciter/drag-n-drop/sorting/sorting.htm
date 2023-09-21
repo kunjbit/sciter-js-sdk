@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+.draggable {
+  background:gold;
+  //width:max-content;
+  padding:0.5em;
+}
+
+.drop-target {
+   border:2px dashed;
+   padding:1em;
+   margin:*;
+}
+
+select {
+  display:block;
+  width:100px;
+}
+
+html[dnd] .drop-target:hover {
+  background:yellow;
+}
+
+.drag-source {
+  //background:blue;
+}
+
+option.first {
+  color: red;
+}
+
+        </style>
+        <script|module>
+
+import {drag, replaceElement} from "./sorter.js";
+
+/*document.on("mousedragrequest",".draggable", function(evt) {
+  doDrag(evt.target,evt, where => {
+    if(where)
+      Window.this.modal(<info>Dropped {this} onto {where}</info>);
+  });
+  return true;
+});*/
+
+
+document.on("mousedragrequest","option", function(evt,option) {
+  drag(document.$("select"),option);
+  return true;
+});
+
+
+
+const opt = document.$("option");
+
+document.on("click","#test-move", function(evt) {
+  replaceElement(opt, true);
+  return true;
+});
+
+document.on("click","#test-move-prev", function(evt) {
+  replaceElement(opt,false);
+  return true;
+});
+
+
+        </script>
+    </head>
+    <body>
+
+<select|list>
+  <option.first>N1</option>
+  <option>N2</option>
+  <option>N3</option>
+  <option>N4</option>
+  <option>N5</option>
+  <option>N6</option>
+  <option>N7</option>
+  <option>N8</option>
+  <option>N9</option>
+  <option>N10</option>
+  <option>N11</option>
+  <option>N12</option>
+  <option>N13</option>
+  <option>N14</option>
+  <option>N15</option>
+  <option>N16</option>
+  <option>N17</option>
+  <option>N18</option>
+  <option>N19</option>
+</select>
+
+<button #test-move>Test move +</button>
+<button #test-move-prev>Test move -</button>
+
+<div.draggable>Draggable</div>
+
+<div.drop-target>Target</div>
+
+    </body>
+</html>

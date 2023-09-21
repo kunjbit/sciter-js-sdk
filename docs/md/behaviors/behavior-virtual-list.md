@@ -57,50 +57,116 @@ N/A
 
 ## Methods
 
-### `element.vlist.navigateTo(to: int | string)` 
-  
-  scroll to given record, where `to` is either:
+### navigateTo()
 
-  * integer - absolute record number;
-  * "start" - very first record;
-  * "end" - very last record;
-  * "pagenext" - next page;
-  * "pageprior" - previous page;
-  * "itemnext" - next record;
-  * "itemprior" - previous record;
+```js
+element.vlist.navigateTo(to: int | string)
+``` 
+scroll to given record, where `to` is either:
 
-### `element.vlist.advanceTo(recNo: int) : Element` 
-  
-  scroll to given record number. By default it performs animated scroll.
++ integer - absolute record number;
++ "start" - very first record;
++ "end" - very last record;
++ "pagenext" - next page;
++ "pageprior" - previous page;
++ "itemnext" - next record;
++ "itemprior" - previous record;
 
-  Returns DOM element representing the record.
+### advanceTo()
+
+```js
+element.vlist.advanceTo(recNo: int) : Element`
+```  
+scroll to given record number. By default it performs animated scroll.
+
+Returns DOM element representing the record.
+
+### scrollBy()
+
+```js
+element.vlist.scrollBy(pixels) : boolean`
+```  
+scroll by given number of CSS pixels. By default it performs animated scroll.
+
+Returns true if actuall scroll occured.
 
 ## Properties
 
-### `firstVisibleItem: Element` 
+### firstVisibleItem
+
+```js
+element.vlist.firstVisibleItem: Element
+```
+read-only, reference of first visible item in the buffer.
+
+### lastVisibleItem
+
+```js
+element.vlist.lastVisibleItem: Element
+````  
+read-only, reference of last visible item in the buffer.
+
+### firstVisibleItemIndex
+
+```js
+element.vlist.firstVisibleItemIndex: Element
+```
+read-only, index of first visible item in the recordset.
+
+### lastVisibleItemIndex
+
+```js
+element.vlist.lastVisibleItemIndex: int
+````  
+read-only, index of last visible item in the recordset.
+
+### firstBufferIndex
+
+```js 
+element.vlist.firstBufferIndex: int
+````
+read-only, that many of records expected before first element in the sliding buffer.
+
+### lastBufferIndex
   
-  read-only, reference of first visible item in the buffer.
+```js 
+element.vlist.lastBufferIndex: int
+```
+read-only, firstBufferIndex - lastBufferIndex + 1 is the current size of sliding window.
 
-### `lastVisibleItem: Element` 
+### itemsBefore
+
+```js
+element.vlist.itemsBefore: int
+````
   
-  read-only, reference of last visible item in the buffer.
+read-write, how many items were reported before the buffer (sliding window).
 
-### `firstBufferIndex: int` 
+:::tip
+Assign new value to the itemsBefore/After when new records appeared before/after the sliding window.
+:::
 
-  read-only, that many of records expected before first element in the sliding buffer.
+### itemsAfter
 
-### `lastBufferIndex: int` 
-  
-  read-only, firstBufferIndex - lastBufferIndex + 1 is current size of sliding window.
+```js
+element.vlist.itemsAfter: int`
+```
+read-write, how many items were reported after the buffer (sliding window).
 
-### `itemsBefore: int` 
-  
-  read-write, how many items were reported before the buffer (sliding window).
+### itemsTotal
 
-### `itemsAfter: int` 
-  
-  read-write, how many items were reported after the buffer (sliding window).
+```js
+element.vlist.itemsTotal: int
+````
+read-only, how many items, are in total (itemsBefore + element.children.length + itemsAfter) .
 
-### `itemsTotal: int` 
-  
-  read-only, how many items, the behavior thinks, are in total (itemsBefore + element.children.length + itemsAfter) .
+### slidingWindowSize
+
+```js
+element.vlist.slidingWindowSize: int`
+```
+read-write, how many items (DOM elements) are in the sliding window.
+
+:::tip
+Ideally it should be twice as large of number of expected visible items (DOM elements representing each record) 
+:::

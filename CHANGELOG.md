@@ -1,3 +1,25 @@
+## 5.0.2.22
+
+### Fixes:
+
+* [gtk] cairo backend fix;
+* `element.onsizechange()` fix;
+* `<details>/<summary>` fix;
+* resizable `<textarea>` scroll position fix;
+* [DOM] `popup.remove();` fix of AV;
+* [JS/JSX] fix of hex form parsing of XML escapes ( like `&#x2014;` )
+* [CSS] fix of `pointer-events:none` handling;
+* [UI, Win11] fix of compatiblity issues related to blur-behind windows and popups;
+* [Windows] swapped mouse buttons fix;
+* [osx] removal `[NSApp setActivationPolicy:NSApplicationActivationPolicyRegular]` call;
+
+### New:
+
+* icon:window-maximize,icon:window-minimize,icon:window-restore,icon:window-close
+* [API] + sciter::graphics::get_d2d_device_context()
+* [CSS] "boxed" icons: `icon(x y w h; dpath...)`
+* [CSS] + `@if <media-expr> { ... } [ @else { ... } ]` - semantic equivalent of `#if #else` in C.
+
 ## 5.0.2.21
 
 ### Fixes:

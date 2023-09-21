@@ -76,17 +76,22 @@ read/write property, either _null_ or an [element](Element) in focus;
 - `"solid-with-shadow"` - non-transparent window without caption and buttons, may have rounded corners and shadow if OS supports that.
 - `"extended"` - standard window shape but without caption bar. Caption and window buttons(exception:MacOS) shall be defined in markup/css. 
 
+
+### caption
+
+read-write, string, window's caption (title).
+
+### icon
+
+read/write, [Graphics.Image](../Graphics/Image), window icon.
+
 ### screen
 
-`window.screen` - read-only, integer. 
-
-Reports screen (monitor) index this window is on at the moment. Integer in the range [0 ... Window.screens).
+read-only, integer. Reports screen (monitor) index this window is on at the moment. Integer in the range [0 ... Window.screens).
 
 ### graphicsBackend
 
-`window.graphicsBackend` - read-only, string.
-
-Reports current graphics backend used: "direct2d", "Skia/OpenGL", etc. 
+read-only, string. Reports current graphics backend used: "direct2d", "Skia/OpenGL", etc. 
 
 ### minSize, maxSize
 
@@ -105,23 +110,65 @@ Reports current graphics backend used: "direct2d", "Skia/OpenGL", etc.
 
 Example: W11 Mica light effect window: `window.blurBehind = "light source-desktop"`; 
 
-  * `window.isActive` - read-only, boolean, reports if window has input focus.
-  * `window.caption` - read-write, string, window's caption (title).
-  * `window.isAlive` - read-only, boolean, it is true if the window is alive - has valid HWINDOW. The property is false when the window was closed and destroyed.
-  * `window.isOnActiveSpace` - read-only, _true_ if window is on active space now. The property is _undefined_ if host system does not support spaces (virtual desktops).
-  * `window.isResizable` - read/write, boolean, true if window can be resized by the user.
-  * `window.isMaximizable` - read/write, boolean, true if window can be maximized by the user.
-  * `window.isMinimizable` - read/write, boolean, true if window can be minimized by the user.
-  * `window.isTopmost` - read/write, boolean, true if window is topmost at z-order.
-  * `window.isEnabled` - read/write, boolean, true if the window is allowed to accept user's input.
-  * `window.aspectRatio` - read/write, float, width to height ratio to keep on window resizes.
-  * `window.eventRoot = element | null` - if set by element, short circuits all UI events to that element and its children as if the window contains only that element. Used in lightbox dialog scenarios (see: samples.sciter/lightbox-dialog).
-  * `window.focus` - read/write, DOM element in focus.
-  * `window.parent` - read-only, Window | null - parent window of this one.
-  * `window.document` - read-only, Document - root document of the window.
-  * `window.screen` - read-only, integer - screen (monitor) number where this window is on at the moment.
-  * `window.parameters` - read-only, any - parameters provided by constructor, available inside the window as they are.
-  * `window.icon` - read/write, [Graphics.Image](../Graphics/Image), window icon.
+### isActive
+
+read-only, boolean, reports if window has input focus.
+
+### isAlive
+
+read-only, boolean, it is _true_ if the window is alive - has valid HWINDOW. The property is false when the window was closed and destroyed.
+
+### isOnActiveSpace
+
+read-only, _true_ if window is on active space now. The property is _undefined_ if host system does not support spaces (virtual desktops).
+
+### isResizable
+
+read/write, boolean, true if window can be resized by the user.
+
+### isMaximizable
+
+read/write, boolean, true if window can be maximized by the user.
+
+### isMinimizable
+
+read/write, boolean, true if window can be minimized by the user.
+
+### isTopmost
+
+read/write, boolean, true if window is topmost at z-order.
+
+### isEnabled
+
+read/write, boolean, true if the window is allowed to accept user's input.
+
+### aspectRatio
+
+read/write, float, width to height ratio to keep on window resizes.
+
+### eventRoot
+ 
+```js
+ Window.this.eventRoot = element | null
+ ```
+if set by element, short circuits all UI events to that element and its children as if the window contains only that element. Used in lightbox dialog scenarios (see: samples.sciter/lightbox-dialog).
+
+
+### focus
+
+read/write, DOM element in focus.
+
+### parent
+
+read-only, Window | null - parent window of this one.
+
+### document
+
+read-only, Document - root document of the window.
+
+### parameters
+
+read-only, any - parameters provided by constructor, available inside the window as they are.
 
 ## methods:
 
@@ -305,6 +352,21 @@ window.postEvent(event)
 ```
   
 Post the event to the window asynchronously. The function returns immediately - does not wait for the event consumption.
+
+---
+### load()
+
+```js
+Window.this.load(url:string)
+```
+Loads new document into the window. 
+
+:::tip
+Almost always it is better to do not use this method but to use `<frame>` inside the window and load needed document there:
+```js
+document.$("frame.content").src = url;
+```
+:::
 
 ---
 
@@ -605,7 +667,26 @@ Use `window.on("eventname", handler)` to subscribe to these events.
 
 ### "statechange"
 
-`window.state` flag have changed.
+`window.state` flag has changed.
+
+### "closerequest"
+
+Window closure requested.
+
+JS code can prevent window closure by the user by calling `event.preventDefault()`: 
+```js
+const CLOSE_BY_CHROME = 0; // user clicked `🗙` on window chrome
+const CLOSE_BY_CODE = 1;   // window.close() issued
+const CLOSE_BY_LOAD = 2;   // document unload-old/load-new
+
+Window.this.on("closerequest", event => {
+  if(event.reason == CLOSE_BY_CHROME) {
+    // instead of closing we just minimize it:
+    Window.this.state = Window.WINDOW_MINIMIZED;
+    event.preventDefault(); // prevent closing the window
+  }
+});
+```
 
 ### "resolutionchange"
 

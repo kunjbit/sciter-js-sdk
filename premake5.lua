@@ -16,6 +16,17 @@ newoption {
    }
 }
 
+newoption {
+   trigger     = "gtk",
+   value       = "v3|v4",
+   description = "GTK version",
+   default     = "v3",
+   allowed = {
+      { "v3",  "GTK3" },
+      { "v4",  "GTK4" }
+   }
+}
+
 defines { "DEVICE=" .. _OPTIONS["device"] }
 
 if os.getenv("VULKAN_SDK") then
@@ -34,6 +45,12 @@ end
 function settargetdir() 
   if _TARGET_OS == "macosx" then
     targetdir ("bin/" .. osabbr())
+  elseif _TARGET_OS == "linux" then
+    if _OPTIONS["gtk"] == "v4" then
+      targetdir ("bin/" .. osabbr() ..".gtk4/%{cfg.platform}")
+    else 
+      targetdir ("bin/" .. osabbr() .."/%{cfg.platform}")
+    end
   else
     targetdir ("bin/" .. osabbr() .."/%{cfg.platform}")
     filter "configurations:*Skia" 
@@ -67,11 +84,13 @@ workspace "sciter.sdk"
     links { "shell32", "advapi32", "ole32", "oleaut32", "comdlg32" }
     platforms { "x32", "x64", "arm64" }
     systemversion "latest"
+    
   filter "system:macosx"
     location ("build/" .. osabbr())
     links { "CoreFoundation.framework", "Cocoa.framework", "IOKit.framework" }
     platforms { "x64" }
-  filter "system:linux"
+      
+  filter { "system:linux", "options:gtk=v3"}
     location("build/" .. osabbr() .. "/" .. string.lower(_OPTIONS["device"]))
     platforms { "x64", "arm32", "arm64" }
     defines { "_GNU_SOURCE" }
@@ -86,6 +105,23 @@ workspace "sciter.sdk"
       "-fPIC",
       "-pthread",
     }
+
+  filter { "system:linux", "options:gtk=v4"}
+    location("build/" .. osabbr() .. "/" .. string.lower(_OPTIONS["device"]) .. ".gtk4")
+    platforms { "x64", "arm32", "arm64" }
+    defines { "_GNU_SOURCE" }
+    buildoptions {
+     "`pkg-config gtk4 --cflags`",      
+     "-fPIC",
+     "-Wno-unknown-pragmas",
+     "-Wno-write-strings",
+     "-ldl",
+    }
+    linkoptions { 
+      "-fPIC",
+      "-pthread",
+    }
+
 
   filter {}
 
@@ -161,13 +197,29 @@ project "usciter"
   filter "system:macosx"
     files {"include/sciter-osx-main.mm"}
     targetdir ("bin/" .. osabbr())
-  filter "system:linux"
+    
+  filter { "system:linux", "options:gtk=v3" }
     files {"include/sciter-gtk-main.cpp"}
     buildoptions {
        "`pkg-config gtk+-3.0 --cflags`"
     }
     linkoptions { 
        "`pkg-config gtk+-3.0 --libs`",
+       "`pkg-config fontconfig --libs`",
+       "-fPIC",
+       "-pthread",
+       "-Wl,--no-undefined",
+       "-ldl",
+       "-no-pie"
+    }
+
+  filter { "system:linux", "options:gtk=v4" }
+    files {"include/sciter-gtk-main.cpp"}
+    buildoptions {
+       "`pkg-config gtk4 --cflags`"
+    }
+    linkoptions { 
+       "`pkg-config gtk4 --libs`",
        "`pkg-config fontconfig --libs`",
        "-fPIC",
        "-pthread",
@@ -220,7 +272,8 @@ project "gsciter"
   filter "system:macosx"
     files {"include/sciter-osx-main.mm"}
     targetdir ("bin/" .. osabbr())
-  filter "system:linux"
+    
+  filter { "system:linux", "options:gtk=v3" }
     files {"include/sciter-gtk-main.cpp"}
     buildoptions {
        "`pkg-config gtk+-3.0 --cflags`"
@@ -234,6 +287,22 @@ project "gsciter"
        "-ldl",
        "-no-pie"
     }
+
+  filter { "system:linux", "options:gtk=v4" }
+    files {"include/sciter-gtk-main.cpp"}
+    buildoptions {
+       "`pkg-config gtk4 --cflags`"
+    }
+    linkoptions { 
+       "`pkg-config gtk4 --libs`",
+       "`pkg-config fontconfig --libs`",
+       "-fPIC",
+       "-pthread",
+       "-Wl,--no-undefined",
+       "-ldl",
+       "-no-pie"
+    }
+
 
   filter {}
 
@@ -263,13 +332,29 @@ project "inspector"
   filter "system:macosx"
     files {"include/sciter-osx-main.mm"}
     targetdir ("bin/" .. osabbr())
-  filter "system:linux"
+
+  filter { "system:linux", "options:gtk=v3" }
     files {"include/sciter-gtk-main.cpp"}
     buildoptions {
        "`pkg-config gtk+-3.0 --cflags`"
     }
     linkoptions { 
        "`pkg-config gtk+-3.0 --libs`",
+       "`pkg-config fontconfig --libs`",
+       "-fPIC",
+       "-pthread",
+       "-Wl,--no-undefined",
+       "-ldl",
+       "-no-pie"
+    }
+
+  filter { "system:linux", "options:gtk=v4" }
+    files {"include/sciter-gtk-main.cpp"}
+    buildoptions {
+       "`pkg-config gtk4 --cflags`"
+    }
+    linkoptions { 
+       "`pkg-config gtk4 --libs`",
        "`pkg-config fontconfig --libs`",
        "-fPIC",
        "-pthread",
@@ -306,13 +391,28 @@ project "integration"
   filter "system:macosx"
     files {"include/sciter-osx-main.mm"}
     targetdir ("bin/" .. osabbr())
-  filter "system:linux"
+
+  filter { "system:linux", "options:gtk=v3" }
     files {"include/sciter-gtk-main.cpp"}
     buildoptions {
        "`pkg-config gtk+-3.0 --cflags`"
     }
     linkoptions { 
        "`pkg-config gtk+-3.0 --libs`",
+       "`pkg-config fontconfig --libs`",
+       "-fPIC",
+       "-pthread",
+       "-Wl,--no-undefined",
+       "-ldl",
+    }
+
+  filter { "system:linux", "options:gtk=v4" }
+    files {"include/sciter-gtk-main.cpp"}
+    buildoptions {
+       "`pkg-config gtk4 --cflags`"
+    }
+    linkoptions { 
+       "`pkg-config gtk4 --libs`",
        "`pkg-config fontconfig --libs`",
        "-fPIC",
        "-pthread",
@@ -449,7 +549,7 @@ project "sciter-webview"
     links { "WebKit.framework",
             "AppKit.framework" }
 
-  filter "system:linux"  
+  filter { "system:linux", "options:gtk=v3" } 
     files {
       "webview/webview/sciter_webkitgtk.*", 
     }

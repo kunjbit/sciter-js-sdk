@@ -51,7 +51,7 @@ Selectors supported by Sciter
 | Pattern            | Represents  |
 | ------------------ | ----------- | 
 | E(name)            | Equivalent of E[name="name"]
-| E|name             | Equivalent of E[type="name"]
+| E\|name             | Equivalent of E[type="name"]
 
 ## State CSS selectors
 
@@ -89,6 +89,8 @@ Some of them are set by runtime only and some are allowed to be set by JS.
 | E:ltr                      | an element is in LTR environment | element.state.isltr |
 | E:rtl                      | an element is in RTL environment | element.state.isltr |
 | E:theme(A)                 | an E element or one of its parents has theme="A-B" or theme="B-A" attribute defined  | N/A |
+| E:window-root              | an E element is a window root - either root document of the window or a popup element that has window created for it | N/A |
+| E:blur-behind              | a :window-root element that uses blur-behind background | N/A |
 
 :::tip
 At runtime these state flags can be set by JS as 

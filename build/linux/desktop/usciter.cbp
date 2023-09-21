@@ -192,9 +192,6 @@
 			</Target>
 		</Build>
 		<Unit filename="../../../demos/usciter/usciter.cpp" />
-		<Unit filename="../../../include/behaviors/behavior_video_generator.cpp" />
-		<Unit filename="../../../include/behaviors/behavior_video_generator_direct.cpp" />
-		<Unit filename="../../../include/behaviors/behavior_video_generator_full.cpp" />
 		<Unit filename="../../../include/sciter-gtk-main.cpp" />
 		<Unit filename="../../../sqlite/sciter-sqlite-db.cpp" />
 		<Unit filename="../../../sqlite/sciter-sqlite-rs.cpp" />

@@ -4,6 +4,8 @@
 #define WIN32_LEAN_AND_MEAN
 #include <string>
 #include <functional>
+#include <string>
+
 #include <atlbase.h>
 #include <atlwin.h>
 #include <shlobj.h>

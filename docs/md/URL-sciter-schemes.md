@@ -42,9 +42,9 @@ Some resources that may be of interest for applications:
 * `sciter:msgbox.htm` and `sciter:msgbox.css`  - definition of built-in message boxes: `Window.this.modal(<alert>...</alert>)`, and so on.
 * `sciter:icon-alert.png`, `sciter:icon-error.png`,`sciter:icon-information.png` and `sciter:icon-question.png` - icons used in message boxes.
 
-### `path:...`
+### `path:...` and `icon:...`
 
-URL schema used in CSS to define vector paths (vector images):
+URL schema used in CSS to define vector paths - [vector images](CSS/paths-and-vector-images):
 
 ```CSS
   div { background-image: url(path: M 0 0 L 1 1 Z); }

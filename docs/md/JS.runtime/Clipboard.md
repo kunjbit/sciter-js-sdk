@@ -4,28 +4,41 @@ Includes functions dealing with system clipboard.
 
 ## Methods:
 
-* #### `Clipboard.read()`
-  
-  returns [object containing clipboard data](#clipboard-data)
+### read()
 
-* #### `Clipboard.readText()`
+```js
+Clipboard.read():ClipboardDataObject
+```
 
-  returns either string or undefined if clipboard does not contain textual data.
+returns [object containing clipboard data](#clipboard-data)
 
-* #### `Clipboard.write(data):boolean`
+### readText()
 
-  Puts [data](#clipboard-data) into clipboard.  
+returns either string or _undefined_ if clipboard does not contain textual data.
 
-* #### `Clipboard.writeText(string):boolean`
+### write()
 
-  Puts the string into clipboard.  
+```js
+Clipboard.write(data:ClipboardDataObject):boolean
+```
 
-* #### `Clipboard.has(type:string):boolean`
+Puts [data](#clipboard-data) into clipboard.  
 
-  Checks if clipboard contains data of given _type_: "text" | "html" | "image" 
-  | "file" | "json" | "link".
+### writeText()
 
-## Clipboard Data Object
+```js
+Clipboard.writeText(string):boolean
+```
+Puts the string into clipboard.  
+
+### has()
+
+```js
+Clipboard.has(type:string):boolean
+```
+Checks if clipboard contains data of given _type_: "text" | "html" | "image" | "file" | "json" | "link".
+
+## Clipboard Data Object {#clipboard-data}
 
 Clipboard data object is a plain JS object that may contain following properties:
 

@@ -1,4 +1,4 @@
-# behavior: select
+# behavior: select-dropdown
 
 Standard behavior of `<select>` with dropdown lists.
 
@@ -95,6 +95,10 @@ Other than standard properties of DOM elements the select also supports:
 ## Value
 
 any, read/write. value of selected option. Value of the option is its value attribute or option's text if there is no value defined.
+
+:::info
+Value of `<select editable>` is always a text - content of the editable caption.
+:::
 
 ## Selection change handling in script
 

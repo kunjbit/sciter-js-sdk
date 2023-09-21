@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+@const TRANSITION-DURATION: 200ms;
+
+details {
+  border: 1px solid #aaa;
+  border-radius:4px;
+  width:max-content;
+}
+
+details > summary {
+  padding-top:0.5em;
+  padding-bottom:0.5em;
+  font-weight: bold;
+}
+
+/* shevron rotation */
+details > summary::marker { 
+  transition: transform @TRANSITION-DURATION linear;
+
+}
+
+details > div {
+  visibility:collapse;
+  padding:0.5em;
+  height:0;
+  vertical-align:bottom;
+  transition: visibility @TRANSITION-DURATION linear,
+              height @TRANSITION-DURATION linear;
+}
+
+details > div:animating {
+    visibility:visible;
+    border-top:1px solid #aaa;
+}
+
+details:expanded > div {
+  visibility:visible;
+  height:max-content;
+  border-top:1px solid #aaa;
+}
+
+/*summary {
+  font-weight: bold;
+  margin: -0.5em -0.5em 0;
+  padding: 0.5em;
+}
+
+details:expanded {
+  padding: 0.5em;
+}
+
+*/
+
+
+        </style>
+    </head>
+    <body>
+
+<details>
+  <summary>Details</summary>
+  <div>Something small enough to escape casual notice.</div>
+</details>
+
+
+    </body>
+</html>

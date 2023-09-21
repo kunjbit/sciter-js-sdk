@@ -103,6 +103,10 @@ where _<expr\>_ is
 | desktop | _true_ for desktop window
 | handheld | _true_ for mobile device
 | print | _true_ in print and print preview environments
+| Windows | _true_ on Windows
+| MacOS | _true_ on MacOS
+| Linux | _true_ on Linux
+| windowless | _true_ when running windowless Sciter.Lite 
 
 
 ## @const

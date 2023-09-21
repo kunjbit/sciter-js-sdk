@@ -59,6 +59,7 @@ toc_max_heading_level: 5
 * `event.y` - to `event.currentTarget` - the element this event handler is attached to.
 * `event.source` - used in some events to indicate auxiliary `source` element. 
 * `event.isOnIcon:Element` - mouse events, it is set to element when mouse is on icon of that element. Element icon is an element's foreground-image (if any) so event.isOnIcon is on when mouse is over area where the image is rendered.
+* `event.reason` - 
 
 ### properties (Sciter specific, gestures):
 
@@ -90,10 +91,12 @@ toc_max_heading_level: 5
 | name | alt name | description |
 | ---- | -------- | ----------- |
 | **mousemove**   | **mouse-move** |
-| **mouseenter**  | **mouse-enter** |
+| **mouseenter**  | **mouse-enter** | 
 | **mouseleave**  | **mouse-leave** |
+| **mouseover**   | **mouse-over** | for the difference between mosueenter and mouseover see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseenter_event)
+| **mouseout**    | **mouse-out** | for the difference between mosueleave and mouseout see [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/mouseleave_event#behavior_of_mouseleave_events)
 | **mouseidle**   | **mouse-idle** | mouse stays not moving in the element, the event triggers tooltip show.
-| **mousetick**   | **mouse-tick** | mouse is pressed for some time in element, periodic event
+| **mousetick**   | **mouse-tick** | mouse is pressed for some time in element, periodic "pulse" event.
 | **mousedown**   | **mouse-down** | 
 | **mouseup**     | **mouse-up** |
 | **wheel**       | **mouse-wheel** |
@@ -237,7 +240,7 @@ These are not a bubbling events - delivered only to the element itself.
 | name | alt name | description |
 | ---- | -------- | ----------- |
 | **sizechange** | **size-change** | change of element dimensions detected
-| **visualstatechange** | **visibility-state-change** | element become visible or invisible, for example due to **visibility** value change.
+| **visualstatechange** | **visibility-state-change** | element become visible or invisible, for example due to **visibility** value change. `event.reason` is truthy if it become visible.
 
 ### Image
 

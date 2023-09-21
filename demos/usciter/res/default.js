@@ -124,8 +124,7 @@ function setupTheme(params, force) {
     const bb = $("button#enable-blurbehind");
     const bsa = $("button#system-ambience");
 
-    Window.this.blurBehind = theme.blurBehind ? (theme.ambience + " source-windows") : "none";
-    document.attributes["blurbehind"] = theme.blurBehind ? "" : undefined;
+    Window.this.blurBehind = theme.blurBehind ? (theme.ambience + " source-desktop") : "none";
     document.attributes["theme"] = theme.ambience;
 
     bg.state.checked = theme.ambience == "light";

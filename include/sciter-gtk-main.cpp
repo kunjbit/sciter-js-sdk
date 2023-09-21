@@ -21,7 +21,9 @@ int main (int argc, char *argv[])
 {
   for(int n = 0; n < argc; ++n)
     _argv.push_back(utf2w(chars_of(argv[n])));
-  //SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_CAIRO);
+#ifdef DEBUG
+  //SciterSetOption(NULL, SCITER_SET_GFX_LAYER, GFX_LAYER_SKIA_RASTER);
+#endif
   sciter::application::start();
   int r = uimain([]() -> int { return sciter::application::run(); });
   sciter::application::shutdown();
@@ -31,8 +33,8 @@ int main (int argc, char *argv[])
 
 namespace sciter {
 
-  GtkWidget* gview(HWINDOW hwnd) { return hwnd; }
-  GtkWindow* gwindow(HWINDOW hwnd) { return hwnd ? GTK_WINDOW(gtk_widget_get_toplevel(hwnd)): nullptr; }
+  //GtkWidget* gview(HWINDOW hwnd) { return hwnd; }
+  //GtkWindow* gwindow(HWINDOW hwnd) { return hwnd ? GTK_WINDOW(gtk_widget_get_root(hwnd)): nullptr; }
 
   namespace application {
     HINSTANCE hinstance()

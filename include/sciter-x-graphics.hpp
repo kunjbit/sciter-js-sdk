@@ -809,6 +809,22 @@ namespace sciter
       GRAPHIN_RESULT r = gapi()->gFlush(hgfx);
       assert(r == GRAPHIN_OK); (void)(r);
     }
+
+    void* get_d2d_device_context() {
+      assert(hgfx);
+      void* retval = nullptr;
+      GRAPHIN_RESULT r = gapi()->gGetNativeDC(hgfx, SciterGraphicsAPI::ID2D1_DEVICE_CONTEXT, &retval);
+      assert(r == GRAPHIN_OK); (void)(r);
+      return retval;
+    }
+    void* get_d2d_render_target() {
+      assert(hgfx);
+      void* retval = nullptr;
+      GRAPHIN_RESULT r = gapi()->gGetNativeDC(hgfx, SciterGraphicsAPI::ID2D1_RENDER_TARGET,&retval);
+      assert(r == GRAPHIN_OK); (void)(r);
+      return retval;
+    }
+
   };
 
   class painter

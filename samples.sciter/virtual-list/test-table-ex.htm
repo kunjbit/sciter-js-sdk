@@ -9,6 +9,12 @@ table {
   overflow-x:scroll-indicator;
 }
 
+@mixin ELLIPSIS {
+  overflow-x:hidden; 
+  text-overflow:ellipsis; 
+  white-space:no-wrap; 
+}
+
 tbody 
 {
   behavior: virtual-list;
@@ -22,14 +28,25 @@ table > thead {
    behavior: column-resizer;
  }
 
-table > tbody > tr > td { white-space: nowrap; padding:0.25em 0.5em; } 
+table > tbody > tr > td { 
+  white-space: nowrap; padding:0.25em 0.5em; 
+} 
 
+table > thead > tr > th { 
+  border-right:1px solid #ccc; 
+  @ELLIPSIS;
+}
 table > thead > tr > th:nth-child(1) { width: 8em; }
-table > thead > tr > th:nth-child(2) { width: *; }
-table > thead > tr > th:nth-child(3) { width: 8em; }
+table > thead > tr > th:nth-child(2) { width: 8em; }
+table > thead > tr > th:nth-child(3) { width: 4em; }
 table > thead > tr > th:nth-child(4) { width: 10em; }
 table > thead > tr > th:nth-child(5) { width: 10em; }
 table > thead > tr > th:nth-child(6) { width: 20em; }
+
+table > tbody > tr > td:nth-child(1) { @ELLIPSIS; }
+table > tbody > tr > td:nth-child(2) { @ELLIPSIS; }
+table > tbody > tr > td:nth-child(3) { @ELLIPSIS; }
+
 
 td > b {
   display:inline-block;

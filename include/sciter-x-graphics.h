@@ -379,7 +379,6 @@ struct SciterGraphicsAPI
   GRAPHIN_RESULT
         SCFN(gScreenToWorld) ( HGFX hgfx, SC_POS* inout_x, SC_POS* inout_y);
 
-
 // SECTION: clipping
 
   GRAPHIN_RESULT
@@ -429,6 +428,16 @@ struct SciterGraphicsAPI
   // grab DOM element snapshot into image
   GRAPHIN_RESULT
     SCFN(imageCreateFromElement)(HIMG* poutImg, HELEMENT domElement);
+
+  // get native graphics context 
+  typedef enum GRAPHIN_NATIVE_DC_TYPE {
+    ID2D1_RENDER_TARGET = 1,  // ID2D1RenderTarget*,  NOT AddRef'ed!
+    ID2D1_DEVICE_CONTEXT = 2, // ID2D1DeviceContext*  NOT AddRef'ed!
+  } GRAPHIN_NATIVE_DC_TYPE;
+
+
+  GRAPHIN_RESULT
+    SCFN(gGetNativeDC) (HGFX hgfx, UINT nativeDcType, VOID** pDC); // 
 
 
 };
