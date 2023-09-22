@@ -1,3 +1,12 @@
+## 5.0.2.23
+
+### Fixes:
+
+* CVE-2023-4863 ("the WebP 0day") critical update of libwebp to version 1.3.2
+* `flow:horizontal` vertical-alignment fix;
+* update of `display:none` elements;
+
+
 ## 5.0.2.22
 
 ### Fixes:
