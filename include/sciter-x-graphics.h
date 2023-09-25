@@ -20,29 +20,10 @@
 
 #include "sciter-x-types.h"
 
-#ifdef __cplusplus
-
-namespace gool
-{
-  class graphics;
-  class image;
-  class path;
-  class text_layout;
-}
-
-typedef gool::graphics*     HGFX;
-typedef gool::image*        HIMG;
-typedef gool::path*         HPATH;
-typedef gool::text_layout*  HTEXT;
-
-#else
-
-typedef void*               HGFX;
-typedef void*               HIMG;
-typedef void*               HPATH;
-typedef void*               HTEXT;
-
-#endif
+typedef struct _HGFX*   HGFX;
+typedef struct _HIMG*   HIMG;
+typedef struct _HPATH*  HPATH;
+typedef struct _HTEXT*  HTEXT;
 
 typedef float SC_REAL;
 

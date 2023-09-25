@@ -1,6 +1,5 @@
 ---
 sidebar_position: 6
-title: Conditionals: @supports and @if/@else
 toc_min_heading_level: 2
 toc_max_heading_level: 5
 ---

@@ -52,7 +52,7 @@ namespace dom
   public:
     node(): hn(0)       {}
     node(HNODE h)       { use(h); }
-    node(HELEMENT h);
+    //node(HELEMENT h);
     node(const element& el);
     node(const node& n) { use(n.hn); }
     ~node()             { unuse(); }
@@ -61,7 +61,7 @@ namespace dom
     operator bool() const { return hn != 0; }
 
     node& operator = (HNODE h) { set(h); return *this; }
-    node& operator = (HELEMENT h);
+    //node& operator = (HELEMENT h);
 
     node& operator = (const node& n) { set(n.hn); return *this; }
     node& operator = (const element& n);
@@ -156,11 +156,7 @@ namespace dom
     operator bool() const { return he != 0; }
 
     operator HELEMENT() const { return he; }
-    operator HNODE() const {
-      HNODE hn = 0;
-      SciterNodeCastFromElement(he,&hn); // always succeedes
-      return hn;
-    }
+    operator HNODE() const { return (HNODE)he; }
 
   /**Destructor.*/
     ~element()                { unuse(); }
@@ -1185,18 +1181,6 @@ namespace dom
   {
     use(e);
     assert(hn);
-  }
-
-  inline node::node(HELEMENT h):hn(0)
-  {
-    use(element(h));
-    assert(hn);
-  }
-
-  inline node& node::operator = (HELEMENT h)
-  {
-    set(element(h));
-    return *this;
   }
 
   inline node& node::operator = (const element& n)

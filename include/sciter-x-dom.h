@@ -19,18 +19,14 @@
 #include <assert.h>
 #include <stdio.h> // for vsnprintf
 
+ /**DOM element handle.*/
+typedef struct _HELEMENT* HELEMENT;
+typedef struct _HNODE* HNODE;
+
 #if defined(__cplusplus) && !defined( PLAIN_API_ONLY )
-  namespace html
-  {
-    struct element;
-    struct node;
-  }
   namespace tool {
     class sar;
   }
-  typedef html::element* HELEMENT;
-  /**DOM node handle.*/
-  typedef html::node* HNODE;
   /**DOM range handle.*/
   typedef void*  HRANGE;
   typedef struct hposition { HNODE hn; INT pos; } HPOSITION;

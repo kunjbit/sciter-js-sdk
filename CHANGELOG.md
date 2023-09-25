@@ -1,3 +1,19 @@
+## 5.0.2.24
+
+### Fixes:
+
+* fix of baseline calculation in `<select>`;
+* [CSS] fixes of `~` selector combinator handling;
+* [CSS,layout] fix of `::after`/`::before` handling when they change display model of the element;
+* [CSS] fix of `position:relative` without `z-index` set;
+* fix of popup menu background rendering;
+
+### New:
+
+* [html] support of `autofocus` attribute.
+* [DOM,API] "safe handles": HELEMENT, HNODE, HGFX, HIMG, HTEXT, HPATH. They are not pointers to internal structures anymore.
+* [frame|pager] + `frame.pager.document` property; 
+
 ## 5.0.2.23
 
 ### Fixes:

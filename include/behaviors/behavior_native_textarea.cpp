@@ -41,7 +41,7 @@ struct native_textarea: public event_handler
     {
       this_element = he;
 
-      dom::element self = dom::element::element(this_element);
+      dom::element self(this_element);
 
       RECT rc = self.get_location(VIEW_RELATIVE | CONTENT_BOX);
 
@@ -53,7 +53,7 @@ struct native_textarea: public event_handler
           ::CreateWindow(TEXT("EDIT"), 
                                  TEXT(""), 
                                  WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT | ES_AUTOHSCROLL | ES_WANTRETURN | ES_MULTILINE,
-                                 rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top,
+                                 rc.left, rc.top, max(10,rc.right - rc.left), max(10,rc.bottom - rc.top),
                                  parent, NULL, THIS_HINSTANCE, 0);
 
       ::SendMessage(this_hwnd, WM_SETFONT, (WPARAM)GetStockObject(DEFAULT_GUI_FONT), true);
