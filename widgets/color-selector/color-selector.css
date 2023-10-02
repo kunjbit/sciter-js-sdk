@@ -9,6 +9,7 @@
     background:var(button-scrollbar);
     padding:6px;
     font:system;
+    overflow:hidden;
   }
   input(h) {
     display:inline-block; 

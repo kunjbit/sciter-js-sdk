@@ -1,3 +1,18 @@
+## 5.0.2.25
+
+### Fixes:
+
+* [CSS] `position:relative`, fix of mouse hit testing;
+* [DOM] fix of element.style.display = "block"; application;
+* [virtual-list] fix of touchpad scrolling; 
+* `<input|slider>`, fix of `step="2" min="1"` combination handling - it produces now 1,3,5,... values.
+* [CSS] fix of `<menu>`s with custom background/shadow/roundness;
+* [skia-backends] fix of runtime image generation, should fix box-shadow, SVG rendering and other cases.
+
+### New:
+
+[CSS] `fill`  property accepts `linear-gradient()` and `radial-gradient()` together with colors;
+
 ## 5.0.2.24
 
 ### Fixes:
