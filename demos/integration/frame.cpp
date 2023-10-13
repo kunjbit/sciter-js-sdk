@@ -174,7 +174,7 @@ public:
   sciter::value nativeFunctionsB() //api definition
   {
     // same as the above but with lambdas
-    std::function<bool()>     BeginDownload = [=]() -> bool { return false; };
+    std::function<bool()>     BeginDownload = [=]() -> bool { return true; };
     std::function<bool(bool)> ShellOpen = [=](bool) -> bool { return false; };
     std::function<bool(int)>  DisableRestart = [=](int) -> bool { return false; };
     sciter::value api_map;

@@ -10,12 +10,18 @@
                       display:inline-block; 
                       border:1px solid #DCB; 
                       width:1.4em; 
-                      margin-right:2px; 
-                      text-align:center; 
-                      }
+                      margin-inline-end:2px; 
+                      text-align:center; }
       
-      option:not(:node) { padding-left:0; } /* leaf item*/
+      option:not(:node) { padding-inline-start:0; } /* leaf item*/
       option:current > code { border-color:transparent;  }
+
+      row {
+        display:block;
+        flow:horizontal;
+        border-spacing:*;
+        size:*;
+      }
 
     </style>
     <script>
@@ -34,7 +40,7 @@
         <button #set1>set "Transition Metals"</button> 
         <button #set2>set "Na"</button> 
         <button #clear>clear</button>
-
+<row>
   <select #dd type="tree" size=16 treelines>
     <option expanded value="Metals">
       <caption>Metals</caption>
@@ -59,5 +65,33 @@
     </option>
     <option value="He"><code>He</code>Helium</option>
   </select> 
+
+  <select #dd type="tree" size=16 treelines dir="rtl">
+    <option expanded value="Metals">
+      <caption>Metals</caption>
+      <option expanded value="Alkaline Metals">
+        <caption>Alkaline Metals</caption>
+        <option value="Li"><code>Li</code>Lithium</option>
+        <option value="Na"><code>Na</code>Sodium</option>
+        <option value="K"><code>K</code>Potassium</option>
+      </option>
+      <option expanded value="Transition Metals">
+        <caption>Transition Metals</caption>
+        <option value="Sc"><code>Sc</code>Scandium</option>
+        <option value="Ti"><code>Ti</code>Titanium</option>
+        <option value="V"><code>V</code>Vanadium</option>
+      </option>
+    </option>
+    <option expanded value="Halogens">
+        <caption>Halogens</caption>
+        <option value="F"><code>F</code>Fluorine</option>
+        <option value="Cl"><code>Cl</code>Chlorine</option>
+        <option value="Br"><code>Br</code>Bromine</option>
+    </option>
+    <option value="He"><code>He</code>Helium</option>
+  </select> 
+
+</row>
+
 </body>
 </html>

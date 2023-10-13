@@ -42,6 +42,13 @@ main {flow:horizontal-wrap; border-spacing:2em; }
         </style>
         <script>
 
+let nativeApi = Window.this.assetInterface.nativeFunctionsB();
+console.assert( nativeApi.beginDownload(), "problem with C++ lambdas" );
+
+document.on("before-unload", () => nativeApi = null)
+
+
+
 // menu handling:
 document.on("click","menu>li.hello", () => { Window.this.modal(<info>Hello world!</info>); });
 document.on("click","menu>li.quit", () => { Window.this.close(); });

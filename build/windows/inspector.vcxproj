@@ -341,6 +341,7 @@
     <ClInclude Include="..\..\include\aux-slice.h" />
     <ClInclude Include="..\..\include\sciter-om-def.h" />
     <ClInclude Include="..\..\include\sciter-om.h" />
+    <ClInclude Include="..\..\include\sciter-version.h" />
     <ClInclude Include="..\..\include\sciter-x-api.h" />
     <ClInclude Include="..\..\include\sciter-x-behavior.h" />
     <ClInclude Include="..\..\include\sciter-x-debug.h" />

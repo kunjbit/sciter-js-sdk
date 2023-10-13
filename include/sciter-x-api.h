@@ -12,6 +12,7 @@
 #ifndef __SCITER_API_X__
 #define __SCITER_API_X__
 
+#include "sciter-version.h"
 #include "sciter-x-types.h"
 #include "sciter-x-def.h"
 #include "sciter-x-dom.h"
@@ -287,7 +288,6 @@ typedef struct _ISciterAPI {
 
   SCDOM_RESULT SCFN(SciterGetElementAsset)(HELEMENT el, UINT64 nameAtom, som_asset_t** ppass);
 
-  // these two are place holders - not implemented:
   UINT   SCFN(SciterSetVariable)(HWINDOW hwndOrNull, LPCSTR name, const VALUE* pvalToSet);
   UINT   SCFN(SciterGetVariable)(HWINDOW hwndOrNull, LPCSTR name, VALUE* pvalToGet);
 
@@ -338,6 +338,14 @@ typedef ISciterAPI* (SCAPI *SciterAPI_ptr)();
             SciterAPI_ptr sciterAPI = (SciterAPI_ptr) GetProcAddress(hm, "SciterAPI");
             if( sciterAPI ) {
               _api = sciterAPI();
+              if (SCITER_VERSION_0 != _api->SciterVersion(0) || 
+                  SCITER_VERSION_1 != _api->SciterVersion(1) || 
+                  SCITER_VERSION_2 != _api->SciterVersion(2) ||
+                  SCITER_VERSION_3 != _api->SciterVersion(3)) {
+                 ::MessageBox(NULL, TEXT("Sciter version mismatch, quiting"),TEXT("Error"),MB_OK);
+                _api = 0;
+                FreeLibrary(hm);
+              }
             } else {
               FreeLibrary(hm);
             }

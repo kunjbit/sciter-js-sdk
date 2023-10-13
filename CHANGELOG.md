@@ -1,3 +1,22 @@
+## 5.0.2.26
+
+### Fixes:
+
+* [CSS] fixes of position:relative (but no z-index) elements handling;
+* [CSS] aspect: function application fix;
+* [CSS] fix of `list-style-type: tree-line` + `direction:rtl`;
+* [CSS] fix of `@media sciter {  }` and `@if sciter {  }` handling;
+* [OSX] empty http request status fix;
+* [terminal] fix of attributes application;
+* [API] number of handles is increased, in 32-bit to 4,096 and to 16,777,216 in 64-bit version.
+
+### New:
+
+* [CSS] + [padding-inline](https://developer.mozilla.org/en-US/docs/Web/CSS/padding-inline) and [margin-inline](https://developer.mozilla.org/en-US/docs/Web/CSS/margin-inline) support;
+* + sdk.js/include/sciter-version.h - is a part of SDK headers now, sciter.dll loader checks for version mismatch.
+* + `element.animation` object when css animation is defined;
+* + `Graphics.Image.load(url, true)` parameter for immediate (sync) image load;
+
 ## 5.0.2.25
 
 ### Fixes:
