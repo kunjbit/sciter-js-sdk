@@ -1,0 +1,12 @@
+{
+  "name": "websocket-echo-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "dependencies": {
+    "ws": "^6.1.4"
+  }
+}
