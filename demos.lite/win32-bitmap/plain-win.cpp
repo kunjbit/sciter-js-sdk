@@ -86,12 +86,15 @@ bool window::init()
   auto version = SAPI()->version;
 
   // create an engine instance
-  auto ok = SciterProcX(get_hwnd(), SCITER_X_MSG_CREATE(GFX_LAYER_SKIA, FALSE));
+  auto ok = SciterProcX(get_hwnd(), SCITER_X_MSG_CREATE(GFX_LAYER_SKIA_RASTER, FALSE));
 
   // setup callbacks
   SciterSetOption(get_hwnd(), SCITER_SET_DEBUG_MODE, true);
   this->setup_callback();
   sciter::attach_dom_event_handler(get_hwnd(), this);
+
+  UINT dpi = GetDpiForWindow(hwnd);
+  ok = SciterProcX(get_hwnd(), SCITER_X_MSG_RESOLUTION(dpi));
 
   sciter::debug_output::instance()->printf("initialized\n");
   // load file
@@ -312,6 +315,7 @@ LRESULT CALLBACK window::wnd_proc(HWND hWnd, UINT message, WPARAM wParam, LPARAM
     paint.targetType = SPT_RECEIVER;
     paint.target.receiver.param = self;
     paint.target.receiver.callback = on_bitmap;
+    SciterGetRootElement(self, &paint.element);
 
     auto ok = SciterProcX(self, paint);
 
@@ -347,8 +351,6 @@ int WINAPI wWinMain(HINSTANCE hInstance,
 
   // Perform application initialization:
 
-  OleInitialize(NULL); // for shell interaction: drag-n-drop, etc.
-
   auto* cls = SciterClassName();
 
   sciter::debug_output _dbg;
@@ -368,11 +370,9 @@ int WINAPI wWinMain(HINSTANCE hInstance,
         break;
       TranslateMessage(&msg);
       DispatchMessage(&msg);
-    }
-    Sleep(0);
+    } else
+      Sleep(16);
   }
-
-  OleUninitialize();
 
   return 0;
 }

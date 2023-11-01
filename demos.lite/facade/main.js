@@ -50,9 +50,9 @@ function init() {
       caption.post( () => caption.innerText = (1000 / (avdelta || 1)).toFixed(0) );
       counter = 0;
     }
-    caption.requestPaint();
+    //caption.requestPaint(); 
   };
-  caption.requestPaint();
+  //caption.requestPaint();
 }
 
 init();
