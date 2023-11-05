@@ -245,7 +245,7 @@ project "gsciter"
     --removeconfigurations { "*skia" }
 
     if USE_VULKAN then 
-      sysincludedirs { "$(VULKAN_SDK)/include" }  
+      externalincludedirs { "$(VULKAN_SDK)/include" }  
     end
 
     files {"include/sciter-*.h",
@@ -463,6 +463,26 @@ if( _TARGET_OS == "windows") then
 
     settargetdir()
 
+  project "win32-bitmap"
+
+    kind "WindowedApp"
+    language "C++"
+
+    dpiawareness "HighPerMonitor"
+
+    defines "WINDOWLESS"
+
+    removeconfigurations { "*Skia" }
+
+    targetdir ("bin.lite/" .. osabbr() .."/%{cfg.platform}")
+
+    files { "demos.lite/win32-bitmap/*.h",
+            "demos.lite/win32-bitmap/*.cpp" }
+
+    files {"include/sciter-*.h",
+           "include/sciter-*.hpp",
+           "include/aux-*.*"}
+
     filter {}
 
 end
@@ -585,11 +605,11 @@ project "glfw-opengl"
 
   dpiawareness "HighPerMonitor"
 
-  configuration "windows"
+  filter "system:windows"
     prebuildcommands { 
       "\"%{prj.location}..\\..\\bin\\windows\\packfolder.exe\" \"%{prj.location}..\\..\\demos.lite\\facade\" \"%{prj.location}..\\..\\demos.lite\\facade-resources.cpp\" -v \"resources\""
     }
-  configuration {}
+  filter {}
 
   -- ours:
   files { 

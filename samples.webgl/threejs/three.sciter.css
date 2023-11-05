@@ -1,0 +1,15 @@
+canvas[type="webgl"],
+canvas[type="3d"] {
+  behavior:webgl;
+  prototype: WebGL url(three.sciter.js);
+  size:*;
+  flow:stack; // it may host content  
+}
+
+canvas[type="three"],
+canvas[type="THREE"] {
+  behavior:webgl;
+  prototype: ThreeView url(three.sciter.js);
+  size:*;
+  flow:stack; // it may host content  
+}

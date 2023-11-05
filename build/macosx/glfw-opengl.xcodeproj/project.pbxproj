@@ -47,6 +47,7 @@
 		225AC08F3D272F4140F7C6CF /* cocoa_monitor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = cocoa_monitor.m; path = ../../demos.lite/glfw/src/cocoa_monitor.m; sourceTree = "<group>"; };
 		22DB6F4DF0FEC2FF780D158D /* context.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = context.c; path = ../../demos.lite/glfw/src/context.c; sourceTree = "<group>"; };
 		22E3623702007C69DE09D877 /* posix_thread.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = posix_thread.c; path = ../../demos.lite/glfw/src/posix_thread.c; sourceTree = "<group>"; };
+		2BDAAD411021B573940EE381 /* sciter-version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-version.h"; path = "../../include/sciter-version.h"; sourceTree = "<group>"; };
 		353A18F3CD86FEA5FBCDFF33 /* stdafx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = "../../demos.lite/sciter-glfw-opengl/stdafx.h"; sourceTree = "<group>"; };
 		379670FF1BDD79319FCAA73F /* sciter-x-dom.hpp */ = {isa = PBXFileReference; lastKnownFileType = text; name = "sciter-x-dom.hpp"; path = "../../include/sciter-x-dom.hpp"; sourceTree = "<group>"; };
 		3A34D933CFAB98653E47EF73 /* sciter-x-api.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-x-api.h"; path = "../../include/sciter-x-api.h"; sourceTree = "<group>"; };
@@ -161,6 +162,7 @@
 				F4E083E9B84C459BF6EFEA29 /* nullptr.hpp */,
 				0D35DEE5DB59329762678525 /* sciter-om-def.h */,
 				D4AFF9AD981BBB5FD6BF5FED /* sciter-om.h */,
+				2BDAAD411021B573940EE381 /* sciter-version.h */,
 				3A34D933CFAB98653E47EF73 /* sciter-x-api.h */,
 				9B15673F33624CF161A94D7F /* sciter-x-behavior.h */,
 				0C92150DF0D91D3F74C64B4D /* sciter-x-debug.h */,

@@ -4,11 +4,16 @@
         <style></style>
         <script|module>
 
-import {ColorSelector, ColorInput} from "color-selector.js";
+import {ColorSelector, ColorInput} from "sciter:color-selector.js";
 
+document.body.append(<p>No alpha</p>);
 document.body.append(<ColorSelector colors="default" />);
 
-document.body.append(<p>Input: <ColorInput /></p>);
+document.body.append(<p>With alpha</p>);
+document.body.append(<ColorSelector colors="default" alpha />);
+
+document.body.append(<p>Input (no alpha): <ColorInput /></p>);
+document.body.append(<p>Input (with alpha): <ColorInput alpha /></p>);
 
 
         </script>

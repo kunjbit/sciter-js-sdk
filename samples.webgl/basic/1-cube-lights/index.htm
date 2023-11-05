@@ -1,0 +1,26 @@
+<html lang="en">
+  <head>
+    <title>WebGL Demo</title>
+    <style>
+      body { margin:0; }
+    </style>
+    <script|module>
+
+      import {main} from "./webgl-demo.js";
+      import {GUI} from "../../../widgets/lil-gui/gui.js";
+
+      document.on("ready", function() {
+        const canvas = document.$("canvas#gl");
+        const params = main(canvas);
+        const gui = new GUI();
+        gui.add(params,"speed",0,2.0,0.1);
+        gui.add(params,"background");
+      });
+    </script>
+
+  </head>
+
+  <body>
+    <canvas|3d id="gl" />
+  </body>
+</html>

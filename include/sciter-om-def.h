@@ -27,16 +27,59 @@ typedef SBOOL(*som_any_prop_getter_t)(som_asset_t* thing, UINT64 propSymbol, SOM
 typedef SBOOL(*som_any_prop_setter_t)(som_asset_t* thing, UINT64 propSymbol, const SOM_VALUE* p_value);
 typedef SBOOL(*som_method_t)(som_asset_t* thing, UINT argc, const SOM_VALUE* argv, SOM_VALUE* p_result);
 typedef void(*som_dispose_t)(som_asset_t* thing);
+typedef SBOOL(*som_name_resolver_t)(som_asset_t* thing, som_atom_t propSymbol, UINT* pIndex, SBOOL *pIsMethod);
+
+typedef enum {
+  SOM_PROP_ACCSESSOR = 0,
+  SOM_PROP_INT32 = 1,
+  SOM_PROP_INT64 = 2,
+  SOM_PROP_FLOAT = 3,
+  SOM_PROP_STRING = 4,
+} SOM_PROP_TYPE;
 
 typedef struct som_property_def_t {
-  void*             reserved;
-  som_atom_t        name;
-  som_prop_getter_t getter;
-  som_prop_setter_t setter;
+  intptr_t      type; // SOM_PROP_TYPE
+  som_atom_t    name;
+  union {
+    struct {
+      som_prop_getter_t getter;
+      som_prop_setter_t setter;
+    } accs;
+    int32_t i32;
+    int64_t i64;
+    double  f64;
+    const char* str;
+  } u;
 #ifdef __cplusplus
-  som_property_def_t(const char* n, som_prop_getter_t pg, som_prop_setter_t ps = nullptr) : name(SciterAtomValue(n)), getter(pg), setter(ps), reserved(0){}
+  explicit som_property_def_t(const char* n, som_prop_getter_t pg, som_prop_setter_t ps = nullptr) : name(SciterAtomValue(n)), 
+    type(SOM_PROP_ACCSESSOR)
+  {
+    u.accs.getter = pg;
+    u.accs.setter = ps;
+  }
+  explicit som_property_def_t(const char* n, int32_t c) : name(SciterAtomValue(n)),
+    type(SOM_PROP_INT32)
+  {
+    u.i32 = c;
+  }
+  explicit som_property_def_t(const char* n, int64_t c) : name(SciterAtomValue(n)),
+    type(SOM_PROP_INT64)
+  {
+    u.i64 = c;
+  }
+  explicit som_property_def_t(const char* n, double c) : name(SciterAtomValue(n)),
+    type(SOM_PROP_FLOAT)
+  {
+    u.f64 = c;
+  }
+  explicit som_property_def_t(const char* n, const char* c) : name(SciterAtomValue(n)),
+    type(SOM_PROP_STRING)
+  {
+    u.str = c;
+  }
 #endif
 } som_property_def_t;
+
 
 typedef struct som_method_def_t {
   void*        reserved;
@@ -49,8 +92,9 @@ typedef struct som_method_def_t {
 } som_method_def_t;
 
 enum som_passport_flags {
-  SOM_SEALED_OBJECT = 0x00,    // not extendable
-  SOM_EXTENDABLE_OBJECT = 0x01 // extendable, asset may have new properties added
+  SOM_SEALED_OBJECT = 0x00,     // not extendable
+  SOM_EXTENDABLE_OBJECT = 0x01, // extendable, asset may have new properties added
+  SOM_HAS_NAME_RESOLVER = 0x02  // if name_resolver is valid 
 };
 
 // definiton of object (the thing) access interface
@@ -66,6 +110,8 @@ typedef struct som_passport_t {
   // any property "inteceptors"
   som_any_prop_getter_t  prop_getter;  // var prop_val = thing.k;
   som_any_prop_setter_t  prop_setter;  // thing.k = prop_val;
+  som_name_resolver_t name_resolver;
+  void* reserved;
 } som_passport_t;
 
 #ifdef CPP11
@@ -99,6 +145,8 @@ typedef struct som_passport_t {
 #define SOM_RO_VIRTUAL_PROP(name,prop_getter) som_property_def_t(#name, \
     &sciter::om::member_getter_function<decltype(&TC::prop_getter)>::thunk<&TC::prop_getter>)
 
+#define SOM_CONST(name,val) som_property_def_t(#name,val)
+
 #define SOM_ITEM_SET(func) \
     st.item_setter = &sciter::om::item_set_accessor<decltype(&TC::func)>::thunk<&TC::func>;
 
@@ -113,6 +161,10 @@ typedef struct som_passport_t {
 
 #define SOM_PROP_GET(func) \
     st.prop_getter = &sciter::om::prop_get_accessor<decltype(&TC::func)>::thunk<&TC::func>;
+
+#define SOM_NAME_RESOLVER(func) { \
+     st.flags |= SOM_HAS_NAME_RESOLVER; \
+     st.name_resolver = &sciter::om::passport_name_resolver<decltype(&TC::func)>::thunk<&TC::func>; }
 
 
 #define SOM_PASSPORT_BEGIN(classname) \
@@ -133,7 +185,7 @@ typedef struct som_passport_t {
      return &st; \
    }
 
-#define SOM_PASSPORT_FLAGS(fs) st.flags = fs;
+#define SOM_PASSPORT_FLAGS(fs) st.flags = fs; 
 
 #define SOM_FUNCS(...) \
      static som_method_def_t methods[] = { __VA_ARGS__ }; \
@@ -161,6 +213,16 @@ namespace sciter {
       };
 
     template <class Type> struct member_function;
+
+    template <class Type>
+    struct member_function<SOM_VALUE(Type::*)(UINT argc, const SOM_VALUE* argv)> {
+      enum { n_params = 256 };
+      template <SOM_VALUE(Type::* Func)(UINT, const SOM_VALUE*)> static SBOOL thunk(som_asset_t* thing, UINT argc, const SOM_VALUE* argv, SOM_VALUE* p_result)
+      {
+        try { *p_result = SOM_VALUE((static_cast<Type*>(thing)->*Func)(argc,argv)); return TRUE; }
+        catch (exception& e) { *p_result = SOM_VALUE::make_error(e.what()); return TRUE; }
+      }
+    };
 
     template <class Type, class Ret>
       struct member_function<Ret(Type::*)()> {
@@ -302,6 +364,72 @@ namespace sciter {
         }
       };
 
+      template <class Type, class Ret, class P0, class P1, class P2, class P3, class P4, class P5, class P6>
+      struct member_function<Ret(Type::*)(P0, P1, P2, P3, P4, P5, P6)> {
+        enum { n_params = 7 };
+        template <Ret(Type::* Func)(P0, P1, P2, P3, P4, P5, P6)> static SBOOL thunk(som_asset_t* thing, UINT argc, const SOM_VALUE* argv, SOM_VALUE* p_result)
+        {
+          try { *p_result = SOM_VALUE((static_cast<Type*>(thing)->*Func)(argv[0].get<P0>(), argv[1].get<P1>(), argv[2].get<P2>(), argv[3].get<P3>(), argv[4].get<P4>(), argv[5].get<P5>(), argv[6].get<P6>())); return TRUE; }
+          catch (exception& e) { *p_result = SOM_VALUE::make_error(e.what()); return TRUE; }
+        }
+      };
+
+      template <class Type, class Ret, class P0, class P1, class P2, class P3, class P4, class P5, class P6, class P7>
+      struct member_function<Ret(Type::*)(P0, P1, P2, P3, P4, P5, P6, P7)> {
+        enum { n_params = 8 };
+        template <Ret(Type::* Func)(P0, P1, P2, P3, P4, P5, P6, P7)> static SBOOL thunk(som_asset_t* thing, UINT argc, const SOM_VALUE* argv, SOM_VALUE* p_result)
+        {
+          try { *p_result = SOM_VALUE((static_cast<Type*>(thing)->*Func)(
+            argv[0].get<P0>(), argv[1].get<P1>(), argv[2].get<P2>(), argv[3].get<P3>(), 
+            argv[4].get<P4>(), argv[5].get<P5>(), argv[6].get<P6>(), argv[7].get<P7>())); return TRUE; }
+          catch (exception& e) { *p_result = SOM_VALUE::make_error(e.what()); return TRUE; }
+        }
+      };
+
+      template <class Type, class Ret, class P0, class P1, class P2, class P3, class P4, class P5, class P6, class P7, class P8>
+      struct member_function<Ret(Type::*)(P0, P1, P2, P3, P4, P5, P6, P7, P8)> {
+        enum { n_params = 9 };
+        template <Ret(Type::* Func)(P0, P1, P2, P3, P4, P5, P6, P7, P8)> static SBOOL thunk(som_asset_t* thing, UINT argc, const SOM_VALUE* argv, SOM_VALUE* p_result)
+        {
+          try {
+            *p_result = SOM_VALUE((static_cast<Type*>(thing)->*Func)(
+              argv[0].get<P0>(), argv[1].get<P1>(), argv[2].get<P2>(), argv[3].get<P3>(),
+              argv[4].get<P4>(), argv[5].get<P5>(), argv[6].get<P6>(), argv[7].get<P7>(),
+              argv[8].get<P8>())); return TRUE;
+          }
+          catch (exception& e) { *p_result = SOM_VALUE::make_error(e.what()); return TRUE; }
+        }
+      };
+
+      template <class Type, class Ret, class P0, class P1, class P2, class P3, class P4, class P5, class P6, class P7, class P8, class P9>
+      struct member_function<Ret(Type::*)(P0, P1, P2, P3, P4, P5, P6, P7, P8, P9)> {
+        enum { n_params = 10 };
+        template <Ret(Type::* Func)(P0, P1, P2, P3, P4, P5, P6, P7, P8, P9)> static SBOOL thunk(som_asset_t* thing, UINT argc, const SOM_VALUE* argv, SOM_VALUE* p_result)
+        {
+          try {
+            *p_result = SOM_VALUE((static_cast<Type*>(thing)->*Func)(
+              argv[0].get<P0>(), argv[1].get<P1>(), argv[2].get<P2>(), argv[3].get<P3>(),
+              argv[4].get<P4>(), argv[5].get<P5>(), argv[6].get<P6>(), argv[7].get<P7>(),
+              argv[8].get<P8>(), argv[9].get<P9>())); return TRUE;
+          }
+          catch (exception& e) { *p_result = SOM_VALUE::make_error(e.what()); return TRUE; }
+        }
+      };
+
+      template <class Type, class Ret, class P0, class P1, class P2, class P3, class P4, class P5, class P6, class P7, class P8, class P9, class P10>
+      struct member_function<Ret(Type::*)(P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10)> {
+        enum { n_params = 11 };
+        template <Ret(Type::* Func)(P0, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10)> static SBOOL thunk(som_asset_t* thing, UINT argc, const SOM_VALUE* argv, SOM_VALUE* p_result)
+        {
+          try {
+            *p_result = SOM_VALUE((static_cast<Type*>(thing)->*Func)(
+              argv[0].get<P0>(), argv[1].get<P1>(), argv[2].get<P2>(), argv[3].get<P3>(),
+              argv[4].get<P4>(), argv[5].get<P5>(), argv[6].get<P6>(), argv[7].get<P7>(),
+              argv[8].get<P8>(), argv[9].get<P9>(), argv[10].get<P10>())); return TRUE;
+          }
+          catch (exception& e) { *p_result = SOM_VALUE::make_error(e.what()); return TRUE; }
+        }
+      };
 
     // func() const  variants of the above
     template <class Type, class Ret>
@@ -558,8 +686,20 @@ namespace sciter {
         }
       };
 
+      template <class Type> struct passport_name_resolver;
+
+      template <class Type>
+      struct passport_name_resolver<bool(Type::*)(som_atom_t name, UINT& index, SBOOL& is_method)> {
+        template <bool(Type::* Func)(som_atom_t name, UINT& index, SBOOL& is_method)>
+        static SBOOL thunk(som_asset_t* thing, som_atom_t name,UINT* index, SBOOL* is_method)
+        {
+          return (static_cast<Type*>(thing)->*Func)(name, *index,*is_method) ? TRUE : FALSE;
+        }
+      };
+
+
       // returns pack of asset's properties as a map
-      inline SOM_VALUE asset_to_map(som_asset_t *ptr) {
+      /*inline SOM_VALUE asset_to_map(som_asset_t* ptr) {
         if (auto psp = asset_get_passport(ptr)) {
           SOM_VALUE map;
           for (size_t n = 0; n < psp->n_properties; ++n) {
@@ -570,7 +710,7 @@ namespace sciter {
           return map;
         }
         return SOM_VALUE();
-      }
+      }*/
 
   }
 }

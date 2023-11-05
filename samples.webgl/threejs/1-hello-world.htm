@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <style>
+
+@import url(three.sciter.css);
+
+canvas { size:*; flow:stack; }
+
+canvas > h2 {
+   size:max-content;  
+   margin:4* * 3* *;
+   backdrop-filter: blur(10px);
+   padding:1em 2em;
+   border-radius:3px;
+   background-color: rgba(255,255,255,0.2);
+}
+
+        </style>
+        <script|module>
+
+import {THREE} from "three.sciter.js";
+
+function main(canvas) {
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera( 75, 1, 0.1, 1000 );
+          camera.position.z = 15;
+
+    const directionalLight = new THREE.DirectionalLight( 0xfffff0, 1);
+    directionalLight.position.y = 0;
+    directionalLight.position.x = -0.7;
+    directionalLight.position.z = 0.9;
+    scene.add( directionalLight );
+
+    const geometry = new THREE.SphereGeometry(5,32,32);
+    const texture = new THREE.TextureLoader().load( __DIR__ + "images/earth.jpg" );
+    const material = new THREE.MeshStandardMaterial( { map : texture , color: 0xFFFFFF  } );
+
+    const mesh = new THREE.Mesh( geometry, material );
+    scene.add( mesh );
+
+    const renderer = new THREE.WebGLRenderer( { antialias: true, canvas } );
+    renderer.setAnimationLoop( animation );
+
+    updateSize();
+
+    let previousTimeStamp;
+    function animation( timeStamp ) {
+        const elapsed = timeStamp - (previousTimeStamp ?? timeStamp);
+        previousTimeStamp = timeStamp;    
+        mesh.rotation.y += elapsed * 0.0004;
+        renderer.render( scene, camera );
+    }
+
+    function updateSize() {
+      const {width, height} = canvas.box("inner");
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setDrawingBufferSize( width, height, devicePixelRatio );
+      renderer.render( scene, camera );
+    }
+
+    canvas.on("size-change", updateSize );
+}
+
+document.on("ready", function() {
+  main( document.$("canvas") );
+});
+
+        </script>
+    </head>
+    <body>
+
+<h3>Three.JS in Sciter</h3> 
+
+<canvas|3d>
+  <h2>Hello World by Three the Magnificent</h2>
+</canvas>
+
+
+    </body>
+</html>

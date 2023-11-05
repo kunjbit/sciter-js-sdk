@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style></style>
+        <script>
+
+console.log("from second");
+
+document.on("click","button",function(){
+  throw new Error("test error");
+});
+
+        </script>
+    </head>
+    <body>
+    <button>err</button>
+    </body>
+</html>

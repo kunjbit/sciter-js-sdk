@@ -251,7 +251,7 @@
       bool is_array() const { return t == T_ARRAY; }
       bool is_array_like() const { return t == T_ARRAY || (t == T_OBJECT && u == UT_OBJECT_ARRAY); }
       bool is_function() const { return t == T_FUNCTION; }
-      bool is_bytes() const { return t == T_BYTES; }
+      bool is_bytes() const { return t == T_BYTES || (t == T_OBJECT && u == UT_OBJECT_BUFFER); }
       bool is_object() const { return t == T_OBJECT; }
       //bool is_dom_element() const { return t == T_DOM_OBJECT; }
       // if it is a native functor reference
@@ -564,6 +564,7 @@
       bool is_object_object() const   {  return t == T_OBJECT && u == UT_OBJECT_OBJECT; } // that is plain TS object
       bool is_object_class() const    {  return t == T_OBJECT && u == UT_OBJECT_CLASS; }  // that is TS class
       bool is_object_error() const    {  return t == T_OBJECT && u == UT_OBJECT_ERROR; }  // that is TS error
+      bool is_object_buffer() const   {  return t == T_OBJECT && u == UT_OBJECT_BUFFER; }  // that is TS error
 
 
       // T_OBJECT only, set value of object's data slot
@@ -868,6 +869,7 @@
     template<typename T>
       inline value::value(const T& v) : value(setter(v)) {;}
   }
+
 #endif
 
   #pragma warning( pop )

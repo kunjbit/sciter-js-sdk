@@ -1,7 +1,7 @@
 html {
   font: system;
   font-size: 11pt;
-  var(accent): window-accent-color;
+  var(accent): #04f;
   var(accent-text): #fff;
   var(lighten5): morph(window-accent-color, lighten: 60%);
   var(lighten4): morph(window-accent-color, lighten: 53%);
@@ -391,7 +391,7 @@ slider {
   }
 
   :root > knob::marker {
-    content: attr(value);
+    content: parent-attr(value);
     size: 32dip 36dip;
     line-height: 32dip;
     text-align: center;

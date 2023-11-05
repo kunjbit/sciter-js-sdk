@@ -1,0 +1,55 @@
+<html window-resizable>
+    <head>
+        <title>Test</title>
+        <style>
+
+dl {
+  flow:row(dt, dd); 
+  flow-columns: max-content *;
+  border-spacing:4px; /* inter column spacing */
+}
+
+dl dt { font-weight: bold; }
+dl dd { padding:0; }
+
+dl > header {
+  background:#ddd;
+  padding: 0.5em 1em;
+}
+
+row {
+  display:contents; /* note: this element is used for grouping only */
+}
+
+        </style>
+    </head>
+    <body>
+
+<h2>flow:row() with display:contents elements</h2>
+
+<dl>
+  <header>First header (spans both columns)</header>
+  <row>
+    <dt>Lorem</dt>
+    <dd>ipsum dolor sit amet, consectetur adipiscing elit, 
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</dd>
+  </row>
+  <row>
+    <dt>Ut enim</dt>
+    <dd>ad minim veniam, quis nostrud exercitation ullamco laboris 
+        nisi ut aliquip ex ea commodo consequat.</dd>
+  </row>
+  <header>Second header (spans both columns)</header>      
+  <row>
+    <dt>Duis aute</dt>
+    <dd>irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</dd>
+  </row>
+  <row>
+    <dt>Excepteur</dt>
+    <dd>sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</dd>
+  <row>
+</dl>
+
+
+    </body>
+</html>

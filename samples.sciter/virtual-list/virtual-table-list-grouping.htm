@@ -4,6 +4,7 @@
         <style>
 
             table {
+              flow:table-fixed;
               size:*;
               border:1px solid #ccc;
             }
@@ -17,7 +18,9 @@
                behavior: column-resizer;
              }
             table > thead > tr > th:nth-child(1) { width: 8em; }
-            table > thead > tr > th:nth-child(2) { width: *; }
+            table > thead > tr > th:nth-child(2) { width: 20em; }
+            table > tbody > tr > td:nth-child(1) { width: 8em; }
+            table > tbody > tr > td:nth-child(2) { width: 20em; }
 
             tbody tr[expanded] th { // header group
               behavior:clickable; // will generate clicks
@@ -29,6 +32,7 @@
               background-image: url(stock:chevron-right);
               background-size:0.6em;
               fill:#fff;
+              width:auto;
             }
 
             tbody tr[expanded=true] th { // expanded header group
@@ -125,7 +129,7 @@ class App extends Element {
 
     render() {
         return <body>
-            <table>
+            <table fixed>
                 <thead>
                     <tr>
                         <th>bbb</th>

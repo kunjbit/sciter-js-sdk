@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+form {
+  flow: row(label,input);
+  border-spacing: 0.5em 1em; 
+}
+
+form > label {
+  width:max-content;  
+}
+
+        </style>
+        <script></script>
+    </head>
+    <body>
+
+<h2>input|text</h2>
+<form>
+    <label>plain text with placeholder</label>
+    <input|text placeholder="plain" />
+    <label>plain text with filter</label>
+    <input|text filter="0~9" placeholder="0..9" />
+</form>
+
+<h2>input|number</h2>
+<form>
+    <label>numeric input</label>
+    <input|number placeholder="numeric" />
+    <label>with min=0 max=100</label>
+    <input|number min=0 max=100 />
+    <label>with step=2</label>
+    <input|number step="2" />
+    <label>with min=1 max=100 step=1</label>
+    <input|number min=1 max=100 step=1 />
+</form>
+
+
+    </body>
+</html>

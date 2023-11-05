@@ -1,0 +1,103 @@
+﻿<html>
+    <head>
+        <title>lesson №8</title>
+        <style>
+          canvas {
+            size:*;
+            min-width:100px;
+            min-height:100px;
+            box-shadow: 2px 2px 4px #000;
+          }
+
+          var.fps {
+            display:inline-block;
+            aspect: FPS url(../fps.js);
+          }
+
+          fieldset {
+            margin:2em 1em;
+          }
+
+          fieldset.lighting {
+            flow:row(span,label,input,label,input,label,input);
+            border-spacing:0.25em;
+          }
+
+          fieldset.lighting > legend { display:inline-block; }
+
+        </style>
+        <script|module>
+          import {start,setParams} from "lesson08.js";
+
+          const P = {
+              useBlending: true,
+              blending: 0.5,
+              useLighting: false,
+              ambientR: 0.2,
+              ambientG: 0.2,
+              ambientB: 0.2,
+              lightDirectionX: -0.25,
+              lightDirectionY: -0.25,
+              lightDirectionZ: -1,
+              directionalR: 0.8,
+              directionalG: 0.8,
+              directionalB: 0.8,
+          };
+
+          const form = document.$("form"); 
+          form.value = P;
+          setParams(P);
+          form.on("change", evt=>{
+            setParams(form.value);
+          });
+
+          start( document.$("canvas").WebGL );
+          // or: start( document.$("canvas").getContext("webgl2") );
+
+        </script>
+    </head>
+    <body>
+
+<h3>WebGL, <a href="http://www.senchalabs.org/philogl/PhiloGL/examples/lessons/8/" target="system">lesson №8</a></h3>
+
+<canvas|3d />
+
+FPS: <var.fps />
+
+<form>
+
+    <p>(Use cursor keys to spin the box and <code>Page Up</code>/<code>Page Down</code> to zoom out/in)</p>
+
+    <fieldset>
+        <legend><button|checkbox(useBlending)>Use blending</button></legend>
+        Alpha level <input|number(blending) min="0.0" max="1.0" step="0.1" />
+    </fieldset>
+
+
+    <fieldset.lighting>
+        <legend #test><button|checkbox(useLighting)>Use lighting</button></legend>
+
+        <h2>Directional light:</h2>
+
+        <span>Direction:</span> 
+            <label>X:</label><input|number(lightDirectionX) min="-1.0" max="1.0" step="0.1"/>
+            <label>Y:</label><input|number(lightDirectionY) min="-1.0" max="1.0" step="0.1"/>
+            <label>Z:</label><input|number(lightDirectionZ) min="-1.0" max="1.0" step="0.1"/>
+
+        <span>Color</span>
+            <label>R:</label><input|number(directionalR) min="0.0" max="1.0" step="0.1" />
+            <label>G:</label><input|number(directionalG) min="0.0" max="1.0" step="0.1" />
+            <label>B:</label><input|number(directionalB) min="0.0" max="1.0" step="0.1" /></p>
+
+        <h2>Ambient light:</h2>
+
+        <span>Color</span>
+            <label>R:</label><input|number(ambientR) min="0.0" max="1.0" step="0.1" />
+            <label>G:</label><input|number(ambientG) min="0.0" max="1.0" step="0.1" />
+            <label>B:</label><input|number(ambientB) min="0.0" max="1.0" step="0.1" />
+    </fieldset>
+</form>
+
+
+    </body>
+</html>

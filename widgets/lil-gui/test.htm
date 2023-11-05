@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style></style>
+        <script|module>
+
+import {GUI} from "gui.js";
+
+const data = {
+    x:1,
+    y:2,
+    z:3,
+    b:true,
+    text: "lil-gui",
+    size: "Small",
+    volume: 1,
+    clr: Color.RGB(255,128,0),
+};
+
+const folder = new GUI();
+folder.add(data,"x",0.0,1.0,0.1);
+folder.add(data,"y");
+folder.add(data,"z");
+folder.add(data,"b");
+folder.add(data,"text");
+folder.add(data,"size", [ 'Small', 'Medium', 'Large' ] );
+folder.add(data,"volume", { Low:0.5, Normal:1, High:2 } );
+folder.add(data,"clr" );
+
+
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

@@ -1,3 +1,44 @@
+## 5.0.3.0
+
+### New:
+
+* **sciter3d** exe and **WebGL** implementation. See /samples.webgl demos.
+  - sciter3d.exe is scapp.exe with OpenGL set by default. Supports Quark compilation and WebGL. 
+  - works on Windows and Linux/GTK so far;
+  - supports [ThreeJS](https://threejs.org/) out of the box;
+* [JSX, Reactor] DOM references: `var={ target expression }` - stores reference to DOM element in _target expression_ upon DOM element creation;
+* [DOM] + _HTMLTemplateElement_ and _DocumentFragment_ classes implemented internally.
+* [DOM] new method `element.attach(disconnectedElement)`  - allows Graphics to draw elements that are not connected with DOM;
+* [CSS] + `popup-animation: popup-animation(...)`
+  - [DOM] + `element.popup(,{animtationType:...})`
+  - [master-css] + dropdown, menu and tooltip default animations;
+* `<input|color>` and `<widget|color>` are built-in's now;
+* [CSS, style sets] rules inside content-isolate'd style-set can be overridden by `!important` rules.
+* [sciter.lite] + win32-bitmap demo;
+* [Linux] ppx units corresponds now to physical pixels of the monitor, `devicePixelRatio` is exactly `1ppx/1px` ratio;
+* [MacOS] ppx units corresponds now to physical pixels of the monitor, `devicePixelRatio` is exactly `1ppx/1px` ratio;
+* [CSS] support of `var()` in `calc()`
+* [components] 
+  - widgets/lil-gui/ - port of the [lil-gui](https://lil-gui.georgealways.com/);
+  - widgets/console/ - console.log() & Co, in-app console implementation (in `new Window()`);
+
+### Fixes:
+
+* [DOM] `element.on("contentchange",...)` fix;
+* [CSS] `flow:vertical-wrap` - fix of layout when `height` is defined;
+* [CSS] fix of @theme propagation in popups;
+* [CSS] theme="dark" fix of caret appearance;
+* [SVG] fix of linear-gradient rendering;
+* [IME] fix of `compositionstart`, `compositionupdate` and `compositionend` events;
+* fix of custom event handlers;
+* fix of https://sciter.com/forums/topic/issue-with-css-overflow-y-parameter-in-the-latest-sciter-version/
+* fix of excessive RAM allocation in 64 bit versions.
+* [API, som, asset] fix of https://sciter.com/forums/topic/export-sciter-extension-native-library-methods-fail/ (uses native bound methods).
+* [CSS] fix of `::marker` default styling.
+* [CSS] one more fix of `position:relative`.
+* `<canvas>` fix of artifacts on rendering, [see](https://sciter.com/forums/topic/buggraphics-rect-x0-5-or-y0-5/).
+* [JS] units, fix of arithmetic operation with Lengths, [see](https://sciter.com/forums/topic/length-operators-0px/).
+
 ## 5.0.2.26
 
 ### Fixes:

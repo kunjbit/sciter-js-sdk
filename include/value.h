@@ -94,6 +94,7 @@ typedef enum VALUE_UNIT_TYPE_OBJECT
     UT_OBJECT_NATIVE = 3,   // type T_OBJECT of native Type with data slot (LPVOID)
     UT_OBJECT_FUNCTION = 4, // type T_OBJECT of type Function
     UT_OBJECT_ERROR = 5,    // type T_OBJECT of type Error
+    UT_OBJECT_BUFFER = 6,   // type T_OBJECT of type ArrayBuffer or TypedArray
 } VALUE_UNIT_TYPE_OBJECT;
 
 typedef enum VALUE_UNIT_UNDEFINED {

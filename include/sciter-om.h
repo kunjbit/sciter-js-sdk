@@ -139,6 +139,7 @@ namespace sciter {
 
       ~hasset() { if (p)	asset_release(p); }
       operator R*() const { return p; }
+      R* ptr() const { return p; }
       R* operator->() const { assert(p != 0); return p; }
 
       bool operator!() const { return p == 0; }

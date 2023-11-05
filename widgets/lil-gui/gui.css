@@ -1,0 +1,85 @@
+
+
+@set lil-gui {
+
+   :root {
+      font:system;
+      display:block;
+      width:max-content;
+      flow:row(label, input select div);
+      flow-columns: * minmax(3ch,max-content);
+      border-spacing:4px 2px;
+      width:240px;
+      height:*;
+      max-height:max-content;
+      background:var(panel);
+      padding:2px;
+      var(border-radius): 0;
+      var(widget-border):transparent;
+      overflow-y:auto;
+   }
+
+   :root[place="default"] {
+     position:absolute;
+     right:0;
+     top:0;
+   }
+
+   header {
+      behavior:clickable;
+      font-weight:700;
+      foreground: icon(down) no-repeat top 50% left 0.4em;
+      foreground-size:1em;
+      fill:currentcolor;
+      stroke:none;
+      padding:0.4em 0 0.4em 2em;
+      flow:horizontal;
+   }
+
+   header > text { 
+     width:*; 
+     white-space:nowrap; 
+     vertical-align:middle; 
+     text-align:start; 
+     overflow-x:hidden;
+     text-overflow:ellipsis;
+   }
+
+   header.closed {
+     foreground-image: icon(right);
+   }
+
+   div {
+     flow:horizontal;
+     border-spacing:3px;
+     width:*;
+   }
+
+   input|text { display:block; width:*; min-width:6ch; color:#3b660a; }
+   input|text:theme(dark) { color:#9dc96c; }
+   input|number { display:block; width:*; min-width:6ch; color:#1a7399; }
+   input|number:theme(dark) { color:#55cbfc; }
+
+   input|color { display:block; width:*; }
+    
+
+   input|hslider { display:block; width:*; min-width:6ch; }
+   input|checkbox { height:1.6em; }
+   select { display:block; width:*; min-width: 6ch; background:var(widget-back); }
+   label { display:block; 
+      white-space:nowrap; 
+      vertical-align:middle; 
+      text-align:end; 
+      overflow-x:hidden;
+      text-overflow:ellipsis;
+   }
+}
+
+widget[type=gui] {
+  style-set: lil-gui;
+}
+
+span.fps {
+  display:block;
+  aspect: FPS url(gui.js);
+}

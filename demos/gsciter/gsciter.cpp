@@ -64,7 +64,7 @@ int uimain(std::function<int()> run ) {
   // note: this:://app URL is dedicated to the sciter::archive content associated with the application
   pwin->load(WSTR("this://app/default.htm"));
 
-  //pwin->expand(); // script will do that
+  pwin->expand(); // script will do that
 
 #if defined(TEST)
   sciter::value r1 = pwin->call_function("test", sciter::value(42));

@@ -27,7 +27,11 @@
         const popupElement = div.$("popup");
         div.popup(popupElement, {
           anchorAt: 9, // top/right 
-          popupAt:7    // top/left 
+          popupAt:7,    // top/left 
+          animationType: "slide",
+          animationAxis: "horizontal",
+          animationHeading: "start-to-end",
+          animationDuration: 100ms
         });
       }); 
     
