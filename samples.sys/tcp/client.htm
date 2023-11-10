@@ -11,23 +11,36 @@ import {encode,decode} from "@sciter";
 
 const socket = new TCP();
 
+let receiver = null;
+
 async function start() {
-   document.body.append(<text>Connecting...</text>);
-   await socket.connect({ip:"127.0.0.1",port:7000});
-   document.body.append(<text>Connected</text>);
-   document.$("button").state.disabled = false;
+  document.body.append(<text>Connecting...</text>);
+  await socket.connect({ip:"127.0.0.1",port:7000});
+  document.body.append(<text>Connected</text>);
+  document.$("button").state.disabled = false;
+  while(true) {
+    // wait for incoming data
+    const data = await socket.read();
+    if( data === undefined ) { 
+      // connection lost, get out of here 
+      document.body.append(<text>Connection lost</text>); 
+      break;
+    }
+    receiver?.(data);
+  }
+  document.body.append(<text>Disconnected</text>);
+  document.$("button").state.disabled = true;
 }
 
 document.$("button").on("click", async function() {
    const text = document.$("input").value;
-   await socket.write(encode(text));
-   document.body.append(<text>Sent "{text}"</text>);
    try {
-     const data = await socket.read();
-     document.body.append(<text>Received "{decode(data)}"</text>);
-   } catch(e) {
-     document.body.append(<text>Receive failed with {e}</text>); 
-   }
+     receiver = data => document.body.append(<text>Received "{decode(data)}"</text>);
+     await socket.write(encode(text));
+     document.body.append(<text>Sent "{text}"</text>);
+  } catch(e) {
+     document.body.append(<text>Send failed with {e}</text>); 
+  }
 });
 
 start();

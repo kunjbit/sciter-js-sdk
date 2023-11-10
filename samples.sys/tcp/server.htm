@@ -21,34 +21,33 @@ async function start() {
   if (!socket)
       return;
 
-  document.on("click","button#stop", async function() {
-    running = false;
+  async function stop() {
+    document.body.append(<text>Stopping</text>);
     await socket.close();
     await serverSocket.close();
-  });
+  }
+
+  document.on("click","button#stop", stop);
+  document.on("document-before-unload", stop);
 
   document.body.append(<text>Accepted connection</text>);
 
-  let running = true;
-
-  while (running) {
+  while (true) {
      const read = await socket.read();
-     if (!read)
+     if (read === undefined)
        break;
      document.body.append(<text>Read and send {read.byteLength} bytes</text>);
      socket.write(read);
   }
 
-  await serverSocket.close();
-
+  await stop();
   document.body.append(<text>Stopped</text>);
 
 }
 
 start();
 
-new Window({url: __DIR__ + "client.htm"});
-
+//new Window({url: __DIR__ + "client.htm"});
 
         </script>
     </head>
