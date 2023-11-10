@@ -1,0 +1,50 @@
+<html window-resizable
+    window-width="800px"
+    window-height="600px" >
+    <head>
+        <title>Client</title>
+        <style></style>
+        <script|module>
+
+import {TCP} from "@sys"; 
+import {encode,decode} from "@sciter"; 
+
+const socket = new TCP();
+
+async function start() {
+   document.body.append(<text>Connecting...</text>);
+   await socket.connect({ip:"127.0.0.1",port:7000});
+   document.body.append(<text>Connected</text>);
+   document.$("button").state.disabled = false;
+}
+
+document.$("button").on("click", async function() {
+   const text = document.$("input").value;
+   await socket.write(encode(text));
+   document.body.append(<text>Sent "{text}"</text>);
+   try {
+     const data = await socket.read();
+     document.body.append(<text>Received "{decode(data)}"</text>);
+   } catch(e) {
+     document.body.append(<text>Receive failed with {e}</text>); 
+   }
+});
+
+start();
+
+document.on("document-before-unload", function() {
+  socket.close();
+});
+
+        </script>
+    </head>
+    <body>
+
+<form>
+  <input|text novalue="text to send" />
+  <button disabled>Send</button>
+</form>
+
+
+    </body>
+</html>

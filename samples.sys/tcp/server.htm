@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <title>Server</title>
+        <style></style>
+        <script|module>
+
+import {TCP} from "@sys"; 
+
+const serverSocket = new TCP();
+
+serverSocket.bind({ip:"127.0.0.1",port:7000});
+serverSocket.listen();
+
+async function start() {
+
+  document.body.append(<text>Listening...</text>);
+
+  // connection socket
+  const socket = await serverSocket.accept();
+
+  if (!socket)
+      return;
+
+  document.on("click","button#stop", async function() {
+    running = false;
+    await socket.close();
+    await serverSocket.close();
+  });
+
+  document.body.append(<text>Accepted connection</text>);
+
+  let running = true;
+
+  while (running) {
+     const read = await socket.read();
+     if (!read)
+       break;
+     document.body.append(<text>Read and send {read.byteLength} bytes</text>);
+     socket.write(read);
+  }
+
+  await serverSocket.close();
+
+  document.body.append(<text>Stopped</text>);
+
+}
+
+start();
+
+new Window({url: __DIR__ + "client.htm"});
+
+
+        </script>
+    </head>
+    <body>
+
+<button#stop>Stop</button>
+
+    </body>
+</html>
