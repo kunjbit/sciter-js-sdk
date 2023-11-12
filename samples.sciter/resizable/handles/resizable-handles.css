@@ -1,0 +1,7 @@
+@const HANDLE_SIZE: 4px;
+
+.resizable { 
+  aspect: Resizable(handleSize:@HANDLE_SIZE) url(resizable-handles.js); 
+  hit-margin: @HANDLE_SIZE;
+  box-sizing: border-box;
+}
