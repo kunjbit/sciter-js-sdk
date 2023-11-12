@@ -67,4 +67,4 @@ Attribute events (onclick..) in static HTML are not supported. (unless you imple
 - Sciter allows the use of custom element tags, make sure to give them a default style.
 - You can show popup with [`Element.popup`](../DOM/Element#popup).
 - String `&platform-cmd-mod;` is replaced with `Ctrl/CMD...`
-- [List of input elements](https://sciter.com/developers/for-web-programmers/input-elements-map/)
+- [List of input elements](html-inputs)

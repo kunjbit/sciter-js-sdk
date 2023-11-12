@@ -1,5 +1,5 @@
 //
-//  sciter-gtk-main.mm
+//  sciter-gtk-main.cpp
 //  sciter
 //
 //  Created by andrew on 2014-12-05.

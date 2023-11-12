@@ -42,7 +42,6 @@ If _props_ is defined then the resulting element will have the original elementâ
 
 If _children_ array is defined it will replace children of original element.
 
-
 ## Inspection of virtual DOM
 
 ### Reactor.isNode()

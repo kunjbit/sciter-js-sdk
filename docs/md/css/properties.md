@@ -463,3 +463,10 @@ If not stated otherwise these properties behave as defined in W3C specs.
   * `bottom-center`
   * `bottom-right`
 
+#### popup animation:
+- `popup-animation`: `popup-animation(param:value, ...)` where params are:
+  * _type_ : one of `blend` | `inflate` | `slide` | `roll` - type of window appearance animation;
+  * _axis_ : one of `horizontal` | `vertical`;
+  * _heading_ : one of `start-to-end` | `end-to-start`;
+  * _duration_ : duration of the animation, e.g. `100ms`;
+

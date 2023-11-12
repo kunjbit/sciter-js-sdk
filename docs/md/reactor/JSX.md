@@ -241,3 +241,29 @@ The `patch()` function uses the following **match criteria**. Particular element
 Otherwise DOM element and vnode treated as not matching.
 
 If _onlyChildren_ parameter is provided and is _true_ then the function will touch only children of the element keeping tag and attributes of the element intact. 
+
+## JSX/DOM references{#references}
+
+Reactor's references provide a way to access DOM elements created in the render method.
+
+References are defined in JSX by using the _var_ attribute with target expression as the value: `<div var={this.myDiv}>`
+
+_Target_ expression is any valid JS expression that can appear on the left side of an assignment. For example `this.rows[12]` is a valid target expression - element reference will be put at 12th element of `this.rows` array.  
+
+References are commonly assigned to an instance property when a component is constructed so they can be referenced throughout the component:
+
+```js
+class MyForm extends Element {
+
+  nameInput = Reactor.createRef();
+
+  render() {
+    return <form>
+      <label>Name</label>
+      <input|text(name) var={this.nameInput} />
+      <button onClick={ () => this.nameInput.focus() }>focus</button>
+    </form>
+  }
+}
+```
+

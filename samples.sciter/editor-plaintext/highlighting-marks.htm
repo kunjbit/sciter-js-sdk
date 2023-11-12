@@ -58,7 +58,7 @@
         console.log(range, range.marks());
         if( !range.marks().includes("error") ) return;
         const pup = <popup.error> This is just a test </popup>;
-        const params = {x: evt.windowX, y: evt.windowY };
+        const params = {x: evt.windowX, y: evt.windowY, popupAt:7 };
         this.shownPopup = this.popup(pup,params);
         return true;
     }

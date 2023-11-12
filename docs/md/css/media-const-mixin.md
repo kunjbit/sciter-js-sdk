@@ -91,6 +91,9 @@ where _<expr\>_ is
 | screen-reader | _true_ if screen reader is running now
 | slow-machine | _true_ if OS reports "slow machine" environment (not reliable)
 | composition-supported | _true_ if OS supports composition (blur behind windows)
+| dropdown-animation-supported | _true_ if user prefers animation in dropdowns
+| menu-animation-supported |  _true_ if user prefers animation in menus
+| tooltip-animation-supported | _true_ if user prefers animation in tooltips
 | ui-blurbehind | alias of composition-supported
 | ui-ambience | string, either "dark" or "light" 
 | ui-accented-window-decoration | Windows, _true_ if window chrome is using accent colors

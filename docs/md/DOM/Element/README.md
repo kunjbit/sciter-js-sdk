@@ -764,12 +764,21 @@ Shows the _popup_ element or VNode (JSX) in out-of-canvas popup window on deskto
 + _anchorAt_ - 1..9, reference point on anchor border box (see keyboard NUMPAD for the meaning);
 + _popupAt_ - 1..9, reference point on popup's _margin_ box; 
 + _x_, _y_ - optional, explicit window coordinates of _popupAt_ point.
++ _animationType_ - optional, one of "blend" | "inflate" | "slide" | "roll" - type of window appearance animation;
++ _animationAxis_ - optional, one of "horizontal" | "vertical" ;
++ _animationHeading_ - optional, one of "start-to-end" | "end-to-start";
++ _animationDuration_ - [duration](../../JS/units/Duration) of the animation;
 
 Engine will try to replace popup (element inside window) so _popupAt_ position is at _anchorAt_ on screen.
 
 :::tip
 popup positioning can be defined in CSS by [popup-position](../../CSS/properties#popupposition). In this case _params_ can be ommited.
 ::: 
+
+:::tip
+popup animation can be defined in CSS by [popup-animation](../../CSS/properties#popupanimation). 
+::: 
+
 
 ### takeOff()
 

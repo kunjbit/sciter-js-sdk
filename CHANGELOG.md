@@ -1,3 +1,19 @@
+## 5.0.3.1
+
+### Fixes:
+
+* transparent popups are not animatable, Windows limitation.
+* [JS,DOM] `elem.attributes[0]` - index accessor implementation.
+* [CSS] fix of `visibility:none | visible` dynamic switch; 
+* [CSS] fix of `calc(var(--name))` handling;
+* [UI] non animated horizontal scroll fix;
+* [DOM] fix of "complete"/"document-complete" event generation;
+* [DOM] fix of `element.popup(element)` default position;
+* [debug-peer] `debug.setUnhandledExceptionHandler` is gone, more problems than solutions.
+* [JS] fix of long paths handling in `module @sys`.
+* `<input|calendar value={garbage}/>` fix.
+* [CSS, layout] box-sizing: border-box; fixes.
+
 ## 5.0.3.0
 
 ### New:

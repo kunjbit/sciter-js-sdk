@@ -106,13 +106,14 @@ constructs image from bytes (PNG,JPEG, etc). Throws an error in case of failures
 ### load()
 
 ```js
-async Graphics.Image.load( url: string | request : Request ) : Promise(Image)
+async Graphics.Image.load( url: string | request : Request [, sync: bool = false] ) : Promise(Image) | Image | null
 ```
 
 loads image from url. 
 
 :::note
-it is an async function (returns promise) so it needs to be `await`'ed. 
+* If _sync_ is _false_ it is an async function (returns promise) so it needs to be `await`'ed. 
+* If _sync_ is _true_ it is a sync operation - returns either Image instance or _null_. 
 :::
   
 :::note

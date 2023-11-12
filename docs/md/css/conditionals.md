@@ -1,6 +1,5 @@
 ---
 sidebar_position: 6
-title: Conditionals: @supports and @if/@else
 toc_min_heading_level: 2
 toc_max_heading_level: 5
 ---
@@ -27,7 +26,7 @@ A _<supports-condition\>_ declaration in Sciter may accept only property/value d
 
 ## @if/@else rule
 
-The @if CSS at-rule lets you specify CSS declarations that depend load time values of media variables. 
+The @if CSS at-rule lets you specify CSS declarations that depend on _only load time values_ of media variables. 
 
 ```css
 @if (<media-expression>) {
