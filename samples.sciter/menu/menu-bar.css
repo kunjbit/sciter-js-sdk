@@ -37,13 +37,19 @@ menu  /* popup menu */
   flow: vertical;
   display:none; 
   margin:0;  
-  padding:1px;
+  padding:0;
   max-width:max-content;
   /*min-width: max-content;*/
-  border:1px solid threedshadow;
+  border: 1px solid color(widget-border);
   background-color: window;
   color:windowtext;
-  margin:0 1px; /* to offset it from parent li */    
+  margin:-1px 2px; /* to offset it from parent li */    
+}
+
+@media (menu-animation-supported) {
+   menu {
+     popup-animation: popup-animation(type:blend,duration:100ms);
+   }
 }
 
 menu menu /* secondary popup menu */
@@ -55,6 +61,7 @@ menu menu /* secondary popup menu */
 menu li
 {  
   width:*;
+  display:block;
   flow:horizontal;
   vertical-align:middle;
   padding-left:24px; /* room for icon */
