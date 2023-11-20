@@ -1,0 +1,28 @@
+<html lang="en">
+    <head>
+        <title>Test translation</title>
+        <style>@import url(lang.css);</style>
+        <script|module>
+          import {setLang} from "lang.js";
+
+          document.on("change", "form", function(evt,form) {
+            setLang(form.value.lang);
+          });
+
+        </script>
+    </head>
+    <body>
+
+       <form>
+         Langs: <button|radio(lang) value="en">En</button>
+                <button|radio(lang) value="de">De</button>
+       </form>
+ 
+      <div>
+        <span.x>yes</span>
+        <span.x>no</span>
+        <input|date value="now"/>
+      </div>
+
+    </body>
+</html>
