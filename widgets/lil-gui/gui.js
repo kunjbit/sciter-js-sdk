@@ -282,7 +282,7 @@ function ColorView(props) {
   const color = item.dataFormat.toColor(item.getValue());
   return [
     <label>{item.label}</label>,
-    <input|color key={item.key()} value={color} onChange={ function(){item.setValue( item.dataFormat.fromColor(this.value))} } />
+    <input|color embedded key={item.key()} value={color} onChange={ function(){item.setValue( item.dataFormat.fromColor(this.value))} } />
   ];
 }
 

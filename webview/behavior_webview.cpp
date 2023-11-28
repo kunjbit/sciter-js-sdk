@@ -91,12 +91,12 @@ namespace sciter
 			HWINDOW window = (HWINDOW)this_webview->window();
 			self.attach_hwnd(window);
 
-			this_webview->set_navigation_callback([&](const char* evt, const std::string& param) -> int
+			this_webview->set_navigation_callback([=](const char* evt, const std::string& param) -> int
 				{
 					sciter::value strEvt = sciter::value::make_string(aux::utf2w(evt));
 					sciter::value strParam = sciter::value::make_string(aux::utf2w(param));
-					dom::element self = dom::element(this_element);
 					sciter::value ret = self.call_method("onNavigation", strEvt, strParam);
+					self.post_event(WSTR("webview-did-navigate"), sciter::value(param));
 					return ret.get(0);
 				});
 
@@ -106,9 +106,11 @@ namespace sciter
 					bindSciterJSCall();
 					on_allowWindowOpen_changed();
 					on_src_changed();
-				}
-
-				});
+					self.post_event(WSTR("webview-ready"));
+				} else
+					self.post_event(WSTR("webview-initialization-failure"));
+				
+			});
 		}
 
 		void on_src_changed() {

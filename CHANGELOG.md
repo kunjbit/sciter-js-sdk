@@ -1,3 +1,30 @@
+## 5.0.3.2
+
+### Fixes:
+
+* [js] better report of errors on erroneous modules loading.
+* `<input|color>` has a popup button now. `<input|color enbedded>` has no button (for lil-gui cases);
+* `<input|number>` fixes;
+* [popup] fix of default positioning;
+* [layout] baseline tweaks.
+* [layout] fix of `<table>`'s that do not have explicit `<tbody>`.
+* `<input|calendar>`, fix of [today] button caption.
+
+### New:
+
+* [CSS] @styleset - support of nested styleset declarations.
+  
+  If outer styleset needs to set properties of inner elements that are also using stylesets such properties shall be marked as `!important`. 
+
+* [C++ API] `dom::element::send_event(name, ...)` and `dom::element::post_event(name, ...)` - send/post custom named events.
+
+* [webview] events 
+
+  - "webview-ready"
+  - "webview-initialization-failure"
+  - "webview-did-navigate"
+
+
 ## 5.0.3.1
 
 ### Fixes:

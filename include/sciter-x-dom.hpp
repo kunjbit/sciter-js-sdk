@@ -901,7 +901,7 @@ namespace dom
     /** traverse event - send it by sinking/bubbling on the
       * parent/child chain of this element
       **/
-    bool send_event(unsigned int event_code, uintptr_t reason = 0, HELEMENT heSource = 0)
+    bool send_event(unsigned int event_code, uintptr_t reason = 0, HELEMENT heSource = 0) const
     {
       SBOOL handled = false;
       SCDOM_RESULT r = SciterSendEvent(he, event_code, heSource? heSource: he, reason, &handled);
@@ -913,16 +913,44 @@ namespace dom
       * parent/child chain of this element.
       * method returns immediately
       **/
-    void post_event(unsigned int event_code, uintptr_t reason = 0, HELEMENT heSource = 0)
+    void post_event(unsigned int event_code, uintptr_t reason = 0, HELEMENT heSource = 0) const
     {
       SCDOM_RESULT r = SciterPostEvent(he, event_code, heSource? heSource: he, reason);
       assert(r == SCDOM_OK); (void)r;
     }
 
-    bool fire_event(const BEHAVIOR_EVENT_PARAMS& evt, bool post = true)
+    bool fire_event(const BEHAVIOR_EVENT_PARAMS& evt, bool post = true) const
     {
       SBOOL handled = false;
       SCDOM_RESULT r = SciterFireEvent(&evt, post, &handled);
+      assert(r == SCDOM_OK); (void)r;
+      return handled != 0;
+    }
+
+    // send custom named event
+    bool send_event(LPCWSTR name, SCITER_VALUE data = SCITER_VALUE()) const
+    {
+      BEHAVIOR_EVENT_PARAMS params = {};
+      params.cmd = CUSTOM;
+      params.heTarget = he;
+      params.name = name;
+      params.data = data;
+      SBOOL handled = false;
+      SCDOM_RESULT r = SciterFireEvent(&params, false, &handled);
+      assert(r == SCDOM_OK); (void)r;
+      return handled != 0;
+    }
+
+    // post custom named event
+    bool post_event(LPCWSTR name, SCITER_VALUE data = SCITER_VALUE()) const
+    {
+      BEHAVIOR_EVENT_PARAMS params = {};
+      params.cmd = CUSTOM;
+      params.heTarget = he;
+      params.name = name;
+      params.data = data;
+      SBOOL handled = false;
+      SCDOM_RESULT r = SciterFireEvent(&params, true, &handled);
       assert(r == SCDOM_OK); (void)r;
       return handled != 0;
     }
@@ -994,7 +1022,7 @@ namespace dom
     // Native code:
     //   dom::element elem = ...
     //   elem.call_method("foo");
-    SCITER_VALUE  call_method(LPCSTR name, UINT argc, SCITER_VALUE* argv )
+    SCITER_VALUE  call_method(LPCSTR name, UINT argc, SCITER_VALUE* argv ) const
     {
       SCITER_VALUE rv = SCITER_VALUE();
       SCDOM_RESULT r = SciterCallScriptingMethod(he, name, argv,argc, &rv);
@@ -1009,26 +1037,26 @@ namespace dom
     }
 
     // flattened wrappers of the above. note SCITER_VALUE is a json::value
-    SCITER_VALUE  call_method(LPCSTR name )
+    SCITER_VALUE  call_method(LPCSTR name ) const 
     {
       return call_method(name,0,0);
     }
     // flattened wrappers of the above. note SCITER_VALUE is a json::value
-    SCITER_VALUE  call_method(LPCSTR name, SCITER_VALUE arg0 )
+    SCITER_VALUE  call_method(LPCSTR name, SCITER_VALUE arg0 ) const
     {
       return call_method(name,1,&arg0);
     }
-    SCITER_VALUE  call_method(LPCSTR name, SCITER_VALUE arg0, SCITER_VALUE arg1 )
+    SCITER_VALUE  call_method(LPCSTR name, SCITER_VALUE arg0, SCITER_VALUE arg1 ) const
     {
       SCITER_VALUE argv[2]; argv[0] = arg0; argv[1] = arg1;
       return call_method(name,2,argv);
     }
-    SCITER_VALUE  call_method(LPCSTR name, SCITER_VALUE arg0, SCITER_VALUE arg1, SCITER_VALUE arg2 )
+    SCITER_VALUE  call_method(LPCSTR name, SCITER_VALUE arg0, SCITER_VALUE arg1, SCITER_VALUE arg2 ) const
     {
       SCITER_VALUE argv[3]; argv[0] = arg0; argv[1] = arg1; argv[2] = arg2;
       return call_method(name,3,argv);
     }
-    SCITER_VALUE  call_method(LPCSTR name, SCITER_VALUE arg0, SCITER_VALUE arg1, SCITER_VALUE arg2, SCITER_VALUE arg3 )
+    SCITER_VALUE  call_method(LPCSTR name, SCITER_VALUE arg0, SCITER_VALUE arg1, SCITER_VALUE arg2, SCITER_VALUE arg3 ) const
     {
       SCITER_VALUE argv[4]; argv[0] = arg0; argv[1] = arg1; argv[2] = arg2; argv[3] = arg3;
       return call_method(name,4,argv);
@@ -1041,7 +1069,7 @@ namespace dom
     //   dom::element root = ... get root element of main document or some frame inside it
     //   root.call_function("foo"); // call the function
 
-    SCITER_VALUE  call_function(LPCSTR name, UINT argc, SCITER_VALUE* argv )
+    SCITER_VALUE  call_function(LPCSTR name, UINT argc, SCITER_VALUE* argv ) const
     {
       SCITER_VALUE rv;
       SCDOM_RESULT r = SciterCallScriptingFunction(he, name, argv,argc, &rv);
@@ -1056,26 +1084,26 @@ namespace dom
     }
 
     // flattened wrappers of the above. note SCITER_VALUE is a json::value
-    SCITER_VALUE  call_function(LPCSTR name )
+    SCITER_VALUE  call_function(LPCSTR name ) const
     {
       return call_function(name,0,0);
     }
     // flattened wrappers of the above. note SCITER_VALUE is a json::value
-    SCITER_VALUE  call_function(LPCSTR name, SCITER_VALUE arg0 )
+    SCITER_VALUE  call_function(LPCSTR name, SCITER_VALUE arg0 ) const
     {
       return call_function(name,1,&arg0);
     }
-    SCITER_VALUE  call_function(LPCSTR name, SCITER_VALUE arg0, SCITER_VALUE arg1 )
+    SCITER_VALUE  call_function(LPCSTR name, SCITER_VALUE arg0, SCITER_VALUE arg1 ) const
     {
       SCITER_VALUE argv[2]; argv[0] = arg0; argv[1] = arg1;
       return call_function(name,2,argv);
     }
-    SCITER_VALUE  call_function(LPCSTR name, SCITER_VALUE arg0, SCITER_VALUE arg1, SCITER_VALUE arg2 )
+    SCITER_VALUE  call_function(LPCSTR name, SCITER_VALUE arg0, SCITER_VALUE arg1, SCITER_VALUE arg2 ) const
     {
       SCITER_VALUE argv[3]; argv[0] = arg0; argv[1] = arg1; argv[2] = arg2;
       return call_function(name,3,argv);
     }
-    SCITER_VALUE  call_function(LPCSTR name, SCITER_VALUE arg0, SCITER_VALUE arg1, SCITER_VALUE arg2, SCITER_VALUE arg3 )
+    SCITER_VALUE  call_function(LPCSTR name, SCITER_VALUE arg0, SCITER_VALUE arg1, SCITER_VALUE arg2, SCITER_VALUE arg3 ) const
     {
       SCITER_VALUE argv[4]; argv[0] = arg0; argv[1] = arg1; argv[2] = arg2; argv[3] = arg3;
       return call_function(name,4,argv);
@@ -1084,14 +1112,14 @@ namespace dom
     // evaluate script in element context:
     // 'this' in script will be the element
     // and in namespace of element's document.
-    SCITER_VALUE eval(const WCHAR* script, size_t script_length)
+    SCITER_VALUE eval(const WCHAR* script, size_t script_length) const
     {
       SCITER_VALUE rv;
       SCDOM_RESULT r = SciterEvalElementScript( he, script, UINT(script_length), &rv );
       assert(r == SCDOM_OK); (void)r;
       return rv;
     }
-    SCITER_VALUE eval(aux::wchars script)
+    SCITER_VALUE eval(aux::wchars script) const
     {
       return eval(script.start,script.length);
     }
@@ -1104,7 +1132,7 @@ namespace dom
       return CTL_TYPE(t);
     }
 
-    SCITER_VALUE get_value()
+    SCITER_VALUE get_value() const
     {
       SCITER_VALUE rv;
       SCDOM_RESULT r = SciterGetValue(he, &rv);
@@ -1112,7 +1140,7 @@ namespace dom
       return rv;
     }
 
-    void set_value(const SCITER_VALUE& v)
+    void set_value(const SCITER_VALUE& v) const
     {
       SCDOM_RESULT r = SciterSetValue(he, &v);
       assert(r == SCDOM_OK); (void)r;

@@ -21,14 +21,100 @@ The goal is to implement `<webview>` controller (as Sciter's behavior) so Sciter
 
 ## Usage
 External Behavior: 
-1) Build dll/dylib/so file with projects in folder 'build';
-2) Put dll/dylib/so file into sciter application running folder;
-3) Use \<webview\> and define in css: webview {behavior: webview library(sciter-webview)}
+1. Build dll/dylib/so file with projects in folder 'build';
+2. Put dll/dylib/so file into sciter application running folder;
+3. Use \<webview\> and define in css: webview {behavior: webview library(sciter-webview)}
 
 Internal Behavior: 
-1) Copy all files in folder [source](https://gitlab.com/ArcRain/sciter-webview/-/tree/main/source) into sciter-js-sdk [include/behaviors](https://gitlab.com/sciter-engine/sciter-js-sdk/-/tree/main/include/behaviors)
-2) Compile application project;
-3) Use \<webview\> and define in css: webview {behavior: webview}
+1. Copy all files in folder [source](https://gitlab.com/ArcRain/sciter-webview/-/tree/main/source) into sciter-js-sdk [include/behaviors](https://gitlab.com/sciter-engine/sciter-js-sdk/-/tree/main/include/behaviors)
+2. Compile application project;
+3. Use \<webview\> and define in css: webview {behavior: webview}
+
+## JS API
+
+### Methods
+
+#### element.webview.loadUrl
+
+```JS
+  element.webview.loadUrl(url:string);
+```
+navigates to URL
+
+#### element.webview.loadHtml
+
+```JS
+  element.webview.loadHtml(html:string);
+```
+loads the HTML
+
+#### element.webview.reload
+
+```JS
+  element.webview.reload();
+```
+re-loads last loaded document.
+
+#### element.webview.goBack
+
+```JS
+  element.webview.goBack();
+```
+navigates backward.
+
+#### element.webview.goForward
+
+```JS
+  element.webview.goForward();
+```
+navigates forward.
+
+#### element.webview.evaluateJavaScript
+
+```JS
+  element.webview.evaluateJavaScript(jssrc:string);
+```
+evaluates _jssrc_ in context of loaded document.
+
+### Properties
+
+#### element.webview.currentSrc
+
+```JS
+  const url = element.webview.currentSrc;
+```
+read-only, string, reports current URL of loaded document
+
+#### element.webview.src
+
+```JS
+  const url = element.webview.src;
+```
+read-write, string, URL to navigate
+
+### Events
+
+#### "webview-ready"
+
+```JS
+  element.on("webview-ready", function() {...});
+```
+WebView is initialized and ready to accept method calls.
+
+#### "webview-initialization-failure"
+
+```JS
+  element.on("webview-initialization-failure", function() {...});
+```
+WebView is failed to initialize. System rejected webview creation for some reason.
+
+#### "webview-did-navigate"
+
+```JS
+  element.on("webview-did-navigate", function() {...});
+```
+
+WebView completed navigation to requested src
 
 ## Reference & Acknowledgment
 
