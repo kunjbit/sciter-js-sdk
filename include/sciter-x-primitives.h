@@ -157,6 +157,7 @@
 
   #include <string.h>
   #include <wctype.h>
+  #include <stdint.h>
 
   typedef unsigned int UINT;
   typedef int INT;

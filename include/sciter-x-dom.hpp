@@ -933,6 +933,7 @@ namespace dom
       BEHAVIOR_EVENT_PARAMS params = {};
       params.cmd = CUSTOM;
       params.heTarget = he;
+      params.he = he;
       params.name = name;
       params.data = data;
       SBOOL handled = false;
@@ -947,6 +948,7 @@ namespace dom
       BEHAVIOR_EVENT_PARAMS params = {};
       params.cmd = CUSTOM;
       params.heTarget = he;
+      params.he = he;
       params.name = name;
       params.data = data;
       SBOOL handled = false;

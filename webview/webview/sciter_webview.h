@@ -141,10 +141,10 @@ WEBVIEW_API void webview_return(webview_t w, const char *seq, int status,
 
 #include <cstring>
 
+#include "webview_callbacks.h"
+
 namespace webview {
-using completion_fn_t = std::function<void(bool succeed)>;
-using dispatch_fn_t = std::function<void()>;
-using navigation_callback_t = std::function<int(const char* evt, const std::string&)>;
+
 
 // Convert ASCII hex digit to a nibble (four bits, 0 - 15).
 //

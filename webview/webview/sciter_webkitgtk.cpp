@@ -98,14 +98,14 @@ namespace webview
                                             /* Here we could start a spinner or update the
                                              * location bar with the provisional URI */
                                             w->m_isNaviError = false;
-                                            w->m_navigationCallback("navigationStarting", provisional_uri);
+                                            w->m_navigationCallback(navigation_event::will_navigate, provisional_uri);
                                         }
                                         break;
                                         case WEBKIT_LOAD_FINISHED:
                                             /* Load finished, we can now stop the spinner */
                                             if (!w->m_isNaviError)
                                             {
-                                                w->m_navigationCallback("navigationCompleted", "0");
+                                                w->m_navigationCallback(navigation_event::did_navigate, "");
                                             }
                                             break;
                                         }
@@ -124,7 +124,7 @@ namespace webview
                                             return false;
                                         }
                                         w->m_isNaviError = true;
-                                        w->m_navigationCallback("navigationCompleted", "-1");
+                                        w->m_navigationCallback(navigation_event::navigate_failure, "");
                                         return false;
                                     }),
                          this);
@@ -173,7 +173,7 @@ namespace webview
                                         const char *strTitle = webkit_web_view_get_title(web_view);
                                         if (nullptr != w->m_navigationCallback)
                                         {
-                                            w->m_navigationCallback("documentTitleChanged", strTitle);
+                                            w->m_navigationCallback(navigation_event::title_did_change, strTitle);
                                         }
                                         else
                                         {

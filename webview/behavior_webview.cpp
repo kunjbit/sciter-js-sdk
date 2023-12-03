@@ -2,6 +2,8 @@
 #include "sciter-x-behavior.h"
 #include "webview/sciter_webview.h"
 
+#include <algorithm>
+
 namespace sciter
 {
 	/*
@@ -69,7 +71,9 @@ namespace sciter
 			}
 			dom::element self = dom::element(he);
 			RECT rc = self.get_location(CONTENT_BOX);
-			this_webview->set_size(rc.right - rc.left, rc.bottom - rc.top, WEBVIEW_HINT_FIXED);
+			int width = rc.right - rc.left; if (!width) width = 10;
+			int height = rc.bottom - rc.top; if (!height) height = 10;
+			this_webview->set_size(width, height, WEBVIEW_HINT_FIXED);
 		}
 
 		virtual void on_attribute_change(HELEMENT he, LPCSTR name, LPCWSTR value) override
@@ -91,13 +95,27 @@ namespace sciter
 			HWINDOW window = (HWINDOW)this_webview->window();
 			self.attach_hwnd(window);
 
-			this_webview->set_navigation_callback([=](const char* evt, const std::string& param) -> int
+			this_webview->set_navigation_callback([=](webview::navigation_event evt, const std::string& param) -> int
 				{
-					sciter::value strEvt = sciter::value::make_string(aux::utf2w(evt));
-					sciter::value strParam = sciter::value::make_string(aux::utf2w(param));
-					sciter::value ret = self.call_method("onNavigation", strEvt, strParam);
-					self.post_event(WSTR("webview-did-navigate"), sciter::value(param));
-					return ret.get(0);
+					switch (evt) {
+						case webview::navigation_event::will_navigate:
+							self.send_event(WSTR("webview-will-navigate"), sciter::value(param));
+							break;
+						case webview::navigation_event::did_navigate:
+							self.send_event(WSTR("webview-did-navigate"), sciter::value(param));
+							break;
+						case webview::navigation_event::navigate_failure:
+							self.send_event(WSTR("webview-navigate-failure"), sciter::value(param));
+							break;
+						case webview::navigation_event::title_did_change:
+							self.send_event(WSTR("webview-title-change"), sciter::value(param));
+							break;
+					}
+					//sciter::value strEvt = sciter::value::make_string(aux::utf2w(evt));
+					//sciter::value strParam = sciter::value::make_string(aux::utf2w(param));
+					//sciter::value ret = self.call_method("onNavigation", strEvt, strParam);
+					//return ret.get(0);
+					return 0;
 				});
 
 			this_webview->load_engine([=](bool succeed) -> void {
@@ -106,9 +124,9 @@ namespace sciter
 					bindSciterJSCall();
 					on_allowWindowOpen_changed();
 					on_src_changed();
-					self.post_event(WSTR("webview-ready"));
+					self.send_event(WSTR("webview-ready"));
 				} else
-					self.post_event(WSTR("webview-initialization-failure"));
+					self.send_event(WSTR("webview-unavailable"));
 				
 			});
 		}

@@ -10589,7 +10589,7 @@
 	<unicode/utf16.h>
 	<math.h>
 
-1694970353 source:/Data/sciter/work/sdk.js/include/sciter-gtk-main.cpp
+1699748673 source:/Data/sciter/work/sdk.js/include/sciter-gtk-main.cpp
 	<gtk/gtk.h>
 	<locale.h>
 	"sciter-x-window.hpp"
@@ -10611,7 +10611,7 @@
 	"sciter-x-primitives.h"
 	<gtk/gtk.h>
 
-1661701348 /Data/sciter/work/sdk.js/include/sciter-x-primitives.h
+1701568583 /Data/sciter/work/sdk.js/include/sciter-x-primitives.h
 	<string>
 	<stdbool.h>
 	"TargetConditionals.h"
@@ -10620,6 +10620,7 @@
 	<oaidl.h>
 	<string.h>
 	<wctype.h>
+	<stdint.h>
 	<string.h>
 
 1654524303 /Data/sciter/work/sdk.js/include/sciter-x.h
@@ -10737,13 +10738,13 @@
 	<libgen.h>
 	<dlfcn.h>
 
-1699113764 /Data/sciter/work/sdk.js/include/sciter-version.h
+1701568583 /Data/sciter/work/sdk.js/include/sciter-version.h
 
 1656697546 /Data/sciter/work/sdk.js/include/sciter-x-msg.h
 	"sciter-x-types.h"
 	"sciter-x-def.h"
 
-1695611217 /Data/sciter/work/sdk.js/include/sciter-x-dom.hpp
+1701568583 /Data/sciter/work/sdk.js/include/sciter-x-dom.hpp
 	"sciter-x-dom.h"
 	<algorithm>
 	<vector>

@@ -4,12 +4,10 @@
 #include <string>
 #include <functional>
 
+#include "webview_callbacks.h"
+
 namespace webview
 {
-    using dispatch_fn_t = std::function<void()>;
-    using completion_fn_t = std::function<void(bool succeed)>;
-    using navigation_callback_t = std::function<int(const char *evt, const std::string &)>;
-    using msg_callback_t = std::function<void(const std::string &)>;
 
     class sciter_winwebview
     {

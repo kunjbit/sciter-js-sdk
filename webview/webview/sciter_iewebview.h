@@ -17,6 +17,8 @@
 #pragma comment(lib, "comsuppw.lib")
 #pragma comment(lib, "Shlwapi.lib")
 
+#include "webview_callbacks.h"
+
 #ifdef WINDOWS
 #ifndef THIS_HINSTANCE
 EXTERN_C IMAGE_DOS_HEADER __ImageBase;
@@ -238,11 +240,6 @@ namespace webview
             return k;
         }
     };
-
-    using completion_fn_t = std::function<void(bool succeed)>;
-    using dispatch_fn_t = std::function<void()>;
-    using navigation_callback_t = std::function<int(const char* evt, const std::string&)>;
-    using msg_callback_t = std::function<void(const std::string&)>;
 
     class SciterIEWebView;
     class webbrowser2_com_handler : public IDocHostUIHandler, public IDispatch

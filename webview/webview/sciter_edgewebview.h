@@ -13,6 +13,8 @@
 #include <exdispid.h>
 #include <windows.h>
 
+#include "webview_callbacks.h"
+
 #include "win/include/WebView2EnvironmentOptions.h"
 #ifdef _M_ARM64
 #pragma comment(lib, "../../webview/webview/win/arm64/WebView2LoaderStatic.lib")
@@ -30,11 +32,6 @@ namespace webview
 #define WMU_NAVIGATION_CALL (WM_USER + 1)
 #define WMU_JS_BRIDGE_CALL (WM_USER + 2)
 #define WMU_DISPATCH_RUN (WM_USER + 3)
-
-    using completion_fn_t = std::function<void(bool succeed)>;
-    using dispatch_fn_t = std::function<void()>;
-    using navigation_callback_t = std::function<int(const char* evt, const std::string&)>;
-    using msg_callback_t = std::function<void(const std::string&)>;
 
     class SciterEdgeWebView;
     class webview2_com_handler

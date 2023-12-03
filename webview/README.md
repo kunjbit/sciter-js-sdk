@@ -101,12 +101,20 @@ read-write, string, URL to navigate
 ```
 WebView is initialized and ready to accept method calls.
 
-#### "webview-initialization-failure"
+#### "webview-unavailable"
 
 ```JS
-  element.on("webview-initialization-failure", function() {...});
+  element.on("webview-unavailable", function() {...});
 ```
 WebView is failed to initialize. System rejected webview creation for some reason.
+
+#### "webview-will-navigate"
+
+```JS
+  element.on("webview-will-navigate", function(evt) { const url = evt.data; ...});
+```
+
+WebView will navigate to the _url_.
 
 #### "webview-did-navigate"
 
@@ -114,7 +122,22 @@ WebView is failed to initialize. System rejected webview creation for some reaso
   element.on("webview-did-navigate", function() {...});
 ```
 
-WebView completed navigation to requested src
+WebView navigated to requested URL successfully.
+
+#### "webview-navigate-failure"
+
+```JS
+  element.on("webview-navigate-failure", function() {...});
+```
+
+WebView failed to navigate to requested URL for some reasons.
+
+#### "webview-title-change"
+
+```JS
+  element.on("webview-title-change", function(evt) { const title = evt.data; ...});
+```
+WebView receives new document with the _title_.
 
 ## Reference & Acknowledgment
 

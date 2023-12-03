@@ -603,20 +603,20 @@ namespace webview
         if (DISPID_BEFORENAVIGATE2 == wParam)
         {
             const std::string url = (const char *)lParam;
-            m_navigationCallback("navigationStarting", url);
+            m_navigationCallback(navigation_event::will_navigate, url);
         }
         else if (DISPID_NAVIGATECOMPLETE2 == wParam)
         {
-            m_navigationCallback("navigationCompleted", "0");
+            m_navigationCallback(navigation_event::did_navigate, std::string());
         }
         else if (DISPID_NAVIGATEERROR == wParam)
         {
-            m_navigationCallback("navigationCompleted", "-1");
+            m_navigationCallback(navigation_event::navigate_failure, std::string());
         }
         else if (DISPID_TITLECHANGE == wParam)
         {
             const std::string title = (const char *)lParam;
-            m_navigationCallback("documentTitleChanged", title);
+            m_navigationCallback(navigation_event::title_did_change, title);
         }
         return 0;
     }

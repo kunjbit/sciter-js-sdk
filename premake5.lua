@@ -544,6 +544,7 @@ project "sciter-webview"
     "include/sciter-*.h",
     "include/sciter-*.hpp",
     "include/aux-*.*",
+    "webview/**.h",
     "webview/behavior_webview.cpp"
    }
 

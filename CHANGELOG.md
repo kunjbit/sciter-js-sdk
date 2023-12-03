@@ -1,3 +1,25 @@
+## 5.0.3.3
+
+### Fixes:
+
+* `<input|slider>` optimizations;
+* [CSS] position: ... hit testing fix;
+* [API, C++] dom::element::send_event(name) / post_event(name) fixes;
+* [a11y, win] fix of `<select|tree>` handling.
+* [CSS] multi-value vars handling like `var(foo): 10px 20px;`  
+* [skia-backends] uses cleartype font smoothing where possible.
+* [DOM] fix of `.querySelector()` and `.$()` against `display:contents` elements.
+
+### New:
+
+* [webview] events generalization, webview generates following events :
+  * "webview-ready"
+  * "webview-unavailable"
+  * "webview-will-navigate"
+  * "webview-did-navigate"
+  * "webview-navigate-failure"
+  * "webview-title-change"
+
 ## 5.0.3.2
 
 ### Fixes:

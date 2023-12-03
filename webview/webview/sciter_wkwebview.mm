@@ -25,7 +25,7 @@
         NSString* title = [change objectForKey:NSKeyValueChangeNewKey];
         WKWebView* webview = (WKWebView *)object;
         if (nullptr != self.webEngine->m_navigationCallback) {
-            self.webEngine->m_navigationCallback("documentTitleChanged", title.UTF8String);
+            self.webEngine->m_navigationCallback(webview::navigation_event::title_did_change, title.UTF8String);
         }
         else {
             webview.window.title = title;
@@ -93,14 +93,14 @@
     if (nullptr == self.webEngine->m_navigationCallback) {
         return;
     }
-    self.webEngine->m_navigationCallback("navigationStarting", webView.URL.absoluteString.UTF8String);
+    self.webEngine->m_navigationCallback(webview::navigation_event::will_navigate, webView.URL.absoluteString.UTF8String);
 }
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(nonnull NSError *)error {
     if (nullptr == self.webEngine->m_navigationCallback) {
         return;
     }
-    self.webEngine->m_navigationCallback("navigationCompleted", "-1");
+    self.webEngine->m_navigationCallback(webview::navigation_event::navigate_failure, "");
 }
 
 - (void)webView:(WKWebView *)webView didCommitNavigation:(null_unspecified WKNavigation *)navigation {
@@ -111,14 +111,14 @@
     if (nullptr == self.webEngine->m_navigationCallback) {
         return;
     }
-    self.webEngine->m_navigationCallback("navigationCompleted", "0");
+    self.webEngine->m_navigationCallback(webview::navigation_event::did_navigate, "");
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
     if (nullptr == self.webEngine->m_navigationCallback) {
         return;
     }
-    self.webEngine->m_navigationCallback("navigationCompleted", "-1");
+    self.webEngine->m_navigationCallback(webview::navigation_event::navigate_failure, "");
 }
 
 - (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(nonnull NSString *)message initiatedByFrame:(nonnull WKFrameInfo *)frame completionHandler:(nonnull void (^)())completionHandler {
