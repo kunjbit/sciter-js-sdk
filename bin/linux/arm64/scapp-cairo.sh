@@ -1,0 +1,1 @@
+./scapp --gfx cairo
