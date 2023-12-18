@@ -99,12 +99,18 @@ endif
 GENERATED :=
 OBJECTS :=
 
+GENERATED += $(OBJDIR)/behavior_video_generator.o
+GENERATED += $(OBJDIR)/behavior_video_generator_direct.o
+GENERATED += $(OBJDIR)/behavior_video_generator_full.o
 GENERATED += $(OBJDIR)/sciter-gtk-main.o
 GENERATED += $(OBJDIR)/sciter-sqlite-db.o
 GENERATED += $(OBJDIR)/sciter-sqlite-rs.o
 GENERATED += $(OBJDIR)/sciter-sqlite.o
 GENERATED += $(OBJDIR)/sqlite-wrap.o
 GENERATED += $(OBJDIR)/usciter.o
+OBJECTS += $(OBJDIR)/behavior_video_generator.o
+OBJECTS += $(OBJDIR)/behavior_video_generator_direct.o
+OBJECTS += $(OBJDIR)/behavior_video_generator_full.o
 OBJECTS += $(OBJDIR)/sciter-gtk-main.o
 OBJECTS += $(OBJDIR)/sciter-sqlite-db.o
 OBJECTS += $(OBJDIR)/sciter-sqlite-rs.o
@@ -175,6 +181,15 @@ endif
 # #############################################
 
 $(OBJDIR)/usciter.o: ../../../demos/usciter/usciter.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/behavior_video_generator.o: ../../../include/behaviors/behavior_video_generator.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/behavior_video_generator_direct.o: ../../../include/behaviors/behavior_video_generator_direct.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/behavior_video_generator_full.o: ../../../include/behaviors/behavior_video_generator_full.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/sciter-gtk-main.o: ../../../include/sciter-gtk-main.cpp

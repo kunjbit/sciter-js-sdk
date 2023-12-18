@@ -27,6 +27,7 @@ int main (int argc, char *argv[])
   sciter::application::start();
   int r = uimain([]() -> int { return sciter::application::run(); });
   sciter::application::shutdown();
+  return r;
 }
 #endif
 

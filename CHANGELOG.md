@@ -1,3 +1,22 @@
+## 5.0.3.4
+
+### Fixes:
+
+* [MacOSX] fix of scaling. `<html window-width=100px window-height=100px>` produces window of the same pixel size on Windows,  Mac and Linux (if they use the same scaling).
+* [Windows,a11y] checkbox, default action fix;
+* `element.classList` - iterators normalization.
+* `<select|dropdown>` - reconciliation fix.
+* [tooltips] fix of AV when `titleid` is not found;
+* [API] `ValueBinaryData` fix for ArrayBuffer data.
+* `<input|date>` fix of doubled "change" event.
+* `<select|dropdown editable>` fix of doubled "change" event.
+
+### New:
+
+* [Windows] DX12 rendering support with Skia backends.
+* `scapp --gfx cairo|gdi|cg|d2d|d2d-warp|opengl|vulkan|metal|dx12`  - command line switch to select backend.
+* + `el.classList.replace(from,to)` method implementation;
+
 ## 5.0.3.3
 
 ### Fixes:

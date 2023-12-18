@@ -13,9 +13,6 @@
     <Filter Include="webview\webview\win">
       <UniqueIdentifier>{A3303905-0F92-1613-98FF-5CC504604DD2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="webview\webview\win\include">
-      <UniqueIdentifier>{164B32A9-8258-608F-0B3F-5C7A774B2C46}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\aux-asset.h">
@@ -104,33 +101,6 @@
     </ClInclude>
     <ClInclude Include="..\..\include\sciter-x.h">
       <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\webview\webview\sciter_edgewebview.h">
-      <Filter>webview\webview</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\webview\webview\sciter_iewebview.h">
-      <Filter>webview\webview</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\webview\webview\sciter_webkitgtk.h">
-      <Filter>webview\webview</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\webview\webview\sciter_webview.h">
-      <Filter>webview\webview</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\webview\webview\sciter_winwebview.h">
-      <Filter>webview\webview</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\webview\webview\sciter_wkwebview.h">
-      <Filter>webview\webview</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\webview\webview\webview_callbacks.h">
-      <Filter>webview\webview</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\webview\webview\win\include\WebView2.h">
-      <Filter>webview\webview\win\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\webview\webview\win\include\WebView2EnvironmentOptions.h">
-      <Filter>webview\webview\win\include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -170,7 +170,11 @@ project "usciter"
   files { "demos/usciter/usciter.cpp",
           "sqlite/*.h",
           "sqlite/*.cpp",
-          "sqlite/sqlite-wrap.c" }
+          "sqlite/sqlite-wrap.c",
+          "include/behaviors/behavior_video_generator.cpp",
+          "include/behaviors/behavior_video_generator_full.cpp",
+          "include/behaviors/behavior_video_generator_direct.cpp",
+        }
 
   settargetdir()
 
@@ -182,9 +186,6 @@ project "usciter"
            "include/sciter-win-main.cpp",
            "include/behaviors/behavior_drawing.cpp",
            "include/behaviors/behavior_native_textarea.cpp",
-           "include/behaviors/behavior_video_generator.cpp",
-           "include/behaviors/behavior_video_generator_full.cpp",
-           "include/behaviors/behavior_video_generator_direct.cpp",
            "include/behaviors/behavior_camera_capture.cpp",
            "include/behaviors/behavior_tabs.cpp",
            "demos/usciter/win-res/usciter.rc",
@@ -544,7 +545,6 @@ project "sciter-webview"
     "include/sciter-*.h",
     "include/sciter-*.hpp",
     "include/aux-*.*",
-    "webview/**.h",
     "webview/behavior_webview.cpp"
    }
 
