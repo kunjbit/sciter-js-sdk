@@ -1,3 +1,18 @@
+## 5.0.3.5
+
+### Fixes:
+
+* [Value API] fix of ArrayBuffer(0) passing.
+* `new Window({width:500px,height:500px})` (logical pixels) normalization.
+* [MacOS] child nsview replacement fix.
+* [MacOS] fix of popup shadow rendering.
+* [gtk] fix of numeric keypad handling.
+* "LOAD_DISCARD" issue fix, see https://sciter.com/forums/topic/crash-when-fetching-discarded-request/
+
+### New:
+
+* JS engine updated to match QuickJS 2023-12-09
+
 ## 5.0.3.4
 
 ### Fixes:

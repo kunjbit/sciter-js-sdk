@@ -206,6 +206,8 @@
 		<Unit filename="../../../sqlite/sqlite-wrap.h" />
 		<Unit filename="../../../sqlite/sqlite3.h" />
 		<Unit filename="../../../sqlite/sqlite3ext.h" />
-		<Extensions />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

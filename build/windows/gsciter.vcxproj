@@ -302,9 +302,6 @@
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
       <AdditionalManifestFiles>../../demos/gsciter/win-res/dpi-aware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
-    <PreBuildEvent>
-      <Command>"$(ProjectDir)..\..\bin\windows\packfolder.exe" "$(ProjectDir)..\..\demos\gsciter\res" "$(ProjectDir)..\..\demos\usciter\resources.cpp" -v "resources"</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -332,9 +329,6 @@
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
       <AdditionalManifestFiles>../../demos/gsciter/win-res/dpi-aware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
-    <PreBuildEvent>
-      <Command>"$(ProjectDir)..\..\bin\windows\packfolder.exe" "$(ProjectDir)..\..\demos\gsciter\res" "$(ProjectDir)..\..\demos\usciter\resources.cpp" -v "resources"</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <ClCompile>
@@ -362,9 +356,6 @@
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
       <AdditionalManifestFiles>../../demos/gsciter/win-res/dpi-aware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
-    <PreBuildEvent>
-      <Command>"$(ProjectDir)..\..\bin\windows\packfolder.exe" "$(ProjectDir)..\..\demos\gsciter\res" "$(ProjectDir)..\..\demos\usciter\resources.cpp" -v "resources"</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -397,9 +388,6 @@
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
       <AdditionalManifestFiles>../../demos/gsciter/win-res/dpi-aware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
-    <PreBuildEvent>
-      <Command>"$(ProjectDir)..\..\bin\windows\packfolder.exe" "$(ProjectDir)..\..\demos\gsciter\res" "$(ProjectDir)..\..\demos\usciter\resources.cpp" -v "resources"</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -432,9 +420,6 @@
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
       <AdditionalManifestFiles>../../demos/gsciter/win-res/dpi-aware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
-    <PreBuildEvent>
-      <Command>"$(ProjectDir)..\..\bin\windows\packfolder.exe" "$(ProjectDir)..\..\demos\gsciter\res" "$(ProjectDir)..\..\demos\usciter\resources.cpp" -v "resources"</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <ClCompile>
@@ -467,9 +452,6 @@
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
       <AdditionalManifestFiles>../../demos/gsciter/win-res/dpi-aware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
-    <PreBuildEvent>
-      <Command>"$(ProjectDir)..\..\bin\windows\packfolder.exe" "$(ProjectDir)..\..\demos\gsciter\res" "$(ProjectDir)..\..\demos\usciter\resources.cpp" -v "resources"</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugSkia|Win32'">
     <ClCompile>
@@ -497,9 +479,6 @@
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
       <AdditionalManifestFiles>../../demos/gsciter/win-res/dpi-aware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
-    <PreBuildEvent>
-      <Command>"$(ProjectDir)..\..\bin\windows\packfolder.exe" "$(ProjectDir)..\..\demos\gsciter\res" "$(ProjectDir)..\..\demos\usciter\resources.cpp" -v "resources"</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugSkia|x64'">
     <ClCompile>
@@ -527,9 +506,6 @@
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
       <AdditionalManifestFiles>../../demos/gsciter/win-res/dpi-aware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
-    <PreBuildEvent>
-      <Command>"$(ProjectDir)..\..\bin\windows\packfolder.exe" "$(ProjectDir)..\..\demos\gsciter\res" "$(ProjectDir)..\..\demos\usciter\resources.cpp" -v "resources"</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugSkia|ARM64'">
     <ClCompile>
@@ -557,9 +533,6 @@
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
       <AdditionalManifestFiles>../../demos/gsciter/win-res/dpi-aware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
-    <PreBuildEvent>
-      <Command>"$(ProjectDir)..\..\bin\windows\packfolder.exe" "$(ProjectDir)..\..\demos\gsciter\res" "$(ProjectDir)..\..\demos\usciter\resources.cpp" -v "resources"</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseSkia|Win32'">
     <ClCompile>
@@ -592,9 +565,6 @@
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
       <AdditionalManifestFiles>../../demos/gsciter/win-res/dpi-aware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
-    <PreBuildEvent>
-      <Command>"$(ProjectDir)..\..\bin\windows\packfolder.exe" "$(ProjectDir)..\..\demos\gsciter\res" "$(ProjectDir)..\..\demos\usciter\resources.cpp" -v "resources"</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseSkia|x64'">
     <ClCompile>
@@ -627,9 +597,6 @@
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
       <AdditionalManifestFiles>../../demos/gsciter/win-res/dpi-aware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
-    <PreBuildEvent>
-      <Command>"$(ProjectDir)..\..\bin\windows\packfolder.exe" "$(ProjectDir)..\..\demos\gsciter\res" "$(ProjectDir)..\..\demos\usciter\resources.cpp" -v "resources"</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseSkia|ARM64'">
     <ClCompile>
@@ -662,9 +629,6 @@
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
       <AdditionalManifestFiles>../../demos/gsciter/win-res/dpi-aware.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
     </Manifest>
-    <PreBuildEvent>
-      <Command>"$(ProjectDir)..\..\bin\windows\packfolder.exe" "$(ProjectDir)..\..\demos\gsciter\res" "$(ProjectDir)..\..\demos\usciter\resources.cpp" -v "resources"</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\demos\gsciter\win-res\resource.h" />

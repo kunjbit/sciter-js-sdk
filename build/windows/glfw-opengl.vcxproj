@@ -118,9 +118,6 @@
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
-    <PreBuildEvent>
-      <Command>"$(ProjectDir)..\..\bin\windows\packfolder.exe" "$(ProjectDir)..\..\demos.lite\facade" "$(ProjectDir)..\..\demos.lite\facade-resources.cpp" -v "resources"</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -144,9 +141,6 @@
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
-    <PreBuildEvent>
-      <Command>"$(ProjectDir)..\..\bin\windows\packfolder.exe" "$(ProjectDir)..\..\demos.lite\facade" "$(ProjectDir)..\..\demos.lite\facade-resources.cpp" -v "resources"</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -175,9 +169,6 @@
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
-    <PreBuildEvent>
-      <Command>"$(ProjectDir)..\..\bin\windows\packfolder.exe" "$(ProjectDir)..\..\demos.lite\facade" "$(ProjectDir)..\..\demos.lite\facade-resources.cpp" -v "resources"</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -206,9 +197,6 @@
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
-    <PreBuildEvent>
-      <Command>"$(ProjectDir)..\..\bin\windows\packfolder.exe" "$(ProjectDir)..\..\demos.lite\facade" "$(ProjectDir)..\..\demos.lite\facade-resources.cpp" -v "resources"</Command>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\demos.lite\sciter-glfw-opengl\aux-fs.h" />

@@ -191,9 +191,9 @@ project "usciter"
            "demos/usciter/win-res/usciter.rc",
            "demos/usciter/win-res/dpi-aware.manifest" }
     links { "shell32", "advapi32", "ole32", "oleaut32", "gdi32", "comdlg32" }
-    prebuildcommands { 
-      "\"%{prj.location}..\\..\\bin\\".. osabbr() .. "\\packfolder.exe\" \"%{prj.location}..\\..\\demos\\usciter\\res\" \"%{prj.location}..\\..\\demos\\usciter\\resources.cpp\" -v \"resources\""
-    }
+    --prebuildcommands { 
+    --  "\"%{prj.location}..\\..\\bin\\".. osabbr() .. "\\packfolder.exe\" \"%{prj.location}..\\..\\demos\\usciter\\res\" \"%{prj.location}..\\..\\demos\\usciter\\resources.cpp\" -v \"resources\""
+    --}
 
   filter "system:macosx"
     files {"include/sciter-osx-main.mm"}
@@ -265,9 +265,9 @@ project "gsciter"
     end
 
     links { "shell32", "advapi32", "ole32", "oleaut32", "gdi32", "comdlg32" }
-    prebuildcommands { 
-      "\"%{prj.location}..\\..\\bin\\".. osabbr() .. "\\packfolder.exe\" \"%{prj.location}..\\..\\demos\\gsciter\\res\" \"%{prj.location}..\\..\\demos\\usciter\\resources.cpp\" -v \"resources\""
-    }
+    --prebuildcommands { 
+    --  "\"%{prj.location}..\\..\\bin\\".. osabbr() .. "\\packfolder.exe\" \"%{prj.location}..\\..\\demos\\gsciter\\res\" \"%{prj.location}..\\..\\demos\\usciter\\resources.cpp\" -v \"resources\""
+    --}
 
 
   filter "system:macosx"
@@ -326,9 +326,9 @@ project "inspector"
            "include/sciter-win-main.cpp",
            "demos/inspector/win-res/inspector.rc",
            "demos/inspector/win-res/dpi-aware.manifest" }
-    prebuildcommands { 
-      "\"%{prj.location}..\\..\\bin\\".. osabbr() .. "\\packfolder.exe\" \"%{prj.location}..\\..\\demos\\inspector\\res\" \"%{prj.location}..\\..\\demos\\inspector\\resources.cpp\" -v \"resources\""
-    }
+    --prebuildcommands { 
+    --  "\"%{prj.location}..\\..\\bin\\".. osabbr() .. "\\packfolder.exe\" \"%{prj.location}..\\..\\demos\\inspector\\res\" \"%{prj.location}..\\..\\demos\\inspector\\resources.cpp\" -v \"resources\""
+    --}
 
   filter "system:macosx"
     files {"include/sciter-osx-main.mm"}
@@ -385,9 +385,9 @@ project "integration"
            "include/sciter-win-main.cpp",
            "demos/integration/win-res/integration.rc",
            "demos/integration/win-res/dpi-aware.manifest" }
-    prebuildcommands { 
-      "\"%{prj.location}..\\..\\bin\\".. osabbr() .. "\\packfolder.exe\" \"%{prj.location}..\\..\\demos\\integration\\res\" \"%{prj.location}..\\..\\demos\\integration\\resources.cpp\" -v \"resources\""
-    }
+    --prebuildcommands { 
+    --  "\"%{prj.location}..\\..\\bin\\".. osabbr() .. "\\packfolder.exe\" \"%{prj.location}..\\..\\demos\\integration\\res\" \"%{prj.location}..\\..\\demos\\integration\\resources.cpp\" -v \"resources\""
+    --}
 
   filter "system:macosx"
     files {"include/sciter-osx-main.mm"}
@@ -607,9 +607,9 @@ project "glfw-opengl"
   dpiawareness "HighPerMonitor"
 
   filter "system:windows"
-    prebuildcommands { 
-      "\"%{prj.location}..\\..\\bin\\windows\\packfolder.exe\" \"%{prj.location}..\\..\\demos.lite\\facade\" \"%{prj.location}..\\..\\demos.lite\\facade-resources.cpp\" -v \"resources\""
-    }
+    --prebuildcommands { 
+    --  "\"%{prj.location}..\\..\\bin\\windows\\packfolder.exe\" \"%{prj.location}..\\..\\demos.lite\\facade\" \"%{prj.location}..\\..\\demos.lite\\facade-resources.cpp\" -v \"resources\""
+    --}
   filter {}
 
   -- ours:

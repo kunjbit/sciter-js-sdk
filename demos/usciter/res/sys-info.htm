@@ -87,7 +87,8 @@
     const $ = sciter.$;
     const on = sciter.on;
 
-    document.ready = function() {
+    document.ready = function() 
+    {
         $("#version").innerText = sciter.VERSION;
         $("#revision").innerText = sciter.REVISION;
         $("#quickjs-version").innerText = sciter.QUICKJS_VERSION;
@@ -119,7 +120,7 @@
       <li><b>H-SMILE</b> (HTML/CSS engine)<br>of <a href="http://terrainformatica.com/">Terra Informatica Software, Inc.</a></li>
       <li><a href="https://skia.org/">Skia library</a>, sponsored and developed by Google.<br>Skia is used for rendering when the engine<br>is asked to do so.</li>
       <li><a href="https://github.com/nucleic/kiwi/">KIWI Cassowary Constraint Solver</a><br>by Chris Colbert and The Nucleic Development Team.</li>
-      <!--<li><a href="http://www.garret.ru/dybase.html">DyBase</a> library by Konstantin Knizhnik.</li>-->
+      <li><a href="http://www.garret.ru/dybase.html">DyBase</a> library by Konstantin Knizhnik.</li>
       <li><a href="https://bellard.org/quickjs/">QuickJS</a> by Fabrice Bellard.</li>
       <li><a href="https://github.com/libuv/libuv">libuv</a> multi-platform asynchronous I/O library.</li>
     </ul>
@@ -127,22 +128,22 @@
 
   <dl.info #system>
     <header#sciter>sciter.JS</header>
-    <dt>version:</dt>     <dd #version></dd>
-    <dt>revision:</dt>   <dd #revision></dd>
+    <dt>version:</dt><dd #version></dd>
+    <dt>revision:</dt><dd #revision></dd>
     <header>QuickJS</header>
-    <dt>version:</dt>    <dd #quickjs-version></dd>
+    <dt>version:</dt><dd #quickjs-version></dd>
     <header>SQLite</header>
-    <dt>version:</dt>    <dd #sqlite-version></dd>
+    <dt>version:</dt><dd #sqlite-version></dd>
     <header>env</header>
-    <dt>OS type:</dt>     <dd #os-type></dd>
-    <dt>OS version:</dt> <dd #os-version></dd>
+    <dt>OS type:</dt><dd #os-type></dd>
+    <dt>OS version:</dt><dd #os-version></dd>
     <dt>GFX backend:</dt><dd #gfx-backend></dd>
-    <dt>user:</dt>       <dd #user></dd>
-    <dt>machine:</dt>     <dd #machine></dd>
-    <dt>domain:</dt>     <dd #domain></dd>
+    <dt>user:</dt><dd #user></dd>
+    <dt>machine:</dt><dd #machine></dd>
+    <dt>domain:</dt><dd #domain></dd>
     <!--<dt>home:</dt>       <dd #home></dd>-->
-    <dt>country:</dt>     <dd #country></dd>
-    <dt>language:</dt>   <dd #language></dd>
+    <dt>country:</dt><dd #country></dd>
+    <dt>language:</dt><dd #language></dd>
   </dl>
 </body>
 </html>
