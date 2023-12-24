@@ -44,7 +44,7 @@ export class WebGL extends Element {
       const gl = this.WebGL; // get native WebGL implementation - it is an asset, so
       // note: this is needed for THREE to determine WebGL2 support properly:        
       if(gl) {
-         gl.constructor = WebGL2RenderingContext; 
+         Object.defineProperty(gl, 'constructor', { value: WebGL2RenderingContext, writable: false});
       } else {
          this.content(<p>No WebGL in this backend</p>);
       }
