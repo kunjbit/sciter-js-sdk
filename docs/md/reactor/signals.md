@@ -94,7 +94,7 @@ Sciter supports four types of signal subscribers:
    document.body.append(<Counter/>);
   
    ```
-   When the user will change value of the `<input>`, the signal will be activated informing potential other observers.
+   When the user will change value of the `<input>`, the signal will be activated informing other potential observers.
 
    In the same way if code will change value of the signal it will be reflected on UI. NOTE: such input value update from code side will be performed only if the input is not in focus.
 

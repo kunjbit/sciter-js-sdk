@@ -57,15 +57,65 @@ string, reflects current status of internal editing buffer.
 
 ## Methods
 
-* `element.edit.selectAll()` - select whole content.
-* `element.edit.selectRange(\[start:int \[, end:int\]\])` - selects text between *start* (included) and *end* (excluded) position. If start and end are omitted - removes selection.
-* `element.edit.removeText()` - removes selected text (if any).
-* `element.edit.insertText(text: string)` - insert text at caret position, if selection is not empty removes selected text before insertion.
-* `element.edit.appendText(text: string)` - appends the text at the end of existing text. 
+### selectAll
+```js
+element.edit.selectAll()
+```
+Select whole content
+
+### selectRange
+
+```js
+element.edit.selectRange([start:integer [, end:integer]])
+```
+
+Selects text between *start* (included) and *end* (excluded) position. If start and end are omitted - removes selection.
+
+### removeText
+
+```js
+element.edit.removeText()
+```
+removes selected text (if any).
+
+### insertText
+
+```js
+element.edit.insertText(text: string)
+```
+insert text at caret position, if selection is not empty removes selected text before insertion.
+
+### appendText
+
+```js
+element.edit.appendText(text: string)
+```
+appends the text at the end of existing text. 
 
 ## Properties
 
-* `element.edit.selectionStart: int` - returns start position of the selection, or caret position if there is no selection.
-* `element.edit.selectionEnd: int` -  returns end position of the selection, or caret position if there is no selection.
-* `element.edit.selectionText: string` - returns selected text or empty string if there is no selection.
-* `element.edit.isStandalone: bool` - read/write, defines "standalone" mode: `isStandalone = true` causes navigational keys to be always consumed. By default ArrowLeft, ArrowRight keys are not handled if caret moves outside of the content;
+### selectionStart
+
+```js
+element.edit.selectionStart: int
+```
+returns start position of the selection, or caret position if there is no selection.
+
+### selectionEnd
+```js
+element.edit.selectionEnd: int
+```
+returns end position of the selection, or caret position if there is no selection.
+
+### selectionText
+```js
+element.edit.selectionText: string
+```
+returns selected text or empty string if there is no selection.
+
+### isStandalone
+
+```js
+element.edit.isStandalone: bool
+```
+read/write, defines "standalone" mode: `isStandalone = true` causes navigational keys to be always consumed. By default ArrowLeft, ArrowRight keys are not handled if caret moves outside of the content.

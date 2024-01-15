@@ -159,7 +159,7 @@ UINT SCAPI ValueStringData( const VALUE* pval, LPCWSTR* pChars, UINT* pNumChars 
 UINT SCAPI ValueStringDataSet( VALUE* pval, LPCWSTR chars, UINT numChars, UINT units );
 
 /**
- * ValueIntData - retreive integer data of T_INT, T_LENGTH and T_BOOL types
+ * ValueIntData - retreive integer data of T_INT and T_BOOL types
  */
 UINT SCAPI ValueIntData( const VALUE* pval, INT* pData );
 

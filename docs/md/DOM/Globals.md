@@ -29,6 +29,18 @@ Prints log message using C-style [printf conventions](https://en.cppreference.co
 
 Same as `console.log()` but prints messages using different meta type. 
 
+### console.reportException(err,isPromise)
+
+Unhandled exceptions handler, all not handled exceptions go here. This function can be overriden to implement custom handler:
+
+```js
+console.reportException = function(err,isPromise) {
+   Window.this.modal(<alert>{err.toString()}</alert>);
+   return "";
+}
+```
+
+
 ## Timers and intervals
 
 ### setTimeout()

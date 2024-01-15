@@ -1,3 +1,14 @@
+## 5.0.3.6
+
+### Fixes:
+
+* [css] `select[multiple=checkmarks]` fix. 
+* `position: relative | absolute | fixed;` refactoring to make it closer to W3C spec.
+* ThreeJS compatibility fix.
+* Fix of AV in unhandled promise rejection handler.
+* `img.value = ""` fix.
+* `element.popup({x,y})` monitor workarea constrainment is disabled when explicit x,y is used. Caller should implement this logic on its side.
+
 ## 5.0.3.5
 
 ### Fixes:
