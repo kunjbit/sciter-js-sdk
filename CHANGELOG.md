@@ -1,3 +1,13 @@
+## 5.0.3.7
+
+### Fixes:
+
+* fix of `position:relative` double rendering.
+* fix of `position:absolute` children of `display:inline-block` elements.
+* fix of AV on `position:relative;display:inline` elements.
+* unzip fix, [see](https://sciter.com/forums/topic/file-not-found-issue-when-loading-zip-files/)
+* fix of data.x/y in "context-menu" event is in logical px rather than in ppx. 
+
 ## 5.0.3.6
 
 ### Fixes:

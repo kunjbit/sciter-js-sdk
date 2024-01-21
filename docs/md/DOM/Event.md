@@ -15,8 +15,7 @@ toc_max_heading_level: 5
 * `event.defaultPrevented`
 * `event.eventPhase`
 * `event.target`
-* `event.type` - "click", "mousedown", etc.
-* `event.namespace` - namespace portion (after the dot) of event name. Like "comp" in "click.comp" event.
+* `event.type`
 * `event.data:any`
 * `event.details:any` - alias of `event.data`
 * `event.keyCode:integer` - key code, see include/sciter-x-key-codes.h
@@ -60,7 +59,7 @@ toc_max_heading_level: 5
 * `event.y` - to `event.currentTarget` - the element this event handler is attached to.
 * `event.source` - used in some events to indicate auxiliary `source` element. 
 * `event.isOnIcon:Element` - mouse events, it is set to element when mouse is on icon of that element. Element icon is an element's foreground-image (if any) so event.isOnIcon is on when mouse is over area where the image is rendered.
-* `event.reason` - integer, event type specific flags.
+* `event.reason` - 
 
 ### properties (Sciter specific, gestures):
 
