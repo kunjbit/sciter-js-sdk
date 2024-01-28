@@ -5,9 +5,7 @@ import {DropZone} from "drop-zone.js";
 import * as Settings from "settings.js";
 import * as LiveReload from "live-reload.js";
 
-const APP_NAME = "usciter.js.app";
-
-//include "live-reload.tis";
+const APP_NAME = "usciter.js.app"; 
 
 const view = Window.this;
 

@@ -1,3 +1,15 @@
+## 5.0.3.8
+
+### Fixes:
+
+* [css] fix of positioned elements on scrollables.
+* [fetch] `request.cancel()`, forcing cancelation of running tasks.
+* `<canvas>`/Graphics, fix of path scaling in some obscure cases.
+
+### New:
+
+* QuickJS of v.2024-01-13
+
 ## 5.0.3.7
 
 ### Fixes:
