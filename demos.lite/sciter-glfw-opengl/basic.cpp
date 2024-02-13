@@ -57,14 +57,15 @@ int main(int argc, char *argv[])
       ALLOW_EVAL |
       ALLOW_SYSINFO);
 
+    if (!glfwInit())
+        exit(EXIT_FAILURE);
+
     sciter::debug_output_console yes;
 
     //SciterSetOption(NULL, SCITER_SET_DEBUG_MODE, TRUE);
 
     glfwSetErrorCallback(error_callback);
 
-    if (!glfwInit())
-        exit(EXIT_FAILURE);
 #if defined(OSX)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
@@ -75,8 +76,10 @@ int main(int argc, char *argv[])
     glfwWindowHint(GLFW_COCOA_GRAPHICS_SWITCHING, GLFW_TRUE);
     glfwSwapInterval(1);
 #elif DEVICE==IOT
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
+    glfwWindowHint(GLFW_CONTEXT_CREATION_API, GLFW_EGL_CONTEXT_API);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2); // sciter minimal
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0); // requirements
 #else
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
@@ -100,9 +103,11 @@ int main(int argc, char *argv[])
     glfwSetCharCallback(window, char_callback);
     glfwSetWindowFocusCallback(window, focus_callback);
 
-	  glfwMakeContextCurrent( window );
+	glfwMakeContextCurrent( window );
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-    glfwSwapInterval(1);
+    glfwSwapInterval(0); // put 1 here for real UI
+
+    glfwMakeContextCurrent( window );
 
     int used_width = 0, used_height = 0;
 
@@ -123,6 +128,8 @@ int main(int argc, char *argv[])
 
       sciter::archive::instance().open(aux::elements_of(resources)); // bind resources[] (defined in "facade-resources.cpp") with the archive
       SciterLoadFile(window, WSTR("this://app/main.htm"));
+      //const char* html = "<html style='background:red'><body>Hello world!</body></html>";
+      //SciterLoadHtml(window, (LPCBYTE)html, strlen(html),WSTR("about:blank"));
 
     // SCITER-
 
@@ -139,19 +146,21 @@ int main(int argc, char *argv[])
       if (width != used_width || height != used_height)
         SciterProcX(window, SCITER_X_MSG_SIZE(used_width = width, used_height = height));
 
-      if (sciter_needs_drawing) {
+      //if (sciter_needs_drawing) - suppressed this for a while to see FPS counter, enable this to minimize CPU consumption
+      {
         sciter_needs_drawing = false;
         glViewport(0, 0, width, height);
         glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
         // SCITER - render Sciter using current OpenGL context
+
         SciterProcX(window, SCITER_X_MSG_PAINT());
 
         glfwSwapBuffers(window);
       }
 
-      //glfwWaitEventsTimeout(0.016); // 60 FPS
+      //glfwWaitEventsTimeout(0.016); // 60 FPS max - enable this to minimize CPU consumption
       glfwPollEvents();
     }
 
