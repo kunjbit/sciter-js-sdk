@@ -4,6 +4,7 @@
 	<Project>
 		<Option title="sciter-sqlite" />
 		<Option pch_mode="2" />
+		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug|x64">
 				<Option output="../../../bin/linux/x64/sciter-sqlite.so" prefix_auto="0" extension_auto="0" />
@@ -21,6 +22,7 @@
 					<Add option="-g" />
 					<Add option="-std=c++17" />
 					<Add option="-DDEVICE=DESKTOP" />
+					<Add option="-DUSE_VULKAN" />
 					<Add option="-D_GNU_SOURCE" />
 					<Add option="-DDEBUG" />
 					<Add option="-D_DEBUG" />
@@ -29,6 +31,8 @@
 					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-write-strings" />
 					<Add option="-ldl" />
+					<Add directory="$(VULKAN_SDK)/include" />
+					<Add directory="../../../../../../../vulkan.1.2.189.0/x86_64/include" />
 					<Add directory="../../../include" />
 				</Compiler>
 				<Linker>
@@ -57,6 +61,7 @@
 					<Add option="-fPIC" />
 					<Add option="-std=c++17" />
 					<Add option="-DDEVICE=DESKTOP" />
+					<Add option="-DUSE_VULKAN" />
 					<Add option="-D_GNU_SOURCE" />
 					<Add option="-DNDEBUG" />
 					<Add option="`pkg-config gtk+-3.0 --cflags`" />
@@ -64,6 +69,8 @@
 					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-write-strings" />
 					<Add option="-ldl" />
+					<Add directory="$(VULKAN_SDK)/include" />
+					<Add directory="../../../../../../../vulkan.1.2.189.0/x86_64/include" />
 					<Add directory="../../../include" />
 				</Compiler>
 				<Linker>
@@ -90,6 +97,7 @@
 					<Add option="-g" />
 					<Add option="-std=c++17" />
 					<Add option="-DDEVICE=DESKTOP" />
+					<Add option="-DUSE_VULKAN" />
 					<Add option="-D_GNU_SOURCE" />
 					<Add option="-DDEBUG" />
 					<Add option="-D_DEBUG" />
@@ -98,6 +106,8 @@
 					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-write-strings" />
 					<Add option="-ldl" />
+					<Add directory="$(VULKAN_SDK)/include" />
+					<Add directory="../../../../../../../vulkan.1.2.189.0/x86_64/include" />
 					<Add directory="../../../include" />
 				</Compiler>
 				<Linker>
@@ -123,6 +133,7 @@
 					<Add option="-fPIC" />
 					<Add option="-std=c++17" />
 					<Add option="-DDEVICE=DESKTOP" />
+					<Add option="-DUSE_VULKAN" />
 					<Add option="-D_GNU_SOURCE" />
 					<Add option="-DNDEBUG" />
 					<Add option="`pkg-config gtk+-3.0 --cflags`" />
@@ -130,6 +141,8 @@
 					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-write-strings" />
 					<Add option="-ldl" />
+					<Add directory="$(VULKAN_SDK)/include" />
+					<Add directory="../../../../../../../vulkan.1.2.189.0/x86_64/include" />
 					<Add directory="../../../include" />
 				</Compiler>
 				<Linker>
@@ -155,6 +168,7 @@
 					<Add option="-g" />
 					<Add option="-std=c++17" />
 					<Add option="-DDEVICE=DESKTOP" />
+					<Add option="-DUSE_VULKAN" />
 					<Add option="-D_GNU_SOURCE" />
 					<Add option="-DDEBUG" />
 					<Add option="-D_DEBUG" />
@@ -163,6 +177,8 @@
 					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-write-strings" />
 					<Add option="-ldl" />
+					<Add directory="$(VULKAN_SDK)/include" />
+					<Add directory="../../../../../../../vulkan.1.2.189.0/x86_64/include" />
 					<Add directory="../../../include" />
 				</Compiler>
 				<Linker>
@@ -188,6 +204,7 @@
 					<Add option="-fPIC" />
 					<Add option="-std=c++17" />
 					<Add option="-DDEVICE=DESKTOP" />
+					<Add option="-DUSE_VULKAN" />
 					<Add option="-D_GNU_SOURCE" />
 					<Add option="-DNDEBUG" />
 					<Add option="`pkg-config gtk+-3.0 --cflags`" />
@@ -195,6 +212,8 @@
 					<Add option="-Wno-unknown-pragmas" />
 					<Add option="-Wno-write-strings" />
 					<Add option="-ldl" />
+					<Add directory="$(VULKAN_SDK)/include" />
+					<Add directory="../../../../../../../vulkan.1.2.189.0/x86_64/include" />
 					<Add directory="../../../include" />
 				</Compiler>
 				<Linker>
@@ -208,69 +227,69 @@
 			</Target>
 		</Build>
 		<Unit filename="../../../sqlite/sciter-sqlite-db.cpp">
-			<Option target="Debug|arm32" />
+			<Option target="Debug|x64" />
+			<Option target="Release|arm32" />
 			<Option target="Debug|arm64" />
 			<Option target="Release|arm64" />
+			<Option target="Debug|arm32" />
 			<Option target="Release|x64" />
-			<Option target="Release|arm32" />
-			<Option target="Debug|x64" />
 		</Unit>
 		<Unit filename="../../../sqlite/sciter-sqlite-rs.cpp">
-			<Option target="Debug|arm32" />
+			<Option target="Debug|x64" />
+			<Option target="Release|arm32" />
 			<Option target="Debug|arm64" />
 			<Option target="Release|arm64" />
+			<Option target="Debug|arm32" />
 			<Option target="Release|x64" />
-			<Option target="Release|arm32" />
-			<Option target="Debug|x64" />
 		</Unit>
 		<Unit filename="../../../sqlite/sciter-sqlite.cpp">
-			<Option target="Debug|arm32" />
+			<Option target="Debug|x64" />
+			<Option target="Release|arm32" />
 			<Option target="Debug|arm64" />
 			<Option target="Release|arm64" />
+			<Option target="Debug|arm32" />
 			<Option target="Release|x64" />
-			<Option target="Release|arm32" />
-			<Option target="Debug|x64" />
 		</Unit>
 		<Unit filename="../../../sqlite/sciter-sqlite.h">
-			<Option target="Debug|arm32" />
+			<Option target="Debug|x64" />
+			<Option target="Release|arm32" />
 			<Option target="Debug|arm64" />
 			<Option target="Release|arm64" />
+			<Option target="Debug|arm32" />
 			<Option target="Release|x64" />
-			<Option target="Release|arm32" />
-			<Option target="Debug|x64" />
 		</Unit>
 		<Unit filename="../../../sqlite/sqlite-wrap.c">
 			<Option compilerVar="CC" />
-			<Option target="Debug|arm32" />
+			<Option target="Debug|x64" />
+			<Option target="Release|arm32" />
 			<Option target="Debug|arm64" />
 			<Option target="Release|arm64" />
+			<Option target="Debug|arm32" />
 			<Option target="Release|x64" />
-			<Option target="Release|arm32" />
-			<Option target="Debug|x64" />
 		</Unit>
 		<Unit filename="../../../sqlite/sqlite-wrap.h">
-			<Option target="Debug|arm32" />
+			<Option target="Debug|x64" />
+			<Option target="Release|arm32" />
 			<Option target="Debug|arm64" />
 			<Option target="Release|arm64" />
+			<Option target="Debug|arm32" />
 			<Option target="Release|x64" />
-			<Option target="Release|arm32" />
-			<Option target="Debug|x64" />
 		</Unit>
 		<Unit filename="../../../sqlite/sqlite3.h">
-			<Option target="Debug|arm32" />
+			<Option target="Debug|x64" />
+			<Option target="Release|arm32" />
 			<Option target="Debug|arm64" />
 			<Option target="Release|arm64" />
+			<Option target="Debug|arm32" />
 			<Option target="Release|x64" />
-			<Option target="Release|arm32" />
-			<Option target="Debug|x64" />
 		</Unit>
 		<Unit filename="../../../sqlite/sqlite3ext.h">
-			<Option target="Debug|arm32" />
+			<Option target="Debug|x64" />
+			<Option target="Release|arm32" />
 			<Option target="Debug|arm64" />
 			<Option target="Release|arm64" />
+			<Option target="Debug|arm32" />
 			<Option target="Release|x64" />
-			<Option target="Release|arm32" />
-			<Option target="Debug|x64" />
 		</Unit>
 	</Project>
 </CodeBlocks_project_file>

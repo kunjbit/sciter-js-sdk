@@ -15,7 +15,7 @@ const content = [
 ];
 
 function packArchive() {
-  return Zip.create( n => n < content.length && content[n] );
+  return Zip.toData( n => n < content.length && content[n] );
 }
 
 async function test() {
@@ -43,6 +43,5 @@ test();
         </script>
     </head>
     <body>
-      <h1>DOES NOT WORK YET</h1>
     </body>
 </html>

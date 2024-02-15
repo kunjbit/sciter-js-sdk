@@ -19,9 +19,9 @@ endif
 # #############################################
 
 RESCOMP = windres
-INCLUDES += -I../../../include
+INCLUDES += -I"$(VULKAN_SDK)/include" -I../../../../../../../vulkan.1.2.189.0/x86_64/include -I../../../include
 FORCE_INCLUDE +=
-ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
+ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
 LIBS +=
 LDDEPS +=
@@ -37,7 +37,7 @@ ifeq ($(config),debug_x64)
 TARGETDIR = ../../../bin/linux/x64
 TARGET = $(TARGETDIR)/gsciter
 OBJDIR = obj/x64/Debug/gsciter
-DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DDEBUG -D_DEBUG
+DEFINES += -DDEVICE=DESKTOP -DUSE_VULKAN -D_GNU_SOURCE -DDEBUG -D_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c++17 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 `pkg-config gtk+-3.0 --libs` `pkg-config fontconfig --libs` -fPIC -pthread -Wl,--no-undefined -ldl -no-pie
@@ -46,7 +46,7 @@ else ifeq ($(config),debug_arm32)
 TARGETDIR = ../../../bin/linux/arm32
 TARGET = $(TARGETDIR)/gsciter
 OBJDIR = obj/arm32/Debug/gsciter
-DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DDEBUG -D_DEBUG
+DEFINES += -DDEVICE=DESKTOP -DUSE_VULKAN -D_GNU_SOURCE -DDEBUG -D_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g -std=c++17 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
 ALL_LDFLAGS += $(LDFLAGS) `pkg-config gtk+-3.0 --libs` `pkg-config fontconfig --libs` -fPIC -pthread -Wl,--no-undefined -ldl -no-pie
@@ -55,7 +55,7 @@ else ifeq ($(config),debug_arm64)
 TARGETDIR = ../../../bin/linux/arm64
 TARGET = $(TARGETDIR)/gsciter
 OBJDIR = obj/arm64/Debug/gsciter
-DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DDEBUG -D_DEBUG
+DEFINES += -DDEVICE=DESKTOP -DUSE_VULKAN -D_GNU_SOURCE -DDEBUG -D_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g -std=c++17 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
 ALL_LDFLAGS += $(LDFLAGS) `pkg-config gtk+-3.0 --libs` `pkg-config fontconfig --libs` -fPIC -pthread -Wl,--no-undefined -ldl -no-pie
@@ -64,7 +64,7 @@ else ifeq ($(config),release_x64)
 TARGETDIR = ../../../bin/linux/x64
 TARGET = $(TARGETDIR)/gsciter
 OBJDIR = obj/x64/Release/gsciter
-DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DNDEBUG
+DEFINES += -DDEVICE=DESKTOP -DUSE_VULKAN -D_GNU_SOURCE -DNDEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -flto -Os -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -flto -Os -std=c++17 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -flto -s `pkg-config gtk+-3.0 --libs` `pkg-config fontconfig --libs` -fPIC -pthread -Wl,--no-undefined -ldl -no-pie
@@ -73,7 +73,7 @@ else ifeq ($(config),release_arm32)
 TARGETDIR = ../../../bin/linux/arm32
 TARGET = $(TARGETDIR)/gsciter
 OBJDIR = obj/arm32/Release/gsciter
-DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DNDEBUG
+DEFINES += -DDEVICE=DESKTOP -DUSE_VULKAN -D_GNU_SOURCE -DNDEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -flto -Os -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -flto -Os -std=c++17 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
 ALL_LDFLAGS += $(LDFLAGS) -flto -s `pkg-config gtk+-3.0 --libs` `pkg-config fontconfig --libs` -fPIC -pthread -Wl,--no-undefined -ldl -no-pie
@@ -82,7 +82,7 @@ else ifeq ($(config),release_arm64)
 TARGETDIR = ../../../bin/linux/arm64
 TARGET = $(TARGETDIR)/gsciter
 OBJDIR = obj/arm64/Release/gsciter
-DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DNDEBUG
+DEFINES += -DDEVICE=DESKTOP -DUSE_VULKAN -D_GNU_SOURCE -DNDEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -flto -Os -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -flto -Os -std=c++17 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags`
 ALL_LDFLAGS += $(LDFLAGS) -flto -s `pkg-config gtk+-3.0 --libs` `pkg-config fontconfig --libs` -fPIC -pthread -Wl,--no-undefined -ldl -no-pie
@@ -140,7 +140,7 @@ ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -rf $(OBJDIR)
 else
 	$(SILENT) if exist $(subst /,\\,$(TARGET)) del $(subst /,\\,$(TARGET))
-	$(SILENT) if exist $(subst /,\\,$(GENERATED)) rmdir /s /q $(subst /,\\,$(GENERATED))
+	$(SILENT) if exist $(subst /,\\,$(GENERATED)) del /s /q $(subst /,\\,$(GENERATED))
 	$(SILENT) if exist $(subst /,\\,$(OBJDIR)) rmdir /s /q $(subst /,\\,$(OBJDIR))
 endif
 
@@ -167,10 +167,10 @@ endif
 # #############################################
 
 $(OBJDIR)/gsciter.o: ../../../demos/gsciter/gsciter.cpp
-	@echo $(notdir $<)
+	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/sciter-gtk-main.o: ../../../include/sciter-gtk-main.cpp
-	@echo $(notdir $<)
+	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 
 -include $(OBJECTS:%.o=%.d)

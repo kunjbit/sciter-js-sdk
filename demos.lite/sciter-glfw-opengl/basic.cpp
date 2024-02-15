@@ -75,14 +75,14 @@ int main(int argc, char *argv[])
     glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_TRUE);
     glfwWindowHint(GLFW_COCOA_GRAPHICS_SWITCHING, GLFW_TRUE);
     glfwSwapInterval(1);
-#elif DEVICE==IOT
+#elif DEVICE_IOT
     glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
     glfwWindowHint(GLFW_CONTEXT_CREATION_API, GLFW_EGL_CONTEXT_API);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2); // sciter minimal
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0); // requirements
 #else
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 #endif
 
     glfwWindowHint(GLFW_SAMPLES, 0);

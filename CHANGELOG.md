@@ -1,3 +1,29 @@
+## 5.0.3.9
+
+### New:
+
+* `Zip.toData()` and `Zip.toFile()` 
+* [API] `sciter::value::set_item("foo", sciter::value())` creates property with `undefined` value.
+* [API] `sciter::value::call_this(this, ...args)` - call function as a method passing `this`.
+* [native API] access to native behavior: getting/setting native properties, calling native methods without JS eval().  
+* + sdk.js/samples.reactor/tabs demo.
+* [sdk,integration] NativeBackend demo.
+* `SciterSetOption(NULL, SCITER_ENABLE_DIRECT_COMPOSITION, FALSE);` to disable DirectComposition on Windows 11 2H22 and above. See [the problem](https://sciter.com/forums/topic/sciter-webview-render-nothing-with-direct2d/#post-85153). 
+
+### Fixes:
+
+* [reactor] `<input|number value={undefined}>` fix.
+* [css] fix of `fill: linear-gradient(...)`; 
+* [http] fix of AV in internal HTTP client (affects Sciter Linux versions);
+* `input|date` fix of doubled change event;
+* [reactor/patch] fix of the https://sciter.com/forums/topic/mounting-events/ case. 
+* [signal] element-bound-signal fix, [report](https://sciter.com/forums/topic/samples-reactorsignaltodo-htm-has-strange-behavior/) 
+* [gtk] fix of transparent windows. 
+* `flow:horizontal-wrap` fix of row height.
+* `image.value = ArrayBuffer` fix.
+* QuickJS v.2024-01-13 regression - `evalModule()` fix.
+* `<select|tree multiple="checkmarks">`, fix of click on checkmark handling 
+
 ## 5.0.3.8
 
 ### Fixes:

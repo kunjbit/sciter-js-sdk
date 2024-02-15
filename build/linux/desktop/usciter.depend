@@ -10651,11 +10651,11 @@
 1657947074 /Data/sciter/work/sdk.js/include/sciter-x-request.h
 	"sciter-x-types.h"
 
-1702835448 /Data/sciter/work/sdk.js/include/value.h
+1705350761 /Data/sciter/work/sdk.js/include/value.h
 	"sciter-x-primitives.h"
 	"value.hpp"
 
-1698350919 /Data/sciter/work/sdk.js/include/value.hpp
+1707058974 /Data/sciter/work/sdk.js/include/value.hpp
 	"value.h"
 	<string>
 	<functional>
@@ -10738,13 +10738,13 @@
 	<libgen.h>
 	<dlfcn.h>
 
-1702835448 /Data/sciter/work/sdk.js/include/sciter-version.h
+1706414076 /Data/sciter/work/sdk.js/include/sciter-version.h
 
 1656697546 /Data/sciter/work/sdk.js/include/sciter-x-msg.h
 	"sciter-x-types.h"
 	"sciter-x-def.h"
 
-1701568583 /Data/sciter/work/sdk.js/include/sciter-x-dom.hpp
+1707058974 /Data/sciter/work/sdk.js/include/sciter-x-dom.hpp
 	"sciter-x-dom.h"
 	<algorithm>
 	<vector>
@@ -10847,7 +10847,7 @@
 	<unicode/utf16.h>
 	<math.h>
 
-1698950208 source:/Data/sciter/work/sdk.js/demos/usciter/usciter.cpp
+1707059635 source:/Data/sciter/work/sdk.js/demos/usciter/usciter.cpp
 	"sciter-x-window.hpp"
 	"sciter-x-graphics.hpp"
 	"sciter-x-types.h"
@@ -10859,7 +10859,7 @@
 	"sciter-x-api.h"
 	"aux-slice.h"
 
-1702318849 /Data/sciter/work/sdk.js/demos/usciter/resources.cpp
+1707880311 /Data/sciter/work/sdk.js/demos/usciter/resources.cpp
 
 1644204227 source:/Data/sciter/work/sdk.js/include/behaviors/behavior_video_generator.cpp
 	"sciter-x.h"
@@ -10895,4 +10895,11 @@
 	"sciter-x-threads.h"
 	"sciter-x-video-api.h"
 	<thread>
+
+1644204227 source:/Data/sciter/work/sdk.js/include/behaviors/behavior_drawing.cpp
+	"sciter-x.h"
+	"sciter-x-behavior.h"
+	"sciter-x-graphics.hpp"
+	<time.h>
+	<cmath>
 

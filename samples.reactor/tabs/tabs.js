@@ -23,7 +23,7 @@ export class Tabs extends Element {
     get tab() { return this.current; }
     set tab(index) { this.componentUpdate({current:index}) }
 
-    ["on click at label[current=false]"](evt,label) {
+    ["on press at label[current=false]"](evt,label) {
        const index = label.attributes["key"];
        this.tab = index;
        return true;

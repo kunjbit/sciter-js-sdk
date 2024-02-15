@@ -43,11 +43,10 @@ main {flow:horizontal-wrap; border-spacing:2em; }
         <script>
 
 let nativeApi = Window.this.assetInterface.nativeFunctionsB();
-console.assert( nativeApi.beginDownload(), "problem with C++ lambdas" );
+console.log( nativeApi.beginDownload() );
+//console.assert( nativeApi.beginDownload(), "problem with C++ lambdas" );
 
-document.on("before-unload", () => nativeApi = null)
-
-
+document.on("before-unload", () => { nativeApi = null })
 
 // menu handling:
 document.on("click","menu>li.hello", () => { Window.this.modal(<info>Hello world!</info>); });
@@ -155,7 +154,7 @@ document.on("click", "button#task-start", function(evt, button) {
     progress.value = n;
   }
   
-  Window.this.assetInterface.startNativeThread(onDone,onProgress);
+  NativeBackend.startNativeThread(onDone,onProgress);
 });
 
 document.on("click", "button#task-start-object", function(evt, button) {
@@ -167,12 +166,12 @@ document.on("click", "button#task-start-object", function(evt, button) {
     progress: function(n) { progress.value = n; }
   };
   
-  Window.this.assetInterface.startNativeThreadWithObject(obj);
+  NativeBackend.startNativeThreadWithObject(obj);
 });
 
 document.on("click", "button#native-async-function", async function(evt, button) {
   button.state.disabled = true;
-  let data = await Window.this.assetInterface.nativeAsyncFunction(1000);
+  let data = await NativeBackend.nativeAsyncFunction(1000);
   button.state.disabled = false;
   Window.this.modal(<info>nativeAsyncFunction answered:{data}</info>);
 });
@@ -364,13 +363,17 @@ testError();
     Note that should throw sciter::script_error in native code
   </section>
 
+  <section>
+    <input|text #test-behavior-method-call value="some text" /> this will be highlighted from native code.
+  </section>
+
+
 </main>
 
 <section>
   <p>This receives application events - broadcasted to all windows:</p>
   <pre #appEventsOutput></pre>
 </section>
-
 
 
     </body>

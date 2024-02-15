@@ -503,6 +503,9 @@ typedef enum SCITER_RT_OPTIONS
                                           //              FALSE - use system HTTP client (on platforms that has it: Win,Mac,Lin)
    SCITER_EXTENDED_TOUCHPAD_SUPPORT = 19, // hWnd - N/A , TRUE/FALSE, enables/disables extended touchpad support, TRUE by default   
 
+   SCITER_ENABLE_DIRECT_COMPOSITION = 20, // hWnd - N/A , TRUE/FALSE, enables DirectComposition on Windows 11. 
+                                          //        TRUE by default on Windows 11. Set it to FALSE if window will host child windows.
+
 } SCITER_RT_OPTIONS;
 
 /**Set various options.
