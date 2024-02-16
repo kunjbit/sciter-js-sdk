@@ -28,6 +28,7 @@ newoption {
 }
 
 defines { "DEVICE=" .. _OPTIONS["device"] }
+defines { "DEVICE_" .. _OPTIONS["device"] }
 
 if os.getenv("VULKAN_SDK") then
   defines {"USE_VULKAN"}
@@ -382,7 +383,6 @@ project "integration"
   settargetdir()
 
   filter "system:windows"
-    removeplatforms { "x32" }
     removeconfigurations { "*skia" }
     files {"include/sciter-*.h",
            "include/sciter-*.hpp",
@@ -445,7 +445,6 @@ if( _TARGET_OS == "windows") then
 
     settargetdir()
 
-    removeplatforms { "x32" }
     removeconfigurations { "*skia" }
     filter {}
 
@@ -658,7 +657,6 @@ project "glfw-opengl"
       "demos.lite/glfw/src/osmesa_context.c",
     }
     links "shlwapi"
-    removeplatforms { "x32" }
   filter "system:macosx"
     defines "_GLFW_COCOA"
     files {
