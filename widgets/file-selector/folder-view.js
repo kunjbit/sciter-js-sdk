@@ -25,6 +25,7 @@ export class FolderView extends Element
   }
 
   activateCurrent() {
+    if(!this.current) return true;
     var [type,name,path] = this.current;
     if( type == "folder" ) 
     {
@@ -97,7 +98,7 @@ export class FolderView extends Element
       return [option.classList.contains("folder") ? "folder" : "file",
               option.innerText,
               option.attributes["filename"]];
-    return null;
+    return ["folder", ".", this.path];
   }
 
   get parentPath() { 

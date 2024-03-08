@@ -1,3 +1,35 @@
+## 5.0.3.10
+
+### Fixes:
+
+* `<select|tree multiple=checkmarks>`, fix of checkmark click.
+* Fix of `ArrayBuffer` acceptance in `loadHtml()`
+* Fix of AV in `<toggle>`
+* [CSS] fix of prototype, behavior, aspect handling on and inside `display:none` / `visibility:none` elements.
+* [JS] `Math.abs(0.5)` fix.
+* `input|number`, `input|integer`, `input|decimal` adjustments;
+* Fix of creating expando objects of CSS's `prototype: SomeName url(some.js);` elements.
+* Fix of AV in JPEG's rotated images; 
+* Fix of AV in internal http client (Linux);
+* [gtk] speed up of idle processing;
+* `Element.replaceChild()` fix;
+* [API] fixes in `SciterExec(SCITER_APP_INIT, 0, 0);` and `SciterExec(SCITER_APP_SHUTDOWN, 0, 0);` 
+* Adding missed `URL.username` 
+* `<input|calendar>` fix of today caption.
+* `new Graphics.Image(10,10, ...)` - treated now as `new Graphics.Image(10ppx,10ppx, ...)`;
+* [JS] `URL` fixes, in particular `new URL('/foo', 'https://abc:xyz@example.com/')`;
+* [Windows] put image to clipboard fix. Windows 11 Paint compatibility.
+
+### New:
+
+* `new Graphics.Text("text", hostElement)` - takes styles from the host element;
+* `document.URL` and `document.location` - as per browsers;
+* `sys.fs.$realpath()` - sync version of `fs.realpath()`;
+* [CSS] support of shadows on root element;
+* [JS] `import ... from "@foo/bar"` - treated as scoped name. 
+* [JS] `import ... from "whatever"` - "whatever" is always passed to custom module resolver set by `Sciter.setModuleUrlResolver()`
+* [GTK] clipboard: put/get images and files;
+
 ## 5.0.3.9
 
 ### New:

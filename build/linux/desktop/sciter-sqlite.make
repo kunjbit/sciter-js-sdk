@@ -19,7 +19,7 @@ endif
 # #############################################
 
 RESCOMP = windres
-INCLUDES += -I"$(VULKAN_SDK)/include" -I../../../../../../../vulkan.1.2.189.0/x86_64/include -I../../../include
+INCLUDES += -I../../../include
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
@@ -37,7 +37,7 @@ ifeq ($(config),debug_x64)
 TARGETDIR = ../../../bin/linux/x64
 TARGET = $(TARGETDIR)/sciter-sqlite.so
 OBJDIR = obj/x64/Debug/sciter-sqlite
-DEFINES += -DDEVICE=DESKTOP -DUSE_VULKAN -D_GNU_SOURCE -DDEBUG -D_DEBUG
+DEFINES += -DDEVICE=DESKTOP -DDEVICE_DESKTOP -D_GNU_SOURCE -DDEBUG -D_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -fPIC -g `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fPIC -g -std=c++17 `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -shared -Wl,-soname=sciter-sqlite.so -fPIC -pthread
@@ -46,7 +46,7 @@ else ifeq ($(config),debug_arm32)
 TARGETDIR = ../../../bin/linux/arm32
 TARGET = $(TARGETDIR)/sciter-sqlite.so
 OBJDIR = obj/arm32/Debug/sciter-sqlite
-DEFINES += -DDEVICE=DESKTOP -DUSE_VULKAN -D_GNU_SOURCE -DDEBUG -D_DEBUG
+DEFINES += -DDEVICE=DESKTOP -DDEVICE_DESKTOP -D_GNU_SOURCE -DDEBUG -D_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -fPIC -g `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -fPIC -g -std=c++17 `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
 ALL_LDFLAGS += $(LDFLAGS) -shared -Wl,-soname=sciter-sqlite.so -fPIC -pthread
@@ -55,7 +55,7 @@ else ifeq ($(config),debug_arm64)
 TARGETDIR = ../../../bin/linux/arm64
 TARGET = $(TARGETDIR)/sciter-sqlite.so
 OBJDIR = obj/arm64/Debug/sciter-sqlite
-DEFINES += -DDEVICE=DESKTOP -DUSE_VULKAN -D_GNU_SOURCE -DDEBUG -D_DEBUG
+DEFINES += -DDEVICE=DESKTOP -DDEVICE_DESKTOP -D_GNU_SOURCE -DDEBUG -D_DEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -fPIC -g `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -fPIC -g -std=c++17 `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
 ALL_LDFLAGS += $(LDFLAGS) -shared -Wl,-soname=sciter-sqlite.so -fPIC -pthread
@@ -64,7 +64,7 @@ else ifeq ($(config),release_x64)
 TARGETDIR = ../../../bin/linux/x64
 TARGET = $(TARGETDIR)/sciter-sqlite.so
 OBJDIR = obj/x64/Release/sciter-sqlite
-DEFINES += -DDEVICE=DESKTOP -DUSE_VULKAN -D_GNU_SOURCE -DNDEBUG
+DEFINES += -DDEVICE=DESKTOP -DDEVICE_DESKTOP -D_GNU_SOURCE -DNDEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -flto -Os -fPIC `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -flto -Os -fPIC -std=c++17 `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -flto -shared -Wl,-soname=sciter-sqlite.so -s -fPIC -pthread
@@ -73,7 +73,7 @@ else ifeq ($(config),release_arm32)
 TARGETDIR = ../../../bin/linux/arm32
 TARGET = $(TARGETDIR)/sciter-sqlite.so
 OBJDIR = obj/arm32/Release/sciter-sqlite
-DEFINES += -DDEVICE=DESKTOP -DUSE_VULKAN -D_GNU_SOURCE -DNDEBUG
+DEFINES += -DDEVICE=DESKTOP -DDEVICE_DESKTOP -D_GNU_SOURCE -DNDEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -flto -Os -fPIC `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -flto -Os -fPIC -std=c++17 `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
 ALL_LDFLAGS += $(LDFLAGS) -flto -shared -Wl,-soname=sciter-sqlite.so -s -fPIC -pthread
@@ -82,7 +82,7 @@ else ifeq ($(config),release_arm64)
 TARGETDIR = ../../../bin/linux/arm64
 TARGET = $(TARGETDIR)/sciter-sqlite.so
 OBJDIR = obj/arm64/Release/sciter-sqlite
-DEFINES += -DDEVICE=DESKTOP -DUSE_VULKAN -D_GNU_SOURCE -DNDEBUG
+DEFINES += -DDEVICE=DESKTOP -DDEVICE_DESKTOP -D_GNU_SOURCE -DNDEBUG
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -flto -Os -fPIC `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
 ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -flto -Os -fPIC -std=c++17 `pkg-config gtk+-3.0 --cflags` -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl
 ALL_LDFLAGS += $(LDFLAGS) -flto -shared -Wl,-soname=sciter-sqlite.so -s -fPIC -pthread
