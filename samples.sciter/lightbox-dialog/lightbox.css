@@ -3,12 +3,14 @@
 @const DIALOG-SHOW-EASING: quad-in;
 
 body.dialog-shown {
+  position:relative;
   filter: blur(15px);
   foreground-color:rgba(0,0,0,0.1);
 }
 
 body {
   transition: foreground-color @DIALOG-SHOW-EASING @DIALOG-SHOW-DURATION;
+
 }
 
 
@@ -18,7 +20,7 @@ body {
   {
     display: block;
     flow:vertical;
-    position:absolute;
+    position:fixed;
     font: system;
     width: max-content;
     min-width: 300px;
