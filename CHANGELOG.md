@@ -1,3 +1,24 @@
+## 5.0.3.11
+
+### Fixes:
+
+* [css] better transition rollback : https://sciter.com/forums/topic/transition-works-choppy/
+* [DOM] fix of AV in https://sciter.com/forums/topic/crash-with-plaintext-transaction/
+* [CSS] fix of border-width/box-sizing changes handling, see: https://sciter.com/forums/topic/border-issue-with-box-sizing-border-box/
+* [windows] `SciterExec(SCITER_APP_LOOP)`, compatibility with `::SendMessage()` issued from testing tools
+* [JS] `env.path(relPath)`, fix of extra `/` in path
+* [JS, Reactor] fix of `componentWillUnmount()` call
+* [windows] Fix of WM_MOUSEWHEEL handling on popups of sciter-as-child windows
+* sdk.js/samples.sciter/lightbox-dialog demo fix; 
+* [JS] fix of to local time conversions when daylight savings is in effect.
+* [JS] missed `URL.searchParams` 
+* `form.value` map returns undefined entries too.
+* `select[tree] multiple=checkmarks` - extra _change_ event fix.
+* [JS, DOM] fix of memory leak in `fetch()`.
+* [JS, DOM] `document.on( "click", ">child", ... )` fix.
+* [MacOS] fix of right shift key down/up event generation.
+
+
 ## 5.0.3.10
 
 ### Fixes:

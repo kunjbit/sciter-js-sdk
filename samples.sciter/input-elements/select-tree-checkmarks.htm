@@ -20,7 +20,7 @@
     </style>
     <script>
 
-      //const select = document.$("select");
+      const select = document.$("select");
       const preout = document.$("pre#out");
     
       document.on("click","#get", e => preout.innerText = select.value );
@@ -28,12 +28,7 @@
       document.on("click","#set", e => select.value = ["Na","Sc"] );
       document.on("click","#clear", e => select.value = undefined );
 
-      document.on("change","select", (e,select) => {
-        if(e.target === select) {
-          preout.innerText = `value of ${select} is ${select.value}`; 
-          console.log("change", select,select.value);
-        }
-      });
+      select.on("input", e => preout.innerText = select.value );
      
     </script>
   </head>
@@ -65,7 +60,7 @@
     <option value="He"><code>He</code>Helium</option>
   </select> 
 
-  <select #ddr type="tree" multiple="checkmarks" size=16 dir=rtl >
+  <select #dd type="tree" multiple="checkmarks" size=16 dir=rtl >
     <option expanded>
       <caption>Metals</caption>
       <option expanded>
