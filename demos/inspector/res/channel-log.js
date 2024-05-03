@@ -29,19 +29,21 @@ export class ChannelLog extends Element {
     // console.log("ChannelLog componentDidMount");
     this.handler = (evt) => {
       if (evt.detail === this.channel) {
-        this.componentUpdate(); this.timer(20, this.ensureLastVisible);
+        this.componentUpdate(); 
+        this.timer(20, this.checkLast);
       }
     };
     document.on("log-new", this.handler);
   }
 
   componentWillUnmount() {
-    // console.log("ChannelLog componentWillUnmount");
     document.off(this.handler);
   }
 
-  ensureLastVisible() {
-    this.$("list").lastElementChild?.scrollIntoView({behavior: "smooth"});
+  checkLast() {
+    if(this.state.hover) return; // do not auto scroll if mouse hovers this
+    const last = this.$("list").lastElementChild;
+    if(last) last.scrollIntoView({behavior: "smooth"});
   }
 
   render(props) {
