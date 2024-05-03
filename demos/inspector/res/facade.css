@@ -107,11 +107,12 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
   }
 
   list {
+    behavior:select-multiple;
     display:block;
     overflow-y:scroll-indicator;
     box-sizing:padding-box;
     size:*;
-    border-spacing:2px;
+    border-spacing:1px;
     padding:4px 0;
   }
 
@@ -130,6 +131,11 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
     background-repeat: no-repeat;
     background-position: 0.2em 0.2em;
     white-space:pre-wrap;
+  }
+
+  list > li:checked {
+    background:highlight;
+    color: highlighttext;
   }
 
   list > li > span {

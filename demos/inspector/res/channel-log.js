@@ -13,7 +13,7 @@ function LogListItem(props) {
     return <hr/>;
   else { 
     const content = logitem.items.map((val, key) => SublimatedValue(channel, val, key, true));
-    return <li class={ CLASS_NAMES[logitem.severity] + " " + SUBSYTEM_NAMES[logitem.subsystem]}>{content}</li>;
+    return <li role="option" class={ CLASS_NAMES[logitem.severity] + " " + SUBSYTEM_NAMES[logitem.subsystem]}>{content}</li>;
   }
 }
 
@@ -48,7 +48,7 @@ export class ChannelLog extends Element {
 
   render(props) {
     const channel = this.channel;
-    const list = channel.theirLogs.map((item) => <LogListItem channel={channel} logitem={item} key={item.key} />);
+    const list = channel.theirLogs.map( item => <LogListItem channel={channel} logitem={item} key={item.key} />);
 
     return <section#channel-log styleset="facade.css#channel-log">
       <list>{list}</list>
@@ -85,7 +85,7 @@ export class ChannelLog extends Element {
 
   list2clipboard() {
     let text = "";
-    for (const opt of this.$$("li")) {
+    for (const opt of this.$$("list>li:checked")) {
       if (text) text += "\r\n";
       text += opt.textContent;
     }
@@ -123,6 +123,20 @@ export class ChannelLog extends Element {
       this.list2clipboard();
       return true;
     }
+    if (evt.code === "KeyA" && evt.ctrlKey) {
+      const all = this.$$("list>li");
+      const selected = this.$$("list>li:checked");
+      if( selected.length == all.length )
+        for(let li of selected) li.state.checked = false; // deselect all
+      else 
+        for(let li of all) li.state.checked = true; // select all
+      return true;
+    }
+  }
+
+  ["on popup-ready at menu#for-log-list"](evt, menu) {
+    menu.$("li[command='edit:copy']").state.disabled = !this.$("list>li:checked");
+    return true;
   }
 
   ["on click at menu#for-log-list>li[command='edit:copy']"](evt, menu) {
