@@ -29,8 +29,10 @@ export class ChannelLog extends Element {
     // console.log("ChannelLog componentDidMount");
     this.handler = (evt) => {
       if (evt.detail === this.channel) {
+        const needscroll = this.needAutoScroll();
         this.componentUpdate(); 
-        this.timer(20, this.checkLast);
+        if(needscroll)
+          this.timer(20, this.autoScroll);
       }
     };
     document.on("log-new", this.handler);
@@ -40,8 +42,15 @@ export class ChannelLog extends Element {
     document.off(this.handler);
   }
 
-  checkLast() {
-    if(this.state.hover) return; // do not auto scroll if mouse hovers this
+  needAutoScroll() {
+    const list = this.$("list");
+    if(list.state.animating) return true;
+    if(list.scrollHeight <= list.clientHeight) return true;
+    // if last is not occluded - autoscroll
+    return !list.lastElementChild?.state.occluded;
+  }
+
+  autoScroll() {
     const last = this.$("list").lastElementChild;
     if(last) last.scrollIntoView({behavior: "smooth"});
   }

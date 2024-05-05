@@ -116,13 +116,6 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
     padding:4px 0;
   }
 
-  list:hover {
-    background-image: icon(0 -960 960 960;M160-80v-80h640v80H160Zm160-160v-200H120l180-221 57 57-68 84h111v200h160v-81l80 80v81H320Zm314-200-80-80h117L480-754l-72 88-57-57 129-157 360 440H634ZM819-28 27-820l57-57L876-85l-57 57ZM481-593Zm-96 131Z);
-    background-size: 16px;
-    background-position: bottom 2px right 8px;
-    fill: #ccc;
-  }
-
   list > li {
     display:block;
     width:*;
@@ -136,12 +129,6 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
   list > li:checked {
     background:highlight;
     color: highlighttext;
-  }
-
-  list > li > span {
-    //display:inline-block;
-    //width:max-content;
-    //max-width:100%;
   }
 
   list > li.dom { background-color: #FFF8DC; }
