@@ -129,7 +129,7 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
   }
 
   list > li:checked {
-    background:highlight;
+    background-color:highlight;
     color: highlighttext;
   }
 
