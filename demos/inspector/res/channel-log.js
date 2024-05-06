@@ -19,6 +19,7 @@ function LogListItem(props) {
 
 export class ChannelLog extends Element {
   channel = null;
+  scrollLock = false;
   constructor(props) {
     super();
     this.channel = props.channel;
@@ -29,9 +30,8 @@ export class ChannelLog extends Element {
     // console.log("ChannelLog componentDidMount");
     this.handler = (evt) => {
       if (evt.detail === this.channel) {
-        const needscroll = this.needAutoScroll();
         this.componentUpdate(); 
-        if(needscroll)
+        if(!this.scrollLock)
           this.timer(20, this.autoScroll);
       }
     };
@@ -41,18 +41,9 @@ export class ChannelLog extends Element {
   componentWillUnmount() {
     document.off(this.handler);
   }
-
-  needAutoScroll() {
-    const list = this.$("list");
-    if(list.state.animating) return true;
-    if(list.scrollHeight <= list.clientHeight) return true;
-    // if last is not occluded - autoscroll
-    return !list.lastElementChild?.state.occluded;
-  }
-
+  
   autoScroll() {
-    const last = this.$("list").lastElementChild;
-    if(last) last.scrollIntoView({behavior: "smooth"});
+    this.$("list").lastElementChild?.scrollIntoView({behavior: "smooth"});
   }
 
   render(props) {
@@ -62,6 +53,7 @@ export class ChannelLog extends Element {
     return <section#channel-log styleset="facade.css#channel-log">
       <list>{list}</list>
       <textarea #toeval placeholder="eval: this - selected element" spellcheck="false" />
+      <button#scroll-lock state-checked={ this.scrollLock } title="Scroll Lock"/>
     </section>; 
   }
 
@@ -91,6 +83,18 @@ export class ChannelLog extends Element {
     this.eval_history_index = -1; // reset eval history index
     return true; // do not propagate, consumed
   }
+
+  ["on click at button#scroll-lock"](evt) {
+    this.componentUpdate({scrollLock: !this.scrollLock});
+    return true;
+  }
+
+  ["on focus at list"](evt) {
+    this.componentUpdate({scrollLock: true});
+    return true;
+  }
+
+  
 
   list2clipboard() {
     let text = "";
