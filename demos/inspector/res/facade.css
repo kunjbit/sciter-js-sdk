@@ -129,8 +129,7 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
   }
 
   list > li:checked {
-    background-color:highlight;
-    color: highlighttext;
+    background-color:color(highlight-focus);
   }
 
   list > li.dom { background-color: #FFF8DC; }
@@ -180,7 +179,7 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
   button#scroll-lock {
     size:24px;
     padding:0;
-    foreground-image: icon(0 -960 960 960;M160-80v-80h640v80H160Zm160-160v-200H120l180-221 57 57-68 84h111v200h160v-81l80 80v81H320Zm314-200-80-80h117L480-754l-72 88-57-57 129-157 360 440H634ZM819-28 27-820l57-57L876-85l-57 57ZM481-593Zm-96 131Z);    
+    foreground-image: icon(0 -960 960 960;M320-240v-200H120l360-440 360 440H640v200H320Zm80-80h160v-200h111L480-754 289-520h111v200Zm80-217ZM160-80v-80h640v80H160Z);    
     foreground-size:16px;
     foreground-position:50% 50%;
     fill: color(button-text);
