@@ -18,6 +18,7 @@ export class DOMView extends View {
   }
 
   async getContentOf(nd) {
+    if (!nd) return;
     const content = await this.channel.request("contentOf", nd.uid);
     if (typeof content == "string")
       nd.text = content;
@@ -36,9 +37,13 @@ export class DOMView extends View {
       const stack = await this.channel.request("stackOf", null);
       this.viewstate.stack = stack;
       const root = stack[0];
+
+      // root is null at startup before the connection
       const rootContent = await this.getContentOf(root);
 
       let body = null;
+
+      if (!rootContent) return;
 
       for (const rn of rootContent) {
         if (rn.tag == "body") {

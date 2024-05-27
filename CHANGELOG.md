@@ -1,3 +1,19 @@
+## 5.0.3.12
+
+### Fixes:
+
+* [JS] Fix of Date.getDate(), Date.getHours(), etc.
+* [JS, signals] enabling shareable between windows signals.
+* [DOM,CSS] fix of `element.style.cssText` representation.
+* `<plaintext>` fix of AV in removeLine() method. 
+* `<form>` fix of radio group value reporting.
+* `element.content(JSX)` fix, see: https://sciter.com/forums/topic/component-main-is-not-displayed/
+* fix of potential memory leak in `Element.removeChild()`
+* [linux] `env.launch()` fix;
+* event codes refactoring to match W3C specs, **WARNING:** external API change - event codes are in sdk.js/include/sciter-x-behavior.h
+* [inspector] see https://sciter.com/forums/topic/inspector-enhancement/
+* Sciter.Lite / Windows - support of WICImagingFactory to load Windows specific image formats. 
+
 ## 5.0.3.11
 
 ### Fixes:

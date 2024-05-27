@@ -413,12 +413,12 @@ typedef SBOOL SC_CALLBACK SciterBehaviorFactory( LPCSTR, HELEMENT, LPElementEven
   {
       BUTTON_CLICK = 0,              // click on button
       BUTTON_PRESS = 1,              // mouse down or key down in button
-      BUTTON_STATE_CHANGED = 2,      // checkbox/radio/slider changed its state/value
-      EDIT_VALUE_CHANGING = 3,       // before text change
-      EDIT_VALUE_CHANGED = 4,        // after text change
-      SELECT_SELECTION_CHANGED = 5,  // selection in <select> changed
-      SELECT_VALUE_CHANGED = 6,      // value of <select> changed
-      SELECT_STATE_CHANGED = SELECT_VALUE_CHANGED, // OBSOLETE, alias of SELECT_VALUE_CHANGED
+      
+      VALUE_CHANGED = 2,             // value 
+      VALUE_CHANGING = 3,            // before text change
+      
+      SELECTION_CHANGED = 5,         // selection changed in <select>, <textarea>, etc
+      SELECTION_CHANGING = 0xC,      // selection is changeing in <select>, <textarea>, etc
 
       POPUP_REQUEST   = 7,           // request to show popup just received,
                                      //     here DOM of popup element can be modifed.
@@ -448,9 +448,6 @@ typedef SBOOL SC_CALLBACK SciterBehaviorFactory( LPCSTR, HELEMENT, LPElementEven
       CONTENT_CHANGED = 0x15,        // content has been changed, is posted to the element that gets content changed,  reason is combination of CONTENT_CHANGE_BITS.
                                      // target == NULL means the window got new document and this event is dispatched only to the window.
 
-      CLICK = 0x16,                  // generic click
-      CHANGE = 0x17,                 // generic change
-
       // "grey" event codes  - notfications from behaviors from this SDK
       HYPERLINK_CLICK = 0x80,        // hyperlink click
 
@@ -460,10 +457,7 @@ typedef SBOOL SC_CALLBACK SciterBehaviorFactory( LPCSTR, HELEMENT, LPElementEven
       ACTIVATE_CHILD = 0x92,         // activate (select) child,
                                      // used for example by accesskeys behaviors to send activation request, e.g. tab on behavior:tabs.
 
-      UI_STATE_CHANGED = 0x95,       // ui state changed, observers shall update their visual states.
-                                     // is sent for example by behavior:richtext when caret position/selection has changed.
-
-      FORM_SUBMIT = 0x96,                   // behavior:form detected submission event. BEHAVIOR_EVENT_PARAMS::data field contains data to be posted.
+      FORM_SUBMIT = 0x96,            // behavior:form detected submission event. BEHAVIOR_EVENT_PARAMS::data field contains data to be posted.
                                      // BEHAVIOR_EVENT_PARAMS::data is of type T_MAP in this case key/value pairs of data that is about
                                      // to be submitted. You can modify the data or discard submission by returning true from the handler.
       FORM_RESET  = 0x97,            // behavior:form detected reset event (from button type=reset). BEHAVIOR_EVENT_PARAMS::data field contains data to be reset.

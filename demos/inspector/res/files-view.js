@@ -83,13 +83,19 @@ class FileView extends View {
 export class FilesView extends View {
   constructor(props) {
     super(props, "FilesView");
+
+    this.collator = new Intl.Collator("en");
   }
 
   render(props) {
+    let self = this;
     const rlist = Object.values(this.channel.theirFiles);
 
     function group(rtype) {
       let items = rlist.filter((rd) => rd.rqType == rtype);
+      items.sort( (rd1, rd2) => {
+        return self.collator.compare(rd1.rqUrl, rd2.rqUrl);
+      });
       items = items.map((rd) => <option value={rd.rqUrl}><FileUrl url={rd.rqUrl} /></option>);
       items.unshift(<optgroup>{rtype}</optgroup>);
       return items;

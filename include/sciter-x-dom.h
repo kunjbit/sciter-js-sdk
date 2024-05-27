@@ -585,7 +585,7 @@ typedef enum ELEMENT_STATE_BITS
    STATE_DROP_MARKER      = 0x02000000,  // element is drop marker
 
    STATE_PRESSED          = 0x04000000,  // pressed - close to active but has wider life span - e.g. in MOUSE_UP it
-                                         //   is still on; so behavior can check it in MOUSE_UP to discover CLICK condition.
+                                         //   is still on; so behavior can check it in MOUSE_UP to discover MOUSE_CLICK condition.
    STATE_POPUP            = 0x08000000,  // :popup, this element is out of flow - shown as popup
 
    STATE_IS_LTR           = 0x10000000,  // the element or one of its containers has dir=ltr declared
