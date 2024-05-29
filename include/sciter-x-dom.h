@@ -901,9 +901,7 @@ enum CTL_TYPE
   CTL_FILE = 24,             ///< file input element.
   CTL_PATH = 25,             ///< path input element.
 
-  CTL_LAST_INPUT = 26,
-
-  CTL_HYPERLINK = CTL_LAST_INPUT,
+  CTL_HYPERLINK = 26,
   CTL_FORM = 27,
 
   CTL_MENUBAR = 28,
@@ -924,6 +922,8 @@ enum CTL_TYPE
   CTL_LABEL = 38,
   CTL_IMAGE = 39,            ///< image/video object.  
   CTL_PLAINTEXT = 40,        ///< Multiline TextBox + colorizer.
+
+  CTL_SELECT_TREE = 41,      ///< TreeView.
 
 };
 
