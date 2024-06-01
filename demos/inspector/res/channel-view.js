@@ -94,10 +94,12 @@ export class ChannelView extends Element {
   //  super.componentUpdate(newState);
   // }
 
-  ["on click at label:not(:current)"](evt, label) {
-    this.componentUpdate({currentView: label.id,
-      currentDetailsView: label.getAttribute("detailsId")});
-    return false;
+  ["on click at #channel-view > header > label:not(:current)"](evt, label) {
+    this.componentUpdate({
+      currentView: label.id,
+      currentDetailsView: label.getAttribute("detailsId")
+    });
+    return true;
   }
 
   ["on domstackchange"](evt) {

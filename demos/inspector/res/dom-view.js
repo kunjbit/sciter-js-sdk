@@ -238,7 +238,7 @@ class ElementMetrics extends View {
 
     const {margin, padding, border, inner, content, dppx} = this.metrics;
 
-    const pxunits = this.viewstate.units == "ppx";
+    const pxunits = this.viewstate.units == "px";
 
     function u(val) {
       if (!val) return "-";
@@ -409,7 +409,7 @@ export class ElementDetailsView extends View {
 
   ["on click at label:not(:current)"](evt, label) {
     this.componentUpdate({currentTab: label.id});
-    return false;
+    return true;
   }
 
   get currentTab() {
