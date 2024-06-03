@@ -28,10 +28,13 @@ newoption {
 }
 
 defines { "DEVICE=" .. _OPTIONS["device"] }
+defines { "DEVICE_" .. _OPTIONS["device"] }
 
 if os.getenv("VULKAN_SDK") then
   defines {"USE_VULKAN"}
   USE_VULKAN = true
+  includedirs { "$(VULKAN_SDK)/include" }
+  includedirs { os.getenv("VULKAN_SDK") .. "/include" }
 end  
 
 if( _TARGET_OS ~= "_macosx") then  -- we are not auto generating XCode solutions for a while
@@ -168,6 +171,10 @@ project "usciter"
   dpiawareness "HighPerMonitor"
 
   files { "demos/usciter/usciter.cpp",
+          "include/behaviors/behavior_drawing.cpp",
+          "include/behaviors/behavior_video_generator.cpp",
+          "include/behaviors/behavior_video_generator_full.cpp",
+          "include/behaviors/behavior_video_generator_direct.cpp",
           "sqlite/*.h",
           "sqlite/*.cpp",
           "sqlite/sqlite-wrap.c",
@@ -184,7 +191,6 @@ project "usciter"
            "include/sciter-*.hpp",
            "include/aux-*.*",
            "include/sciter-win-main.cpp",
-           "include/behaviors/behavior_drawing.cpp",
            "include/behaviors/behavior_native_textarea.cpp",
            "include/behaviors/behavior_camera_capture.cpp",
            "include/behaviors/behavior_tabs.cpp",
@@ -377,7 +383,6 @@ project "integration"
   settargetdir()
 
   filter "system:windows"
-    removeplatforms { "x64" }
     removeconfigurations { "*skia" }
     files {"include/sciter-*.h",
            "include/sciter-*.hpp",
@@ -440,7 +445,6 @@ if( _TARGET_OS == "windows") then
 
     settargetdir()
 
-    removeplatforms { "x64" }
     removeconfigurations { "*skia" }
     filter {}
 
@@ -607,9 +611,9 @@ project "glfw-opengl"
   dpiawareness "HighPerMonitor"
 
   filter "system:windows"
-    --prebuildcommands { 
-    --  "\"%{prj.location}..\\..\\bin\\windows\\packfolder.exe\" \"%{prj.location}..\\..\\demos.lite\\facade\" \"%{prj.location}..\\..\\demos.lite\\facade-resources.cpp\" -v \"resources\""
-    --}
+    prebuildcommands { 
+      "\"%{prj.location}..\\..\\bin\\windows\\packfolder.exe\" \"%{prj.location}..\\..\\demos.lite\\facade\" \"%{prj.location}..\\..\\demos.lite\\facade-resources.cpp\" -v \"resources\""
+    }
   filter {}
 
   -- ours:
@@ -653,7 +657,6 @@ project "glfw-opengl"
       "demos.lite/glfw/src/osmesa_context.c",
     }
     links "shlwapi"
-    removeplatforms { "arm64" }
   filter "system:macosx"
     defines "_GLFW_COCOA"
     files {

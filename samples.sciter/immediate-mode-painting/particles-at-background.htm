@@ -20,7 +20,17 @@
 
   <script>
 
-    function Particles() {
+  const times = new Int32Array(32);
+  let lastTime = Window.ticks();
+  let idx = 0;
+  let fps = 0;
+
+  function update(){
+    const avg = times.reduce((acc,val)=>acc+val, 0) / 32;
+    Window.this.caption = (1000 / avg) ^ 0; 
+  }
+
+  function Particles() {
 
       const particles = [];
       const particleSize = 6;
@@ -88,11 +98,19 @@
         }
 
         // draw text on the middle of canvas:
-        context.pushLayer("content-box","drop-shadow(1px,1px,3px,#000)");
-          context.draw(text, {x: width/2, y: height/2, alignment:5});
-        context.popLayer();
+        //context.pushLayer("content-box","drop-shadow(1px,1px,3px,#000)");
+        context.draw(text, {x: width/2, y: height/2, alignment:5});
+        //context.popLayer();
 
         this.requestPaint(); // request next painting
+
+     const t = Window.ticks();
+     const delta = t - lastTime;
+     lastTime = t;  
+     idx = (idx + 1) % 32;
+     times[idx] = delta; 
+     if(!idx) this.post(update);
+
       }
 
       // setup paint handler:

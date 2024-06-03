@@ -1,0 +1,28 @@
+
+@set tabs {
+  :root {
+    display:block;
+    flow:vertical;
+    size:*;
+  }
+
+  :root > :last-child {
+    display:block;
+    size:*;
+  }
+
+  labels {
+    display:block;
+    flow:horizontal;
+  }
+
+  labels > label {
+    behavior:clickable;
+    display:block;
+    padding:0.25em 1em;
+  }
+
+  labels > label[current=true] {
+    background: var(accent-lite);
+  }
+}

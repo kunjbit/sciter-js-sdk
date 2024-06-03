@@ -26,10 +26,14 @@
     padding:0;
   }
 
+  select.path > option:hover {
+    background-color:var(highlight-hover);
+  }
+
   select:not(:focus) > option {background:transparent;}
 
   select.path > option:nth-child(1n+2)::after {
-    content:"/";
+    content:" › ";
   }
 
   select.path > option.up {
@@ -39,10 +43,8 @@
     min-width:24px; 
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    background-image: url(path: M52,83.999V21.655l21.172,21.172c1.562,1.562,4.094,1.562,5.656,0c1.562-1.562,1.562-4.095,0-5.657l-28-28
-      c-1.562-1.562-4.095-1.562-5.656,0l-28,28C16.391,37.951,16,38.974,16,39.999c0,1.023,0.391,2.047,1.172,2.828
-      c1.562,1.562,4.095,1.562,5.656,0L44,21.655v62.344c0,2.209,1.791,4,4,4S52,86.208,52,83.999z);
-    background-size: 0.7em; 
+    background-image: icon(arrow-up);
+    //background-size: 0.7em; 
     fill: color(button-text);
     stroke:none;
   }

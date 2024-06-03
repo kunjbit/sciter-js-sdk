@@ -145,9 +145,6 @@ int uimain(std::function<int()> run ) {
     if(file_to_open.length())
       pwin->expand(); // script will do that
 
-  //sciter::value r = pwin->call_function("test", sciter::value(42));
-  //sciter::value r = pwin->eval(const_wchars("test(32)"));
-
   return run();
 
 }

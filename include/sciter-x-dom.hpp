@@ -1166,6 +1166,15 @@ namespace dom
     }
 
     SCITER_VALUE as_value() { return to_value(); }
+
+    // get JS object associated with this DOM element 
+    SCITER_VALUE get_expando() const {
+      SCITER_VALUE v;
+      SCDOM_RESULT r = SciterGetExpando(he,&v,FALSE);
+      assert(r == SCDOM_OK); (void)r;
+      return v;
+    }
+
         
     struct find_first_callback: callback
     {

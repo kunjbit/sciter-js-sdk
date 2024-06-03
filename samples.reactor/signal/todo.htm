@@ -22,7 +22,7 @@ const text = signal("");
 function addTodo() {
   todos.value = [...todos.value, { text: text.value }]; // Append the list
   text.value = ""; // Clear input value on add
-  text.valueElements[0].state.focus = true; 
+  text.valueElements[0].state.focus = true; // set focus on first DOM element observer
 }
 
 function removeTodo(todo) {

@@ -11,7 +11,6 @@
 
 <script>
   var button = document.$("button#activate");
-  var folder = document.$("folder");
   var path;
   var type;
 
@@ -25,8 +24,10 @@
   document.on("click", "button#activate", function(evt){
     if(type == "file")
       this.post(new Event("file-activate",{data:path, bubbles:true}));
-    else
+    else {
+      const folder = document.$("folder");
       folder.navigateTo(path);
+    }
   });
 
 </script>

@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>Test</title>
+        <style>
+
+tabs > div {
+  padding:1em;
+}
+
+        </style>
+    </head>
+    <body>
+
+<p>Test of reactive tabs:</p>
+
+    </body>
+
+    <script|module>
+
+import {Tabs} from "./tabs.js";
+
+class FirstTab extends Element {
+   render() {
+      return <div style="background:#C1E1C5">First tab content</div>;
+   } 
+}
+
+function SecondTab() {
+  return <div style="background:#FEF3BD">
+    Second tab content
+  </div>;
+}
+
+function ThirdTab() {
+  return <div style="background:#FAD0C3">
+    Third tab content
+  </div>;
+}
+
+const tabLabelList = ["First","Second", <><icon|heart/> Third</>];
+const tabList = [FirstTab,SecondTab,ThirdTab];
+
+document.body.append(<Tabs labels={tabLabelList} sections={tabList} />)
+
+    </script>
+
+</html>

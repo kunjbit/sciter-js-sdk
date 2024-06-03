@@ -589,6 +589,12 @@
       value call( const value& p1, const value& p2, const value& p3 ) const { value args[3] = { p1,p2,p3 };  return call(3,args); }
       value call( const value& p1, const value& p2, const value& p3, const value& p4 )  const { value args[4] = { p1,p2,p3,p4 };  return call(4,args); }
 
+      value call_this(const value& _this) const { return call(0, 0, _this); }
+      value call_this(const value& _this, const value& p1) const { return call(1, &p1, _this); }
+      value call_this(const value& _this, const value& p1, const value& p2)  const { value args[2] = { p1,p2 };  return call(2, args, _this); }
+      value call_this(const value& _this, const value& p1, const value& p2, const value& p3) const { value args[3] = { p1,p2,p3 };  return call(3, args, _this); }
+      value call_this(const value& _this, const value& p1, const value& p2, const value& p3, const value& p4)  const { value args[4] = { p1,p2,p3,p4 };  return call(4, args, _this); }
+
       /** converts T_OBJECT/UT_OBJECT_*** values into plain map of key/value pairs */
       void isolate()
       {

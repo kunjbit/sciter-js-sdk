@@ -21,7 +21,7 @@ endif
 RESCOMP = windres
 INCLUDES += -I../../../include
 FORCE_INCLUDE +=
-ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
+ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
 LIBS +=
 LDDEPS +=
@@ -37,58 +37,56 @@ ifeq ($(config),debug_x64)
 TARGETDIR = ../../../bin/linux/x64
 TARGET = $(TARGETDIR)/sciter-webview.so
 OBJDIR = obj/x64/Debug/sciter-webview
-DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DDEBUG -D_DEBUG -DSCITERWEBVIEW_EXPORTS
+DEFINES += -DDEVICE=DESKTOP -DDEVICE_DESKTOP -D_GNU_SOURCE -DDEBUG -D_DEBUG -DSCITERWEBVIEW_EXPORTS
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -fPIC -g -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags` `pkg-config webkit2gtk-4.0 --cflags`
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fPIC -g -std=c++14 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags` `pkg-config webkit2gtk-4.0 --cflags`
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -fPIC -g -std=c++17 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags` `pkg-config webkit2gtk-4.0 --cflags`
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -shared -Wl,-soname=sciter-webview.so `pkg-config gtk+-3.0 --libs` `pkg-config webkit2gtk-4.0 --libs` -fPIC -pthread -Wl,--no-undefined -ldl
 
 else ifeq ($(config),debug_arm32)
 TARGETDIR = ../../../bin/linux/arm32
 TARGET = $(TARGETDIR)/sciter-webview.so
 OBJDIR = obj/arm32/Debug/sciter-webview
-DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DDEBUG -D_DEBUG -DSCITERWEBVIEW_EXPORTS
+DEFINES += -DDEVICE=DESKTOP -DDEVICE_DESKTOP -D_GNU_SOURCE -DDEBUG -D_DEBUG -DSCITERWEBVIEW_EXPORTS
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -fPIC -g -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags` `pkg-config webkit2gtk-4.0 --cflags`
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -fPIC -g -std=c++14 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags` `pkg-config webkit2gtk-4.0 --cflags`
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -fPIC -g -std=c++17 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags` `pkg-config webkit2gtk-4.0 --cflags`
 ALL_LDFLAGS += $(LDFLAGS) -shared -Wl,-soname=sciter-webview.so `pkg-config gtk+-3.0 --libs` `pkg-config webkit2gtk-4.0 --libs` -fPIC -pthread -Wl,--no-undefined -ldl
 
 else ifeq ($(config),debug_arm64)
 TARGETDIR = ../../../bin/linux/arm64
 TARGET = $(TARGETDIR)/sciter-webview.so
 OBJDIR = obj/arm64/Debug/sciter-webview
-DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DDEBUG -D_DEBUG -DSCITERWEBVIEW_EXPORTS
+DEFINES += -DDEVICE=DESKTOP -DDEVICE_DESKTOP -D_GNU_SOURCE -DDEBUG -D_DEBUG -DSCITERWEBVIEW_EXPORTS
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -fPIC -g -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags` `pkg-config webkit2gtk-4.0 --cflags`
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -fPIC -g -std=c++14 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags` `pkg-config webkit2gtk-4.0 --cflags`
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -fPIC -g -std=c++17 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags` `pkg-config webkit2gtk-4.0 --cflags`
 ALL_LDFLAGS += $(LDFLAGS) -shared -Wl,-soname=sciter-webview.so `pkg-config gtk+-3.0 --libs` `pkg-config webkit2gtk-4.0 --libs` -fPIC -pthread -Wl,--no-undefined -ldl
 
 else ifeq ($(config),release_x64)
 TARGETDIR = ../../../bin/linux/x64
 TARGET = $(TARGETDIR)/sciter-webview.so
 OBJDIR = obj/x64/Release/sciter-webview
-DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DNDEBUG -DSCITERWEBVIEW_EXPORTS
+DEFINES += -DDEVICE=DESKTOP -DDEVICE_DESKTOP -D_GNU_SOURCE -DNDEBUG -DSCITERWEBVIEW_EXPORTS
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -flto -Os -fPIC -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags` `pkg-config webkit2gtk-4.0 --cflags`
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -flto -Os -fPIC -std=c++14 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags` `pkg-config webkit2gtk-4.0 --cflags`
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -flto -Os -fPIC -std=c++17 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags` `pkg-config webkit2gtk-4.0 --cflags`
 ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -flto -shared -Wl,-soname=sciter-webview.so -s `pkg-config gtk+-3.0 --libs` `pkg-config webkit2gtk-4.0 --libs` -fPIC -pthread -Wl,--no-undefined -ldl
 
 else ifeq ($(config),release_arm32)
 TARGETDIR = ../../../bin/linux/arm32
 TARGET = $(TARGETDIR)/sciter-webview.so
 OBJDIR = obj/arm32/Release/sciter-webview
-DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DNDEBUG -DSCITERWEBVIEW_EXPORTS
+DEFINES += -DDEVICE=DESKTOP -DDEVICE_DESKTOP -D_GNU_SOURCE -DNDEBUG -DSCITERWEBVIEW_EXPORTS
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -flto -Os -fPIC -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags` `pkg-config webkit2gtk-4.0 --cflags`
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -flto -Os -fPIC -std=c++14 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags` `pkg-config webkit2gtk-4.0 --cflags`
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -flto -Os -fPIC -std=c++17 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags` `pkg-config webkit2gtk-4.0 --cflags`
 ALL_LDFLAGS += $(LDFLAGS) -flto -shared -Wl,-soname=sciter-webview.so -s `pkg-config gtk+-3.0 --libs` `pkg-config webkit2gtk-4.0 --libs` -fPIC -pthread -Wl,--no-undefined -ldl
 
 else ifeq ($(config),release_arm64)
 TARGETDIR = ../../../bin/linux/arm64
 TARGET = $(TARGETDIR)/sciter-webview.so
 OBJDIR = obj/arm64/Release/sciter-webview
-DEFINES += -DDEVICE=DESKTOP -D_GNU_SOURCE -DNDEBUG -DSCITERWEBVIEW_EXPORTS
+DEFINES += -DDEVICE=DESKTOP -DDEVICE_DESKTOP -D_GNU_SOURCE -DNDEBUG -DSCITERWEBVIEW_EXPORTS
 ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -flto -Os -fPIC -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags` `pkg-config webkit2gtk-4.0 --cflags`
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -flto -Os -fPIC -std=c++14 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags` `pkg-config webkit2gtk-4.0 --cflags`
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -flto -Os -fPIC -std=c++17 -fPIC -Wno-unknown-pragmas -Wno-write-strings -ldl `pkg-config gtk+-3.0 --cflags` `pkg-config webkit2gtk-4.0 --cflags`
 ALL_LDFLAGS += $(LDFLAGS) -flto -shared -Wl,-soname=sciter-webview.so -s `pkg-config gtk+-3.0 --libs` `pkg-config webkit2gtk-4.0 --libs` -fPIC -pthread -Wl,--no-undefined -ldl
 
-else
-  $(error "invalid configuration $(config)")
 endif
 
 # Per File Configurations
@@ -98,8 +96,11 @@ endif
 # File sets
 # #############################################
 
+GENERATED :=
 OBJECTS :=
 
+GENERATED += $(OBJDIR)/behavior_webview.o
+GENERATED += $(OBJDIR)/sciter_webkitgtk.o
 OBJECTS += $(OBJDIR)/behavior_webview.o
 OBJECTS += $(OBJDIR)/sciter_webkitgtk.o
 
@@ -109,7 +110,7 @@ OBJECTS += $(OBJDIR)/sciter_webkitgtk.o
 all: $(TARGET)
 	@:
 
-$(TARGET): $(OBJECTS) $(LDDEPS) | $(TARGETDIR)
+$(TARGET): $(GENERATED) $(OBJECTS) $(LDDEPS) | $(TARGETDIR)
 	$(PRELINKCMDS)
 	@echo Linking sciter-webview
 	$(SILENT) $(LINKCMD)
@@ -135,9 +136,11 @@ clean:
 	@echo Cleaning sciter-webview
 ifeq (posix,$(SHELLTYPE))
 	$(SILENT) rm -f  $(TARGET)
+	$(SILENT) rm -rf $(GENERATED)
 	$(SILENT) rm -rf $(OBJDIR)
 else
 	$(SILENT) if exist $(subst /,\\,$(TARGET)) del $(subst /,\\,$(TARGET))
+	$(SILENT) if exist $(subst /,\\,$(GENERATED)) del /s /q $(subst /,\\,$(GENERATED))
 	$(SILENT) if exist $(subst /,\\,$(OBJDIR)) rmdir /s /q $(subst /,\\,$(OBJDIR))
 endif
 
@@ -164,10 +167,10 @@ endif
 # #############################################
 
 $(OBJDIR)/behavior_webview.o: ../../../webview/behavior_webview.cpp
-	@echo $(notdir $<)
+	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/sciter_webkitgtk.o: ../../../webview/webview/sciter_webkitgtk.cpp
-	@echo $(notdir $<)
+	@echo "$(notdir $<)"
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 
 -include $(OBJECTS:%.o=%.d)

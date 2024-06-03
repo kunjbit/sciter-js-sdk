@@ -5,6 +5,104 @@
 #include <thread>
 #include <chrono>
 
+// this object is used as a global namespace NativeBackend in JS
+// it is set by SciterSetGlobalAsset(new NativeBackend()); 
+// and is available globally - in all windows
+class NativeBackend : public sciter::om::asset<NativeBackend>
+{
+  class NativePromise : public sciter::om::asset<NativePromise>
+  {
+  public:
+
+    sciter::value resolver;
+    sciter::value rejector;
+
+    NativePromise() {}
+
+    sciter::value then(sciter::value resolver, sciter::value rejector) {
+      this->resolver = resolver;
+      this->rejector = rejector;
+      return sciter::value::wrap_asset(this);
+    }
+
+    void resolve(sciter::value data) {  if (resolver.is_undefined()) return; resolver.call(data); }
+    void reject(sciter::value data) { if (rejector.is_undefined()) return; rejector.call(data);
+    }
+
+    SOM_PASSPORT_BEGIN(NativePromise)
+      SOM_FUNCS(
+        SOM_FUNC(then),
+      )
+      SOM_PASSPORT_END
+  };
+
+public:
+  NativeBackend() {}
+
+  // this method starts native thread and calls callbacks methods
+  bool startNativeThread(sciter::value doneCb, sciter::value progressCb)
+  {
+    std::thread([=]() {
+      // simulate long running task
+      for (int n = 0; n < 100; ++n) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        progressCb.call(n);
+      }
+      doneCb.call(100);
+      }).detach();
+      return true;
+  }
+
+  // this method starts native thread and calls callbacks methods
+  bool startNativeThreadWithObject(sciter::value params)
+  {
+    std::thread([=]() {
+      sciter::value doneCb = params["done"];
+      sciter::value progressCb = params["progress"];
+      // simulate long running task
+      for (int n = 0; n < 100; ++n) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        if (!progressCb.is_undefined()) progressCb.call(n);
+      }
+      if (!doneCb.is_undefined()) doneCb.call(100);
+      }).detach();
+      return true;
+  }
+
+  // this method returns thennable object and so the function is await'able in JS
+  sciter::value nativeAsyncFunction(int milliseconds)
+  {
+    sciter::om::hasset<NativePromise> promise = new NativePromise();
+
+    std::thread([=]() {
+      std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+      promise->resolve(42);
+      }).detach();
+
+      return sciter::value::wrap_asset(promise);
+  }
+
+  bool status = false;
+
+  bool getStatus() const { return status; }
+  bool setStatus(bool nv) {
+    status = nv;
+    return true;
+  }
+
+  // members of NativeBackend namespace  
+  SOM_PASSPORT_BEGIN(NativeBackend)
+    SOM_FUNCS(
+      SOM_FUNC(startNativeThread),
+      SOM_FUNC(startNativeThreadWithObject),
+      SOM_FUNC(nativeAsyncFunction)
+    )
+    SOM_PROPS(
+      SOM_VIRTUAL_PROP(status, getStatus, setStatus)
+    )
+  SOM_PASSPORT_END
+};
+
 class NativeObject : public sciter::om::asset<NativeObject>
 {
 public:
@@ -80,81 +178,6 @@ public:
     return rv;
   }
 
-  // this method starts native thread and calls callbacks methods
-  bool startNativeThread(sciter::value doneCb, sciter::value progressCb)
-  {
-    std::thread([=]() {
-      // simulate long running task
-      for (int n = 0; n < 100; ++n) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        progressCb.call(n);
-      }
-      doneCb.call(100);
-    }).detach();
-    return true;
-  }
-
-  // this method starts native thread and calls callbacks methods
-  bool startNativeThreadWithObject(sciter::value params)
-  {
-    std::thread([=]() {
-      sciter::value doneCb = params["done"];
-      sciter::value progressCb = params["progress"];
-      // simulate long running task
-      for (int n = 0; n < 100; ++n) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        if(!progressCb.is_undefined()) progressCb.call(n);
-      }
-      if (!doneCb.is_undefined()) doneCb.call(100);
-    }).detach();
-    return true;
-  }
-
-
-  class NativePromise : public sciter::om::asset<NativePromise>
-  {
-  public:
-
-    sciter::value resolver;
-    sciter::value rejector;
-
-    NativePromise() {}
-
-    sciter::value then(sciter::value resolver, sciter::value rejector) {
-      this->resolver = resolver;
-      this->rejector = rejector;
-      return sciter::value::wrap_asset(this);
-    }
-
-    void resolve(sciter::value data) {
-      if (resolver.is_undefined()) return;
-      resolver.call(data);
-    }
-
-    void reject(sciter::value data) {
-      if (rejector.is_undefined()) return;
-      rejector.call(data);
-    }
-
-    SOM_PASSPORT_BEGIN(NativePromise)
-      SOM_FUNCS(
-        SOM_FUNC(then),
-      )
-    SOM_PASSPORT_END
-  };
-
-  // this method returns thennable object and so the function is await'able in JS
-  sciter::value nativeAsyncFunction(int milliseconds)
-  {
-    sciter::om::hasset<NativePromise> promise = new NativePromise();
-
-    std::thread([=]() {
-       std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
-       promise->resolve(42);
-      }).detach();
-
-    return sciter::value::wrap_asset(promise);
-  }
 
   // virtual property
   int get_windowHandle() {
@@ -188,6 +211,8 @@ public:
     return sciter::value::make_error("Test of error");
   }
 
+  // methods associatead with the window instance.
+  // accessed from JS as Window.this.assetInterface. ...
   SOM_PASSPORT_BEGIN_EX(assetInterface, frame)
     SOM_FUNCS(
       SOM_FUNC(stringSum),
@@ -196,11 +221,8 @@ public:
       SOM_FUNC(vectorIntegerMul),
       SOM_FUNC(errorGeneration),
       SOM_FUNC(makeNativeObject),
-      SOM_FUNC(startNativeThread),
-      SOM_FUNC(startNativeThreadWithObject),
-      SOM_FUNC(nativeAsyncFunction),
       SOM_FUNC(nativeFunctionsA),
-      SOM_FUNC(nativeFunctionsB),
+      SOM_FUNC(nativeFunctionsB)
     )
     SOM_PROPS(
       SOM_RO_VIRTUAL_PROP(windowHandle,get_windowHandle)
@@ -291,6 +313,9 @@ int uimain(std::function<int()> run ) {
 
   sciter::debug_output_console console; // console.log() ->  console window
 
+  // set NativeBackend as a global native namespace:
+  SciterSetGlobalAsset(new NativeBackend());
+
   // resources archive
   sciter::archive::instance().open(aux::elements_of(resources)); // bind resources[] (defined in "resources.cpp") with the archive
 
@@ -338,6 +363,27 @@ int uimain(std::function<int()> run ) {
     sciter::value r3 = body.call_method("testMethod", 41);
     assert( r3 == sciter::value(42));
   }
+
+  { // calling method of behavior attached to the DOM element:
+    sciter::dom::element document = pwin->root();
+    sciter::dom::element input = document.find_first("input#test-behavior-method-call");
+    // getting 'edit' behavior 
+    sciter::value edit = input.to_value().get_item("edit");
+    
+    // getting 'edit.selectAll` method reference
+    sciter::value selectAll = edit.get_item("selectAll");
+    // calling it
+    selectAll.call();
+
+    // getting native 'edit.selectionStart` property value
+    sciter::value sel_start = edit.get_item("selectionStart");
+    assert(sel_start.is_int() && sel_start.get<int>() == 0);
+    
+    //sciter::value insertText = edit.get_item("insertText");
+    //insertText.call(sciter::value(" foo-bar"));
+
+  }
+
 
   return run();
 

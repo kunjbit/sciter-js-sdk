@@ -30,13 +30,12 @@
     <script>
       
       document.on("change","form", function(event,form) {
-         console.log(event.target,form.value);
          document.$("textarea#json").value = JSON.stringify(form.value,null,"  "); 
-
       });
 
       document.on("click", "button#set", function() {
          const data = JSON.parse(document.$("textarea#json").value);
+         document.$("form").value = data;
       });
     
     </script>

@@ -1,7 +1,7 @@
 #ifndef __SCITER_VULKAN_H__
 #define __SCITER_VULKAN_H__
 
-#ifdef USE_VULKAN
+#if defined(USE_VULKAN)
 
 #include <vulkan/vulkan_core.h>
 #include "sciter-x-types.h"

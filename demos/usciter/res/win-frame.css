@@ -24,7 +24,6 @@ html:owns-focus {
   }
 }
 
-
 html > header { width:*; flow:horizontal; height:window-caption-height; margin:0; 
                 background-color:color(window-caption-back); color: color(window-caption-text); } 
 html > header > window-caption { display:block; line-height:window-caption-height; width:*; padding:0 1em; }
