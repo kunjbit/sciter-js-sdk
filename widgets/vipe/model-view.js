@@ -237,14 +237,25 @@ export class NodeView extends Element {
        //console.log("about delete-node", this.node );
        this.postEvent(new Event("edit-group",{ bubbles:true, data: this.node.group })); 
     }
+    
+    const duplicateNode = () => {
+      const data = {
+        kernel: this.node.kernel,
+        position: this.node.position + 30,
+      };
+      this.postEvent(new Event("create-node", { bubbles:true, data: data }));
+    }    
 
     const menuItems = [
       <li.remove-node onclick={deleteNode}>Delete Node</li>,
       <li.rename-node onclick={renameNode}>Rename Node</li>
     ];
-    if( this.node.group )
+    if( this.node.group ){
       menuItems.push(<li.edit-group onclick={editGroup}>Edit Group Node</li>);
-
+    }
+    else {
+      menuItems.push(<li.duplicate-node onclick={duplicateNode}>Duplicate Node</li>);
+    }  
     evt.source = Element.create(<menu.context>{menuItems}</menu>);
     return true;
   }

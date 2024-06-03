@@ -64,7 +64,7 @@ export class View extends Element {
   }
 
   render() {
-    return <section.view styleset={__DIR__ + "view.css#view"} zoom={this.state.zoom || 100}>
+    return <section.view styleset={__DIR__ + "view.css#view"} zoom={this.state.zoom || 100}>    
       {this.nodes.map( node => <NodeView key={node.id} node={node} /> )}
     </section>;
   } 
@@ -207,6 +207,18 @@ export class View extends Element {
     Node.disconnect(outPort,inPort); // remove the connection in model.
   }
 
+  ["on ^mousedown at li.add-node"](evt,li) {
+    const group = document.$('select|list#groups').value;
+    if (group == null) return;
+    const item = document.$('select|list#items').value;
+    if (item == null) return;
+    const data = {
+      kernel: `${group}/${item}`,
+      position: evt.position
+    };
+    this.postEvent(new Event("create-node",{data}));
+  }
+  
   performOutputConnection(port,position) {
     this.elementState.capture(true);
     let otherPort = null;
@@ -278,6 +290,7 @@ export class View extends Element {
 
   ["on create-node"](evt) {
     const {kernel,position} = evt.data;
+    console.log(kernel, position);
     const node = Node.fromKernel(kernel,position);
     this.group.addNode(node);
     return true;
