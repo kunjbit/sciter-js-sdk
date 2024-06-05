@@ -126,5 +126,6 @@
   .port.output { margin-left:*; } 
   .port.output > .socket { margin: * -0.7em * *; }
 
+  .rename-node { behavior: clickable; }
 
 }
