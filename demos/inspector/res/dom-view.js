@@ -372,10 +372,9 @@ export class ElementDetailsView extends View {
             if (type == "default-style")
               list.push(<rule>default properties</rule>);
             else {
-              const url = new URL(file);
               list.push(<rule .file>
                   <span .selector>{selector}</span>
-                  <a .filename href={file} lineno={lineNo}>{url.filename}({lineNo})</a>
+                  <a .filename href={file} lineno={lineNo}>{file}({lineNo})</a>
                 </rule>);
             }
             for (const [prop, val] of namvals(properties)) {

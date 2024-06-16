@@ -1,4 +1,4 @@
-﻿
+
 import {SublimatedObject, SublimatedValue} from "value.js";
 
 const CLASS_NAMES = ["info", "warning", "error"];
@@ -88,12 +88,12 @@ export class ChannelLog extends Element {
     this.componentUpdate({scrollLock: !this.scrollLock});
     return true;
   }
-
+/*
   ["on focus at list"](evt) {
     this.componentUpdate({scrollLock: true});
     return true;
   }
-
+*/
   
 
   list2clipboard() {
