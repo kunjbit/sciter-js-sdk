@@ -78,7 +78,7 @@ export class ChannelLog extends Element {
       subsystem: 4, // "eval"
       items: [toeval],
     });
-    this.channel.notify("toeval", toeval);
+    this.channel.notify("toeval", [toeval,true]);
     textarea.value = ""; // clear textarea after eval
     this.eval_history_index = -1; // reset eval history index
     return true; // do not propagate, consumed
@@ -89,12 +89,10 @@ export class ChannelLog extends Element {
     return true;
   }
 
-  ["on focus at list"](evt) {
+  ["on click at list"](evt) {
     this.componentUpdate({scrollLock: true});
     return true;
   }
-
-  
 
   list2clipboard() {
     let text = "";

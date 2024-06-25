@@ -1,3 +1,20 @@
+## 5.0.3.13
+
+### Fixes:
+
+* Fix of `@noime` attribute handling...
+* [inspector] tab click handling fixes.
+* fix of potential AV in `select|tree`
+* [css] `:theme()` and `:lang()` specificty calculation fix.
+* sdk.js/widgets/vipe updates, see: https://sciter.com/forums/topic/about-vipe-visual-programming-rename-issue/
+* `Graphics.strokeStyle = gradient` ... fix.
+* [API] fix of https://sciter.com/forums/topic/sciterimage-referenceerror/
+* [XDOM] `sciter.devicePixels(n) : float` fix.
+
+### New:
+
+* `sciter.sha1(string | ArrayBuffer)` function. 
+
 ## 5.0.3.12
 
 ### Fixes:

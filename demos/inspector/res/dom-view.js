@@ -305,6 +305,64 @@ class ElementStates extends View {
   }
 }
 
+class DynamicStyle extends View {
+  state = [];
+
+  constructor(props) {
+    super(props, "DOMView");
+  }
+  
+  this(props) {
+    this.state = this.viewstate.elementDetails?.dynamicStyleProperties || [];
+  }
+  
+  ["on keydown at form"](evt, el) {
+    if ((evt.code !== "Enter") && (evt.code !== "NumpadEnter")) {
+      return;
+    }
+    
+    const {prop, value} = el.value;
+    if(prop === "" ) return;
+    if(value === "") {
+      this.post(()=>{this.$('form > input(value)').focus()});
+      return;
+    }
+
+    const toeval = `this.style.setProperty("${prop}", "${value}")`;
+    this.channel.notify("toeval", [toeval,false]);
+
+    this.state.push({checked: true, prop, value});
+    this.viewstate.dynamicStyleProperties.set(this.viewstate.currentUid, this.state);
+
+    this.componentUpdate({newStyle:{prop: '', value: ''}});
+    this.post(()=>this.$('form > input(prop)').focus());
+  }
+
+  render() {
+    function isColor(prop, value) {
+      return prop.indexOf('color') !== -1 || prop === 'background' || prop === 'fill';
+    }
+   
+    return <div>
+      <dl current={'dynamic'} styleset="facade.css#element-details">
+        { this.state.map((style) => [
+            <input|checkbox prop={style.prop} state-checked={true} />,
+            <dt prop={style.prop}>{style.prop}</dt>,
+            <dd prop={style.prop}
+              {...(isColor(style.prop) ? {class: 'color', style:`fill: ${style.value}`} : {})}
+            >
+            {style.value}
+            </dd>          
+            ]) 
+        }
+      </dl>
+      <form value={this.newStyle}>
+        <input(prop)/> :
+        <input(value)/> ;
+      </form>
+    </div>;
+  }
+}
 
 export class ElementDetailsView extends View {
   constructor(props) {
@@ -315,13 +373,56 @@ export class ElementDetailsView extends View {
     const fetch = async () => {
       const content = await this.channel.request("detailsOf", this.viewstate.currentUid);
       this.viewstate.elementDetails = content;
-      // console.log(JSON.stringify(this.viewstate.elementDetails));
+      if(!this.viewstate.dynamicStyleProperties){
+        this.viewstate.dynamicStyleProperties = new Map();
+      }  
+      const { elementDetails, dynamicStyleProperties} = this.viewstate;
+      elementDetails['dynamicStyleProperties'] =  dynamicStyleProperties.get(this.viewstate.currentUid);
       this.componentUpdate();
     };
     const current = this.viewstate.stack?.last;
     if (current && (this.viewstate.currentUid != current.uid)) {
       this.viewstate.currentUid = current.uid;
       fetch();
+    }
+  }
+  
+  setStyle(prop, value){
+    const toeval = `this.style.setProperty("${prop}", "${value}")`;
+    this.channel.notify("toeval", [toeval, false]);
+    this.viewstate.elementDetails.usedStyleProperties[prop] = value;
+    this.componentUpdate();
+  }
+  
+  ["on click at dd[prop]"](evt, el) {
+    el.classList.add('editable');
+    el.state.focus = true;
+  }
+
+  ["on blur at dd[prop]"](evt, el) {
+    const prop = el.getAttribute('prop');
+    this.setStyle(prop, el.state.value);
+    el.classList.remove('editable');
+  }
+
+  ["on keydown at dd[prop]"](evt, el) {
+    if ((evt.code !== "Enter") && (evt.code !== "NumpadEnter")) {
+      return;
+    }
+    const prop = el.getAttribute('prop');    
+    this.setStyle(prop, el.value);
+    el.classList.remove('editable');
+  }
+
+  ["on change at input[prop]|checkbox"](evt, el) {
+    const prop = el.getAttribute('prop');
+    if(el.value == false){
+      const toeval = `this.style.removeProperty("${prop}")`;
+      this.channel.notify("toeval", [toeval, false]);
+    }
+    else if(el.value == true){
+      const value = this.$(`dd[prop=${prop}]`).innerText;
+      this.setStyle(prop, value);
     }
   }
 
@@ -345,12 +446,23 @@ export class ElementDetailsView extends View {
           return val.join(" ");
         return val;
       }
+      
+      function isColor(prop, value) {
+        return prop.indexOf('color') !== -1 || prop === 'background' || prop === 'fill';
+      }
 
       switch (ctab) {
         case "used":
           for (const [prop, val] of namvals(this.viewstate.elementDetails.usedStyleProperties)) {
-            list.push(<dt>{prop}</dt>);
-            list.push(<dd>{fval(val)}</dd>);
+            list.push(<input|checkbox prop={prop} state-checked={true}/>);
+            list.push(<dt prop={prop}>{prop}</dt>);
+              list.push(
+                <dd prop={prop} 
+                  {...(isColor(prop) ? {class: 'color', style:`fill: ${fval(val)}`} : {})}
+                >
+                {fval(val)}
+                </dd>
+              );
           }
           break;
         case "inherited": {
@@ -358,7 +470,13 @@ export class ElementDetailsView extends View {
           if (def && !def.type) {
             for (const [prop, val] of namvals(def)) {
               list.push(<dt>{prop}</dt>);
-              list.push(<dd>{fval(val)}</dd>);
+              list.push(
+                <dd prop={prop} 
+                  {...(isColor(prop) ? {class: 'color', style:`fill: ${fval(val)}`} : {})}
+                >
+                {fval(val)}
+                </dd>
+              );
             }
           }
         }
@@ -380,7 +498,13 @@ export class ElementDetailsView extends View {
             }
             for (const [prop, val] of namvals(properties)) {
               list.push(<dt>{prop}</dt>);
-              list.push(<dd>{fval(val)}</dd>);
+              list.push(
+                <dd prop={prop} 
+                  {...(isColor(prop) ? {class: 'color', style:`fill: ${fval(val)}`} : {})}
+                >
+                {fval(val)}
+                </dd>
+              );
             }
           }
           break;
@@ -399,7 +523,12 @@ export class ElementDetailsView extends View {
         <label #inherited current={ ctab == "inherited"}>inherited</label>
         <label #declared current={ ctab == "declared"}>declared</label>
       </header>
-      <dl #element-details styleset="facade.css#element-details">
+      { 
+        ctab === 'used' && <section>
+          element.style &#123;<DynamicStyle #dynamic-style channel={this.channel}/>&#125; 
+        </section>
+      }
+      <dl current={ctab} #element-details styleset="facade.css#element-details">
         {list}
       </dl>
       <ElementStates #element-states channel={this.channel} />  

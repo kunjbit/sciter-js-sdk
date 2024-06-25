@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		033CE2FD9D96CBEFD9CF313D /* behavior_drawing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C2720A51A082157F18666E5 /* behavior_drawing.cpp */; };
 		0A7133E9FE707D5B835B9229 /* sciter-osx-main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F895EB1839D2FE3776EB4F1 /* sciter-osx-main.mm */; };
+		0C76EEFF7F987BF1E05DBD3F /* behavior_video_generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A235187E583763927C717C7 /* behavior_video_generator.cpp */; };
+		0D63C2636287A5D569D160A3 /* behavior_video_generator_full.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A1802DAB78D358DDF240C3EB /* behavior_video_generator_full.cpp */; };
 		1817955824A247CA9F871398 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA5C1300C9792D32A5828940 /* CoreFoundation.framework */; };
 		188E199B287345CD14E6CFDB /* sciter-sqlite-db.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3432F723D61C9315CD43A563 /* sciter-sqlite-db.cpp */; };
 		713678D803C442CA6C9CE718 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BACC980CF188B320DBC2FC0 /* IOKit.framework */; };
 		DA632659EA48528BD6BBDC99 /* sciter-sqlite-rs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4003F501E1ED90F3D914A341 /* sciter-sqlite-rs.cpp */; };
 		ECEF3455B37D2BC7217F5295 /* usciter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AD72B87D42E977AFB185CEBD /* usciter.cpp */; };
+		F6A62933391275A5F138E773 /* behavior_video_generator_direct.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 188B817B6F04F5AD682D37BB /* behavior_video_generator_direct.cpp */; };
 		F8E8DBA28B76A594F44F49E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D6BC6AA50D7885C8F7B2CEA /* Cocoa.framework */; };
 		FAA520B50CCEFD6740BFE6F5 /* sqlite-wrap.c in Sources */ = {isa = PBXBuildFile; fileRef = 291C1E9D22DDDB0F5CDCDCDD /* sqlite-wrap.c */; };
 		FB58B8551625270719F5BE95 /* sciter-sqlite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A81D583D154566AF16D8567D /* sciter-sqlite.cpp */; };
@@ -20,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		0BACC980CF188B320DBC2FC0 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		188B817B6F04F5AD682D37BB /* behavior_video_generator_direct.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = behavior_video_generator_direct.cpp; path = ../../include/behaviors/behavior_video_generator_direct.cpp; sourceTree = "<group>"; };
 		291C1E9D22DDDB0F5CDCDCDD /* sqlite-wrap.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = "sqlite-wrap.c"; path = "../../sqlite/sqlite-wrap.c"; sourceTree = "<group>"; };
 		3432F723D61C9315CD43A563 /* sciter-sqlite-db.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "sciter-sqlite-db.cpp"; path = "../../sqlite/sciter-sqlite-db.cpp"; sourceTree = "<group>"; };
 		3617EE077A669379BC8DCC47 /* sciter-sqlite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sciter-sqlite.h"; path = "../../sqlite/sciter-sqlite.h"; sourceTree = "<group>"; };
@@ -28,8 +33,11 @@
 		458CC9BF9C1A3431749347FF /* sqlite3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = sqlite3.h; path = ../../sqlite/sqlite3.h; sourceTree = "<group>"; };
 		49D499B7ECC2C0697BE89FF7 /* usciter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = usciter.app; path = usciter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		580232A751C3EF198BC2F0E7 /* sqlite-wrap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sqlite-wrap.h"; path = "../../sqlite/sqlite-wrap.h"; sourceTree = "<group>"; };
+		7C2720A51A082157F18666E5 /* behavior_drawing.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = behavior_drawing.cpp; path = ../../include/behaviors/behavior_drawing.cpp; sourceTree = "<group>"; };
 		7F397281B01D6A73C335A0C1 /* sqlite3ext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = sqlite3ext.h; path = ../../sqlite/sqlite3ext.h; sourceTree = "<group>"; };
+		8A235187E583763927C717C7 /* behavior_video_generator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = behavior_video_generator.cpp; path = ../../include/behaviors/behavior_video_generator.cpp; sourceTree = "<group>"; };
 		8D6BC6AA50D7885C8F7B2CEA /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		A1802DAB78D358DDF240C3EB /* behavior_video_generator_full.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = behavior_video_generator_full.cpp; path = ../../include/behaviors/behavior_video_generator_full.cpp; sourceTree = "<group>"; };
 		A81D583D154566AF16D8567D /* sciter-sqlite.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "sciter-sqlite.cpp"; path = "../../sqlite/sciter-sqlite.cpp"; sourceTree = "<group>"; };
 		AD72B87D42E977AFB185CEBD /* usciter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = usciter.cpp; path = ../../demos/usciter/usciter.cpp; sourceTree = "<group>"; };
 		EA5C1300C9792D32A5828940 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -92,9 +100,21 @@
 		5E8C725002DF100215175890 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				759EAD619DD966138574F3A1 /* behaviors */,
 				3F895EB1839D2FE3776EB4F1 /* sciter-osx-main.mm */,
 			);
 			name = include;
+			sourceTree = "<group>";
+		};
+		759EAD619DD966138574F3A1 /* behaviors */ = {
+			isa = PBXGroup;
+			children = (
+				7C2720A51A082157F18666E5 /* behavior_drawing.cpp */,
+				8A235187E583763927C717C7 /* behavior_video_generator.cpp */,
+				188B817B6F04F5AD682D37BB /* behavior_video_generator_direct.cpp */,
+				A1802DAB78D358DDF240C3EB /* behavior_video_generator_full.cpp */,
+			);
+			name = behaviors;
 			sourceTree = "<group>";
 		};
 		8A2CBBB8DA40506A5CBE81F8 /* demos */ = {
@@ -186,6 +206,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				ECEF3455B37D2BC7217F5295 /* usciter.cpp in Sources */,
+				033CE2FD9D96CBEFD9CF313D /* behavior_drawing.cpp in Sources */,
+				0C76EEFF7F987BF1E05DBD3F /* behavior_video_generator.cpp in Sources */,
+				F6A62933391275A5F138E773 /* behavior_video_generator_direct.cpp in Sources */,
+				0D63C2636287A5D569D160A3 /* behavior_video_generator_full.cpp in Sources */,
 				0A7133E9FE707D5B835B9229 /* sciter-osx-main.mm in Sources */,
 				188E199B287345CD14E6CFDB /* sciter-sqlite-db.cpp in Sources */,
 				DA632659EA48528BD6BBDC99 /* sciter-sqlite-rs.cpp in Sources */,
@@ -209,6 +233,7 @@
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEVICE=DESKTOP",
+					DEVICE_DESKTOP,
 					NDEBUG,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
@@ -234,6 +259,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEVICE=DESKTOP",
+					DEVICE_DESKTOP,
 					DEBUG,
 					_DEBUG,
 				);
