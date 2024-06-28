@@ -332,9 +332,8 @@ class DynamicStyle extends View {
       return;
     }
 
-    this.postEvent(
-      new Event('setStyle', {bubbles: true, data: {prop, val}})
-    );
+    const toeval = `this.style.setProperty("${prop}", "${val}")`;
+    this.channel.notify("toeval", [toeval, false]);
 
     for(const item of this.state){
       if(item.prop === prop) {
@@ -344,6 +343,12 @@ class DynamicStyle extends View {
     this.state.push({checked: true, prop, val});
     this.componentUpdate({newStyle:{prop: '', val: ''}});
     this.post(()=>this.$('form > input(prop)').focus());
+    this.postEvent(
+      new Event('set-style-dynamic', {
+        bubbles: true, 
+        data: {prop, val}
+      })
+    );
   }
   
   ["on change at input[index][prop]|checkbox"](evt, el){
@@ -357,10 +362,21 @@ class DynamicStyle extends View {
       }
     }
     this.state[index].checked = el.value;
-    this.postEvent(new Event(el.value ? 'setStyle' : 'removeStyle', 
-      {bubbles: true, data: {prop, val}}
-    ));
+    if(el.value){
+      const toeval = `this.style.setProperty("${prop}", "${val}")`;
+      this.channel.notify("toeval", [toeval, false]);
+    }
+    else {
+      const toeval = `this.style.removeProperty("${prop}")`;
+      this.channel.notify("toeval", [toeval, false]);
+    }
     this.componentUpdate();
+    this.postEvent(
+      new Event('set-style-dynamic', {
+        bubbles: true, 
+        data: {prop, val}
+      })
+    );
     return true;
   }
 
@@ -432,6 +448,7 @@ export class ElementDetailsView extends View {
       }
       Object.assign(content, {styleStates: savedState});
       this.viewstate.elementDetails = content;
+      this.viewstate.styleStates.set(this.viewstate.currentUid, this.viewstate.elementDetails.styleStates);                                                                                                           
       this.componentUpdate();
     };
 
@@ -453,14 +470,12 @@ export class ElementDetailsView extends View {
     this.channel.notify("toeval", [toeval, false]);
   }
   
-  ["on setStyle"](evt){
+  ["on set-style-dynamic"](evt){
     const {prop, val} = evt.data;
-    this.setStyle(prop, val);
-  }
-
-  ["on removeStyle"](evt){
-    const {prop, val} = evt.data;
-    this.removeStyle(prop);
+    const input = this.$(`input:not([index])[prop=${prop}]`);
+    if(!input) return;
+    input.value = false;
+    input.dispatchEvent(new Event("change", {bubbles: true}));
   }
   
   ["on click at dd[prop]"](evt, el) {
@@ -498,10 +513,14 @@ export class ElementDetailsView extends View {
     const state = this.$$(`input|checkbox:not(:checked)`).map((el)=>el.getAttribute('prop'));
     Object.assign(this.viewstate.styleStates?.get(this.viewstate.currentUid), {used: state});
   }
+  
+  ["on click at #close-channel"](evt) {
+    
+  }
 
   render() {
     if (!this.channel.connected)
-      return <div></div>;
+      return <div><button #close-channel>Close</button></div>;
 
     this.checkDetails();
 
@@ -510,7 +529,7 @@ export class ElementDetailsView extends View {
     const ctab = this.currentTab;
 
     if (this.viewstate.elementDetails) {
-      const unUsedStyle = this.viewstate.elementDetails.styleStates?.used ?? [];
+      const usedStyle = this.viewstate.elementDetails.styleStates?.used ?? [];
       function namvals(map) {
         return Object.entries(map).sort((a, b) => a[0].localeCompare(b[0]));
       }
@@ -530,7 +549,7 @@ export class ElementDetailsView extends View {
           list.push(<DynamicStyle channel={this.channel}/>);
           //console.log(JSON.stringify(this.viewstate.elementDetails.usedStyleProperties));
           for (const [prop, val] of namvals(this.viewstate.elementDetails.usedStyleProperties)) {
-            list.push(<input|checkbox prop={prop} state-checked={!unUsedStyle.includes(prop)}/>);
+            list.push(<input|checkbox prop={prop} state-checked={!usedStyle.includes(prop)}/>);
             list.push(<dt prop={prop}>{prop}</dt>);
             list.push(isColor(prop) ?
               <dd.color prop={prop} style={`fill: ${val}`}>{fval(val)}</dd>
