@@ -45,6 +45,15 @@ export class App extends Element {
     this.componentUpdate();
     return false;
   }
+  
+  ["on channel-close"](evt) {
+    const key = evt.detail;
+    delete ChannelDriver.all[key];
+    ChannelDriver.current = Object.values(ChannelDriver.all)[0];
+    this.componentUpdate();
+    return false;
+  }
+
 }
 
 // global hyperlink handler
