@@ -325,15 +325,15 @@ class DynamicStyle extends View {
       return;
     }
     
-    const {prop, value} = el.value;
+    const {prop, val} = el.value;
     if(prop === "" ) return;
-    if(value === "") {
-      this.post(()=>{this.$('form > input(value)').focus()});
+    if(val === "") {
+      this.post(()=>{this.$('form > input(val)').focus()});
       return;
     }
 
     this.postEvent(
-      new Event('setStyle', {bubbles: true, data: {prop, value}})
+      new Event('setStyle', {bubbles: true, data: {prop, val}})
     );
 
     for(const item of this.state){
@@ -341,15 +341,15 @@ class DynamicStyle extends View {
         item.checked = false;
       }
     }
-    this.state.push({checked: true, prop, value});
-    this.componentUpdate({newStyle:{prop: '', value: ''}});
+    this.state.push({checked: true, prop, val});
+    this.componentUpdate({newStyle:{prop: '', val: ''}});
     this.post(()=>this.$('form > input(prop)').focus());
   }
   
   ["on change at input[index][prop]|checkbox"](evt, el){
     const index = el.getAttribute('index');
     const prop = el.getAttribute('prop');
-    const value = this.$(`:root > dl > dd[index=${index}]`).innerText;
+    const val = this.$(`:root > dl > dd[index=${index}]`).innerText;
 
     for(const item of this.state){
       if(item.prop === prop) {
@@ -358,9 +358,20 @@ class DynamicStyle extends View {
     }
     this.state[index].checked = el.value;
     this.postEvent(new Event(el.value ? 'setStyle' : 'removeStyle', 
-      {bubbles: true, data: {prop, value}}
+      {bubbles: true, data: {prop, val}}
     ));
     this.componentUpdate();
+    return true;
+  }
+
+  ["on click at menu#for-dynamic-styles>li[command='edit:copy']"](evt, menu) {
+    let text = "";
+    for (const style of this.state) {
+      if(style.checked == false) continue;
+      if (text) text += "\r\n";
+      text += `${style.prop} : ${style.val};`;
+    }
+    Clipboard.writeText(text);
     return true;
   }
 
@@ -368,7 +379,7 @@ class DynamicStyle extends View {
     
     const list = [];
     
-    function isColor(prop, value) {
+    function isColor(prop, val) {
       return prop.indexOf('color') !== -1 || prop === 'background' || prop === 'fill';
     }
     
@@ -377,10 +388,10 @@ class DynamicStyle extends View {
         list.push(<input|checkbox index={index} prop={style.prop} state-checked={style.checked} />);
         list.push(<dt prop={style.prop}>{style.prop}</dt>);
         if(isColor(style.prop)){
-          list.push(<dd.color prop={style.prop} index={index} style={`fill: ${style.value}`}>{style.value}</dd>);
+          list.push(<dd.color prop={style.prop} index={index} style={`fill: ${style.val}`}>{style.val}</dd>);
         }
         else {
-          list.push(<dd prop={style.prop} index={index} >{style.value}</dd>);
+          list.push(<dd prop={style.prop} index={index} >{style.val}</dd>);
         }
       }
     }
@@ -390,9 +401,12 @@ class DynamicStyle extends View {
       <dl>{list}</dl>
       <form value={this.newStyle}>
         <input(prop)/> :
-        <input(value)/> ;
+        <input(val)/> ;
       </form>
-      &#125;  
+      &#125;
+      <menu.context #for-dynamic-styles>
+        <li command="edit:copy">Copy Style<span class="accesskey">Ctrl+C</span></li>
+      </menu>
     </rule>;
   }
 }
@@ -428,10 +442,10 @@ export class ElementDetailsView extends View {
     }
   }
   
-  setStyle(prop, value){
-    const toeval = `this.style.setProperty("${prop}", "${value}")`;
+  setStyle(prop, val){
+    const toeval = `this.style.setProperty("${prop}", "${val}")`;
     this.channel.notify("toeval", [toeval, false]);
-    this.viewstate.elementDetails.usedStyleProperties[prop] = value;
+    this.viewstate.elementDetails.usedStyleProperties[prop] = val;
   }
   
   removeStyle(prop){
@@ -440,13 +454,12 @@ export class ElementDetailsView extends View {
   }
   
   ["on setStyle"](evt){
-    const {prop, value} = evt.data;
-    this.$(`input[prop=${prop}]`).value = false;
-    this.setStyle(prop, value);
+    const {prop, val} = evt.data;
+    this.setStyle(prop, val);
   }
 
   ["on removeStyle"](evt){
-    const {prop, value} = evt.data;
+    const {prop, val} = evt.data;
     this.removeStyle(prop);
   }
   
@@ -474,12 +487,12 @@ export class ElementDetailsView extends View {
 
   ["on change at input[prop]|checkbox"](evt, el) {
     const prop = el.getAttribute('prop');
-    const value = this.$(`dd:not([index])[prop=${prop}]`).innerText;
+    const val = this.$(`dd:not([index])[prop=${prop}]`).innerText;
     if(el.value == false){
       this.removeStyle(prop);
     }
     else if(el.value == true){
-      this.setStyle(prop, value);
+      this.setStyle(prop, val);
     }
 
     const state = this.$$(`input|checkbox:not(:checked)`).map((el)=>el.getAttribute('prop'));
@@ -508,7 +521,7 @@ export class ElementDetailsView extends View {
         return val;
       }
       
-      function isColor(prop, value) {
+      function isColor(prop, val) {
         return prop.indexOf('color') !== -1 || prop === 'background' || prop === 'fill';
       }
 

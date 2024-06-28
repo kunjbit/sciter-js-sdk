@@ -303,6 +303,7 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
     height:max-content;
     padding-left: 0.5em;
     flow:  row(input, dt, dd);
+    context-menu: selector(menu#for-dynamic-styles);    
   }
 
   header { @HEADER; }
