@@ -288,24 +288,24 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
 @set element-details {
   :root {
     size:*;
-    flow: row(dt,dd);
     overflow:scroll-indicator;
     margin:0;
   }
   
-  :root[current='used'], 
-  :root[current='dynamic'] {
-    //height: max-content;
-    flow: row(input, dt, dd);
-  }
-
-  :root[current='inherited'], 
+  :root[current='used'] {flow: row(input, dt, dd);}
+  :root[current='inherited'],
   :root[current='declared'] {
     flow: row(dt, dd);
   }
+  
+  rule.new > dl { 
+    margin: 0;
+    height:max-content;
+    padding-left: 0.5em;
+    flow:  row(input, dt, dd);
+  }
 
   header { @HEADER; }
-
   rule {  display:block; 
           background:morph(highlight,opacity:5%); 
           border-top:1px solid #ddd; 
@@ -316,17 +316,20 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
   rule.file > .filename { width: max-content; }
   dt { white-space:nowrap; padding-left:0.5em; width:*; max-width:max-content; overflow-x:hidden; text-overflow:ellipsis;}
   dt::after { content: " :"; }
+  //dd::after { content: " ;"; }
   dd { white-space:nowrap; width:2*; max-width:max-content; overflow-x:hidden; text-overflow:ellipsis;}
   dd.color {
-    background-image: path(M0 0 H10 V10 H0 Z);
+    background-image: url(path:M0 0 H10 V10 H0 Z);
     background-size: 12px;
-    background-position: left 2px top 50%;
+    background-position: 1% 50%;
     stroke: black;
     stroke-width: 1dip;
   }
-  input|checkbox:checked + dt + dd.editable { behavior: edit; white-space:prewrap; outline: 1px solid grey -1px;}
+  input|checkbox:checked + dt + dd.editable { behavior: edit; white-space:prewrap; border: 1px solid grey;}
   input|checkbox:not(:checked) + dt,
-  input|checkbox:not(:checked) + dt + dd  { text-decoration: line-through; }
+  input|checkbox:not(:checked) + dt + dd  {
+    text-decoration: line-through;
+  }
 }
 
 @set dynamic-styles {

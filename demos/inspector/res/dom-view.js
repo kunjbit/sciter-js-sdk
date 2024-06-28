@@ -313,9 +313,13 @@ class DynamicStyle extends View {
   }
   
   this(props) {
-    this.state = this.viewstate.elementDetails?.dynamicStyleProperties || [];
-  }
+    this.state = this.viewstate.elementDetails.styleStates?.applied || [];
+  }  
   
+  componentDidUpdate() {
+    Object.assign(this.viewstate.styleStates?.get(this.viewstate.currentUid), {applied: this.state});
+  }
+
   ["on keydown at form"](evt, el) {
     if ((evt.code !== "Enter") && (evt.code !== "NumpadEnter")) {
       return;
@@ -328,58 +332,95 @@ class DynamicStyle extends View {
       return;
     }
 
-    const toeval = `this.style.setProperty("${prop}", "${value}")`;
-    this.channel.notify("toeval", [toeval,false]);
+    this.postEvent(
+      new Event('setStyle', {bubbles: true, data: {prop, value}})
+    );
 
+    for(const item of this.state){
+      if(item.prop === prop) {
+        item.checked = false;
+      }
+    }
     this.state.push({checked: true, prop, value});
-    this.viewstate.dynamicStyleProperties.set(this.viewstate.currentUid, this.state);
-
     this.componentUpdate({newStyle:{prop: '', value: ''}});
     this.post(()=>this.$('form > input(prop)').focus());
   }
+  
+  ["on change at input[index][prop]|checkbox"](evt, el){
+    const index = el.getAttribute('index');
+    const prop = el.getAttribute('prop');
+    const value = this.$(`:root > dl > dd[index=${index}]`).innerText;
+
+    for(const item of this.state){
+      if(item.prop === prop) {
+        item.checked = false;
+      }
+    }
+    this.state[index].checked = el.value;
+    this.postEvent(new Event(el.value ? 'setStyle' : 'removeStyle', 
+      {bubbles: true, data: {prop, value}}
+    ));
+    this.componentUpdate();
+    return true;
+  }
 
   render() {
+    
+    const list = [];
+    
     function isColor(prop, value) {
       return prop.indexOf('color') !== -1 || prop === 'background' || prop === 'fill';
     }
-   
-    return <div>
-      <dl current={'dynamic'} styleset="facade.css#element-details">
-        { this.state.map((style) => [
-            <input|checkbox prop={style.prop} state-checked={true} />,
-            <dt prop={style.prop}>{style.prop}</dt>,
-            <dd prop={style.prop}
-              {...(isColor(style.prop) ? {class: 'color', style:`fill: ${style.value}`} : {})}
-            >
-            {style.value}
-            </dd>          
-            ]) 
+    
+    if (this.viewstate.elementDetails) {
+      for (const [index, style] of this.state.entries()) {
+        list.push(<input|checkbox index={index} prop={style.prop} state-checked={style.checked} />);
+        list.push(<dt prop={style.prop}>{style.prop}</dt>);
+        if(isColor(style.prop)){
+          list.push(<dd.color prop={style.prop} index={index} style={`fill: ${style.value}`}>{style.value}</dd>);
         }
-      </dl>
+        else {
+          list.push(<dd prop={style.prop} index={index} >{style.value}</dd>);
+        }
+      }
+    }
+
+    return <rule.new>
+      element.style &#123;
+      <dl>{list}</dl>
       <form value={this.newStyle}>
         <input(prop)/> :
         <input(value)/> ;
       </form>
-    </div>;
+      &#125;  
+    </rule>;
   }
 }
 
 export class ElementDetailsView extends View {
+
   constructor(props) {
     super(props, "DOMView");
   }
-
+  
   checkDetails() {
     const fetch = async () => {
       const content = await this.channel.request("detailsOf", this.viewstate.currentUid);
+      if(!this.viewstate.styleStates) {
+        this.viewstate.styleStates = new Map();
+      }
+      let savedState = {};
+      if(this.viewstate.styleStates.has(this.viewstate.currentUid)){
+        savedState = this.viewstate.styleStates.get(this.viewstate.currentUid);
+      }
+      else {
+        this.viewstate.styleStates.set(this.viewstate.currentUid, {});
+      }
+      Object.assign(content, {styleStates: savedState});
       this.viewstate.elementDetails = content;
-      if(!this.viewstate.dynamicStyleProperties){
-        this.viewstate.dynamicStyleProperties = new Map();
-      }  
-      const { elementDetails, dynamicStyleProperties} = this.viewstate;
-      elementDetails['dynamicStyleProperties'] =  dynamicStyleProperties.get(this.viewstate.currentUid);
       this.componentUpdate();
     };
+
     const current = this.viewstate.stack?.last;
     if (current && (this.viewstate.currentUid != current.uid)) {
       this.viewstate.currentUid = current.uid;
@@ -391,7 +432,22 @@ export class ElementDetailsView extends View {
     const toeval = `this.style.setProperty("${prop}", "${value}")`;
     this.channel.notify("toeval", [toeval, false]);
     this.viewstate.elementDetails.usedStyleProperties[prop] = value;
-    this.componentUpdate();
+  }
+  
+  removeStyle(prop){
+    const toeval = `this.style.removeProperty("${prop}")`;
+    this.channel.notify("toeval", [toeval, false]);
+  }
+  
+  ["on setStyle"](evt){
+    const {prop, value} = evt.data;
+    this.$(`input[prop=${prop}]`).value = false;
+    this.setStyle(prop, value);
+  }
+
+  ["on removeStyle"](evt){
+    const {prop, value} = evt.data;
+    this.removeStyle(prop);
   }
   
   ["on click at dd[prop]"](evt, el) {
@@ -402,6 +458,7 @@ export class ElementDetailsView extends View {
   ["on blur at dd[prop]"](evt, el) {
     const prop = el.getAttribute('prop');
     this.setStyle(prop, el.state.value);
+    this.componentUpdate();
     el.classList.remove('editable');
   }
 
@@ -411,19 +468,22 @@ export class ElementDetailsView extends View {
     }
     const prop = el.getAttribute('prop');    
     this.setStyle(prop, el.value);
+    this.componentUpdate();
     el.classList.remove('editable');
   }
 
   ["on change at input[prop]|checkbox"](evt, el) {
     const prop = el.getAttribute('prop');
+    const value = this.$(`dd:not([index])[prop=${prop}]`).innerText;
     if(el.value == false){
-      const toeval = `this.style.removeProperty("${prop}")`;
-      this.channel.notify("toeval", [toeval, false]);
+      this.removeStyle(prop);
     }
     else if(el.value == true){
-      const value = this.$(`dd[prop=${prop}]`).innerText;
       this.setStyle(prop, value);
     }
+
+    const state = this.$$(`input|checkbox:not(:checked)`).map((el)=>el.getAttribute('prop'));
+    Object.assign(this.viewstate.styleStates?.get(this.viewstate.currentUid), {used: state});
   }
 
   render() {
@@ -437,6 +497,7 @@ export class ElementDetailsView extends View {
     const ctab = this.currentTab;
 
     if (this.viewstate.elementDetails) {
+      const unUsedStyle = this.viewstate.elementDetails.styleStates?.used ?? [];
       function namvals(map) {
         return Object.entries(map).sort((a, b) => a[0].localeCompare(b[0]));
       }
@@ -453,16 +514,15 @@ export class ElementDetailsView extends View {
 
       switch (ctab) {
         case "used":
+          list.push(<DynamicStyle channel={this.channel}/>);
+          //console.log(JSON.stringify(this.viewstate.elementDetails.usedStyleProperties));
           for (const [prop, val] of namvals(this.viewstate.elementDetails.usedStyleProperties)) {
-            list.push(<input|checkbox prop={prop} state-checked={true}/>);
+            list.push(<input|checkbox prop={prop} state-checked={!unUsedStyle.includes(prop)}/>);
             list.push(<dt prop={prop}>{prop}</dt>);
-              list.push(
-                <dd prop={prop} 
-                  {...(isColor(prop) ? {class: 'color', style:`fill: ${fval(val)}`} : {})}
-                >
-                {fval(val)}
-                </dd>
-              );
+            list.push(isColor(prop) ?
+              <dd.color prop={prop} style={`fill: ${val}`}>{fval(val)}</dd>
+              : <dd prop={prop} >{fval(val)}</dd>
+            );
           }
           break;
         case "inherited": {
@@ -470,12 +530,9 @@ export class ElementDetailsView extends View {
           if (def && !def.type) {
             for (const [prop, val] of namvals(def)) {
               list.push(<dt>{prop}</dt>);
-              list.push(
-                <dd prop={prop} 
-                  {...(isColor(prop) ? {class: 'color', style:`fill: ${fval(val)}`} : {})}
-                >
-                {fval(val)}
-                </dd>
+              list.push(isColor(prop) ?
+                <dd.color prop={prop} style={`fill: ${val}`}>{fval(val)}</dd>
+                : <dd prop={prop} >{fval(val)}</dd>
               );
             }
           }
@@ -498,12 +555,9 @@ export class ElementDetailsView extends View {
             }
             for (const [prop, val] of namvals(properties)) {
               list.push(<dt>{prop}</dt>);
-              list.push(
-                <dd prop={prop} 
-                  {...(isColor(prop) ? {class: 'color', style:`fill: ${fval(val)}`} : {})}
-                >
-                {fval(val)}
-                </dd>
+              list.push(isColor(prop) ?
+                <dd.color prop={prop} style={`fill: ${val}`}>{fval(val)}</dd>
+                : <dd prop={prop} >{fval(val)}</dd>
               );
             }
           }
@@ -523,11 +577,6 @@ export class ElementDetailsView extends View {
         <label #inherited current={ ctab == "inherited"}>inherited</label>
         <label #declared current={ ctab == "declared"}>declared</label>
       </header>
-      { 
-        ctab === 'used' && <section>
-          element.style &#123;<DynamicStyle #dynamic-style channel={this.channel}/>&#125; 
-        </section>
-      }
       <dl current={ctab} #element-details styleset="facade.css#element-details">
         {list}
       </dl>
