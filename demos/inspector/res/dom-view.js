@@ -102,9 +102,17 @@ export class DOMView extends View {
     }
   }
 
+  ["on click at #channel-close"](evt) {
+    this.dispatchEvent(new Event("channel-close", {bubbles: true, detail: this.channel.key}), true);
+    return true;
+  }
+
   render() {
-    if (!this.channel.connected)
-      return <div></div>;
+    if (!this.channel.connected) {
+      return <div styleset="facade.css#channel-close">
+        This channel is not connected. <span #channel-close>Close it.</span>
+      </div>;
+    }  
 
     function atts(nd) {
       const list = [];
@@ -514,13 +522,9 @@ export class ElementDetailsView extends View {
     Object.assign(this.viewstate.styleStates?.get(this.viewstate.currentUid), {used: state});
   }
   
-  ["on click at #close-channel"](evt) {
-    
-  }
-
   render() {
     if (!this.channel.connected)
-      return <div><button #close-channel>Close</button></div>;
+      return <div></div>;
 
     this.checkDetails();
 

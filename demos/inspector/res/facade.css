@@ -97,6 +97,7 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
   }
 
   picture[current=true] { background:highlight; }
+
 }
        
 @set channel-log {
@@ -238,7 +239,12 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
   span.id { display:inline-block; width:max-content; color:#FF0000; }
 }
 
-
+@set channel-close {
+  :root > span {
+    color: #0000FF;
+    cursor: pointer;
+  }
+}
 @set files {
   :root {
     size:*;
