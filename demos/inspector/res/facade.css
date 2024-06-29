@@ -326,17 +326,15 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
   //dd::after { content: " ;"; }
   dd { white-space:nowrap; width:2*; max-width:max-content; overflow-x:hidden; text-overflow:ellipsis;}
   dd.color {
-    background-image: url(path:M0 0 H10 V10 H0 Z);
+    background-image: path(M0 0 H10 V10 H0 Z);
     background-size: 12px;
-    background-position: 1% 50%;
+    background-position: left 2px top 50%;
     stroke: black;
     stroke-width: 1dip;
   }
-  input|checkbox:checked + dt + dd.editable { behavior: edit; white-space:prewrap; border: 1px solid grey;}
+  input|checkbox:checked + dt + dd.editable { behavior: edit; white-space:prewrap; outline: 1px solid grey -1px;}
   input|checkbox:not(:checked) + dt,
-  input|checkbox:not(:checked) + dt + dd  {
-    text-decoration: line-through;
-  }
+  input|checkbox:not(:checked) + dt + dd  {text-decoration: line-through;}
 }
 
 @set dynamic-styles {
