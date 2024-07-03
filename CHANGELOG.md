@@ -1,3 +1,14 @@
+## 5.0.3.14
+
+### Fixes:
+
+* [Windows] `Clipboard.write(html:"...")` fix.
+* [CSS] support of global `unset` and `initial` property values.
+* [inspector] updates.
+* [CSS] `pointer-events` property handling fix. Fixes leaflet demo.
+* [CSS, image-map] support of indexes in image-map fragments: `image-map(map-name,col,row)` where _col_ and _row_ are 1-based indexes.
+* [JS/DOM] Fix of event handlers set as properties: el.onchange, el.onChange, el.oninput, el.onInput are synonyms.  
+
 ## 5.0.3.13
 
 ### Fixes:

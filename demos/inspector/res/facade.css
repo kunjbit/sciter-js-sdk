@@ -299,11 +299,11 @@ section.tabs > header > caption { width:max-content; display:block; height:*; pa
   }
   
   :root[current='used'] {flow: row(input, dt, dd);}
-  :root[current='inherited'],
+  :root[current='inherited'], 
   :root[current='declared'] {
     flow: row(dt, dd);
   }
-  
+
   rule.new > dl { 
     margin: 0;
     height:max-content;

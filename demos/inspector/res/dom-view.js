@@ -327,7 +327,7 @@ class DynamicStyle extends View {
   componentDidUpdate() {
     Object.assign(this.viewstate.styleStates?.get(this.viewstate.currentUid), {applied: this.state});
   }
-
+  
   ["on keydown at form"](evt, el) {
     if ((evt.code !== "Enter") && (evt.code !== "NumpadEnter")) {
       return;
@@ -406,7 +406,7 @@ class DynamicStyle extends View {
     function isColor(prop, val) {
       return prop.indexOf('color') !== -1 || prop === 'background' || prop === 'fill';
     }
-    
+   
     if (this.viewstate.elementDetails) {
       for (const [index, style] of this.state.entries()) {
         list.push(<input|checkbox index={index} prop={style.prop} state-checked={style.checked} />);
@@ -440,7 +440,7 @@ export class ElementDetailsView extends View {
   constructor(props) {
     super(props, "DOMView");
   }
-  
+
   checkDetails() {
     const fetch = async () => {
       const content = await this.channel.request("detailsOf", current.uid);
@@ -452,7 +452,7 @@ export class ElementDetailsView extends View {
       if(this.viewstate.styleStates.has(this.viewstate.currentUid)){
         const savedState = this.viewstate.styleStates.get(this.viewstate.currentUid);
         Object.assign(content, {styleStates: savedState});
-      }
+      }  
       else {
         Object.assign(content, {styleStates: {}});
       }
@@ -521,7 +521,7 @@ export class ElementDetailsView extends View {
     const state = this.$$(`input|checkbox:not(:checked)`).map((el)=>el.getAttribute('prop'));
     Object.assign(this.viewstate.styleStates?.get(this.viewstate.currentUid), {used: state});
   }
-  
+
   render() {
     if (!this.channel.connected)
       return <div></div>;
@@ -558,7 +558,7 @@ export class ElementDetailsView extends View {
             list.push(isColor(prop) ?
               <dd.color prop={prop} style={`fill: ${val}`}>{fval(val)}</dd>
               : <dd prop={prop} >{fval(val)}</dd>
-            );
+              );
           }
           break;
         case "inherited": {
