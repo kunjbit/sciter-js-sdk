@@ -11,13 +11,11 @@ export function testSource(url) {
   file = url;
 }
   
-export function test(name,func) 
-{ 
-  parent.list.push({ name:name, run: func, id: "t" + (++counter), url:file }); 
+export function test(name,func) {
+  parent.list.push({ name:name, run: func, id: "t" + (++counter), url:file });
 }
 
-export function testGroup(name, func) 
-{ 
+export function testGroup(name, func) {
   // group is a function that contains other unit test function declarations 
   let prevParent = parent;
   parent = { name:name, list: [], id: "t" + (++counter), url:file};
@@ -26,7 +24,7 @@ export function testGroup(name, func)
   parent = prevParent;
 }
 
-export function expect(received) { 
+export function expect(received) {
   return new Expect(received);
 }
 
@@ -65,7 +63,9 @@ export async function run(cbStart, cbEnd, cbGroupStart) {
     cbGroupStart(group);
     for( let item of group.list ) {
       if(!item.selected) continue;
+      group?.beforeEach && await group.beforeEach();
       let r = item.list ? await runGroup(item) : await runOne(item);
+      group?.afterEach &&  await group.afterEach();
       if (r) return r;
     }
     return null;
@@ -81,4 +81,10 @@ export function delay(ms) {
   return new Promise( resolve => setTimeout(resolve, ms));
 }
 
+export function beforeEach(func) { 
+  parent.beforeEach = func;
+}
 
+export function afterEach(func) {
+  parent.afterEach = func;
+}

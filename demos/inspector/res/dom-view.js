@@ -339,7 +339,7 @@ class DynamicStyle extends View {
       this.post(()=>{this.$('form > input(val)').focus()});
       return;
     }
-
+    
     const toeval = `this.style.setProperty("${prop}", "${val}")`;
     this.channel.notify("toeval", [toeval, false]);
 
@@ -362,7 +362,7 @@ class DynamicStyle extends View {
   ["on change at input[index][prop]|checkbox"](evt, el){
     const index = el.getAttribute('index');
     const prop = el.getAttribute('prop');
-    const val = this.$(`:root > dl > dd[index=${index}]`).innerText;
+    const val = el.value ? this.$(`:root > dl > dd[index=${index}]`).innerText : 'unset';
 
     for(const item of this.state){
       if(item.prop === prop) {
@@ -370,14 +370,8 @@ class DynamicStyle extends View {
       }
     }
     this.state[index].checked = el.value;
-    if(el.value){
-      const toeval = `this.style.setProperty("${prop}", "${val}")`;
-      this.channel.notify("toeval", [toeval, false]);
-    }
-    else {
-      const toeval = `this.style.removeProperty("${prop}")`;
-      this.channel.notify("toeval", [toeval, false]);
-    }
+    const toeval = `this.style.setProperty("${prop}", "${val}")`;
+    this.channel.notify("toeval", [toeval, false]);
     this.componentUpdate();
     this.postEvent(
       new Event('set-style-dynamic', {
@@ -483,7 +477,6 @@ export class ElementDetailsView extends View {
     const input = this.$(`input:not([index])[prop=${prop}]`);
     if(!input) return;
     input.value = false;
-    input.dispatchEvent(new Event("change", {bubbles: true}));
   }
   
   ["on click at dd[prop]"](evt, el) {
@@ -511,13 +504,8 @@ export class ElementDetailsView extends View {
   ["on change at input[prop]|checkbox"](evt, el) {
     const prop = el.getAttribute('prop');
     const val = this.$(`dd:not([index])[prop=${prop}]`).innerText;
-    if(el.value == false){
-      this.removeStyle(prop);
-    }
-    else if(el.value == true){
-      this.setStyle(prop, val);
-    }
-
+    this.setStyle(prop, el.value ? val : "unset");
+ 
     const state = this.$$(`input|checkbox:not(:checked)`).map((el)=>el.getAttribute('prop'));
     Object.assign(this.viewstate.styleStates?.get(this.viewstate.currentUid), {used: state});
   }
